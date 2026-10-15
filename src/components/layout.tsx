@@ -35,7 +35,7 @@ export function Accordion({ items, allowMultiple = false }: { items: AccordionIt
                 <p className="text-sm font-semibold text-ink">{item.title}</p>
                 {item.description && <p className="mt-0.5 text-xs text-ink-muted">{item.description}</p>}
               </div>
-              <IconChevronDown className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${isOpen ? 'rotate-180 text-brand-600' : ''}`} />
+              <IconChevronDown className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${isOpen ? 'rotate-180 text-brand-700' : ''}`} />
             </button>
             {isOpen && (
               <div className="border-t border-line-soft px-5 py-4 text-sm leading-relaxed text-ink-soft">

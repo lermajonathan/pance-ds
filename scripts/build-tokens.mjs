@@ -34,7 +34,7 @@ function walk(node, path, inheritedType, tier) {
   if ('$value' in node) {
     const key = path.join('.')
     if (tokens.has(key)) throw new Error(`Duplicate token "${key}" (${tokens.get(key).tier} and ${tier})`)
-    tokens.set(key, { path, value: node.$value, type, tier, description: node.$description })
+    tokens.set(key, { path, value: node.$value, type, tier, description: node.$description, dark: node.$extensions?.['pance.modes']?.dark })
     return
   }
   for (const [k, v] of Object.entries(node)) {
@@ -114,6 +114,10 @@ for (const tier of TIERS) {
   }
   css += '}\n'
 }
+const darkToks = [...tokens.values()].filter((t) => t.dark !== undefined)
+css += `\n/* ── dark (draft, opt-in with data-theme="dark" — ships in v1.1) ${'─'.repeat(8)} */\n:root[data-theme='dark'] {\n`
+for (const tok of darkToks) css += `  ${cssName(tok.path)}: ${cssRef(String(tok.dark))};\n`
+css += '}\n'
 write('src/styles/tokens.css', css)
 
 /* ── theme.css (Tailwind v4) ── */
@@ -128,13 +132,13 @@ for (const [tw, prim] of Object.entries(PALETTES)) {
   for (const s of STEPS) theme += `  --color-${tw}-${s}: var(${cssName(`color.${prim}.${s}`)});\n`
 }
 const ALIASES = {
-  ground: 'color.bg.ground', canvas: 'color.bg.canvas', surface: 'color.bg.surface',
-  ink: 'color.text.default', 'ink-soft': 'color.text.soft', 'ink-muted': 'color.text.muted',
+  ground: 'color.bg.page', canvas: 'color.bg.sunken', surface: 'color.bg.surface',
+  ink: 'color.fg.default', 'ink-soft': 'color.fg.soft', 'ink-muted': 'color.fg.muted', 'ink-subtle': 'color.fg.subtle',
   line: 'color.border.default', 'line-soft': 'color.border.soft',
   'river-900': 'color.river.900', 'river-950': 'color.river.950',
-  danger: 'color.intent.danger.solid', 'danger-soft': 'color.intent.danger.soft',
-  success: 'color.intent.success.solid', warning: 'color.intent.warning.solid',
-  info: 'color.intent.info.solid', help: 'color.intent.help.solid',
+  danger: 'color.intent.danger.fg', 'danger-soft': 'color.intent.danger.soft',
+  success: 'color.intent.success.fg', warning: 'color.intent.warning.fg',
+  info: 'color.intent.info.fg', help: 'color.intent.help.fg',
 }
 theme += '\n  /* Semantic surface / text / line aliases */\n'
 for (const [tw, path] of Object.entries(ALIASES)) { target(path, 'theme'); theme += `  --color-${tw}: var(${cssName(path)});\n` }
@@ -189,12 +193,13 @@ for (const tier of TIERS) {
     groups.get(g).push(tok)
   }
   for (const [g, list] of groups) {
-    md += `### \`${g}\`\n\n| Token | Value | Resolved | Notes |\n|---|---|---|---|\n`
+    md += `### \`${g}\`\n\n| Token | Value | Resolved | Dark (draft) | Notes |\n|---|---|---|---|---|\n`
     for (const tok of list) {
       const key = tok.path.join('.')
       const raw = typeof tok.value === 'string' ? tok.value : JSON.stringify(tok.value).length > 80 ? '_composite_' : JSON.stringify(tok.value)
       const r = resolved[key]
-      md += `| \`${key}\` | ${esc(raw)} | ${swatch(r)}${esc(show(r))} | ${esc(tok.description ?? '')} |\n`
+      const dk = tok.dark !== undefined ? resolveValue(tok.dark, key) : ''
+      md += `| \`${key}\` | ${esc(raw)} | ${swatch(r)}${esc(show(r))} | ${dk ? swatch(dk) + esc(dk) : ''} | ${esc(tok.description ?? '')} |\n`
     }
     md += '\n'
   }

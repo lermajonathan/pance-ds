@@ -166,7 +166,7 @@ export function HomePage() {
         <div className="mx-auto max-w-[1120px]">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-600">{t('home.context.eyebrow')}</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-700">{t('home.context.eyebrow')}</p>
               <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink">{t('home.context.title')}</h2>
               <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-muted">
                 {t('home.context.body')}
@@ -174,7 +174,7 @@ export function HomePage() {
             </div>
             <button
               onClick={() => navigate('dashboard')}
-              className="flex items-center gap-1.5 rounded-xl border border-line bg-surface px-4 py-2 text-sm font-medium text-ink-soft shadow-sm transition-colors hover:border-brand-300 hover:text-brand-600"
+              className="flex items-center gap-1.5 rounded-xl border border-line bg-surface px-4 py-2 text-sm font-medium text-ink-soft shadow-sm transition-colors hover:border-brand-300 hover:text-brand-700"
             >
               {t('home.context.full')} <IconArrowRight size={14} />
             </button>

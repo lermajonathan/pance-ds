@@ -136,7 +136,7 @@ export function Page({ eyebrow, title, lead, children }: { eyebrow: string; titl
   return (
     <div className="space-y-10">
       <header className="max-w-2xl">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-brand-600">{eyebrow}</p>
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-brand-700">{eyebrow}</p>
         <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-ink">{title}</h1>
         <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">{lead}</p>
       </header>
@@ -326,21 +326,21 @@ export function ColorsPage() {
     { name: 'Surface', hex: '#ffffff', token: '--color-surface', use: t('colors.use.surface') },
     { name: 'Border', hex: '#e2e8f0', token: '--color-line', use: t('colors.use.line') },
     { name: 'Ink', hex: '#0f172a', token: '--color-ink', use: t('colors.use.ink') },
-    { name: 'Ink muted', hex: '#64748b', token: '--color-ink-muted', use: t('colors.use.inkMuted') },
+    { name: 'Ink muted', hex: '#475569', token: '--color-ink-muted', use: t('colors.use.inkMuted') },
   ]
   const semantics = [
-    { name: 'Primary', role: t('colors.sem.primary'), solid: '#0891b2', soft: '#ecfeff', text: '#0e7490', token: '--color-brand-600' },
-    { name: 'Success', role: t('colors.sem.success'), solid: '#059669', soft: '#ecfdf5', text: '#047857', token: '--color-success' },
-    { name: 'Info', role: t('colors.sem.info'), solid: '#0284c7', soft: '#f0f9ff', text: '#0369a1', token: '--color-info' },
-    { name: 'Warning', role: t('colors.sem.warning'), solid: '#d97706', soft: '#fffbeb', text: '#b45309', token: '--color-warning' },
-    { name: 'Help', role: t('colors.sem.help'), solid: '#7c3aed', soft: '#f5f3ff', text: '#6d28d9', token: '--color-help' },
-    { name: 'Danger', role: t('colors.sem.danger'), solid: '#e11d48', soft: '#fff1f2', text: '#be123c', token: '--color-danger' },
-    { name: 'Contrast', role: t('colors.sem.contrast'), solid: '#0f172a', soft: '#f1f5f9', text: '#0f172a', token: '--color-ink' },
+    { name: 'Primary', role: t('colors.sem.primary'), solid: '#0e7490', soft: '#ecfeff', text: '#0e7490', token: '--pance-color-intent-primary-solid' },
+    { name: 'Success', role: t('colors.sem.success'), solid: '#047857', soft: '#ecfdf5', text: '#047857', token: '--pance-color-intent-success-solid' },
+    { name: 'Info', role: t('colors.sem.info'), solid: '#0369a1', soft: '#f0f9ff', text: '#0369a1', token: '--pance-color-intent-info-solid' },
+    { name: 'Warning', role: t('colors.sem.warning'), solid: '#b45309', soft: '#fffbeb', text: '#b45309', token: '--pance-color-intent-warning-solid' },
+    { name: 'Help', role: t('colors.sem.help'), solid: '#7c3aed', soft: '#f5f3ff', text: '#6d28d9', token: '--pance-color-intent-help-solid' },
+    { name: 'Danger', role: t('colors.sem.danger'), solid: '#e11d48', soft: '#fff1f2', text: '#be123c', token: '--pance-color-intent-danger-solid' },
+    { name: 'Contrast', role: t('colors.sem.contrast'), solid: '#0f172a', soft: '#f1f5f9', text: '#0f172a', token: '--pance-color-intent-contrast-solid' },
   ]
   const pairs = [
     { label: t('colors.pair.inkOnBg'), fg: '#0f172a', bg: '#f1f5f9' },
-    { label: t('colors.pair.mutedOnSurface'), fg: '#64748b', bg: '#ffffff' },
-    { label: t('colors.pair.whiteOnAqua'), fg: '#ffffff', bg: '#0891b2' },
+    { label: t('colors.pair.mutedOnSurface'), fg: '#475569', bg: '#f1f5f9' },
+    { label: t('colors.pair.whiteOnAqua'), fg: '#ffffff', bg: '#0e7490' },
     { label: t('colors.pair.aqua700OnAqua50'), fg: '#0e7490', bg: '#ecfeff' },
     { label: t('colors.pair.whiteOnRose'), fg: '#ffffff', bg: '#e11d48' },
     { label: t('colors.pair.aqua300OnAqua50'), fg: '#67e8f9', bg: '#ecfeff' },
@@ -430,7 +430,7 @@ const TYPE_SCALE: { name: string; font: string; cls: string; size: string; sampl
   { name: 'Display', font: 'Plus Jakarta Sans', cls: 'font-display text-5xl font-extrabold tracking-tight', size: '48 / 800', sample: 'type.sample.display' },
   { name: 'H1', font: 'Plus Jakarta Sans', cls: 'font-display text-3xl font-extrabold tracking-tight', size: '30 / 800', sample: 'type.sample.h1' },
   { name: 'H2', font: 'Plus Jakarta Sans', cls: 'font-display text-2xl font-bold tracking-tight', size: '24 / 700', sample: 'type.sample.h2' },
-  { name: 'H3', font: 'Plus Jakarta Sans', cls: 'font-display text-lg font-bold', size: '18 / 700', sample: 'type.sample.h3' },
+  { name: 'H3', font: 'Plus Jakarta Sans', cls: 'font-display text-xl font-bold', size: '20 / 700', sample: 'type.sample.h3' },
   { name: 'type.scale.bodyLarge', font: 'Inter', cls: 'text-[15px] leading-relaxed', size: '15 / 400', sample: 'type.sample.bodyLarge' },
   { name: 'type.scale.body', font: 'Inter', cls: 'text-sm', size: '14 / 400', sample: 'type.sample.body' },
   { name: 'type.scale.caption', font: 'Inter', cls: 'text-xs text-ink-muted', size: '12 / 400', sample: 'type.sample.caption' },
@@ -486,7 +486,7 @@ export function TypographyPage() {
             { role: 'H4', cls: 'font-display text-base font-bold text-ink', sample: t('type.tsample.h4'), note: '16px · Plus Jakarta Sans · bold' },
             { role: t('type.role.subheading'), cls: 'text-base font-semibold text-ink-soft', sample: t('type.tsample.subheading'), note: '16px · Inter · semibold' },
             { role: t('type.role.label'), cls: 'text-sm font-medium text-ink-muted', sample: t('type.tsample.label'), note: '14px · Inter · medium' },
-            { role: 'Eyebrow', cls: 'font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-600', sample: t('type.tsample.eyebrow'), note: '11px · JetBrains Mono · semibold · ' + t('type.note.tracked') },
+            { role: 'Eyebrow', cls: 'font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700', sample: t('type.tsample.eyebrow'), note: '11px · JetBrains Mono · semibold · ' + t('type.note.tracked') },
           ].map((r) => (
             <div key={r.role} className="flex flex-wrap items-center gap-x-6 gap-y-2 px-6 py-4 sm:flex-nowrap">
               <span className="w-24 shrink-0 font-mono text-[10px] uppercase tracking-wider text-ink-muted sm:w-28">{r.role}</span>
@@ -500,7 +500,7 @@ export function TypographyPage() {
       <Section title={t('type.context.title')} hint={t('type.context.hint')}>
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <Card className="p-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-600">{t('type.ctx.eyebrow')}</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-700">{t('type.ctx.eyebrow')}</p>
             <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-ink">{t('type.ctx.heading')}</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
               {t('type.ctx.p1')}
@@ -716,7 +716,7 @@ export function IconsPage() {
         <Card className="flex flex-wrap items-end gap-x-8 gap-y-5 p-6">
           {WEIGHTS.map((w) => (
             <div key={w} className="flex flex-col items-center gap-2">
-              <Waveform size={40} weight={w} className="text-brand-600" />
+              <Waveform size={40} weight={w} className="text-brand-700" />
               <span className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{w}</span>
             </div>
           ))}
@@ -730,7 +730,7 @@ export function IconsPage() {
               key={name}
               className="group flex flex-col items-center gap-2.5 rounded-xl border border-line-soft bg-surface p-5 transition-colors hover:border-brand-200 hover:bg-brand-50/40"
             >
-              <Cmp size={26} weight="regular" className="text-ink-soft transition-colors group-hover:text-brand-600" />
+              <Cmp size={26} weight="regular" className="text-ink-soft transition-colors group-hover:text-brand-700" />
               <span className="w-full truncate text-center font-mono text-[10px] text-ink-muted">{name}</span>
             </div>
           ))}
@@ -1005,7 +1005,7 @@ export function FormsPage() {
           <Field label={t('forms.states.focus')} hint={t('forms.states.focusHint')}>
             <Input
               defaultValue="river-events"
-              className="border-brand-500 shadow-[0_0_0_3px_var(--color-brand-100),0_0_0_1.5px_var(--color-brand-500)]"
+              className="border-brand-500 shadow-[var(--pance-focus-ring)]"
             />
           </Field>
           <Field label={t('forms.states.notifEmail')} error={emailError}>
@@ -1049,7 +1049,7 @@ export function FormsPage() {
                   style={{ width: `${pwdStrength}%` }}
                 />
               </div>
-              <p className={`text-xs font-medium ${pwdSev === 'danger' ? 'text-rose-600' : pwdSev === 'warning' ? 'text-amber-600' : pwdSev === 'primary' ? 'text-brand-600' : 'text-emerald-600'}`}>
+              <p className={`text-xs font-medium ${pwdSev === 'danger' ? 'text-rose-600' : pwdSev === 'warning' ? 'text-amber-700' : pwdSev === 'primary' ? 'text-brand-700' : 'text-emerald-700'}`}>
                 {pwdLabel}
               </p>
             </div>
@@ -2458,7 +2458,7 @@ export function NavigationPage() {
               <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} collapsed />
             </div>
             <div className="min-w-0 flex-1 border-l border-line-soft pl-4">
-              <p className="mb-2 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-brand-600">{navKey}</span></p>
+              <p className="mb-2 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-brand-700">{navKey}</span></p>
               <p className="text-xs text-ink-muted">{t('navigation.menu.collapsedNote')}</p>
             </div>
           </Card>
@@ -2582,19 +2582,19 @@ export function NavigationPage() {
             <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.inline')}</p>
             <p className="max-w-xl text-sm leading-relaxed text-ink-soft">
               {t('navigation.link.p1')}{' '}
-              <a href="#" className="pance-focus rounded font-medium text-brand-600 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-700 hover:decoration-brand-500">{t('navigation.link.keyGuide')}</a>
+              <a href="#" className="pance-focus rounded font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-700 hover:decoration-brand-500">{t('navigation.link.keyGuide')}</a>
               {' '}{t('navigation.link.p2')}{' '}
-              <a href="#" className="pance-focus rounded font-medium text-brand-600 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-700 hover:decoration-brand-500">{t('navigation.link.limits')}</a>
+              <a href="#" className="pance-focus rounded font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-700 hover:decoration-brand-500">{t('navigation.link.limits')}</a>
               {' '}{t('navigation.link.p3')}
             </p>
           </div>
           <div className="space-y-3">
             <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.standalone')}</p>
             <div className="flex flex-wrap gap-6">
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-brand-600 transition-colors hover:text-brand-700">
+              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-brand-700 transition-colors hover:text-brand-700">
                 <IconArrowRight className="h-4 w-4" /> {t('navigation.link.docs')}
               </a>
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-brand-600 transition-colors hover:text-brand-700">
+              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-brand-700 transition-colors hover:text-brand-700">
                 <IconExternal className="h-4 w-4" /> {t('navigation.link.newTab')}
               </a>
               <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-danger transition-colors hover:text-rose-700">
@@ -2707,7 +2707,7 @@ function DestructiveRow({ name, region }: { name: string; region: string }) {
   return (
     <div className="group flex items-center justify-between px-5 py-3">
       <div className="flex items-center gap-3">
-        <div className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-600"><IconStream className="h-4 w-4" /></div>
+        <div className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-700"><IconStream className="h-4 w-4" /></div>
         <div>
           <p className="font-mono text-sm font-medium text-ink">{name}</p>
           <p className="text-xs text-ink-muted">{region}</p>
@@ -2760,7 +2760,7 @@ function SoftDeleteDemo() {
           {trash.map((name) => (
             <div key={name} className="flex items-center justify-between px-4 py-2.5">
               <span className="font-mono text-sm text-ink-muted line-through">{name}</span>
-              <button onClick={() => restore(name)} className="pance-focus rounded-lg px-2 py-1 text-xs font-medium text-brand-600 hover:bg-brand-50">{t('overlays.destructive.restore')}</button>
+              <button onClick={() => restore(name)} className="pance-focus rounded-lg px-2 py-1 text-xs font-medium text-brand-700 hover:bg-brand-50">{t('overlays.destructive.restore')}</button>
             </div>
           ))}
           {trash.length === 0 && <p className="px-4 py-4 text-xs text-ink-muted italic">{t('overlays.destructive.trashEmpty')}</p>}
@@ -2782,8 +2782,8 @@ const NOTIF_ICON: Record<Notif['severity'], typeof IconCheckCircle> = {
   success: IconCheckCircle, primary: IconInfo, warning: IconAlert, danger: IconAlert,
 }
 const NOTIF_COLOR: Record<Notif['severity'], string> = {
-  success: 'text-emerald-600 bg-emerald-50', primary: 'text-brand-600 bg-brand-50',
-  warning: 'text-amber-600 bg-amber-50', danger: 'text-rose-600 bg-rose-50',
+  success: 'text-emerald-700 bg-emerald-50', primary: 'text-brand-700 bg-brand-50',
+  warning: 'text-amber-700 bg-amber-50', danger: 'text-rose-600 bg-rose-50',
 }
 
 function NotificationCenter() {
@@ -2809,7 +2809,7 @@ function NotificationCenter() {
       <button
         aria-label={t('overlays.notif.title')}
         onClick={() => setOpen((o) => !o)}
-        className={`pance-focus relative grid h-9 w-9 place-items-center rounded-xl border transition-colors ${open ? 'border-brand-400 bg-brand-50 text-brand-600' : 'border-line bg-surface text-ink-muted hover:bg-ground hover:text-ink'}`}
+        className={`pance-focus relative grid h-9 w-9 place-items-center rounded-xl border transition-colors ${open ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line bg-surface text-ink-muted hover:bg-ground hover:text-ink'}`}
       >
         <IconBellRinging className="h-4 w-4" />
         {unread > 0 && (
@@ -2828,7 +2828,7 @@ function NotificationCenter() {
               {unread > 0 && <CountBadge count={unread} severity="danger" />}
             </div>
             {unread > 0 && (
-              <button onClick={markAll} className="text-xs font-medium text-brand-600 hover:text-brand-700">{t('overlays.notif.markAll')}</button>
+              <button onClick={markAll} className="text-xs font-medium text-brand-700 hover:text-brand-700">{t('overlays.notif.markAll')}</button>
             )}
           </div>
 
@@ -2864,7 +2864,7 @@ function NotificationCenter() {
 
           {/* Footer */}
           <div className="border-t border-line-soft px-4 py-3">
-            <button className="w-full text-center text-xs font-medium text-brand-600 hover:text-brand-700">{t('overlays.notif.viewAll')}</button>
+            <button className="w-full text-center text-xs font-medium text-brand-700 hover:text-brand-700">{t('overlays.notif.viewAll')}</button>
           </div>
         </div>
       )}
@@ -3078,10 +3078,10 @@ export function OverlaysPage() {
             <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
               <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-wider text-emerald-700">{t('overlays.do.title')}</p>
               <div className="space-y-2 text-sm text-emerald-900">
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /><span>{t('overlays.do.name')} <em>"{t('overlays.do.nameEx')}"</em></span></div>
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /><span>{t('overlays.do.state')} <em>"{t('overlays.do.stateEx')}"</em></span></div>
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /><span>{t('overlays.do.order')}</span></div>
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /><span>{t('overlays.do.undo')}</span></div>
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.name')} <em>"{t('overlays.do.nameEx')}"</em></span></div>
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.state')} <em>"{t('overlays.do.stateEx')}"</em></span></div>
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.order')}</span></div>
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.undo')}</span></div>
               </div>
             </div>
             <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5">
@@ -3322,7 +3322,7 @@ export function MetricCard({ m }: { m: Metric }) {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-300 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-600"><m.Icon className="h-[18px] w-[18px]" /></span>
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><m.Icon className="h-[18px] w-[18px]" /></span>
           <p className="text-sm font-medium text-ink-muted">{m.label}</p>
         </div>
         <DeltaBadge delta={m.delta} />
@@ -3364,9 +3364,9 @@ function MetricCardHero({ label, value, unit, delta, sub, spark, upIsGood = true
   spark: number[]; upIsGood?: boolean; accent?: 'brand' | 'success' | 'warning' | 'danger'
 }) {
   const accentMap = {
-    brand:   { bg: 'from-brand-50 to-surface',   via: 'via-brand-300',    icon: 'bg-brand-50 text-brand-600'   },
-    success: { bg: 'from-emerald-50 to-surface', via: 'via-emerald-300',  icon: 'bg-emerald-50 text-emerald-600' },
-    warning: { bg: 'from-amber-50 to-surface',   via: 'via-amber-300',    icon: 'bg-amber-50 text-amber-600'   },
+    brand:   { bg: 'from-brand-50 to-surface',   via: 'via-brand-300',    icon: 'bg-brand-50 text-brand-700'   },
+    success: { bg: 'from-emerald-50 to-surface', via: 'via-emerald-300',  icon: 'bg-emerald-50 text-emerald-700' },
+    warning: { bg: 'from-amber-50 to-surface',   via: 'via-amber-300',    icon: 'bg-amber-50 text-amber-700'   },
     danger:  { bg: 'from-rose-50 to-surface',    via: 'via-rose-300',     icon: 'bg-rose-50 text-rose-600'     },
   }
   const a = accentMap[accent]
@@ -3405,7 +3405,7 @@ function MetricCardGoal({ label, value, unit, current, target, delta, Icon, upIs
     <article className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-600"><Icon className="h-[18px] w-[18px]" /></span>
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-[18px] w-[18px]" /></span>
           <p className="text-sm font-medium text-ink-muted">{label}</p>
         </div>
         <DeltaBadge delta={delta} upIsGood={upIsGood} />
@@ -3441,7 +3441,7 @@ function MetricCardBreakdown({ label, value, unit, delta, Icon, items, upIsGood 
     <article className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-600"><Icon className="h-[18px] w-[18px]" /></span>
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-[18px] w-[18px]" /></span>
           <p className="text-sm font-medium text-ink-muted">{label}</p>
         </div>
         <DeltaBadge delta={delta} upIsGood={upIsGood} />
@@ -3477,7 +3477,7 @@ function MetricCardComparison({ label, current, previous, unit, delta, Icon, per
     <article className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-600"><Icon className="h-[18px] w-[18px]" /></span>
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-[18px] w-[18px]" /></span>
           <p className="text-sm font-medium text-ink-muted">{label}</p>
         </div>
         <DeltaBadge delta={delta} upIsGood={upIsGood} />
@@ -3541,7 +3541,7 @@ function MetricCardError({ label, onRetry }: { label: string; onRetry?: () => vo
       </span>
       <p className="text-sm font-medium text-ink-soft">{label}</p>
       <p className="text-xs text-ink-muted">{t('metrics.failed')}</p>
-      {onRetry && <button onClick={onRetry} className="mt-1 text-xs font-medium text-brand-600 hover:underline">{t('metrics.retry')}</button>}
+      {onRetry && <button onClick={onRetry} className="mt-1 text-xs font-medium text-brand-700 hover:underline">{t('metrics.retry')}</button>}
     </div>
   )
 }
@@ -4012,7 +4012,7 @@ function SortBtn({ col, sortCol, sortDir, onSort }: { col: string; sortCol: stri
   return (
     <button
       onClick={() => onSort(col)}
-      className={`group inline-flex items-center gap-1 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors hover:text-ink ${active ? 'text-brand-600' : 'text-ink-muted'}`}
+      className={`group inline-flex items-center gap-1 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors hover:text-ink ${active ? 'text-brand-700' : 'text-ink-muted'}`}
     >
       <span>{t(ALL_COLS.find(c => c.key === col)!.label)}</span>
       <span className={`transition-opacity ${active ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'}`}>
@@ -4142,7 +4142,7 @@ function FullDataTable() {
           <div className="flex flex-col items-center gap-3 px-4 py-12 text-center">
             <span className="grid h-12 w-12 place-items-center rounded-xl bg-slate-100 text-ink-muted"><IconSearch className="h-5 w-5" /></span>
             <p className="font-semibold text-ink">{t('table.noMatch', { q: search })}</p>
-            <button onClick={() => { setSearch(''); setPage(1) }} className="pance-focus rounded-xl px-4 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50">{t('table.clearFilter')}</button>
+            <button onClick={() => { setSearch(''); setPage(1) }} className="pance-focus rounded-xl px-4 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">{t('table.clearFilter')}</button>
           </div>
         ) : view.map((r) => (
           <StreamCard key={r.id} r={r} selectable selected={selected.has(r.id)} onToggle={() => toggle(r.id)} />
@@ -4175,7 +4175,7 @@ function FullDataTable() {
                     <span className="grid h-12 w-12 place-items-center rounded-xl bg-slate-100 text-ink-muted"><IconSearch className="h-5 w-5" /></span>
                     <p className="font-semibold text-ink">{t('table.noMatch', { q: search })}</p>
                     <p className="text-sm text-ink-muted">{t('table.tryDifferent')}</p>
-                    <button onClick={() => { setSearch(''); setPage(1) }} className="pance-focus mt-1 rounded-xl px-4 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50">{t('table.clearFilter')}</button>
+                    <button onClick={() => { setSearch(''); setPage(1) }} className="pance-focus mt-1 rounded-xl px-4 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">{t('table.clearFilter')}</button>
                   </div>
                 </td>
               </tr>
@@ -4248,7 +4248,7 @@ function ExpandableTable() {
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
                   <span className="font-mono text-[13px] font-medium text-ink">{num(ev.count)}</span>
-                  <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-600' : ''}`} />
+                  <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-700' : ''}`} />
                 </div>
               </button>
               {open && (
@@ -4282,7 +4282,7 @@ function ExpandableTable() {
                   className={`cursor-pointer border-b border-line-soft transition-colors duration-150 last:border-0 ${open ? 'bg-brand-50/40' : 'hover:bg-canvas'}`}
                 >
                   <td className="px-6 py-3.5">
-                    <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-600' : ''}`} />
+                    <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-700' : ''}`} />
                   </td>
                   <td className="px-6 py-3.5">
                     <span className="font-mono text-[13px] font-medium text-ink">{ev.event}</span>
@@ -4428,7 +4428,7 @@ function SimpleTable() {
                 <p className="font-mono text-[13px] font-medium text-ink">{r.region}</p>
                 <p className="text-sm text-ink-muted">{r.location}</p>
               </div>
-              <span className={`font-mono text-[13px] font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-600' : parseInt(r.latency) < 20 ? 'text-amber-600' : 'text-rose-600'}`}>{r.latency}</span>
+              <span className={`font-mono text-[13px] font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
             </div>
             <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line-soft pt-4">
               <CardField label={t('table.col.throughput')}><span className="font-mono text-[13px] font-medium text-ink">{r.throughput}</span></CardField>
@@ -4465,7 +4465,7 @@ function SimpleTable() {
               </td>
               <td className="px-6 py-3.5 text-right font-mono text-[13px] font-medium text-ink">{r.throughput}</td>
               <td className="px-6 py-3.5 text-right">
-                <span className={`font-mono text-[13px] font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-600' : parseInt(r.latency) < 20 ? 'text-amber-600' : 'text-rose-600'}`}>{r.latency}</span>
+                <span className={`font-mono text-[13px] font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
               </td>
             </tr>
           ))}
@@ -4540,15 +4540,15 @@ export function LayoutPage() {
         <Card className="overflow-hidden">
           <div className="divide-y divide-line-soft">
             {[
-              { name: 'xs', value: '< 480px', cols: '4', use: t('layout.bp.xs') },
-              { name: 'sm', value: '480px', cols: '4', use: t('layout.bp.sm') },
+              { name: 'xs', value: '< 640px', cols: '4', use: t('layout.bp.xs') },
+              { name: 'sm', value: '640px', cols: '4', use: t('layout.bp.sm') },
               { name: 'md', value: '768px', cols: '8', use: t('layout.bp.md') },
               { name: 'lg', value: '1024px', cols: '12', use: t('layout.bp.lg') },
               { name: 'xl', value: '1280px', cols: '12', use: t('layout.bp.xl') },
               { name: '2xl', value: '1536px', cols: '12', use: t('layout.bp.2xl') },
             ].map((bp) => (
               <div key={bp.name} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-6 py-3.5">
-                <span className="w-10 font-mono text-sm font-semibold text-brand-600">{bp.name}</span>
+                <span className="w-10 font-mono text-sm font-semibold text-brand-700">{bp.name}</span>
                 <span className="w-24 font-mono text-xs text-ink-muted">{bp.value}</span>
                 <span className="w-14 text-xs text-ink-muted">{t('layout.bp.cols', { n: bp.cols })}</span>
                 <span className="min-w-0 basis-full text-sm text-ink-soft sm:basis-0 sm:flex-1">{bp.use}</span>
@@ -4618,7 +4618,7 @@ export function LayoutPage() {
             <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.pat.sidebarMain')}</p>
             <div className="grid grid-cols-4 gap-3">
               <div className="rounded-xl border border-dashed border-brand-300 bg-brand-50 p-4">
-                <p className="font-mono text-[10px] font-semibold text-brand-600">{t('layout.pat.sidebar')}</p>
+                <p className="font-mono text-[10px] font-semibold text-brand-700">{t('layout.pat.sidebar')}</p>
                 <div className="mt-3 space-y-2">
                   {[0, 1, 2].map((i) => <div key={i} className="h-7 rounded-lg bg-brand-100" />)}
                 </div>
@@ -4637,7 +4637,7 @@ export function LayoutPage() {
           <div>
             <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.pat.dashboard')}</p>
             <div className="grid grid-cols-3 gap-3">
-              {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-20 rounded-xl border border-dashed border-brand-300 bg-brand-50 p-3"><p className="font-mono text-[10px] text-brand-600">{t('layout.pat.metric', { n: i + 1 })}</p></div>)}
+              {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-20 rounded-xl border border-dashed border-brand-300 bg-brand-50 p-3"><p className="font-mono text-[10px] text-brand-700">{t('layout.pat.metric', { n: i + 1 })}</p></div>)}
             </div>
             <div className="mt-3 h-28 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
               <p className="font-mono text-[10px] text-slate-500">{t('layout.pat.table')}</p>
@@ -4691,7 +4691,7 @@ export function LayoutPage() {
           <div className="space-y-6">
             {/* Block with eyebrow */}
             <div className="rounded-2xl border border-line bg-surface p-6">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-600">{t('layout.block.eyebrow')}</p>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.block.eyebrow')}</p>
               <h3 className="mt-1 font-display text-xl font-bold text-ink">{t('layout.block.heading')}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-muted">{t('layout.block.desc')}</p>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -4731,7 +4731,7 @@ export function LayoutPage() {
           <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{tr('layout.content.intro')}</p>
           <Card className="p-6 lg:p-8">
             <div className="mx-auto max-w-prose space-y-4">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-600">{t('layout.content.eyebrow')}</p>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.content.eyebrow')}</p>
               <h2 className="font-display text-2xl font-extrabold tracking-tight text-ink">{t('layout.content.heading')}</h2>
               <p className="text-[15px] leading-relaxed text-ink-soft">{t('layout.content.p1')}</p>
               <h3 className="font-display text-lg font-bold text-ink">{t('layout.content.h3')}</h3>
@@ -4820,7 +4820,7 @@ export function CardsPage() {
                 className={`pance-focus group w-full rounded-2xl border p-5 text-left transition-all duration-200 ${selected ? 'border-brand-400 bg-brand-50 shadow-[0_0_0_3px_var(--color-brand-100)]' : 'border-line bg-surface hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_8px_24px_-12px_rgba(8,145,178,0.3)]'}`}
               >
                 <div className="flex items-start justify-between">
-                  <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-600 group-hover:bg-brand-100">
+                  <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700 group-hover:bg-brand-100">
                     <IconStream className="h-4 w-4" />
                   </div>
                   <Badge severity={stream.status === 'Flowing' ? 'success' : 'secondary'} dot size="sm">{t(stream.status === 'Flowing' ? 'badges.dots.flowing' : 'badges.dots.paused')}</Badge>
@@ -4862,7 +4862,7 @@ export function CardsPage() {
                     <Avatar name="Ines Halvorsen" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=48&h=48&fit=crop" size={22} />
                     <span className="text-xs text-ink-muted">Ines Halvorsen</span>
                   </div>
-                  <a href="#" className="pance-focus inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:text-brand-700">
+                  <a href="#" className="pance-focus inline-flex items-center gap-1 text-xs font-medium text-brand-700 hover:text-brand-700">
                     {t('cards.media.read')} <IconArrowRight className="h-3 w-3" />
                   </a>
                 </div>
@@ -4882,7 +4882,7 @@ export function CardsPage() {
           ].map(({ label, value, delta, up, Icon }) => (
             <Card key={label} className="p-5">
               <div className="flex items-center justify-between">
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-600"><Icon className="h-4 w-4" /></span>
+                <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-4 w-4" /></span>
                 <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px] font-semibold ${up ? 'bg-brand-50 text-brand-700' : 'bg-emerald-50 text-emerald-700'}`}>
                   {up ? <IconArrowUp className="h-3 w-3" /> : <IconArrowDown className="h-3 w-3" />}{delta}
                 </span>
@@ -4902,7 +4902,7 @@ export function CardsPage() {
             { name: 'ledger-sync', desc: t('cards.horizontal.d3'), status: 'Paused', throughput: '0 K/s', avatar: 'photo-1544005313-94ddf0286df2', owner: 'Priya Ramanathan' },
           ].map((row) => (
             <Card key={row.name} className="flex items-center gap-4 px-5 py-4">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700">
                 <IconStream className="h-5 w-5" />
               </div>
               <div className="min-w-0 flex-1">
@@ -4945,7 +4945,7 @@ export function CardsPage() {
                   <div key={label}>
                     <div className="mb-1 flex justify-between text-xs">
                       <span className="text-ink-muted">{label}</span>
-                      <span className={`font-mono font-semibold ${v >= 90 ? 'text-danger' : v >= 75 ? 'text-amber-600' : 'text-ink'}`}>{v}%</span>
+                      <span className={`font-mono font-semibold ${v >= 90 ? 'text-danger' : v >= 75 ? 'text-amber-700' : 'text-ink'}`}>{v}%</span>
                     </div>
                     <div className="h-1.5 overflow-hidden rounded-full bg-ground">
                       <div className={`h-full rounded-full ${v >= 90 ? 'bg-danger' : v >= 75 ? 'bg-amber-400' : 'bg-brand-500'}`} style={{ width: `${v}%` }} />
@@ -5139,11 +5139,11 @@ export function ContentPage() {
             <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.it.features')}</p>
             <div className="space-y-3">
               {[
-                { Icon: IconCheckCircle, text: t('content.it.f1'), color: 'text-emerald-600 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f2'), color: 'text-emerald-600 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f3'), color: 'text-emerald-600 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f4'), color: 'text-emerald-600 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f5'), color: 'text-emerald-600 bg-emerald-50' },
+                { Icon: IconCheckCircle, text: t('content.it.f1'), color: 'text-emerald-700 bg-emerald-50' },
+                { Icon: IconCheckCircle, text: t('content.it.f2'), color: 'text-emerald-700 bg-emerald-50' },
+                { Icon: IconCheckCircle, text: t('content.it.f3'), color: 'text-emerald-700 bg-emerald-50' },
+                { Icon: IconCheckCircle, text: t('content.it.f4'), color: 'text-emerald-700 bg-emerald-50' },
+                { Icon: IconCheckCircle, text: t('content.it.f5'), color: 'text-emerald-700 bg-emerald-50' },
               ].map(({ Icon, text, color }) => (
                 <div key={text} className="flex items-start gap-3">
                   <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full ${color}`}><Icon className="h-3 w-3" /></span>
@@ -5166,7 +5166,7 @@ export function ContentPage() {
                 { Icon: IconStar, label: 'SLA', value: '99.95%' },
               ].map(({ Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-2.5">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-600"><Icon className="h-3.5 w-3.5" /></span>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700"><Icon className="h-3.5 w-3.5" /></span>
                   <div>
                     <p className="font-mono text-[10px] text-ink-muted">{label}</p>
                     <p className="text-sm font-semibold text-ink">{value}</p>
@@ -5247,7 +5247,7 @@ export function ContentPage() {
                       <span className="font-mono text-[10px] text-ink-muted">{file.size}</span>
                     </div>
                   </div>
-                  <button className="pance-focus grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-600">
+                  <button className="pance-focus grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-700">
                     <IconDownload className="h-4 w-4" />
                   </button>
                 </div>
@@ -5305,7 +5305,7 @@ const VC = ['#0891b2','#eb6834','#1baf7a','#eda100','#e87ba4','#008300','#4a3aa7
 /* — Chart chrome (Pance surface tokens as literals) — */
 const VS  = '#ffffff'   /* chart surface    */
 const VG  = '#e2e8f0'   /* hairline grid    */
-const VA  = '#94a3b8'   /* axis / muted ink */
+const VA  = '#64748b'   /* axis labels — dataviz.axis-label, 4.76:1 */
 const VI  = '#0f172a'   /* primary ink      */
 const VI2 = '#64748b'   /* secondary ink    */
 const VB  = '#cbd5e1'   /* baseline / axis  */
@@ -6155,7 +6155,7 @@ function VizStatTile({ label, value, delta, deltaLabel, trend, trendColor = VC[0
       <div>
         <p className="text-3xl font-bold leading-none tracking-tight text-ink">{value}</p>
         {delta && (
-          <p className={`mt-1.5 flex items-center gap-1 text-xs font-medium ${isGood ? 'text-emerald-600' : 'text-rose-600'}`}>
+          <p className={`mt-1.5 flex items-center gap-1 text-xs font-medium ${isGood ? 'text-emerald-700' : 'text-rose-600'}`}>
             <span>{delta}</span>
             {deltaLabel && <span className="font-normal text-ink-muted">{deltaLabel}</span>}
           </p>
@@ -6297,7 +6297,7 @@ export function DataVizPage() {
           <span className="text-xs text-ink-muted">{t('dataviz.filter.region')}</span>
           <div className="flex flex-wrap gap-1">
             {['All','US East','EU West','AP South'].map(r => (
-              <span key={r} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-soft hover:border-brand-300 hover:text-brand-600 cursor-pointer transition-colors">{r === 'All' ? t('dataviz.regionAll') : r}</span>
+              <span key={r} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-soft hover:border-brand-300 hover:text-brand-700 cursor-pointer transition-colors">{r === 'All' ? t('dataviz.regionAll') : r}</span>
             ))}
           </div>
         </div>
@@ -6309,7 +6309,7 @@ export function DataVizPage() {
         <div className="mb-4 rounded-2xl border border-line bg-gradient-to-br from-brand-50 to-surface p-6 sm:p-8">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-brand-500">{t('dataviz.stat.heroLabel')}</p>
           <p className="mt-2 text-4xl font-bold leading-none tracking-tight text-ink sm:text-6xl">704<span className="text-2xl font-semibold text-ink-muted sm:text-3xl"> K/s</span></p>
-          <p className="mt-3 flex items-center gap-2 text-sm font-medium text-emerald-600">
+          <p className="mt-3 flex items-center gap-2 text-sm font-medium text-emerald-700">
             <span>+23.4%</span>
             <span className="font-normal text-ink-muted">{t('dataviz.stat.vsLastYear')}</span>
           </p>
@@ -6372,7 +6372,7 @@ export function DataVizPage() {
             <p className="mb-4 text-sm font-semibold text-ink">{t('dataviz.donut.guideTitle')}</p>
             <div className="space-y-3 text-sm text-ink-soft">
               <div className="flex gap-3 rounded-xl bg-emerald-50 p-3">
-                <span className="font-mono text-emerald-600">✓</span>
+                <span className="font-mono text-emerald-700">✓</span>
                 <span>{t('dataviz.donut.g1a')}<strong className="text-ink">{t('dataviz.donut.g1b')}</strong>{t('dataviz.donut.g1c')}<strong className="text-ink">{t('dataviz.donut.g1d')}</strong>{t('dataviz.donut.g1e')}</span>
               </div>
               <div className="flex gap-3 rounded-xl bg-rose-50 p-3">
@@ -7120,7 +7120,7 @@ export function AfterQuakePage() {
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
                 activeTab === tab.id
-                  ? 'border-brand-500 text-brand-600'
+                  ? 'border-brand-500 text-brand-700'
                   : 'border-transparent text-ink-soft hover:text-ink'
               }`}>
               {tab.label}
@@ -7167,7 +7167,7 @@ export function AfterQuakePage() {
                     <p className="text-xs text-ink-muted">{t('aq.mapCard.hint')}</p>
                   </div>
                   {selectedDept && (
-                    <button onClick={() => setSelectedDept(null)} className="text-xs font-medium text-brand-600 hover:underline">{t('aq.mapCard.clear')}</button>
+                    <button onClick={() => setSelectedDept(null)} className="text-xs font-medium text-brand-700 hover:underline">{t('aq.mapCard.clear')}</button>
                   )}
                 </div>
                 <ColombiaMap
@@ -7300,7 +7300,7 @@ export function AfterQuakePage() {
                         </td>
                         <td className="px-4 py-3">
                           <button onClick={() => setDetailModal(d.id)} aria-label={t('aq.viewDetail', { name: d.name })} title={t('aq.viewDetail', { name: d.name })}
-                            className="grid h-7 w-7 place-items-center rounded-lg text-ink-muted hover:bg-ground hover:text-brand-600">
+                            className="grid h-7 w-7 place-items-center rounded-lg text-ink-muted hover:bg-ground hover:text-brand-700">
                             <IconInfo size={14} />
                           </button>
                         </td>

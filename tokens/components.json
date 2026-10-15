@@ -76,437 +76,437 @@
       "primary": {
         "filled": {
           "bg": {
-            "$value": "{color.aqua.600}"
+            "$value": "{color.intent.primary.solid}"
           },
           "bg-hover": {
-            "$value": "{color.aqua.700}"
+            "$value": "{color.intent.primary.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.aqua.800}"
+            "$value": "{color.intent.primary.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.primary.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.aqua.300}"
+            "$value": "{color.intent.primary.outline}"
           },
           "border-hover": {
-            "$value": "{color.aqua.500}"
+            "$value": "{color.intent.primary.dot}"
           },
           "text": {
-            "$value": "{color.aqua.700}"
+            "$value": "{color.intent.primary.fg}"
           },
           "bg-hover": {
-            "$value": "{color.aqua.50}"
+            "$value": "{color.intent.primary.soft}"
           },
           "bg-active": {
-            "$value": "{color.aqua.100}"
+            "$value": "{color.intent.primary.soft-hover}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.aqua.700}"
+            "$value": "{color.intent.primary.fg}"
           },
           "bg-hover": {
-            "$value": "{color.aqua.50}"
+            "$value": "{color.intent.primary.soft}"
           },
           "bg-active": {
-            "$value": "{color.aqua.100}"
+            "$value": "{color.intent.primary.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.aqua.700}"
+            "$value": "{color.intent.primary.fg}"
           },
           "underline": {
-            "$value": "{color.aqua.300}"
+            "$value": "{color.intent.primary.outline}"
           },
           "underline-hover": {
-            "$value": "{color.aqua.600}"
+            "$value": "{color.intent.primary.solid}"
           }
         }
       },
       "secondary": {
         "filled": {
           "bg": {
-            "$value": "{color.slate.600}"
+            "$value": "{color.intent.secondary.solid}"
           },
           "bg-hover": {
-            "$value": "{color.slate.700}"
+            "$value": "{color.intent.secondary.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.slate.800}"
+            "$value": "{color.intent.secondary.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.secondary.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.slate.300}"
+            "$value": "{color.intent.secondary.outline}"
           },
           "border-hover": {
-            "$value": "{color.slate.500}"
+            "$value": "{color.intent.secondary.dot}"
           },
           "text": {
-            "$value": "{color.slate.700}"
+            "$value": "{color.intent.secondary.fg}"
           },
           "bg-hover": {
-            "$value": "{color.slate.50}"
+            "$value": "{color.intent.secondary.soft}"
           },
           "bg-active": {
-            "$value": "{color.slate.100}"
+            "$value": "{color.intent.secondary.soft-hover}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.slate.700}"
+            "$value": "{color.intent.secondary.fg}"
           },
           "bg-hover": {
-            "$value": "{color.slate.100}"
+            "$value": "{color.intent.secondary.soft}"
           },
           "bg-active": {
-            "$value": "{color.slate.200}"
+            "$value": "{color.intent.secondary.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.slate.700}"
+            "$value": "{color.intent.secondary.fg}"
           },
           "underline": {
-            "$value": "{color.slate.300}"
+            "$value": "{color.intent.secondary.outline}"
           },
           "underline-hover": {
-            "$value": "{color.slate.600}"
+            "$value": "{color.intent.secondary.solid}"
           }
         }
       },
       "success": {
         "filled": {
           "bg": {
-            "$value": "{color.emerald.600}"
+            "$value": "{color.intent.success.solid}"
           },
           "bg-hover": {
-            "$value": "{color.emerald.700}"
+            "$value": "{color.intent.success.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.emerald.800}"
+            "$value": "{color.intent.success.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.success.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.emerald.300}"
+            "$value": "{color.intent.success.outline}"
           },
           "border-hover": {
-            "$value": "{color.emerald.500}"
+            "$value": "{color.intent.success.dot}"
           },
           "text": {
-            "$value": "{color.emerald.700}"
+            "$value": "{color.intent.success.fg}"
           },
           "bg-hover": {
-            "$value": "{color.emerald.50}"
+            "$value": "{color.intent.success.soft}"
           },
           "bg-active": {
-            "$value": "{color.emerald.100}"
+            "$value": "{color.intent.success.soft-hover}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.emerald.700}"
+            "$value": "{color.intent.success.fg}"
           },
           "bg-hover": {
-            "$value": "{color.emerald.50}"
+            "$value": "{color.intent.success.soft}"
           },
           "bg-active": {
-            "$value": "{color.emerald.100}"
+            "$value": "{color.intent.success.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.emerald.700}"
+            "$value": "{color.intent.success.fg}"
           },
           "underline": {
-            "$value": "{color.emerald.300}"
+            "$value": "{color.intent.success.outline}"
           },
           "underline-hover": {
-            "$value": "{color.emerald.600}"
+            "$value": "{color.intent.success.solid}"
           }
         }
       },
       "info": {
         "filled": {
           "bg": {
-            "$value": "{color.sky.600}"
+            "$value": "{color.intent.info.solid}"
           },
           "bg-hover": {
-            "$value": "{color.sky.700}"
+            "$value": "{color.intent.info.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.sky.800}"
+            "$value": "{color.intent.info.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.info.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.sky.300}"
+            "$value": "{color.intent.info.outline}"
           },
           "border-hover": {
-            "$value": "{color.sky.500}"
+            "$value": "{color.intent.info.dot}"
           },
           "text": {
-            "$value": "{color.sky.700}"
+            "$value": "{color.intent.info.fg}"
           },
           "bg-hover": {
-            "$value": "{color.sky.50}"
+            "$value": "{color.intent.info.soft}"
           },
           "bg-active": {
-            "$value": "{color.sky.100}"
+            "$value": "{color.intent.info.soft-hover}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.sky.700}"
+            "$value": "{color.intent.info.fg}"
           },
           "bg-hover": {
-            "$value": "{color.sky.50}"
+            "$value": "{color.intent.info.soft}"
           },
           "bg-active": {
-            "$value": "{color.sky.100}"
+            "$value": "{color.intent.info.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.sky.700}"
+            "$value": "{color.intent.info.fg}"
           },
           "underline": {
-            "$value": "{color.sky.300}"
+            "$value": "{color.intent.info.outline}"
           },
           "underline-hover": {
-            "$value": "{color.sky.600}"
+            "$value": "{color.intent.info.solid}"
           }
         }
       },
       "warning": {
         "filled": {
           "bg": {
-            "$value": "{color.amber.500}"
+            "$value": "{color.intent.warning.solid}"
           },
           "bg-hover": {
-            "$value": "{color.amber.600}"
+            "$value": "{color.intent.warning.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.amber.700}"
+            "$value": "{color.intent.warning.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.warning.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.amber.300}"
+            "$value": "{color.intent.warning.outline}"
           },
           "border-hover": {
-            "$value": "{color.amber.500}"
+            "$value": "{color.intent.warning.dot}"
           },
           "text": {
-            "$value": "{color.amber.700}"
+            "$value": "{color.intent.warning.fg}"
           },
           "bg-hover": {
-            "$value": "{color.amber.50}"
+            "$value": "{color.intent.warning.soft}"
           },
           "bg-active": {
-            "$value": "{color.amber.100}"
+            "$value": "{color.intent.warning.soft-hover}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.amber.700}"
+            "$value": "{color.intent.warning.fg}"
           },
           "bg-hover": {
-            "$value": "{color.amber.50}"
+            "$value": "{color.intent.warning.soft}"
           },
           "bg-active": {
-            "$value": "{color.amber.100}"
+            "$value": "{color.intent.warning.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.amber.700}"
+            "$value": "{color.intent.warning.fg}"
           },
           "underline": {
-            "$value": "{color.amber.300}"
+            "$value": "{color.intent.warning.outline}"
           },
           "underline-hover": {
-            "$value": "{color.amber.600}"
+            "$value": "{color.intent.warning.solid}"
           }
         }
       },
       "help": {
         "filled": {
           "bg": {
-            "$value": "{color.violet.600}"
+            "$value": "{color.intent.help.solid}"
           },
           "bg-hover": {
-            "$value": "{color.violet.700}"
+            "$value": "{color.intent.help.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.violet.800}"
+            "$value": "{color.intent.help.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.help.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.violet.300}"
+            "$value": "{color.intent.help.outline}"
           },
           "border-hover": {
-            "$value": "{color.violet.500}"
+            "$value": "{color.intent.help.dot}"
           },
           "text": {
-            "$value": "{color.violet.700}"
+            "$value": "{color.intent.help.fg}"
           },
           "bg-hover": {
-            "$value": "{color.violet.50}"
+            "$value": "{color.intent.help.soft}"
           },
           "bg-active": {
-            "$value": "{color.violet.100}"
+            "$value": "{color.intent.help.soft-hover}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.violet.700}"
+            "$value": "{color.intent.help.fg}"
           },
           "bg-hover": {
-            "$value": "{color.violet.50}"
+            "$value": "{color.intent.help.soft}"
           },
           "bg-active": {
-            "$value": "{color.violet.100}"
+            "$value": "{color.intent.help.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.violet.700}"
+            "$value": "{color.intent.help.fg}"
           },
           "underline": {
-            "$value": "{color.violet.300}"
+            "$value": "{color.intent.help.outline}"
           },
           "underline-hover": {
-            "$value": "{color.violet.600}"
+            "$value": "{color.intent.help.solid}"
           }
         }
       },
       "danger": {
         "filled": {
           "bg": {
-            "$value": "{color.rose.600}"
+            "$value": "{color.intent.danger.solid}"
           },
           "bg-hover": {
-            "$value": "{color.rose.700}"
+            "$value": "{color.intent.danger.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.rose.800}"
+            "$value": "{color.intent.danger.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.danger.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.rose.300}"
+            "$value": "{color.intent.danger.outline}"
           },
           "border-hover": {
-            "$value": "{color.rose.500}"
+            "$value": "{color.intent.danger.dot}"
           },
           "text": {
-            "$value": "{color.rose.700}"
+            "$value": "{color.intent.danger.fg}"
           },
           "bg-hover": {
-            "$value": "{color.rose.50}"
+            "$value": "{color.intent.danger.soft}"
           },
           "bg-active": {
-            "$value": "{color.rose.100}"
+            "$value": "{color.intent.danger.soft-hover}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.rose.700}"
+            "$value": "{color.intent.danger.fg}"
           },
           "bg-hover": {
-            "$value": "{color.rose.50}"
+            "$value": "{color.intent.danger.soft}"
           },
           "bg-active": {
-            "$value": "{color.rose.100}"
+            "$value": "{color.intent.danger.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.rose.700}"
+            "$value": "{color.intent.danger.fg}"
           },
           "underline": {
-            "$value": "{color.rose.300}"
+            "$value": "{color.intent.danger.outline}"
           },
           "underline-hover": {
-            "$value": "{color.rose.600}"
+            "$value": "{color.intent.danger.solid}"
           }
         }
       },
       "contrast": {
         "filled": {
           "bg": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.solid}"
           },
           "bg-hover": {
-            "$value": "{color.slate.800}"
+            "$value": "{color.intent.contrast.solid-hover}"
           },
           "bg-active": {
-            "$value": "{color.slate.950}"
+            "$value": "{color.intent.contrast.solid-active}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.contrast.on-solid}"
           }
         },
         "outlined": {
           "border": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.outline}"
           },
           "text": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.fg}"
           },
           "bg-hover": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.solid}"
           },
           "text-hover": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.contrast.on-solid}"
           }
         },
         "text": {
           "text": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.fg}"
           },
           "bg-hover": {
-            "$value": "{color.slate.200}"
+            "$value": "{color.intent.contrast.soft}"
           },
           "bg-active": {
-            "$value": "{color.slate.300}"
+            "$value": "{color.intent.contrast.soft-hover}"
           }
         },
         "link": {
           "text": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.fg}"
           },
           "underline": {
-            "$value": "{color.slate.400}"
+            "$value": "{color.intent.contrast.outline}"
           },
           "underline-hover": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.solid}"
           }
         }
       }
@@ -685,281 +685,281 @@
       "primary": {
         "soft": {
           "bg": {
-            "$value": "{color.aqua.50}"
+            "$value": "{color.intent.primary.soft}"
           },
           "text": {
-            "$value": "{color.aqua.700}"
+            "$value": "{color.intent.primary.fg}"
           },
           "ring": {
-            "$value": "{color.aqua.200}"
+            "$value": "{color.intent.primary.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.aqua.600}"
+            "$value": "{color.intent.primary.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.primary.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.aqua.700}"
+            "$value": "{color.intent.primary.fg}"
           },
           "ring": {
-            "$value": "{color.aqua.400}"
+            "$value": "{color.intent.primary.outline}"
           }
         },
         "dot": {
-          "$value": "{color.aqua.500}"
+          "$value": "{color.intent.primary.dot}"
         }
       },
       "secondary": {
         "soft": {
           "bg": {
-            "$value": "{color.slate.100}"
+            "$value": "{color.intent.secondary.soft}"
           },
           "text": {
-            "$value": "{color.slate.600}"
+            "$value": "{color.intent.secondary.fg}"
           },
           "ring": {
-            "$value": "{color.slate.200}"
+            "$value": "{color.intent.secondary.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.slate.600}"
+            "$value": "{color.intent.secondary.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.secondary.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.slate.700}"
+            "$value": "{color.intent.secondary.fg}"
           },
           "ring": {
-            "$value": "{color.slate.400}"
+            "$value": "{color.intent.secondary.outline}"
           }
         },
         "dot": {
-          "$value": "{color.slate.400}"
+          "$value": "{color.intent.secondary.dot}"
         }
       },
       "success": {
         "soft": {
           "bg": {
-            "$value": "{color.emerald.50}"
+            "$value": "{color.intent.success.soft}"
           },
           "text": {
-            "$value": "{color.emerald.700}"
+            "$value": "{color.intent.success.fg}"
           },
           "ring": {
-            "$value": "{color.emerald.200}"
+            "$value": "{color.intent.success.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.emerald.600}"
+            "$value": "{color.intent.success.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.success.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.emerald.700}"
+            "$value": "{color.intent.success.fg}"
           },
           "ring": {
-            "$value": "{color.emerald.400}"
+            "$value": "{color.intent.success.outline}"
           }
         },
         "dot": {
-          "$value": "{color.emerald.500}"
+          "$value": "{color.intent.success.dot}"
         }
       },
       "info": {
         "soft": {
           "bg": {
-            "$value": "{color.sky.50}"
+            "$value": "{color.intent.info.soft}"
           },
           "text": {
-            "$value": "{color.sky.700}"
+            "$value": "{color.intent.info.fg}"
           },
           "ring": {
-            "$value": "{color.sky.200}"
+            "$value": "{color.intent.info.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.sky.600}"
+            "$value": "{color.intent.info.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.info.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.sky.700}"
+            "$value": "{color.intent.info.fg}"
           },
           "ring": {
-            "$value": "{color.sky.400}"
+            "$value": "{color.intent.info.outline}"
           }
         },
         "dot": {
-          "$value": "{color.sky.500}"
+          "$value": "{color.intent.info.dot}"
         }
       },
       "warning": {
         "soft": {
           "bg": {
-            "$value": "{color.amber.50}"
+            "$value": "{color.intent.warning.soft}"
           },
           "text": {
-            "$value": "{color.amber.700}"
+            "$value": "{color.intent.warning.fg}"
           },
           "ring": {
-            "$value": "{color.amber.200}"
+            "$value": "{color.intent.warning.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.amber.500}"
+            "$value": "{color.intent.warning.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.warning.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.amber.700}"
+            "$value": "{color.intent.warning.fg}"
           },
           "ring": {
-            "$value": "{color.amber.400}"
+            "$value": "{color.intent.warning.outline}"
           }
         },
         "dot": {
-          "$value": "{color.amber.500}"
+          "$value": "{color.intent.warning.dot}"
         }
       },
       "help": {
         "soft": {
           "bg": {
-            "$value": "{color.violet.50}"
+            "$value": "{color.intent.help.soft}"
           },
           "text": {
-            "$value": "{color.violet.700}"
+            "$value": "{color.intent.help.fg}"
           },
           "ring": {
-            "$value": "{color.violet.200}"
+            "$value": "{color.intent.help.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.violet.600}"
+            "$value": "{color.intent.help.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.help.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.violet.700}"
+            "$value": "{color.intent.help.fg}"
           },
           "ring": {
-            "$value": "{color.violet.400}"
+            "$value": "{color.intent.help.outline}"
           }
         },
         "dot": {
-          "$value": "{color.violet.500}"
+          "$value": "{color.intent.help.dot}"
         }
       },
       "danger": {
         "soft": {
           "bg": {
-            "$value": "{color.rose.50}"
+            "$value": "{color.intent.danger.soft}"
           },
           "text": {
-            "$value": "{color.rose.700}"
+            "$value": "{color.intent.danger.fg}"
           },
           "ring": {
-            "$value": "{color.rose.200}"
+            "$value": "{color.intent.danger.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.rose.600}"
+            "$value": "{color.intent.danger.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.danger.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.rose.700}"
+            "$value": "{color.intent.danger.fg}"
           },
           "ring": {
-            "$value": "{color.rose.400}"
+            "$value": "{color.intent.danger.outline}"
           }
         },
         "dot": {
-          "$value": "{color.rose.500}"
+          "$value": "{color.intent.danger.dot}"
         }
       },
       "contrast": {
         "soft": {
           "bg": {
-            "$value": "{color.slate.200}"
+            "$value": "{color.intent.contrast.soft}"
           },
           "text": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.fg}"
           },
           "ring": {
-            "$value": "{color.slate.300}"
+            "$value": "{color.intent.contrast.border}"
           }
         },
         "solid": {
           "bg": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.solid}"
           },
           "text": {
-            "$value": "{color.white}"
+            "$value": "{color.intent.contrast.on-solid}"
           }
         },
         "outlined": {
           "bg": {
-            "$value": "{color.white}"
+            "$value": "{color.bg.surface}"
           },
           "text": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.fg}"
           },
           "ring": {
-            "$value": "{color.slate.900}"
+            "$value": "{color.intent.contrast.outline}"
           }
         },
         "dot": {
-          "$value": "{color.slate.900}"
+          "$value": "{color.intent.contrast.dot}"
         }
       }
     },
@@ -1033,10 +1033,10 @@
         "$value": "{color.bg.surface}"
       },
       "text": {
-        "$value": "{color.text.default}"
+        "$value": "{color.fg.default}"
       },
       "placeholder": {
-        "$value": "{color.text.muted}"
+        "$value": "{color.fg.subtle}"
       },
       "border": {
         "$value": "{color.border.default}"
@@ -1062,7 +1062,7 @@
         "$description": "emerald-50 at 30%"
       },
       "addon-bg": {
-        "$value": "{color.bg.canvas}"
+        "$value": "{color.bg.sunken}"
       }
     },
     "textarea-min-height": {
@@ -1137,7 +1137,7 @@
     "color": {
       "$type": "color",
       "track-on": {
-        "$value": "{color.aqua.500}"
+        "$value": "{color.intent.primary.solid}"
       },
       "track-off": {
         "$value": "{color.slate.300}"
@@ -1147,7 +1147,7 @@
       }
     },
     "disabled-opacity": {
-      "$value": 0.4,
+      "$value": "{opacity.disabled}",
       "$type": "number"
     },
     "transition": {
@@ -1204,20 +1204,20 @@
     "color": {
       "$type": "color",
       "checked": {
-        "$value": "{color.aqua.500}"
+        "$value": "{color.intent.primary.solid}"
       },
       "border": {
-        "$value": "{color.slate.300}"
+        "$value": "{color.slate.400}"
       },
       "border-hover": {
-        "$value": "{color.aqua.400}"
+        "$value": "{color.aqua.600}"
       },
       "error": {
-        "$value": "{color.rose.600}"
+        "$value": "{color.intent.danger.solid}"
       }
     },
     "disabled-opacity": {
-      "$value": 0.5,
+      "$value": "{opacity.disabled}",
       "$type": "number"
     }
   },
@@ -1252,13 +1252,13 @@
     "color": {
       "$type": "color",
       "checked": {
-        "$value": "{color.aqua.500}"
+        "$value": "{color.intent.primary.solid}"
       },
       "border": {
-        "$value": "{color.slate.300}"
+        "$value": "{color.slate.400}"
       },
       "border-hover": {
-        "$value": "{color.aqua.400}"
+        "$value": "{color.aqua.600}"
       }
     },
     "card": {
@@ -1299,7 +1299,7 @@
     "color": {
       "$type": "color",
       "track": {
-        "$value": "{color.bg.canvas}"
+        "$value": "{color.bg.sunken}"
       },
       "active-bg": {
         "$value": "{color.bg.surface}"
@@ -1308,7 +1308,7 @@
         "$value": "{color.aqua.700}"
       },
       "text": {
-        "$value": "{color.text.muted}"
+        "$value": "{color.fg.subtle}"
       }
     }
   },
@@ -1329,17 +1329,16 @@
         "$value": "{color.slate.200}"
       },
       "primary": {
-        "$value": "{color.aqua.500}"
+        "$value": "{color.intent.primary.solid}"
       },
       "success": {
-        "$value": "{color.emerald.500}"
+        "$value": "{color.intent.success.solid}"
       },
       "warning": {
-        "$value": "{color.amber.500}"
+        "$value": "{color.intent.warning.solid}"
       },
       "danger": {
-        "$value": "{color.rose.600}",
-        "$description": "Inconsistent: other fills use step 500."
+        "$value": "{color.intent.danger.solid}"
       }
     }
   },
@@ -1448,16 +1447,16 @@
     "color": {
       "$type": "color",
       "indicator": {
-        "$value": "{color.aqua.500}"
+        "$value": "{color.intent.primary.solid}"
       },
       "active-text": {
-        "$value": "{color.aqua.700}"
+        "$value": "{color.intent.primary.fg}"
       },
       "text": {
-        "$value": "{color.text.muted}"
+        "$value": "{color.fg.subtle}"
       },
       "pill-active-bg": {
-        "$value": "{color.aqua.600}"
+        "$value": "{color.intent.primary.solid}"
       },
       "pill-active-text": {
         "$value": "{color.white}"
@@ -1475,10 +1474,10 @@
     "color": {
       "$type": "color",
       "complete": {
-        "$value": "{color.aqua.500}"
+        "$value": "{color.intent.primary.solid}"
       },
       "connector-complete": {
-        "$value": "{color.aqua.400}"
+        "$value": "{color.aqua.600}"
       },
       "current-bg": {
         "$value": "{color.aqua.50}"
@@ -1520,7 +1519,7 @@
         "$value": "{color.aqua.600}"
       },
       "hover-bg": {
-        "$value": "{color.bg.ground}"
+        "$value": "{color.bg.page}"
       }
     }
   },
@@ -1623,7 +1622,7 @@
       "$type": "color"
     },
     "text": {
-      "$value": "{color.text.inverse}",
+      "$value": "{color.fg.inverse}",
       "$type": "color"
     },
     "padding-x": {
@@ -1735,7 +1734,7 @@
       "$type": "dimension"
     },
     "scrim": {
-      "$value": "{color.scrim}",
+      "$value": "{color.bg.scrim}",
       "$type": "color"
     },
     "backdrop-blur": {

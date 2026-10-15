@@ -63,7 +63,7 @@ function OpenArt() {
     <div className="space-y-3">
       <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
         <div className="flex items-center gap-2 border-b border-line bg-ground px-4 py-2">
-          <IconGlobe size={14} className="text-brand-600" />
+          <IconGlobe size={14} className="text-brand-700" />
           <span className="min-w-0 truncate font-mono text-[11px] text-ink-muted">pance / design-system</span>
           <span className="ml-auto shrink-0"><Badge severity="success" variant="soft" size="sm">{t('shell.openSource')}</Badge></span>
         </div>
@@ -140,7 +140,7 @@ export function PillarsSection() {
                 onKeyDown={(e) => onKey(e, i)}
                 className={`relative flex min-w-0 items-center gap-3 overflow-hidden rounded-[1.25rem] px-3 py-3 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 sm:px-4 ${on ? 'bg-surface shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-ink)_35%,transparent)] ring-1 ring-line' : 'text-ink-muted hover:bg-surface/60 hover:text-ink'}`}
               >
-                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-colors ${on ? 'bg-brand-600 text-white' : 'bg-brand-50 text-brand-600'}`}>
+                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-colors ${on ? 'bg-brand-600 text-white' : 'bg-brand-50 text-brand-700'}`}>
                   <p.Icon size={18} weight="duotone" />
                 </span>
                 <span className={`min-w-0 text-[13px] font-semibold leading-snug sm:text-sm ${on ? 'text-ink' : ''}`}>{t(p.title)}</span>
@@ -156,7 +156,7 @@ export function PillarsSection() {
               const on = i === active
               return (
                 <div key={p.id} aria-hidden={!on} inert={!on} className={`col-start-1 row-start-1 ${on ? 'pance-rise' : 'invisible'}`}>
-                  <p className="font-mono text-[11px] tracking-[0.18em] text-brand-600">{String(i + 1).padStart(2, '0')} / {String(PILLARS.length).padStart(2, '0')}</p>
+                  <p className="font-mono text-[11px] tracking-[0.18em] text-brand-700">{String(i + 1).padStart(2, '0')} / {String(PILLARS.length).padStart(2, '0')}</p>
                   <h3 className="mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">{t(p.title)}</h3>
                   <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">{t(p.body)}</p>
                 </div>
@@ -250,7 +250,7 @@ export function CoverageSection({ onOpen }: { onOpen: () => void }) {
       <div className="relative mx-auto max-w-[1120px]">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-x-8 gap-y-5 sm:mb-16">
           <div className="min-w-0 max-w-xl">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-600">{t('home.coverage.eyebrow')}</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-700">{t('home.coverage.eyebrow')}</p>
             <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">{t('home.coverage.title')}</h2>
             <p className="mt-3 text-base leading-relaxed text-ink-muted">{t('home.coverage.lede')}</p>
           </div>

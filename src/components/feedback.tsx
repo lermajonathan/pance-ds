@@ -41,9 +41,9 @@ export function Alert({
   const solid = variant === 'solid'
   const shell =
     variant === 'solid'
-      ? `${t.solid.replace('ring-', 'border-')} border`
+      ? `${t.solid} ${t.borderSolid} border`
       : variant === 'outlined'
-        ? `border bg-surface ${t.border.replace('200', '400').replace('line', 'slate-400')}`
+        ? `border bg-surface ${t.borderStrong}`
         : `border ${t.bg} ${t.border}`
 
   return (

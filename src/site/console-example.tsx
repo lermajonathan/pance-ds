@@ -79,7 +79,7 @@ function Kpi({ label, value, sub, delta, upIsGood = true, Icon }: { label: strin
     <div className="rounded-2xl border border-line bg-surface p-5">
       <div className="flex items-center justify-between gap-2">
         <span className="flex items-center gap-2 text-sm font-medium text-ink-muted">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-600"><Icon size={16} /></span>{label}
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-700"><Icon size={16} /></span>{label}
         </span>
         <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-mono text-[11px] font-semibold ${good ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}`}>
           {delta >= 0 ? <IconArrowUp size={10} weight="bold" /> : <IconArrowDown size={10} weight="bold" />}{Math.abs(delta).toFixed(1)}%
@@ -398,7 +398,7 @@ export default function ConsoleExample() {
               <ul className="divide-y divide-line-soft">
                 {DELIVERIES.map((d) => (
                   <li key={d.id} className="flex items-center gap-4 px-6 py-4">
-                    <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${d.onRoute ? 'bg-brand-50 text-brand-600' : 'bg-ground text-ink-muted'}`}><IconBuildings size={18} /></span>
+                    <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${d.onRoute ? 'bg-brand-50 text-brand-700' : 'bg-ground text-ink-muted'}`}><IconBuildings size={18} /></span>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-ink">{d.to}</p>
                       <p className="font-mono text-[11px] text-ink-muted">{d.id} · {d.rider}</p>

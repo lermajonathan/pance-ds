@@ -754,7 +754,7 @@
     "$type": "number",
     "disabled": {
       "$value": 0.45,
-      "$description": "Buttons. (Toggle & tabs use 0.4, checkbox & radio 0.5 — see docs/audit.md.)"
+      "$description": "Single disabled opacity for every control."
     },
     "backdrop": {
       "$value": 0.4,
@@ -773,7 +773,11 @@
   },
   "breakpoint": {
     "$type": "dimension",
-    "$description": "Tailwind defaults as implemented. The Layout page documents sm = 480px — see docs/audit.md.",
+    "$description": "Decided Oct 2026: Tailwind standard breakpoints. xs is the mobile-first base.",
+    "xs": {
+      "$value": "0px",
+      "$description": "Mobile-first base (< 640px)."
+    },
     "sm": {
       "$value": "640px"
     },

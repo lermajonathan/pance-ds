@@ -98,22 +98,23 @@
   --color-rose-950: var(--pance-color-rose-950);
 
   /* Semantic surface / text / line aliases */
-  --color-ground: var(--pance-color-bg-ground);
-  --color-canvas: var(--pance-color-bg-canvas);
+  --color-ground: var(--pance-color-bg-page);
+  --color-canvas: var(--pance-color-bg-sunken);
   --color-surface: var(--pance-color-bg-surface);
-  --color-ink: var(--pance-color-text-default);
-  --color-ink-soft: var(--pance-color-text-soft);
-  --color-ink-muted: var(--pance-color-text-muted);
+  --color-ink: var(--pance-color-fg-default);
+  --color-ink-soft: var(--pance-color-fg-soft);
+  --color-ink-muted: var(--pance-color-fg-muted);
+  --color-ink-subtle: var(--pance-color-fg-subtle);
   --color-line: var(--pance-color-border-default);
   --color-line-soft: var(--pance-color-border-soft);
   --color-river-900: var(--pance-color-river-900);
   --color-river-950: var(--pance-color-river-950);
-  --color-danger: var(--pance-color-intent-danger-solid);
+  --color-danger: var(--pance-color-intent-danger-fg);
   --color-danger-soft: var(--pance-color-intent-danger-soft);
-  --color-success: var(--pance-color-intent-success-solid);
-  --color-warning: var(--pance-color-intent-warning-solid);
-  --color-info: var(--pance-color-intent-info-solid);
-  --color-help: var(--pance-color-intent-help-solid);
+  --color-success: var(--pance-color-intent-success-fg);
+  --color-warning: var(--pance-color-intent-warning-fg);
+  --color-info: var(--pance-color-intent-info-fg);
+  --color-help: var(--pance-color-intent-help-fg);
 
   /* Elevation utilities: shadow-raised, shadow-card, shadow-popover, shadow-modal, shadow-brand… */
   --shadow-raised: var(--pance-shadow-xs);

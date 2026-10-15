@@ -14,7 +14,7 @@ export type IconPos = 'left' | 'right' | 'top' | 'bottom'
 
 const SEV: Record<Severity, Record<ButtonVariant, string> & { raised: string }> = {
   primary: {
-    filled: 'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800',
+    filled: 'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900',
     outlined: 'border border-brand-300 text-brand-700 hover:border-brand-500 hover:bg-brand-50 active:bg-brand-100',
     text: 'text-brand-700 hover:bg-brand-50 active:bg-brand-100',
     link: 'text-brand-700 underline decoration-brand-300 underline-offset-2 hover:decoration-brand-600',
@@ -28,21 +28,21 @@ const SEV: Record<Severity, Record<ButtonVariant, string> & { raised: string }> 
     raised: 'shadow-[0_6px_16px_-6px_rgba(71,85,105,0.55)]',
   },
   success: {
-    filled: 'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800',
+    filled: 'bg-emerald-700 text-white hover:bg-emerald-800 active:bg-emerald-900',
     outlined: 'border border-emerald-300 text-emerald-700 hover:border-emerald-500 hover:bg-emerald-50 active:bg-emerald-100',
     text: 'text-emerald-700 hover:bg-emerald-50 active:bg-emerald-100',
     link: 'text-emerald-700 underline decoration-emerald-300 underline-offset-2 hover:decoration-emerald-600',
     raised: 'shadow-[0_6px_16px_-6px_rgba(5,150,105,0.6)]',
   },
   info: {
-    filled: 'bg-sky-600 text-white hover:bg-sky-700 active:bg-sky-800',
+    filled: 'bg-sky-700 text-white hover:bg-sky-800 active:bg-sky-900',
     outlined: 'border border-sky-300 text-sky-700 hover:border-sky-500 hover:bg-sky-50 active:bg-sky-100',
     text: 'text-sky-700 hover:bg-sky-50 active:bg-sky-100',
     link: 'text-sky-700 underline decoration-sky-300 underline-offset-2 hover:decoration-sky-600',
     raised: 'shadow-[0_6px_16px_-6px_rgba(2,132,199,0.6)]',
   },
   warning: {
-    filled: 'bg-amber-500 text-white hover:bg-amber-600 active:bg-amber-700',
+    filled: 'bg-amber-700 text-white hover:bg-amber-800 active:bg-amber-900',
     outlined: 'border border-amber-300 text-amber-700 hover:border-amber-500 hover:bg-amber-50 active:bg-amber-100',
     text: 'text-amber-700 hover:bg-amber-50 active:bg-amber-100',
     link: 'text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-600',

@@ -47,7 +47,7 @@ export function Badge({
         <button
           type="button"
           onClick={onRemove}
-          className={`-mr-0.5 ml-0.5 rounded-full p-0.5 transition-colors hover:${variant === 'solid' ? 'bg-white/20' : 'bg-black/10'} focus:outline-none`}
+          className={`-mr-0.5 ml-0.5 rounded-full p-0.5 transition-colors ${variant === 'solid' ? 'hover:bg-white/20' : 'hover:bg-black/10'} focus:outline-none`}
           aria-label={tt('ui.remove')}
         >
           <svg className={sz.icon} viewBox="0 0 12 12" fill="none">

@@ -160,123 +160,127 @@ export const tokens = {
       }
     },
     "bg": {
-      "ground": "#f1f5f9",
-      "canvas": "#f8fafc",
+      "page": "#f1f5f9",
       "surface": "#ffffff",
+      "sunken": "#f8fafc",
       "inverse": "#0f172a",
       "river": "#08202e",
-      "river-deep": "#041520"
+      "river-deep": "#041520",
+      "scrim": "rgba(15,23,42,0.4)"
     },
-    "text": {
+    "fg": {
       "default": "#0f172a",
       "soft": "#334155",
-      "muted": "#64748b",
+      "muted": "#475569",
+      "subtle": "#64748b",
       "inverse": "#ffffff",
+      "disabled": "#94a3b8",
       "link": "#0e7490",
-      "eyebrow": "#0891b2"
+      "brand": "#0e7490"
     },
     "border": {
       "default": "#e2e8f0",
       "soft": "#eef2f6",
       "strong": "#cbd5e1",
-      "focus": "#06b6d4"
+      "focus": "#0891b2",
+      "disabled": "#e2e8f0"
     },
     "intent": {
       "primary": {
-        "solid": "#0891b2",
-        "solid-hover": "#0e7490",
-        "solid-active": "#155e75",
+        "solid": "#0e7490",
+        "solid-hover": "#155e75",
+        "solid-active": "#164e63",
+        "on-solid": "#ffffff",
         "soft": "#ecfeff",
         "soft-hover": "#cffafe",
         "border": "#a5f3fc",
         "outline": "#67e8f9",
-        "dot": "#06b6d4",
-        "text": "#0e7490",
-        "on-solid": "#ffffff"
+        "fg": "#0e7490",
+        "dot": "#06b6d4"
       },
       "secondary": {
         "solid": "#475569",
         "solid-hover": "#334155",
         "solid-active": "#1e293b",
+        "on-solid": "#ffffff",
         "soft": "#f1f5f9",
         "soft-hover": "#e2e8f0",
         "border": "#e2e8f0",
         "outline": "#cbd5e1",
-        "dot": "#64748b",
-        "text": "#334155",
-        "on-solid": "#ffffff"
+        "fg": "#334155",
+        "dot": "#94a3b8"
       },
       "success": {
-        "solid": "#059669",
-        "solid-hover": "#047857",
-        "solid-active": "#065f46",
+        "solid": "#047857",
+        "solid-hover": "#065f46",
+        "solid-active": "#064e3b",
+        "on-solid": "#ffffff",
         "soft": "#ecfdf5",
         "soft-hover": "#d1fae5",
         "border": "#a7f3d0",
         "outline": "#6ee7b7",
-        "dot": "#10b981",
-        "text": "#047857",
-        "on-solid": "#ffffff"
+        "fg": "#047857",
+        "dot": "#10b981"
       },
       "info": {
-        "solid": "#0284c7",
-        "solid-hover": "#0369a1",
-        "solid-active": "#075985",
+        "solid": "#0369a1",
+        "solid-hover": "#075985",
+        "solid-active": "#0c4a6e",
+        "on-solid": "#ffffff",
         "soft": "#f0f9ff",
         "soft-hover": "#e0f2fe",
         "border": "#bae6fd",
         "outline": "#7dd3fc",
-        "dot": "#0ea5e9",
-        "text": "#0369a1",
-        "on-solid": "#ffffff"
+        "fg": "#0369a1",
+        "dot": "#0ea5e9"
       },
       "warning": {
-        "solid": "#d97706",
-        "solid-hover": "#b45309",
-        "solid-active": "#92400e",
+        "solid": "#b45309",
+        "solid-hover": "#92400e",
+        "solid-active": "#78350f",
+        "on-solid": "#ffffff",
         "soft": "#fffbeb",
         "soft-hover": "#fef3c7",
         "border": "#fde68a",
         "outline": "#fcd34d",
-        "dot": "#f59e0b",
-        "text": "#b45309",
-        "on-solid": "#ffffff"
+        "fg": "#b45309",
+        "dot": "#f59e0b"
       },
       "help": {
         "solid": "#7c3aed",
         "solid-hover": "#6d28d9",
         "solid-active": "#5b21b6",
+        "on-solid": "#ffffff",
         "soft": "#f5f3ff",
         "soft-hover": "#ede9fe",
         "border": "#ddd6fe",
         "outline": "#c4b5fd",
-        "dot": "#8b5cf6",
-        "text": "#6d28d9",
-        "on-solid": "#ffffff"
+        "fg": "#6d28d9",
+        "dot": "#8b5cf6"
       },
       "danger": {
         "solid": "#e11d48",
         "solid-hover": "#be123c",
         "solid-active": "#9f1231",
+        "on-solid": "#ffffff",
         "soft": "#fff1f2",
         "soft-hover": "#ffe4e6",
         "border": "#fecdd3",
         "outline": "#fda4af",
-        "dot": "#f43f5e",
-        "text": "#be123c",
-        "on-solid": "#ffffff"
+        "fg": "#be123c",
+        "dot": "#f43f5e"
       },
       "contrast": {
         "solid": "#0f172a",
         "solid-hover": "#1e293b",
         "solid-active": "#020617",
+        "on-solid": "#ffffff",
         "soft": "#f1f5f9",
         "soft-hover": "#e2e8f0",
         "border": "#cbd5e1",
         "outline": "#0f172a",
-        "dot": "#0f172a",
-        "text": "#0f172a",
-        "on-solid": "#ffffff"
+        "fg": "#0f172a",
+        "dot": "#0f172a"
       }
     },
     "status": {
@@ -287,17 +291,17 @@ export const tokens = {
     },
     "focus": {
       "ring": "#cffafe",
-      "inner": "#06b6d4"
+      "inner": "#0891b2"
     },
-    "scrim": "rgba(15,23,42,0.4)",
     "skeleton": "rgba(226,232,240,0.7)",
     "dataviz": {
       "surface": "#ffffff",
       "grid": "#e2e8f0",
       "axis": "#94a3b8",
+      "axis-label": "#64748b",
       "baseline": "#cbd5e1",
       "ink": "#0f172a",
-      "ink-muted": "#64748b",
+      "ink-muted": "#475569",
       "positive": "#0891b2",
       "negative": "#e34948"
     }
@@ -422,6 +426,7 @@ export const tokens = {
     "backdrop": "8px"
   },
   "breakpoint": {
+    "xs": "0px",
     "sm": "640px",
     "md": "768px",
     "lg": "1024px",
@@ -466,7 +471,7 @@ export const tokens = {
     "hover-lift": "0px 1px 2px 0px rgba(15,23,42,0.04), 0px 16px 32px -16px rgba(15,23,42,0.28)"
   },
   "focus": {
-    "ring": "0px 0px 0px 3px #cffafe, 0px 0px 0px 1.5px #06b6d4",
+    "ring": "0px 0px 0px 4px #cffafe, 0px 0px 0px 2px #0891b2",
     "ring-danger": "0px 0px 0px 3px #fff1f2, 0px 0px 0px 1.5px #e11d48",
     "ring-success": "0px 0px 0px 3px rgba(5,150,105,0.1), 0px 0px 0px 1.5px rgba(5,150,105,0.7)"
   },
@@ -517,6 +522,18 @@ export const tokens = {
       "fontSize": "20px",
       "fontWeight": 700,
       "lineHeight": 1.4,
+      "letterSpacing": "0em"
+    },
+    "h3-compact": {
+      "fontFamily": [
+        "Plus Jakarta Sans",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ],
+      "fontSize": "18px",
+      "fontWeight": 700,
+      "lineHeight": 1.556,
       "letterSpacing": "0em"
     },
     "h4": {
@@ -672,9 +689,9 @@ export const tokens = {
     "color": {
       "primary": {
         "filled": {
-          "bg": "#0891b2",
-          "bg-hover": "#0e7490",
-          "bg-active": "#155e75",
+          "bg": "#0e7490",
+          "bg-hover": "#155e75",
+          "bg-active": "#164e63",
           "text": "#ffffff"
         },
         "outlined": {
@@ -692,7 +709,7 @@ export const tokens = {
         "link": {
           "text": "#0e7490",
           "underline": "#67e8f9",
-          "underline-hover": "#0891b2"
+          "underline-hover": "#0e7490"
         }
       },
       "secondary": {
@@ -704,10 +721,10 @@ export const tokens = {
         },
         "outlined": {
           "border": "#cbd5e1",
-          "border-hover": "#64748b",
+          "border-hover": "#94a3b8",
           "text": "#334155",
-          "bg-hover": "#f8fafc",
-          "bg-active": "#f1f5f9"
+          "bg-hover": "#f1f5f9",
+          "bg-active": "#e2e8f0"
         },
         "text": {
           "text": "#334155",
@@ -722,9 +739,9 @@ export const tokens = {
       },
       "success": {
         "filled": {
-          "bg": "#059669",
-          "bg-hover": "#047857",
-          "bg-active": "#065f46",
+          "bg": "#047857",
+          "bg-hover": "#065f46",
+          "bg-active": "#064e3b",
           "text": "#ffffff"
         },
         "outlined": {
@@ -742,14 +759,14 @@ export const tokens = {
         "link": {
           "text": "#047857",
           "underline": "#6ee7b7",
-          "underline-hover": "#059669"
+          "underline-hover": "#047857"
         }
       },
       "info": {
         "filled": {
-          "bg": "#0284c7",
-          "bg-hover": "#0369a1",
-          "bg-active": "#075985",
+          "bg": "#0369a1",
+          "bg-hover": "#075985",
+          "bg-active": "#0c4a6e",
           "text": "#ffffff"
         },
         "outlined": {
@@ -767,14 +784,14 @@ export const tokens = {
         "link": {
           "text": "#0369a1",
           "underline": "#7dd3fc",
-          "underline-hover": "#0284c7"
+          "underline-hover": "#0369a1"
         }
       },
       "warning": {
         "filled": {
-          "bg": "#f59e0b",
-          "bg-hover": "#d97706",
-          "bg-active": "#b45309",
+          "bg": "#b45309",
+          "bg-hover": "#92400e",
+          "bg-active": "#78350f",
           "text": "#ffffff"
         },
         "outlined": {
@@ -792,7 +809,7 @@ export const tokens = {
         "link": {
           "text": "#b45309",
           "underline": "#fcd34d",
-          "underline-hover": "#d97706"
+          "underline-hover": "#b45309"
         }
       },
       "help": {
@@ -860,12 +877,12 @@ export const tokens = {
         },
         "text": {
           "text": "#0f172a",
-          "bg-hover": "#e2e8f0",
-          "bg-active": "#cbd5e1"
+          "bg-hover": "#f1f5f9",
+          "bg-active": "#e2e8f0"
         },
         "link": {
           "text": "#0f172a",
-          "underline": "#94a3b8",
+          "underline": "#0f172a",
           "underline-hover": "#0f172a"
         }
       }
@@ -919,20 +936,20 @@ export const tokens = {
           "ring": "#a5f3fc"
         },
         "solid": {
-          "bg": "#0891b2",
+          "bg": "#0e7490",
           "text": "#ffffff"
         },
         "outlined": {
           "bg": "#ffffff",
           "text": "#0e7490",
-          "ring": "#22d3ee"
+          "ring": "#67e8f9"
         },
         "dot": "#06b6d4"
       },
       "secondary": {
         "soft": {
           "bg": "#f1f5f9",
-          "text": "#475569",
+          "text": "#334155",
           "ring": "#e2e8f0"
         },
         "solid": {
@@ -942,7 +959,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#334155",
-          "ring": "#94a3b8"
+          "ring": "#cbd5e1"
         },
         "dot": "#94a3b8"
       },
@@ -953,13 +970,13 @@ export const tokens = {
           "ring": "#a7f3d0"
         },
         "solid": {
-          "bg": "#059669",
+          "bg": "#047857",
           "text": "#ffffff"
         },
         "outlined": {
           "bg": "#ffffff",
           "text": "#047857",
-          "ring": "#34d399"
+          "ring": "#6ee7b7"
         },
         "dot": "#10b981"
       },
@@ -970,13 +987,13 @@ export const tokens = {
           "ring": "#bae6fd"
         },
         "solid": {
-          "bg": "#0284c7",
+          "bg": "#0369a1",
           "text": "#ffffff"
         },
         "outlined": {
           "bg": "#ffffff",
           "text": "#0369a1",
-          "ring": "#38bdf8"
+          "ring": "#7dd3fc"
         },
         "dot": "#0ea5e9"
       },
@@ -987,13 +1004,13 @@ export const tokens = {
           "ring": "#fde68a"
         },
         "solid": {
-          "bg": "#f59e0b",
+          "bg": "#b45309",
           "text": "#ffffff"
         },
         "outlined": {
           "bg": "#ffffff",
           "text": "#b45309",
-          "ring": "#fbbf24"
+          "ring": "#fcd34d"
         },
         "dot": "#f59e0b"
       },
@@ -1010,7 +1027,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#6d28d9",
-          "ring": "#a78bfa"
+          "ring": "#c4b5fd"
         },
         "dot": "#8b5cf6"
       },
@@ -1027,13 +1044,13 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#be123c",
-          "ring": "#fb7185"
+          "ring": "#fda4af"
         },
         "dot": "#f43f5e"
       },
       "contrast": {
         "soft": {
-          "bg": "#e2e8f0",
+          "bg": "#f1f5f9",
           "text": "#0f172a",
           "ring": "#cbd5e1"
         },
@@ -1083,7 +1100,7 @@ export const tokens = {
       "placeholder": "#64748b",
       "border": "#e2e8f0",
       "border-hover": "#cbd5e1",
-      "border-focus": "#06b6d4",
+      "border-focus": "#0891b2",
       "error-border": "#e11d48",
       "error-bg": "rgba(255,241,242,0.4)",
       "success-border": "#34d399",
@@ -1143,11 +1160,11 @@ export const tokens = {
       }
     },
     "color": {
-      "track-on": "#06b6d4",
+      "track-on": "#0e7490",
       "track-off": "#cbd5e1",
       "thumb": "#ffffff"
     },
-    "disabled-opacity": 0.4,
+    "disabled-opacity": 0.45,
     "transition": "300ms 0.4,0,0.2,1 0ms"
   },
   "checkbox": {
@@ -1172,12 +1189,12 @@ export const tokens = {
       }
     },
     "color": {
-      "checked": "#06b6d4",
-      "border": "#cbd5e1",
-      "border-hover": "#22d3ee",
+      "checked": "#0e7490",
+      "border": "#94a3b8",
+      "border-hover": "#0891b2",
       "error": "#e11d48"
     },
-    "disabled-opacity": 0.5
+    "disabled-opacity": 0.45
   },
   "radio": {
     "size": {
@@ -1195,9 +1212,9 @@ export const tokens = {
       }
     },
     "color": {
-      "checked": "#06b6d4",
-      "border": "#cbd5e1",
-      "border-hover": "#22d3ee"
+      "checked": "#0e7490",
+      "border": "#94a3b8",
+      "border-hover": "#0891b2"
     },
     "card": {
       "bg-checked": "#ecfeff",
@@ -1227,9 +1244,9 @@ export const tokens = {
     "thumb-border": "2px",
     "color": {
       "track": "#e2e8f0",
-      "primary": "#06b6d4",
-      "success": "#10b981",
-      "warning": "#f59e0b",
+      "primary": "#0e7490",
+      "success": "#047857",
+      "warning": "#b45309",
       "danger": "#e11d48"
     }
   },
@@ -1275,10 +1292,10 @@ export const tokens = {
     },
     "indicator-height": "2px",
     "color": {
-      "indicator": "#06b6d4",
+      "indicator": "#0e7490",
       "active-text": "#0e7490",
       "text": "#64748b",
-      "pill-active-bg": "#0891b2",
+      "pill-active-bg": "#0e7490",
       "pill-active-text": "#ffffff"
     }
   },
@@ -1286,8 +1303,8 @@ export const tokens = {
     "dot": "32px",
     "connector": "2px",
     "color": {
-      "complete": "#06b6d4",
-      "connector-complete": "#22d3ee",
+      "complete": "#0e7490",
+      "connector-complete": "#0891b2",
       "current-bg": "#ecfeff",
       "current-text": "#0e7490",
       "upcoming": "#e2e8f0",

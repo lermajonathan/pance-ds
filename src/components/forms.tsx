@@ -9,9 +9,9 @@ const inputBase =
   `${focus} w-full rounded-xl border bg-surface text-ink placeholder:text-ink-muted transition-colors duration-200`
 const inputNormal = 'border-line hover:border-slate-300'
 const inputError =
-  'border-danger bg-rose-50/40 focus-visible:shadow-[0_0_0_3px_var(--color-danger-soft),0_0_0_1.5px_var(--color-danger)]'
+  'border-danger bg-rose-50/40 focus-visible:shadow-[var(--pance-focus-ring-danger)]'
 const inputSuccess =
-  'border-emerald-400 bg-emerald-50/30 focus-visible:shadow-[0_0_0_3px_rgba(5,150,105,0.1),0_0_0_1.5px_rgba(5,150,105,0.7)]'
+  'border-emerald-400 bg-emerald-50/30 focus-visible:shadow-[var(--pance-focus-ring-success)]'
 
 export type InputSize = 'sm' | 'md' | 'lg'
 const INPUT_SIZE: Record<InputSize, string> = {
@@ -163,7 +163,7 @@ export function InputGroup({
   children: ReactNode
 }) {
   return (
-    <div className="flex items-stretch rounded-xl border border-line bg-surface transition-colors focus-within:border-brand-500 focus-within:shadow-[0_0_0_3px_var(--color-brand-100),0_0_0_1.5px_var(--color-brand-500)]">
+    <div className="flex items-stretch rounded-xl border border-line bg-surface transition-colors focus-within:border-brand-500 focus-within:shadow-[var(--pance-focus-ring)]">
       {(prefix || PrefixIcon) && (
         <span className="flex shrink-0 items-center gap-1.5 rounded-l-xl border-r border-line bg-canvas px-3 text-sm text-ink-muted">
           {PrefixIcon && <PrefixIcon className="h-4 w-4" />}
@@ -204,10 +204,10 @@ export function RangeSlider({
 }) {
   const pct = ((value - min) / (max - min)) * 100
   const trackColor: Record<string, string> = {
-    primary: '#06b6d4',
-    success: '#10b981',
-    warning: '#f59e0b',
-    danger: '#e11d48',
+    primary: 'var(--pance-color-intent-primary-solid)',
+    success: 'var(--pance-color-intent-success-solid)',
+    warning: 'var(--pance-color-intent-warning-solid)',
+    danger: 'var(--pance-color-intent-danger-solid)',
   }
   const thumb = trackColor[severity]
   return (
@@ -221,7 +221,7 @@ export function RangeSlider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-200 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110 [&:focus]:outline-none"
         style={{
-          background: `linear-gradient(to right, ${thumb} ${pct}%, #e2e8f0 ${pct}%)`,
+          background: `linear-gradient(to right, ${thumb} ${pct}%, var(--pance-color-border-default) ${pct}%)`,
           ['--thumb' as string]: thumb,
         }}
       />
@@ -264,13 +264,13 @@ export function FileDropzone({
       >
         <input ref={inputRef} type="file" accept={accept} multiple className="sr-only" onChange={(e) => handle(e.target.files)} />
         {DropIcon && (
-          <span className={`grid h-12 w-12 place-items-center rounded-xl transition-colors ${over ? 'bg-brand-100 text-brand-600' : 'bg-slate-100 text-ink-muted'}`}>
+          <span className={`grid h-12 w-12 place-items-center rounded-xl transition-colors ${over ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-ink-muted'}`}>
             <DropIcon size={24} />
           </span>
         )}
         <div>
           <p className="text-sm font-semibold text-ink">
-            <span className="text-brand-600">{tt('ui.clickToUpload')}</span> {tt('ui.orDrag')}
+            <span className="text-brand-700">{tt('ui.clickToUpload')}</span> {tt('ui.orDrag')}
           </p>
           {hint && <p className="mt-1 text-xs text-ink-muted">{hint}</p>}
         </div>
@@ -400,7 +400,7 @@ export function InlineEdit({
           if (e.key === 'Enter') commit()
           if (e.key === 'Escape') { setDraft(value); setEditing(false) }
         }}
-        className={`${focus} -mx-2 rounded-lg border border-brand-400 bg-brand-50 px-2 py-0.5 text-sm font-medium text-ink shadow-[0_0_0_3px_var(--color-brand-100)]`}
+        className={`${focus} -mx-2 rounded-lg border border-brand-400 bg-brand-50 px-2 py-0.5 text-sm font-medium text-ink shadow-[var(--pance-focus-ring)]`}
       />
     )
   }
@@ -484,7 +484,7 @@ export function Combobox({
                 >
                   <span>{o.label}</span>
                   <span className="font-mono text-[11px] text-ink-muted">{o.meta}</span>
-                  {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-brand-600" />}
+                  {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-brand-700" />}
                 </button>
               </li>
             ))
@@ -510,7 +510,7 @@ export function Select({ options, value, onChange }: { options: string[]; value:
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between border-line text-left hover:border-slate-300 ${open ? 'border-brand-500 shadow-[0_0_0_3px_var(--color-brand-100),0_0_0_1.5px_var(--color-brand-500)]' : ''}`}
+        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between border-line text-left hover:border-slate-300 ${open ? 'border-brand-500 shadow-[var(--pance-focus-ring)]' : ''}`}
       >
         <span className="flex items-center gap-2 truncate">
           <span className="h-2 w-2 shrink-0 rounded-full bg-brand-500" />
@@ -531,7 +531,7 @@ export function Select({ options, value, onChange }: { options: string[]; value:
                 className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o === value ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground'}`}
               >
                 {o}
-                {o === value && <IconCheck className="h-4 w-4 text-brand-600" />}
+                {o === value && <IconCheck className="h-4 w-4 text-brand-700" />}
               </button>
             </li>
           ))}
@@ -579,7 +579,7 @@ export function TagInput({
     <div className="relative">
       <div
         onClick={() => inputRef.current?.focus()}
-        className={`${focus} flex min-h-[42px] cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-brand-500 shadow-[0_0_0_3px_var(--color-brand-100),0_0_0_1.5px_var(--color-brand-500)]' : 'border-line hover:border-slate-300'}`}
+        className={`${focus} flex min-h-[42px] cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-brand-500 shadow-[var(--pance-focus-ring)]' : 'border-line hover:border-slate-300'}`}
       >
         {tags.map((tag) => (
           <span key={tag} className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-brand-200">

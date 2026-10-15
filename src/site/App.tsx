@@ -156,7 +156,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
                   title={collapsed ? label : undefined}
                   className={`pance-focus group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${collapsed ? 'lg:justify-center lg:gap-0 lg:px-0' : ''} ${isActive ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}
                 >
-                  <Icon size={18} weight={isActive ? 'fill' : 'regular'} className={`shrink-0 ${isActive ? 'text-brand-600' : 'text-ink-muted group-hover:text-ink-soft'}`} />
+                  <Icon size={18} weight={isActive ? 'fill' : 'regular'} className={`shrink-0 ${isActive ? 'text-brand-700' : 'text-ink-muted group-hover:text-ink-soft'}`} />
                   <span className={`min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-left transition-all duration-300 ${collapsed ? 'opacity-100 lg:w-0 lg:opacity-0' : 'opacity-100'}`}>{label}</span>
                 </Link>
               )

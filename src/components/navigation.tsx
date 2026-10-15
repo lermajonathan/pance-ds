@@ -43,9 +43,9 @@ export function Tabs({
               key={key}
               disabled={disabled}
               onClick={() => !disabled && onChange(key)}
-              className={`${focus} inline-flex items-center gap-1.5 rounded-xl font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${TAB_PAD[size]} ${
+              className={`${focus} inline-flex items-center gap-1.5 rounded-xl font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${TAB_PAD[size]} ${
                 active
-                  ? 'bg-brand-600 text-white shadow-sm'
+                  ? 'bg-brand-700 text-white shadow-sm'
                   : 'text-ink-soft hover:bg-ground hover:text-ink'
               }`}
             >
@@ -74,7 +74,7 @@ export function Tabs({
               key={key}
               disabled={disabled}
               onClick={() => !disabled && onChange(key)}
-              className={`${focus} inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${TAB_PAD[size]} ${
+              className={`${focus} inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${TAB_PAD[size]} ${
                 active
                   ? 'bg-surface text-brand-700 shadow-sm ring-1 ring-line'
                   : 'text-ink-muted hover:text-ink-soft'
@@ -106,7 +106,7 @@ export function Tabs({
               key={key}
               disabled={disabled}
               onClick={() => !disabled && onChange(key)}
-              className={`${focus} relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${TAB_PAD[size]} ${
+              className={`${focus} relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${TAB_PAD[size]} ${
                 active ? 'text-brand-700' : 'text-ink-muted hover:text-ink-soft'
               }`}
             >
@@ -117,7 +117,7 @@ export function Tabs({
                   {badge}
                 </span>
               )}
-              <span className={`absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-brand-500 transition-all duration-300 ${active ? 'opacity-100' : 'opacity-0'}`} />
+              <span className={`absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-brand-700 transition-all duration-300 ${active ? 'opacity-100' : 'opacity-0'}`} />
             </button>
           )
         })}
@@ -216,7 +216,7 @@ export function Steps({
             <li key={s.label} className="relative flex gap-4">
               {!last && (
                 <span
-                  className={`absolute left-[15px] top-8 h-[calc(100%-8px)] w-0.5 ${s.status === 'complete' ? 'bg-brand-400' : 'bg-line'}`}
+                  className={`absolute left-[15px] top-8 h-[calc(100%-8px)] w-0.5 ${s.status === 'complete' ? 'bg-brand-600' : 'bg-line'}`}
                 />
               )}
               <span className="relative z-10 mt-1.5 flex shrink-0 flex-col items-center">
@@ -243,11 +243,11 @@ export function Steps({
           <li key={s.label} className="relative flex min-w-0 flex-1 flex-col items-center gap-2">
             <div className="flex w-full items-center">
               {i > 0 && (
-                <span className={`h-0.5 flex-1 ${resolved[i - 1].status === 'complete' ? 'bg-brand-400' : 'bg-line'}`} />
+                <span className={`h-0.5 flex-1 ${resolved[i - 1].status === 'complete' ? 'bg-brand-600' : 'bg-line'}`} />
               )}
               <StepDot status={s.status} index={i + 1} />
               {!last && (
-                <span className={`h-0.5 flex-1 ${s.status === 'complete' ? 'bg-brand-400' : 'bg-line'}`} />
+                <span className={`h-0.5 flex-1 ${s.status === 'complete' ? 'bg-brand-600' : 'bg-line'}`} />
               )}
             </div>
             <div className="max-w-[100px] text-center">
@@ -265,8 +265,8 @@ export function Steps({
 
 function StepDot({ status, index }: { status: StepStatus; index: number }) {
   const base = 'grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[13px] font-bold transition-colors'
-  if (status === 'complete') return <span className={`${base} bg-brand-500 text-white`}><IconCheck className="h-4 w-4" /></span>
-  if (status === 'current') return <span className={`${base} border-2 border-brand-500 bg-brand-50 text-brand-700`}>{index}</span>
+  if (status === 'complete') return <span className={`${base} bg-brand-700 text-white`}><IconCheck className="h-4 w-4" /></span>
+  if (status === 'current') return <span className={`${base} border-2 border-brand-700 bg-brand-50 text-brand-700`}>{index}</span>
   if (status === 'error') return <span className={`${base} border-2 border-danger bg-rose-50 text-danger`}><IconAlert className="h-4 w-4" /></span>
   return <span className={`${base} border-2 border-line bg-surface text-ink-muted`}>{index}</span>
 }
@@ -314,12 +314,12 @@ export function NavMenu({
                 else onChange(item.key)
               }}
               title={collapsed ? item.label : undefined}
-              className={`${focus} group relative flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40 ${
+              className={`${focus} group relative flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ${
                 active ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'
               }`}
             >
               {item.Icon && (
-                <item.Icon size={18} weight={active ? 'fill' : 'regular'} className={`shrink-0 ${active ? 'text-brand-600' : 'text-ink-muted group-hover:text-ink-soft'}`} />
+                <item.Icon size={18} weight={active ? 'fill' : 'regular'} className={`shrink-0 ${active ? 'text-brand-700' : 'text-ink-muted group-hover:text-ink-soft'}`} />
               )}
               {!collapsed && (
                 <>
@@ -343,7 +343,7 @@ export function NavMenu({
                       type="button"
                       disabled={child.disabled}
                       onClick={() => onChange(child.key)}
-                      className={`${focus} flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+                      className={`${focus} flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                         childActive ? 'bg-brand-50 font-medium text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'
                       }`}
                     >
