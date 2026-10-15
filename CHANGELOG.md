@@ -4,6 +4,11 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Figma
+- New components bound to tokens: Avatar (20 variants) and Avatar group, Progress, Segmented control, Steps (Step, connector), Metric card (with Delta), and the Data table family (header cell, cell, row, composed table).
+- Dogfooding gaps closed: Field has separate hint / error / success messages and an exposed, swappable control (Select now sits inside Field); Input separates placeholder and value.
+- New "Streams dashboard" pattern built only from instances.
+
 ### Tokens
 - Components are token-driven: every colour comes from a semantic utility (`bg-primary-solid`, `text-danger-fg`, `border-line-strong`, `text-ink-muted`…) or a component token (`bg-(--pance-button-color-primary-filled-bg)`). Button, Badge, Toggle, Checkbox, Radio, Steps, Tabs, Avatar and Tooltip read their component tokens directly.
 - `theme.css` adds 88 intent utilities (`{intent}-{solid|solid-hover|solid-active|on-solid|soft|soft-hover|border|outline|border-strong|fg|dot}`), neutrals (`ink-disabled`, `ink-inverse`, `ink-brand`, `ink-link`, `line-strong`, `line-focus`, `surface-inverse`, `scrim`) and `shadow-card-rest` / `shadow-hover-lift`.

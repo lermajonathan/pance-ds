@@ -3,7 +3,7 @@
 A production-ready design system built for products where complex data and human impact meet. Pance is inspired by a river: a vibrant aquatic teal for every interactive moment, grounded by a high-contrast slate neutral and a strict 8pt grid.
 
 **Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español  
-**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 792 variables, 20 core components and 67 icons, mirrored from this repo ([details](docs/figma.md))
+**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 792 variables, 34 components (840 variants) and 67 icons, mirrored from this repo ([details](docs/figma.md))
 
 This repository contains:
 
