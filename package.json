@@ -2,7 +2,8 @@
   "name": "pance-design-system",
   "private": true,
   "version": "1.0.0",
-  "description": "Pance Design System — river-inspired tokens, React components and documentation site. Bilingual (EN/ES).",
+  "description": "Pance Design System \u2014 river-inspired tokens, React components and documentation site. Bilingual (EN/ES).",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",

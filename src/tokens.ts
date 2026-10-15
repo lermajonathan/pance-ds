@@ -195,6 +195,7 @@ export const tokens = {
         "soft-hover": "#cffafe",
         "border": "#a5f3fc",
         "outline": "#67e8f9",
+        "border-strong": "#22d3ee",
         "fg": "#0e7490",
         "dot": "#06b6d4"
       },
@@ -207,6 +208,7 @@ export const tokens = {
         "soft-hover": "#e2e8f0",
         "border": "#e2e8f0",
         "outline": "#cbd5e1",
+        "border-strong": "#94a3b8",
         "fg": "#334155",
         "dot": "#94a3b8"
       },
@@ -219,6 +221,7 @@ export const tokens = {
         "soft-hover": "#d1fae5",
         "border": "#a7f3d0",
         "outline": "#6ee7b7",
+        "border-strong": "#34d399",
         "fg": "#047857",
         "dot": "#10b981"
       },
@@ -231,6 +234,7 @@ export const tokens = {
         "soft-hover": "#e0f2fe",
         "border": "#bae6fd",
         "outline": "#7dd3fc",
+        "border-strong": "#38bdf8",
         "fg": "#0369a1",
         "dot": "#0ea5e9"
       },
@@ -243,6 +247,7 @@ export const tokens = {
         "soft-hover": "#fef3c7",
         "border": "#fde68a",
         "outline": "#fcd34d",
+        "border-strong": "#fbbf24",
         "fg": "#b45309",
         "dot": "#f59e0b"
       },
@@ -255,6 +260,7 @@ export const tokens = {
         "soft-hover": "#ede9fe",
         "border": "#ddd6fe",
         "outline": "#c4b5fd",
+        "border-strong": "#a78bfa",
         "fg": "#6d28d9",
         "dot": "#8b5cf6"
       },
@@ -267,6 +273,7 @@ export const tokens = {
         "soft-hover": "#ffe4e6",
         "border": "#fecdd3",
         "outline": "#fda4af",
+        "border-strong": "#fb7185",
         "fg": "#be123c",
         "dot": "#f43f5e"
       },
@@ -279,6 +286,7 @@ export const tokens = {
         "soft-hover": "#e2e8f0",
         "border": "#cbd5e1",
         "outline": "#0f172a",
+        "border-strong": "#0f172a",
         "fg": "#0f172a",
         "dot": "#0f172a"
       }
@@ -942,7 +950,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#0e7490",
-          "ring": "#67e8f9"
+          "ring": "#22d3ee"
         },
         "dot": "#06b6d4"
       },
@@ -959,7 +967,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#334155",
-          "ring": "#cbd5e1"
+          "ring": "#94a3b8"
         },
         "dot": "#94a3b8"
       },
@@ -976,7 +984,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#047857",
-          "ring": "#6ee7b7"
+          "ring": "#34d399"
         },
         "dot": "#10b981"
       },
@@ -993,7 +1001,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#0369a1",
-          "ring": "#7dd3fc"
+          "ring": "#38bdf8"
         },
         "dot": "#0ea5e9"
       },
@@ -1010,7 +1018,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#b45309",
-          "ring": "#fcd34d"
+          "ring": "#fbbf24"
         },
         "dot": "#f59e0b"
       },
@@ -1027,7 +1035,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#6d28d9",
-          "ring": "#c4b5fd"
+          "ring": "#a78bfa"
         },
         "dot": "#8b5cf6"
       },
@@ -1044,7 +1052,7 @@ export const tokens = {
         "outlined": {
           "bg": "#ffffff",
           "text": "#be123c",
-          "ring": "#fda4af"
+          "ring": "#fb7185"
         },
         "dot": "#f43f5e"
       },
@@ -1161,7 +1169,7 @@ export const tokens = {
     },
     "color": {
       "track-on": "#0e7490",
-      "track-off": "#cbd5e1",
+      "track-off": "#94a3b8",
       "thumb": "#ffffff"
     },
     "disabled-opacity": 0.45,
@@ -1235,7 +1243,7 @@ export const tokens = {
       "track": "#f8fafc",
       "active-bg": "#ffffff",
       "active-text": "#0e7490",
-      "text": "#64748b"
+      "text": "#475569"
     }
   },
   "range-slider": {
@@ -1294,7 +1302,7 @@ export const tokens = {
     "color": {
       "indicator": "#0e7490",
       "active-text": "#0e7490",
-      "text": "#64748b",
+      "text": "#475569",
       "pill-active-bg": "#0e7490",
       "pill-active-text": "#ffffff"
     }
@@ -1319,7 +1327,7 @@ export const tokens = {
     "color": {
       "active-bg": "#ecfeff",
       "active-text": "#0e7490",
-      "active-icon": "#0891b2",
+      "active-icon": "#0e7490",
       "hover-bg": "#f1f5f9"
     }
   },

@@ -2,13 +2,14 @@
 
 A production-ready design system built for products where complex data and human impact meet. Pance is inspired by a river: a vibrant aquatic teal for every interactive moment, grounded by a high-contrast slate neutral and a strict 8pt grid.
 
-**Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español
+**Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español  
+**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 789 variables, 20 core components and 67 icons, mirrored from this repo ([details](docs/figma.md))
 
 This repository contains:
 
 | | What | Where |
 |---|---|---|
-| 🎨 | **Design tokens**: 838 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
+| 🎨 | **Design tokens**: 852 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
 | 🧩 | **React components**: 45 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
 | 🔣 | **Iconography**: 67 semantic aliases over Phosphor Icons | [`src/icons.tsx`](src/icons.tsx) |
 | 📖 | **Documentation site**: the bilingual explorer published at the URL above | [`src/site/`](src/site) |
@@ -32,9 +33,9 @@ pnpm typecheck
 tokens/primitives.json   Raw values: 7 color ramps (50→950), type families, sizes, 8pt spacing,
         │                radius, durations, easings, breakpoints, data-viz palettes
         ▼
-tokens/semantic.json     Purpose: bg / text / border, 8 intents (primary · secondary · success ·
+tokens/semantic.json     Purpose: bg / fg / border, 8 intents (primary · secondary · success ·
         │                info · warning · help · danger · contrast), elevation 0–5, focus ring,
-        ▼                typography roles, motion
+        ▼                typography roles, motion. Light + draft dark ($extensions)
 tokens/components.json   Decisions per component: button size × severity × variant, input sizes,
                          toggle tracks, modal widths, tooltip, toast…
 ```
@@ -55,7 +56,7 @@ tokens/components.json   Decisions per component: button size × severity × var
 
 | | |
 |---|---|
-| **Brand** | Aqua `#0891b2` (aqua-600) · river dark `#08202e` |
+| **Brand** | Aqua `#0891b2` (aqua-600) · solid fills aqua-700 `#0e7490` for AA contrast · river dark `#08202e` |
 | **Neutrals** | Slate 50→950 · ground `#f1f5f9` · canvas `#f8fafc` · surface `#ffffff` · ink `#0f172a` |
 | **Intents** | success emerald · info sky · warning amber · help violet · danger rose · contrast slate-900 |
 | **Type** | Plus Jakarta Sans (display) · Inter (body/UI) · JetBrains Mono (data/labels) |
@@ -109,6 +110,14 @@ Every component shares one model: **severity** (what it means) is independent fr
 1. Change values in `tokens/*.json` and keep aliases (`{color.aqua.600}`) rather than duplicating hex.
 2. Run `pnpm build` to regenerate CSS, TS, JSON and docs, then commit the generated files with your change.
 3. New components go in the matching file under `src/components/` and get re-exported from `src/components/index.ts`.
+
+## Accessibility
+
+Target: **WCAG 2.2 AA**. Semantic text tokens are chosen to reach 4.5:1 on the backgrounds they're meant for (each ratio is in the token description), and control fills reach 3:1. An axe-core run across the 20 site pages went from 975 to 339 violations after the token changes. What's left (ARIA patterns for Modal, Tabs, Select and Tooltip; disabled-state labels; a few docs-site details) is tracked in [docs/audit.md](docs/audit.md).
+
+## License
+
+[MIT](LICENSE) © Jonathan Lerma. Typefaces are under the SIL Open Font License; icons by Phosphor (MIT).
 
 ## Credits
 

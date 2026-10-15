@@ -2,6 +2,22 @@
 
 These notes were made while extracting tokens and components from the Figma Make source (October 2026). Each item lists what the documentation says, what the code does, and a suggested fix. Items marked **✅ resolved in this repo** were fixed during extraction. Everything else was left exactly as published so the repo matches the live site.
 
+## Status — October 15, 2026
+
+Decisions taken: Aqua is the brand, the repo JSON is the single source of truth (synced to Figma), solid fills with white text use step 700, `sm` breakpoint is 640px, dark mode ships in v1.1, MIT license.
+
+| Item | Status |
+|---|---|
+| §2.1–2.3 Class-generation bugs | ✅ Fixed |
+| §3.1–3.4 Contrast (warning fill, control fills, solid fills, ink-muted) | ✅ Fixed in tokens and code (axe contrast nodes 771 → 135; the rest are disabled labels and docs-site meta text) |
+| §4.1 Breakpoint | ✅ Decided: 640px; docs updated |
+| §4.2 H3 size | ✅ Decided: 20px (`typography/h3`), 18px is `typography/h3-compact` for modal/drawer titles |
+| §4.5 Warning solid | ✅ amber-700 everywhere |
+| §5.1 Disabled opacity | ✅ 0.45 everywhere |
+| Figma library | ✅ Rebuilt from tokens: 789 variables, 14 text + 13 effect styles, 67 icons, 20 core components ([docs/figma.md](figma.md)) |
+| §3.5–3.10 ARIA patterns, keyboard, Field association | ⏳ Next |
+| §6 Components reading semantic tokens, i18n/router decoupling, npm packages | ⏳ Next |
+
 ## 1 · Changes made during extraction
 
 | # | Change | Visual impact |

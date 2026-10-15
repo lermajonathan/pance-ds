@@ -710,7 +710,7 @@
             "$value": "{color.intent.primary.fg}"
           },
           "ring": {
-            "$value": "{color.intent.primary.outline}"
+            "$value": "{color.intent.primary.border-strong}"
           }
         },
         "dot": {
@@ -745,7 +745,7 @@
             "$value": "{color.intent.secondary.fg}"
           },
           "ring": {
-            "$value": "{color.intent.secondary.outline}"
+            "$value": "{color.intent.secondary.border-strong}"
           }
         },
         "dot": {
@@ -780,7 +780,7 @@
             "$value": "{color.intent.success.fg}"
           },
           "ring": {
-            "$value": "{color.intent.success.outline}"
+            "$value": "{color.intent.success.border-strong}"
           }
         },
         "dot": {
@@ -815,7 +815,7 @@
             "$value": "{color.intent.info.fg}"
           },
           "ring": {
-            "$value": "{color.intent.info.outline}"
+            "$value": "{color.intent.info.border-strong}"
           }
         },
         "dot": {
@@ -850,7 +850,7 @@
             "$value": "{color.intent.warning.fg}"
           },
           "ring": {
-            "$value": "{color.intent.warning.outline}"
+            "$value": "{color.intent.warning.border-strong}"
           }
         },
         "dot": {
@@ -885,7 +885,7 @@
             "$value": "{color.intent.help.fg}"
           },
           "ring": {
-            "$value": "{color.intent.help.outline}"
+            "$value": "{color.intent.help.border-strong}"
           }
         },
         "dot": {
@@ -920,7 +920,7 @@
             "$value": "{color.intent.danger.fg}"
           },
           "ring": {
-            "$value": "{color.intent.danger.outline}"
+            "$value": "{color.intent.danger.border-strong}"
           }
         },
         "dot": {
@@ -955,7 +955,7 @@
             "$value": "{color.intent.contrast.fg}"
           },
           "ring": {
-            "$value": "{color.intent.contrast.outline}"
+            "$value": "{color.intent.contrast.border-strong}"
           }
         },
         "dot": {
@@ -1140,7 +1140,7 @@
         "$value": "{color.intent.primary.solid}"
       },
       "track-off": {
-        "$value": "{color.slate.300}"
+        "$value": "{color.slate.400}"
       },
       "thumb": {
         "$value": "{color.white}"
@@ -1308,7 +1308,7 @@
         "$value": "{color.aqua.700}"
       },
       "text": {
-        "$value": "{color.fg.subtle}"
+        "$value": "{color.fg.muted}"
       }
     }
   },
@@ -1453,7 +1453,7 @@
         "$value": "{color.intent.primary.fg}"
       },
       "text": {
-        "$value": "{color.fg.subtle}"
+        "$value": "{color.fg.muted}"
       },
       "pill-active-bg": {
         "$value": "{color.intent.primary.solid}"
@@ -1516,7 +1516,7 @@
         "$value": "{color.aqua.700}"
       },
       "active-icon": {
-        "$value": "{color.aqua.600}"
+        "$value": "{color.aqua.700}"
       },
       "hover-bg": {
         "$value": "{color.bg.page}"

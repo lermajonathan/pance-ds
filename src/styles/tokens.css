@@ -269,6 +269,7 @@
   --pance-color-intent-primary-soft-hover: var(--pance-color-aqua-100);
   --pance-color-intent-primary-border: var(--pance-color-aqua-200);
   --pance-color-intent-primary-outline: var(--pance-color-aqua-300);
+  --pance-color-intent-primary-border-strong: var(--pance-color-aqua-400);
   --pance-color-intent-primary-fg: var(--pance-color-aqua-700);
   --pance-color-intent-primary-dot: var(--pance-color-aqua-500);
   --pance-color-intent-secondary-solid: var(--pance-color-slate-600);
@@ -279,6 +280,7 @@
   --pance-color-intent-secondary-soft-hover: var(--pance-color-slate-200);
   --pance-color-intent-secondary-border: var(--pance-color-slate-200);
   --pance-color-intent-secondary-outline: var(--pance-color-slate-300);
+  --pance-color-intent-secondary-border-strong: var(--pance-color-slate-400);
   --pance-color-intent-secondary-fg: var(--pance-color-slate-700);
   --pance-color-intent-secondary-dot: var(--pance-color-slate-400);
   --pance-color-intent-success-solid: var(--pance-color-emerald-700);
@@ -289,6 +291,7 @@
   --pance-color-intent-success-soft-hover: var(--pance-color-emerald-100);
   --pance-color-intent-success-border: var(--pance-color-emerald-200);
   --pance-color-intent-success-outline: var(--pance-color-emerald-300);
+  --pance-color-intent-success-border-strong: var(--pance-color-emerald-400);
   --pance-color-intent-success-fg: var(--pance-color-emerald-700);
   --pance-color-intent-success-dot: var(--pance-color-emerald-500);
   --pance-color-intent-info-solid: var(--pance-color-sky-700);
@@ -299,6 +302,7 @@
   --pance-color-intent-info-soft-hover: var(--pance-color-sky-100);
   --pance-color-intent-info-border: var(--pance-color-sky-200);
   --pance-color-intent-info-outline: var(--pance-color-sky-300);
+  --pance-color-intent-info-border-strong: var(--pance-color-sky-400);
   --pance-color-intent-info-fg: var(--pance-color-sky-700);
   --pance-color-intent-info-dot: var(--pance-color-sky-500);
   --pance-color-intent-warning-solid: var(--pance-color-amber-700);
@@ -309,6 +313,7 @@
   --pance-color-intent-warning-soft-hover: var(--pance-color-amber-100);
   --pance-color-intent-warning-border: var(--pance-color-amber-200);
   --pance-color-intent-warning-outline: var(--pance-color-amber-300);
+  --pance-color-intent-warning-border-strong: var(--pance-color-amber-400);
   --pance-color-intent-warning-fg: var(--pance-color-amber-700);
   --pance-color-intent-warning-dot: var(--pance-color-amber-500);
   --pance-color-intent-help-solid: var(--pance-color-violet-600);
@@ -319,6 +324,7 @@
   --pance-color-intent-help-soft-hover: var(--pance-color-violet-100);
   --pance-color-intent-help-border: var(--pance-color-violet-200);
   --pance-color-intent-help-outline: var(--pance-color-violet-300);
+  --pance-color-intent-help-border-strong: var(--pance-color-violet-400);
   --pance-color-intent-help-fg: var(--pance-color-violet-700);
   --pance-color-intent-help-dot: var(--pance-color-violet-500);
   --pance-color-intent-danger-solid: var(--pance-color-rose-600);
@@ -329,6 +335,7 @@
   --pance-color-intent-danger-soft-hover: var(--pance-color-rose-100);
   --pance-color-intent-danger-border: var(--pance-color-rose-200);
   --pance-color-intent-danger-outline: var(--pance-color-rose-300);
+  --pance-color-intent-danger-border-strong: var(--pance-color-rose-400);
   --pance-color-intent-danger-fg: var(--pance-color-rose-700);
   --pance-color-intent-danger-dot: var(--pance-color-rose-500);
   --pance-color-intent-contrast-solid: var(--pance-color-slate-900);
@@ -339,6 +346,7 @@
   --pance-color-intent-contrast-soft-hover: var(--pance-color-slate-200);
   --pance-color-intent-contrast-border: var(--pance-color-slate-300);
   --pance-color-intent-contrast-outline: var(--pance-color-slate-900);
+  --pance-color-intent-contrast-border-strong: var(--pance-color-slate-900);
   --pance-color-intent-contrast-fg: var(--pance-color-slate-900);
   --pance-color-intent-contrast-dot: var(--pance-color-slate-900);
   --pance-color-status-online: var(--pance-color-emerald-500);
@@ -634,7 +642,7 @@
   --pance-badge-color-primary-solid-text: var(--pance-color-intent-primary-on-solid);
   --pance-badge-color-primary-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-primary-outlined-text: var(--pance-color-intent-primary-fg);
-  --pance-badge-color-primary-outlined-ring: var(--pance-color-intent-primary-outline);
+  --pance-badge-color-primary-outlined-ring: var(--pance-color-intent-primary-border-strong);
   --pance-badge-color-primary-dot: var(--pance-color-intent-primary-dot);
   --pance-badge-color-secondary-soft-bg: var(--pance-color-intent-secondary-soft);
   --pance-badge-color-secondary-soft-text: var(--pance-color-intent-secondary-fg);
@@ -643,7 +651,7 @@
   --pance-badge-color-secondary-solid-text: var(--pance-color-intent-secondary-on-solid);
   --pance-badge-color-secondary-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-secondary-outlined-text: var(--pance-color-intent-secondary-fg);
-  --pance-badge-color-secondary-outlined-ring: var(--pance-color-intent-secondary-outline);
+  --pance-badge-color-secondary-outlined-ring: var(--pance-color-intent-secondary-border-strong);
   --pance-badge-color-secondary-dot: var(--pance-color-intent-secondary-dot);
   --pance-badge-color-success-soft-bg: var(--pance-color-intent-success-soft);
   --pance-badge-color-success-soft-text: var(--pance-color-intent-success-fg);
@@ -652,7 +660,7 @@
   --pance-badge-color-success-solid-text: var(--pance-color-intent-success-on-solid);
   --pance-badge-color-success-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-success-outlined-text: var(--pance-color-intent-success-fg);
-  --pance-badge-color-success-outlined-ring: var(--pance-color-intent-success-outline);
+  --pance-badge-color-success-outlined-ring: var(--pance-color-intent-success-border-strong);
   --pance-badge-color-success-dot: var(--pance-color-intent-success-dot);
   --pance-badge-color-info-soft-bg: var(--pance-color-intent-info-soft);
   --pance-badge-color-info-soft-text: var(--pance-color-intent-info-fg);
@@ -661,7 +669,7 @@
   --pance-badge-color-info-solid-text: var(--pance-color-intent-info-on-solid);
   --pance-badge-color-info-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-info-outlined-text: var(--pance-color-intent-info-fg);
-  --pance-badge-color-info-outlined-ring: var(--pance-color-intent-info-outline);
+  --pance-badge-color-info-outlined-ring: var(--pance-color-intent-info-border-strong);
   --pance-badge-color-info-dot: var(--pance-color-intent-info-dot);
   --pance-badge-color-warning-soft-bg: var(--pance-color-intent-warning-soft);
   --pance-badge-color-warning-soft-text: var(--pance-color-intent-warning-fg);
@@ -670,7 +678,7 @@
   --pance-badge-color-warning-solid-text: var(--pance-color-intent-warning-on-solid);
   --pance-badge-color-warning-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-warning-outlined-text: var(--pance-color-intent-warning-fg);
-  --pance-badge-color-warning-outlined-ring: var(--pance-color-intent-warning-outline);
+  --pance-badge-color-warning-outlined-ring: var(--pance-color-intent-warning-border-strong);
   --pance-badge-color-warning-dot: var(--pance-color-intent-warning-dot);
   --pance-badge-color-help-soft-bg: var(--pance-color-intent-help-soft);
   --pance-badge-color-help-soft-text: var(--pance-color-intent-help-fg);
@@ -679,7 +687,7 @@
   --pance-badge-color-help-solid-text: var(--pance-color-intent-help-on-solid);
   --pance-badge-color-help-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-help-outlined-text: var(--pance-color-intent-help-fg);
-  --pance-badge-color-help-outlined-ring: var(--pance-color-intent-help-outline);
+  --pance-badge-color-help-outlined-ring: var(--pance-color-intent-help-border-strong);
   --pance-badge-color-help-dot: var(--pance-color-intent-help-dot);
   --pance-badge-color-danger-soft-bg: var(--pance-color-intent-danger-soft);
   --pance-badge-color-danger-soft-text: var(--pance-color-intent-danger-fg);
@@ -688,7 +696,7 @@
   --pance-badge-color-danger-solid-text: var(--pance-color-intent-danger-on-solid);
   --pance-badge-color-danger-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-danger-outlined-text: var(--pance-color-intent-danger-fg);
-  --pance-badge-color-danger-outlined-ring: var(--pance-color-intent-danger-outline);
+  --pance-badge-color-danger-outlined-ring: var(--pance-color-intent-danger-border-strong);
   --pance-badge-color-danger-dot: var(--pance-color-intent-danger-dot);
   --pance-badge-color-contrast-soft-bg: var(--pance-color-intent-contrast-soft);
   --pance-badge-color-contrast-soft-text: var(--pance-color-intent-contrast-fg);
@@ -697,7 +705,7 @@
   --pance-badge-color-contrast-solid-text: var(--pance-color-intent-contrast-on-solid);
   --pance-badge-color-contrast-outlined-bg: var(--pance-color-bg-surface);
   --pance-badge-color-contrast-outlined-text: var(--pance-color-intent-contrast-fg);
-  --pance-badge-color-contrast-outlined-ring: var(--pance-color-intent-contrast-outline);
+  --pance-badge-color-contrast-outlined-ring: var(--pance-color-intent-contrast-border-strong);
   --pance-badge-color-contrast-dot: var(--pance-color-intent-contrast-dot);
   --pance-badge-count-min-width: 18px;
   --pance-badge-count-font-size: var(--pance-font-size-10);
@@ -751,7 +759,7 @@
   --pance-toggle-size-lg-track-height: var(--pance-size-28);
   --pance-toggle-size-lg-thumb: var(--pance-size-22);
   --pance-toggle-color-track-on: var(--pance-color-intent-primary-solid);
-  --pance-toggle-color-track-off: var(--pance-color-slate-300);
+  --pance-toggle-color-track-off: var(--pance-color-slate-400);
   --pance-toggle-color-thumb: var(--pance-color-white);
   --pance-toggle-disabled-opacity: var(--pance-opacity-disabled);
   --pance-toggle-transition: var(--pance-motion-transition-control);
@@ -793,7 +801,7 @@
   --pance-segmented-control-color-track: var(--pance-color-bg-sunken);
   --pance-segmented-control-color-active-bg: var(--pance-color-bg-surface);
   --pance-segmented-control-color-active-text: var(--pance-color-aqua-700);
-  --pance-segmented-control-color-text: var(--pance-color-fg-subtle);
+  --pance-segmented-control-color-text: var(--pance-color-fg-muted);
   --pance-range-slider-track-height: var(--pance-size-6);
   --pance-range-slider-thumb: var(--pance-size-20);
   --pance-range-slider-thumb-border: 2px;
@@ -830,7 +838,7 @@
   --pance-tabs-indicator-height: var(--pance-size-2);
   --pance-tabs-color-indicator: var(--pance-color-intent-primary-solid);
   --pance-tabs-color-active-text: var(--pance-color-intent-primary-fg);
-  --pance-tabs-color-text: var(--pance-color-fg-subtle);
+  --pance-tabs-color-text: var(--pance-color-fg-muted);
   --pance-tabs-color-pill-active-bg: var(--pance-color-intent-primary-solid);
   --pance-tabs-color-pill-active-text: var(--pance-color-white);
   --pance-steps-dot: var(--pance-size-32);
@@ -847,7 +855,7 @@
   --pance-nav-menu-icon: var(--pance-size-18);
   --pance-nav-menu-color-active-bg: var(--pance-color-aqua-50);
   --pance-nav-menu-color-active-text: var(--pance-color-aqua-700);
-  --pance-nav-menu-color-active-icon: var(--pance-color-aqua-600);
+  --pance-nav-menu-color-active-icon: var(--pance-color-aqua-700);
   --pance-nav-menu-color-hover-bg: var(--pance-color-bg-page);
   --pance-card-radius: var(--pance-radius-lg);
   --pance-card-padding: var(--pance-space-3);
@@ -951,6 +959,7 @@
   --pance-color-intent-primary-soft-hover: var(--pance-color-aqua-900);
   --pance-color-intent-primary-border: var(--pance-color-aqua-800);
   --pance-color-intent-primary-outline: var(--pance-color-aqua-700);
+  --pance-color-intent-primary-border-strong: var(--pance-color-aqua-600);
   --pance-color-intent-primary-fg: var(--pance-color-aqua-400);
   --pance-color-intent-primary-dot: var(--pance-color-aqua-400);
   --pance-color-intent-secondary-solid: var(--pance-color-slate-600);
@@ -961,6 +970,7 @@
   --pance-color-intent-secondary-soft-hover: var(--pance-color-slate-900);
   --pance-color-intent-secondary-border: var(--pance-color-slate-800);
   --pance-color-intent-secondary-outline: var(--pance-color-slate-700);
+  --pance-color-intent-secondary-border-strong: var(--pance-color-slate-600);
   --pance-color-intent-secondary-fg: var(--pance-color-slate-400);
   --pance-color-intent-secondary-dot: var(--pance-color-slate-400);
   --pance-color-intent-success-solid: var(--pance-color-emerald-700);
@@ -971,6 +981,7 @@
   --pance-color-intent-success-soft-hover: var(--pance-color-emerald-900);
   --pance-color-intent-success-border: var(--pance-color-emerald-800);
   --pance-color-intent-success-outline: var(--pance-color-emerald-700);
+  --pance-color-intent-success-border-strong: var(--pance-color-emerald-600);
   --pance-color-intent-success-fg: var(--pance-color-emerald-400);
   --pance-color-intent-success-dot: var(--pance-color-emerald-400);
   --pance-color-intent-info-solid: var(--pance-color-sky-700);
@@ -981,6 +992,7 @@
   --pance-color-intent-info-soft-hover: var(--pance-color-sky-900);
   --pance-color-intent-info-border: var(--pance-color-sky-800);
   --pance-color-intent-info-outline: var(--pance-color-sky-700);
+  --pance-color-intent-info-border-strong: var(--pance-color-sky-600);
   --pance-color-intent-info-fg: var(--pance-color-sky-400);
   --pance-color-intent-info-dot: var(--pance-color-sky-400);
   --pance-color-intent-warning-solid: var(--pance-color-amber-700);
@@ -991,6 +1003,7 @@
   --pance-color-intent-warning-soft-hover: var(--pance-color-amber-900);
   --pance-color-intent-warning-border: var(--pance-color-amber-800);
   --pance-color-intent-warning-outline: var(--pance-color-amber-700);
+  --pance-color-intent-warning-border-strong: var(--pance-color-amber-600);
   --pance-color-intent-warning-fg: var(--pance-color-amber-400);
   --pance-color-intent-warning-dot: var(--pance-color-amber-400);
   --pance-color-intent-help-solid: var(--pance-color-violet-600);
@@ -1001,6 +1014,7 @@
   --pance-color-intent-help-soft-hover: var(--pance-color-violet-900);
   --pance-color-intent-help-border: var(--pance-color-violet-800);
   --pance-color-intent-help-outline: var(--pance-color-violet-700);
+  --pance-color-intent-help-border-strong: var(--pance-color-violet-600);
   --pance-color-intent-help-fg: var(--pance-color-violet-400);
   --pance-color-intent-help-dot: var(--pance-color-violet-400);
   --pance-color-intent-danger-solid: var(--pance-color-rose-600);
@@ -1011,6 +1025,7 @@
   --pance-color-intent-danger-soft-hover: var(--pance-color-rose-900);
   --pance-color-intent-danger-border: var(--pance-color-rose-800);
   --pance-color-intent-danger-outline: var(--pance-color-rose-700);
+  --pance-color-intent-danger-border-strong: var(--pance-color-rose-600);
   --pance-color-intent-danger-fg: var(--pance-color-rose-400);
   --pance-color-intent-danger-dot: var(--pance-color-rose-400);
   --pance-color-intent-contrast-solid: var(--pance-color-slate-50);
@@ -1021,6 +1036,7 @@
   --pance-color-intent-contrast-soft-hover: var(--pance-color-slate-700);
   --pance-color-intent-contrast-border: var(--pance-color-slate-600);
   --pance-color-intent-contrast-outline: var(--pance-color-slate-50);
+  --pance-color-intent-contrast-border-strong: var(--pance-color-slate-50);
   --pance-color-intent-contrast-fg: var(--pance-color-slate-50);
   --pance-color-intent-contrast-dot: var(--pance-color-slate-50);
   --pance-color-status-online: var(--pance-color-emerald-400);

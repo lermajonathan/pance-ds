@@ -255,6 +255,15 @@
             }
           }
         },
+        "border-strong": {
+          "$value": "{color.aqua.400}",
+          "$description": "Outlined surfaces: Badge outlined ring, Alert outlined border.",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.aqua.600}"
+            }
+          }
+        },
         "fg": {
           "$value": "{color.aqua.700}",
           "$description": "Text and icons on light surfaces. ≥ 4.5:1 on white and on its soft background.",
@@ -336,6 +345,15 @@
           "$extensions": {
             "pance.modes": {
               "dark": "{color.slate.700}"
+            }
+          }
+        },
+        "border-strong": {
+          "$value": "{color.slate.400}",
+          "$description": "Outlined surfaces: Badge outlined ring, Alert outlined border.",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.slate.600}"
             }
           }
         },
@@ -423,6 +441,15 @@
             }
           }
         },
+        "border-strong": {
+          "$value": "{color.emerald.400}",
+          "$description": "Outlined surfaces: Badge outlined ring, Alert outlined border.",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.emerald.600}"
+            }
+          }
+        },
         "fg": {
           "$value": "{color.emerald.700}",
           "$description": "Text and icons on light surfaces. ≥ 4.5:1 on white and on its soft background.",
@@ -504,6 +531,15 @@
           "$extensions": {
             "pance.modes": {
               "dark": "{color.sky.700}"
+            }
+          }
+        },
+        "border-strong": {
+          "$value": "{color.sky.400}",
+          "$description": "Outlined surfaces: Badge outlined ring, Alert outlined border.",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.sky.600}"
             }
           }
         },
@@ -591,6 +627,15 @@
             }
           }
         },
+        "border-strong": {
+          "$value": "{color.amber.400}",
+          "$description": "Outlined surfaces: Badge outlined ring, Alert outlined border.",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.amber.600}"
+            }
+          }
+        },
         "fg": {
           "$value": "{color.amber.700}",
           "$description": "Text and icons on light surfaces. ≥ 4.5:1 on white and on its soft background.",
@@ -672,6 +717,15 @@
           "$extensions": {
             "pance.modes": {
               "dark": "{color.violet.700}"
+            }
+          }
+        },
+        "border-strong": {
+          "$value": "{color.violet.400}",
+          "$description": "Outlined surfaces: Badge outlined ring, Alert outlined border.",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.violet.600}"
             }
           }
         },
@@ -759,6 +813,15 @@
             }
           }
         },
+        "border-strong": {
+          "$value": "{color.rose.400}",
+          "$description": "Outlined surfaces: Badge outlined ring, Alert outlined border.",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.rose.600}"
+            }
+          }
+        },
         "fg": {
           "$value": "{color.rose.700}",
           "$description": "Text and icons on light surfaces. ≥ 4.5:1 on white and on its soft background.",
@@ -843,6 +906,14 @@
             }
           }
         },
+        "border-strong": {
+          "$value": "{color.slate.900}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.slate.50}"
+            }
+          }
+        },
         "fg": {
           "$value": "{color.slate.900}",
           "$extensions": {
@@ -898,7 +969,7 @@
     "focus": {
       "ring": {
         "$value": "{color.aqua.100}",
-        "$description": "Outer 3px halo.",
+        "$description": "Outer 4px halo.",
         "$extensions": {
           "pance.modes": {
             "dark": "{color.aqua.900}"
