@@ -10,7 +10,7 @@ const STATUS_COLOR: Record<AvatarStatus, string> = {
 }
 
 export function Avatar({
-  src, name, size = 36, ring, status, square,
+  src, name, size = 36, ring, status, square, decorative, statusLabel,
 }: {
   src?: string
   name: string
@@ -18,14 +18,23 @@ export function Avatar({
   ring?: boolean
   status?: AvatarStatus
   square?: boolean
+  /** Set when the name is already shown as text next to the avatar, so screen readers don't hear it twice. */
+  decorative?: boolean
+  /** Spoken status, e.g. a translated "Online". Defaults to the status key. */
+  statusLabel?: string
 }) {
   const initials = name.split(' ').map((w) => w[0]).slice(0, 2).join('')
   const radius = square ? 'rounded-xl' : 'rounded-full'
   const statusSize = Math.max(8, Math.round(size * 0.27))
   const inner = src ? (
-    <img src={src} alt={name} style={{ width: size, height: size }} className={`shrink-0 ${radius} bg-ground object-cover ${ring ? 'ring-2 ring-surface' : ''}`} />
+    <img src={src} alt={decorative ? '' : name} style={{ width: size, height: size }} className={`shrink-0 ${radius} bg-ground object-cover ${ring ? 'ring-2 ring-surface' : ''}`} />
   ) : (
-    <span style={{ width: size, height: size, fontSize: size * 0.36 }} className={`grid shrink-0 place-items-center ${radius} bg-brand-100 font-semibold text-brand-700 ${ring ? 'ring-2 ring-surface' : ''}`}>
+    <span
+      role={decorative ? undefined : 'img'}
+      aria-label={decorative ? undefined : name}
+      aria-hidden={decorative || undefined}
+      style={{ width: size, height: size, fontSize: size * 0.36 }}
+      className={`grid shrink-0 place-items-center ${radius} bg-brand-100 font-semibold text-brand-700 ${ring ? 'ring-2 ring-surface' : ''}`}>
       {initials}
     </span>
   )
@@ -35,6 +44,8 @@ export function Avatar({
       {inner}
       <span
         style={{ width: statusSize, height: statusSize, bottom: ring ? 1 : 0, right: ring ? 1 : 0 }}
+        role="img"
+        aria-label={statusLabel ?? status}
         className={`absolute rounded-full ring-2 ring-surface ${STATUS_COLOR[status]}`}
       />
     </span>

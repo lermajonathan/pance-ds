@@ -25,6 +25,9 @@ pnpm install
 pnpm dev          # documentation site at http://localhost:5173
 pnpm build        # builds tokens, then the site into dist/
 pnpm typecheck
+pnpm preview --port 4173 &   # then, in another shell:
+pnpm test:keyboard           # WAI-ARIA keyboard behaviour
+pnpm test:axe                # axe-core, 20 pages × 2 viewports
 ```
 
 ## Token architecture
@@ -113,7 +116,14 @@ Every component shares one model: **severity** (what it means) is independent fr
 
 ## Accessibility
 
-Target: **WCAG 2.2 AA**. Semantic text tokens are chosen to reach 4.5:1 on the backgrounds they're meant for (each ratio is in the token description), and control fills reach 3:1. An axe-core run across the 20 site pages went from 975 to 339 violations after the token changes. What's left (ARIA patterns for Modal, Tabs, Select and Tooltip; disabled-state labels; a few docs-site details) is tracked in [docs/audit.md](docs/audit.md).
+Target: **WCAG 2.2 AA**.
+
+- **Contrast:** semantic text tokens reach 4.5:1 on the backgrounds they're meant for (each ratio is in the token description); solid fills with white text use step 700; control fills and the focus ring reach 3:1.
+- **Keyboard and ARIA:** interactive components follow the WAI-ARIA Authoring Practices (dialog, menu button, combobox, tabs, radio group, tooltip, disclosure). See the [keyboard contract](docs/components.md#keyboard-and-screen-reader-contract).
+- **Forms:** `Field` connects its label, hint, error and required state to the control automatically.
+- **Evidence:** `pnpm test:keyboard` (11 behaviour checks) and `pnpm test:axe` (axe-core on 20 pages at desktop and mobile) run in CI. axe went from 975 violations to 36; the remaining 36 are disabled-state text, which WCAG exempts, and colour swatch labels. Details in [docs/audit.md](docs/audit.md).
+
+Automated checks don't replace testing with a screen reader; NVDA and VoiceOver passes are on the roadmap.
 
 ## License
 

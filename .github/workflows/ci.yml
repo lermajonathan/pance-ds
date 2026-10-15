@@ -22,3 +22,11 @@ jobs:
         run: git diff --exit-code -- src/styles/tokens.css src/styles/theme.css src/tokens.ts tokens/dist docs/tokens.md || (echo "::error::Run 'pnpm tokens' and commit the generated files" && exit 1)
       - run: pnpm typecheck
       - run: pnpm build
+      - name: Install Chromium for accessibility tests
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Accessibility (keyboard patterns + axe-core)
+        run: |
+          pnpm preview --port 4173 --strictPort &
+          npx --yes wait-on@8.0.3 http://localhost:4173/en
+          pnpm test:keyboard http://localhost:4173/en
+          pnpm test:axe http://localhost:4173/en

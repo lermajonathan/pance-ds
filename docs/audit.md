@@ -9,13 +9,14 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | Item | Status |
 |---|---|
 | §2.1–2.3 Class-generation bugs | ✅ Fixed |
-| §3.1–3.4 Contrast (warning fill, control fills, solid fills, ink-muted) | ✅ Fixed in tokens and code (axe contrast nodes 771 → 135; the rest are disabled labels and docs-site meta text) |
+| §3.1–3.4 Contrast (warning fill, control fills, solid fills, ink-muted) | ✅ Fixed in tokens, components and docs site (axe contrast nodes 771 → 36; what's left is disabled-state text, which WCAG 1.4.3 exempts, the `base` tag printed on the 600 swatches and the AfterQuake orange headline) |
 | §4.1 Breakpoint | ✅ Decided: 640px; docs updated |
 | §4.2 H3 size | ✅ Decided: 20px (`typography/h3`), 18px is `typography/h3-compact` for modal/drawer titles |
 | §4.5 Warning solid | ✅ amber-700 everywhere |
 | §5.1 Disabled opacity | ✅ 0.45 everywhere |
 | Figma library | ✅ Rebuilt from tokens: 789 variables, 14 text + 13 effect styles, 67 icons, 20 core components ([docs/figma.md](figma.md)) |
-| §3.5–3.10 ARIA patterns, keyboard, Field association | ⏳ Next |
+| §3.5–3.10 ARIA patterns, keyboard, Field association | ✅ Fixed: dialog, menu button, select-only and autocomplete combobox, tabs, radio group, tooltip, disclosure; Field wires `id`, `aria-describedby`, `aria-invalid`, `aria-required`. 11 keyboard tests in `tests/keyboard.mjs` |
+| axe-core, 20 pages × 2 viewports | ✅ 975 → 36 violations (all of them the contrast exceptions above). Runs in CI via `tests/axe.mjs` |
 | §6 Components reading semantic tokens, i18n/router decoupling, npm packages | ⏳ Next |
 
 ## 1 · Changes made during extraction

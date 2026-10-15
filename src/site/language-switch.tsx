@@ -9,8 +9,8 @@ export function LanguageSwitch({ variant }: { variant: 'header' | 'icon' | 'bloc
 
   if (variant === 'header') {
     return (
-      <div role="group" aria-label={t('shell.language')} className="shrink-0">
-        <SegmentedControl size="sm" value={lang} onChange={setLang} options={LANGS.map((l) => ({ value: l.code, label: l.short }))} />
+      <div className="shrink-0">
+        <SegmentedControl size="sm" label={t('shell.language')} value={lang} onChange={setLang} options={LANGS.map((l) => ({ value: l.code, label: l.short }))} />
       </div>
     )
   }
@@ -20,10 +20,10 @@ export function LanguageSwitch({ variant }: { variant: 'header' | 'icon' | 'bloc
       <button
         type="button"
         onClick={() => setLang(other.code)}
-        aria-label={t('shell.switchTo', { name: other.name })}
+        aria-label={`${current.short} · ${t('shell.switchTo', { name: other.name })}`}
         className="pance-focus ml-auto inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-line bg-surface px-3 text-ink-soft"
       >
-        <IconGlobe size={18} />
+        <IconGlobe size={18} aria-hidden />
         <span className="font-mono text-xs font-semibold">{current.short}</span>
       </button>
     )

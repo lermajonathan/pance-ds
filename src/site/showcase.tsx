@@ -288,7 +288,7 @@ function Ramp({ name, role, scale, steps }: { name: string; role: Key; scale: st
                 className="flex h-16 flex-col justify-between rounded-xl p-2 ring-1 ring-inset ring-black/5 transition-transform duration-200 group-hover:-translate-y-1"
                 style={{ backgroundColor: s.hex, color: light ? '#fff' : '#0f172a' }}
               >
-                {s.base && <span className="font-mono text-[9px] font-semibold uppercase tracking-wider opacity-80">base</span>}
+                {s.base && <span className="font-mono text-[9px] font-semibold uppercase tracking-wider">base</span>}
                 <span className="mt-auto font-mono text-[10px] font-semibold opacity-0 transition-opacity group-hover:opacity-90">
                   {copied === s.hex ? t('colors.copied') : s.hex}
                 </span>
@@ -372,13 +372,13 @@ export function ColorsPage() {
               </div>
               <div className="flex flex-1 flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-white" style={{ backgroundColor: s.solid }}>
-                  Solid <span className="font-mono font-normal opacity-80">{s.solid}</span>
+                  Solid <span className="font-mono font-normal">{s.solid}</span>
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-semibold" style={{ backgroundColor: s.soft, color: s.text }}>
-                  Soft <span className="font-mono font-normal opacity-70">{s.soft}</span>
+                  Soft <span className="font-mono font-normal">{s.soft}</span>
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-lg border border-line px-2.5 py-1.5 text-xs font-semibold" style={{ color: s.text }}>
-                  Text <span className="font-mono font-normal opacity-70">{s.text}</span>
+                  Text <span className="font-mono font-normal">{s.text}</span>
                 </span>
               </div>
               <p className="font-mono text-[10px] text-ink-muted">{s.token}</p>
@@ -806,9 +806,9 @@ export function ButtonsPage() {
           <Button size="md" Icon={IconPlus}>{t('buttons.sizes.md')}</Button>
           <Button size="lg" Icon={IconPlus}>{t('buttons.sizes.lg')}</Button>
           <span className="mx-2 h-8 w-px bg-line" />
-          <Button size="sm" variant="outlined" Icon={IconPlus} />
-          <Button size="md" variant="outlined" Icon={IconPlus} />
-          <Button size="lg" variant="outlined" Icon={IconPlus} />
+          <Button size="sm" variant="outlined" Icon={IconPlus} aria-label={t('overlays.menu.newStream')} />
+          <Button size="md" variant="outlined" Icon={IconPlus} aria-label={t('overlays.menu.newStream')} />
+          <Button size="lg" variant="outlined" Icon={IconPlus} aria-label={t('overlays.menu.newStream')} />
         </Demo>
       </Section>
 
@@ -1157,14 +1157,14 @@ export function FormsPage() {
                   <span className="font-medium text-ink-soft">{r.label}</span>
                   <span className="font-mono font-semibold text-ink">{r.val}%</span>
                 </div>
-                <RangeSlider value={r.val} onChange={r.set} severity={r.sev} />
+                <RangeSlider value={r.val} onChange={r.set} severity={r.sev} label={r.label} valueText={`${r.val}%`} />
                 <p className="text-xs text-ink-muted">{r.hint}</p>
               </div>
             </div>
           ))}
           <div className="space-y-2">
             <p className="text-sm font-medium text-ink-soft">{t('forms.slider.danger')}</p>
-            <RangeSlider value={94} onChange={() => {}} severity="danger" />
+            <RangeSlider value={94} onChange={() => {}} severity="danger" label={t('forms.slider.danger')} valueText="94%" />
             <p className="text-xs text-ink-muted">{t('forms.slider.static')}</p>
           </div>
         </Card>
@@ -1401,7 +1401,7 @@ export function FormsPage() {
                 options={[t('forms.invite.engineer'), t('forms.invite.analyst'), t('forms.invite.manager'), t('forms.invite.auditor'), t('forms.invite.support')]}
               />
             </Field>
-            <Field label={t('forms.invite.perm')}>
+            <Field label={t('forms.invite.perm')} group>
               <div className="grid grid-cols-3 gap-2">
                 {[
                   { k: 'viewer', label: t('forms.invite.viewer') },
@@ -1411,6 +1411,7 @@ export function FormsPage() {
                   <button
                     key={k}
                     type="button"
+                    aria-pressed={invitePerm === k}
                     onClick={() => setInvitePerm(k)}
                     className={`pance-focus rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${invitePerm === k ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line bg-surface text-ink-soft hover:border-slate-300 hover:bg-canvas'}`}
                   >
@@ -1425,7 +1426,7 @@ export function FormsPage() {
                 <span className="block text-sm font-medium text-ink">{t('forms.invite.welcome')}</span>
                 <span className="text-xs text-ink-muted">{t('forms.invite.welcomeDesc')}</span>
               </span>
-              <Toggle on={inviteNotify} onChange={setInviteNotify} />
+              <Toggle on={inviteNotify} onChange={setInviteNotify} label={t('forms.invite.welcome')} />
             </label>
           </div>
 
@@ -1670,19 +1671,19 @@ export function SelectionPage() {
             <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.states')}</p>
             <div className="flex items-center justify-between">
               <span className="text-sm text-ink-soft">{t('selection.toggle.off')}</span>
-              <Toggle on={false} onChange={() => {}} />
+              <Toggle label={t('selection.toggle.off')} on={false} onChange={() => {}} />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-ink-soft">{t('selection.toggle.on')}</span>
-              <Toggle on={true} onChange={() => {}} />
+              <Toggle label={t('selection.toggle.on')} on={true} onChange={() => {}} />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-ink-muted">{t('selection.toggle.disabledOff')}</span>
-              <Toggle on={false} onChange={() => {}} disabled />
+              <Toggle label={t('selection.toggle.disabledOff')} on={false} onChange={() => {}} disabled />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-ink-muted">{t('selection.toggle.disabledOn')}</span>
-              <Toggle on={true} onChange={() => {}} disabled />
+              <Toggle label={t('selection.toggle.disabledOn')} on={true} onChange={() => {}} disabled />
             </div>
           </Card>
 
@@ -1690,15 +1691,15 @@ export function SelectionPage() {
             <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.sizes')}</p>
             <div className="flex items-center justify-between">
               <span className="text-xs text-ink-soft">{t('selection.toggle.small')}</span>
-              <Toggle on={true} onChange={() => {}} size="sm" />
+              <Toggle label={t('selection.toggle.small')} on={true} onChange={() => {}} size="sm" />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-ink-soft">{t('selection.toggle.medium')}</span>
-              <Toggle on={true} onChange={() => {}} size="md" />
+              <Toggle label={t('selection.toggle.medium')} on={true} onChange={() => {}} size="md" />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-base text-ink-soft">{t('selection.toggle.large')}</span>
-              <Toggle on={true} onChange={() => {}} size="lg" />
+              <Toggle label={t('selection.toggle.large')} on={true} onChange={() => {}} size="lg" />
             </div>
           </Card>
 
@@ -2127,7 +2128,7 @@ export function FeedbackPage() {
               <div className="mb-2 flex items-center justify-between text-sm">
                 <span className="text-ink-soft">{p.label}</span>
               </div>
-              <Progress value={p.v} severity={p.sev} showValue />
+              <Progress value={p.v} severity={p.sev} showValue label={p.label} />
             </div>
           ))}
         </Card>
@@ -2156,7 +2157,7 @@ export function FeedbackPage() {
                 <Icon className={`mt-0.5 h-4 w-4 shrink-0 ${iconColors[severity]}`} />
                 <div className="min-w-0">
                   <p className="text-sm font-semibold">{title}</p>
-                  <p className="mt-0.5 text-sm opacity-80">{body}</p>
+                  <p className="mt-0.5 text-sm text-ink-soft">{body}</p>
                 </div>
               </div>
             )
@@ -2178,7 +2179,7 @@ export function FeedbackPage() {
                   <span className="text-xs font-semibold text-ink">{msg.own ? t('feedback.chat.you') : msg.name}</span>
                   <span className="font-mono text-[10px] text-ink-muted">{msg.time}</span>
                 </div>
-                <div className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${msg.own ? 'rounded-tr-sm bg-brand-600 text-white' : 'rounded-tl-sm bg-ground text-ink'}`}>
+                <div className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${msg.own ? 'rounded-tr-sm bg-brand-700 text-white' : 'rounded-tl-sm bg-ground text-ink'}`}>
                   {msg.text}
                 </div>
               </div>
@@ -2374,7 +2375,7 @@ export function NavigationPage() {
             </div>
             <div className="space-y-1">
               <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.withIcons')}</p>
-              <Breadcrumb items={[
+              <Breadcrumb label={`${t('ui.breadcrumb')} · ${t('navigation.tabs.withIcons')}`} items={[
                 { label: t('navigation.breadcrumb.console'), href: '#', Icon: IconHome },
                 { label: t('navigation.breadcrumb.streams'), href: '#', Icon: IconStream },
                 { label: 'checkout-events', Icon: IconDatabase },
@@ -2383,6 +2384,7 @@ export function NavigationPage() {
             <div className="space-y-1">
               <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{tr('navigation.breadcrumb.collapsing')}</p>
               <Breadcrumb
+                label={`${t('ui.breadcrumb')} · ${tr('navigation.breadcrumb.collapsing')}`}
                 maxItems={2}
                 items={[
                   { label: t('navigation.breadcrumb.console'), href: '#', Icon: IconHome },
@@ -2395,7 +2397,7 @@ export function NavigationPage() {
             </div>
             <div className="space-y-1">
               <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.breadcrumb.single')}</p>
-              <Breadcrumb items={[{ label: t('navigation.breadcrumb.console'), Icon: IconHome }]} />
+              <Breadcrumb label={`${t('ui.breadcrumb')} · ${t('navigation.breadcrumb.single')}`} items={[{ label: t('navigation.breadcrumb.console'), Icon: IconHome }]} />
             </div>
           </Card>
         </div>
@@ -2450,12 +2452,12 @@ export function NavigationPage() {
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="p-4">
             <p className="mb-3 px-3 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.expanded')}</p>
-            <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} />
+            <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} label={`${t('navigation.menu.title')} · ${t('navigation.menu.expanded')}`} />
           </Card>
           <Card className="flex items-start gap-4 p-4">
             <div className="w-20 shrink-0">
               <p className="mb-3 px-1 font-mono text-[10px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.collapsed')}</p>
-              <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} collapsed />
+              <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} collapsed label={`${t('navigation.menu.title')} · ${t('navigation.menu.collapsed')}`} />
             </div>
             <div className="min-w-0 flex-1 border-l border-line-soft pl-4">
               <p className="mb-2 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-brand-700">{navKey}</span></p>
@@ -2514,7 +2516,7 @@ export function NavigationPage() {
                   </div>
                   <span className="font-display text-base font-extrabold tracking-tight text-ink">Pance</span>
                 </div>
-                <nav className="hidden items-center gap-1 md:flex">
+                <nav aria-label={t('navigation.navbar.full')} className="hidden items-center gap-1 md:flex">
                   {(['navigation.navbar.dashboard', 'navigation.navbar.streams', 'navigation.navbar.schemas', 'navigation.navbar.connectors'] as const).map((item, i) => (
                     <a key={item} href="#" className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${i === 0 ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}>{t(item)}</a>
                   ))}
@@ -2559,7 +2561,7 @@ export function NavigationPage() {
                   </div>
                   <span className="font-display text-base font-extrabold tracking-tight text-white">Pance</span>
                 </div>
-                <nav className="hidden items-center gap-1 md:flex">
+                <nav aria-label={t('navigation.navbar.transparent')} className="hidden items-center gap-1 md:flex">
                   {(['navigation.landing.product', 'navigation.landing.pricing', 'navigation.landing.docs', 'navigation.landing.blog'] as const).map((item) => (
                     <a key={item} href="#" className="rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white">{t(item)}</a>
                   ))}
@@ -2720,7 +2722,7 @@ function DestructiveRow({ name, region }: { name: string; region: string }) {
           <Button size="sm" severity="secondary" variant="outlined" onClick={() => setConfirming(false)}>{t('overlays.cancel')}</Button>
         </div>
       ) : (
-        <button onClick={() => setConfirming(true)} className="pance-focus flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-ink-muted opacity-0 transition-opacity hover:bg-rose-50 hover:text-danger group-hover:opacity-100">
+        <button onClick={() => setConfirming(true)} className="pance-focus flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-ink-muted opacity-0 transition-opacity hover:bg-rose-50 hover:text-danger group-hover:opacity-100 focus-visible:opacity-100">
           <IconTrash className="h-3.5 w-3.5" /> {t('overlays.delete')}
         </button>
       )}
@@ -2745,7 +2747,7 @@ function SoftDeleteDemo() {
           {items.map((name) => (
             <div key={name} className="flex items-center justify-between px-4 py-2.5">
               <span className="font-mono text-sm text-ink">{name}</span>
-              <button onClick={() => softDelete(name)} className="pance-focus rounded-lg p-1 text-ink-muted hover:bg-rose-50 hover:text-danger"><IconTrash className="h-3.5 w-3.5" /></button>
+              <button onClick={() => softDelete(name)} aria-label={`${t('ui.remove')} ${name}`} className="pance-focus -my-[3px] grid h-7 w-7 place-items-center rounded-lg text-ink-muted hover:bg-rose-50 hover:text-danger"><IconTrash aria-hidden className="h-3.5 w-3.5" /></button>
             </div>
           ))}
           {items.length === 0 && <p className="px-4 py-4 text-xs text-ink-muted italic">{t('overlays.destructive.noActive')}</p>}
@@ -2807,13 +2809,15 @@ function NotificationCenter() {
   return (
     <div ref={ref} className="relative inline-flex">
       <button
-        aria-label={t('overlays.notif.title')}
+        aria-label={unread > 0 ? `${t('overlays.notif.title')} ${unread}` : t('overlays.notif.title')}
+        aria-expanded={open}
+        aria-haspopup="dialog"
         onClick={() => setOpen((o) => !o)}
         className={`pance-focus relative grid h-9 w-9 place-items-center rounded-xl border transition-colors ${open ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line bg-surface text-ink-muted hover:bg-ground hover:text-ink'}`}
       >
         <IconBellRinging className="h-4 w-4" />
         {unread > 0 && (
-          <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[9px] font-bold text-white">
+          <span aria-hidden className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[9px] font-bold text-white">
             {unread}
           </span>
         )}
@@ -2854,7 +2858,7 @@ function NotificationCenter() {
                     <p className="mt-0.5 text-xs leading-relaxed text-ink-muted">{t(n.body)}</p>
                     <p className="mt-1 font-mono text-[10px] text-ink-muted">{t(n.time)}</p>
                   </div>
-                  <button aria-label={t('overlays.notif.dismiss')} onClick={() => dismiss(n.id)} className="mt-0.5 shrink-0 rounded p-0.5 text-ink-muted opacity-0 transition-opacity hover:text-ink group-hover:opacity-100">
+                  <button aria-label={t('overlays.notif.dismiss')} onClick={() => dismiss(n.id)} className="pance-focus mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded text-ink-muted opacity-0 transition-opacity hover:text-ink focus-visible:opacity-100 group-hover:opacity-100">
                     <IconX className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -3302,7 +3306,7 @@ function SparkFlat({ w = 72, h = 28 }: { w?: number; h?: number }) {
 
 /* ── DeltaBadge ────────────────────────────────────────────────────────── */
 function DeltaBadge({ delta, upIsGood = true }: { delta: number; upIsGood?: boolean }) {
-  if (delta === 0) return <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 font-mono text-[11px] font-semibold text-slate-500">—  0%</span>
+  if (delta === 0) return <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 font-mono text-[11px] font-semibold text-slate-600">—  0%</span>
   const up = delta > 0
   const good = upIsGood ? up : !up
   return (
@@ -3924,7 +3928,7 @@ export function DataTable({ compact }: { compact?: boolean } = {}) {
   const allOnPage = view.every((r) => selected.has(r.id))
   const toggle = (id: string) => setSelected((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n })
   const toggleAll = () => setSelected((prev) => { const n = new Set(prev); allOnPage ? view.forEach((r) => n.delete(r.id)) : view.forEach((r) => n.add(r.id)); return n })
-  const box = (on: boolean) => `pance-focus grid h-4 w-4 place-items-center rounded border transition-colors ${on ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-300 bg-surface hover:border-brand-400'}`
+  const box = (on: boolean) => `pance-focus grid h-4 w-4 place-items-center rounded border transition-colors ${on ? 'border-brand-700 bg-brand-700 text-white' : 'border-slate-300 bg-surface hover:border-brand-400'}`
 
   return (
     <Card className="overflow-hidden">
@@ -3950,7 +3954,7 @@ export function DataTable({ compact }: { compact?: boolean } = {}) {
           <thead className="sticky top-0 z-10">
             <tr className="bg-canvas/95 backdrop-blur-sm [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-[11px] [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
               <th className="w-12"><button onClick={toggleAll} aria-label={t('table.selectAll')} className={box(allOnPage)}>{allOnPage && <IconCheck className="h-3 w-3" />}</button></th>
-              <th>{t('table.col.name')}</th><th>{t('table.col.owner')}</th><th>{t('table.col.region')}</th><th>{t('table.col.status')}</th><th className="text-right">{t('table.col.throughput')}</th><th>{t('table.col.updated')}</th><th className="w-12" />
+              <th>{t('table.col.name')}</th><th>{t('table.col.owner')}</th><th>{t('table.col.region')}</th><th>{t('table.col.status')}</th><th className="text-right">{t('table.col.throughput')}</th><th>{t('table.col.updated')}</th><th className="w-12"><span className="sr-only">{t('ui.moreActions')}</span></th>
             </tr>
           </thead>
           <tbody>
@@ -3960,7 +3964,7 @@ export function DataTable({ compact }: { compact?: boolean } = {}) {
                 <tr key={r.id} className={`group border-b border-line-soft transition-colors duration-150 last:border-0 ${sel ? 'bg-brand-50/60' : 'hover:bg-canvas'}`}>
                   <td className="px-6 py-3.5"><button onClick={() => toggle(r.id)} aria-label={t('table.select', { name: r.name })} className={box(sel)}>{sel && <IconCheck className="h-3 w-3" />}</button></td>
                   <td className="px-6 py-3.5"><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-[11px] text-ink-muted">{r.id}</span></div></td>
-                  <td className="px-6 py-3.5"><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} /><span className="text-ink-soft">{r.owner}</span></div></td>
+                  <td className="px-6 py-3.5"><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} decorative /><span className="text-ink-soft">{r.owner}</span></div></td>
                   <td className="px-6 py-3.5 font-mono text-[13px] text-ink-soft">{r.region}</td>
                   <td className="px-6 py-3.5"><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></td>
                   <td className="px-6 py-3.5 text-right font-mono text-[13px] font-medium text-ink">{r.throughput}</td>
@@ -4027,7 +4031,7 @@ function CbBox({ on, indeterminate, onClick, label }: { on: boolean; indetermina
     <button
       onClick={onClick}
       aria-label={label}
-      className={`pance-focus grid h-4 w-4 place-items-center rounded border transition-colors ${on || indeterminate ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-300 bg-surface hover:border-brand-400'}`}
+      className={`pance-focus grid h-4 w-4 place-items-center rounded border transition-colors ${on || indeterminate ? 'border-brand-700 bg-brand-700 text-white' : 'border-slate-300 bg-surface hover:border-brand-400'}`}
     >
       {on ? <IconCheck className="h-3 w-3" /> : indeterminate ? <span className="block h-0.5 w-2 rounded-full bg-white" /> : null}
     </button>
@@ -4155,6 +4159,7 @@ function FullDataTable() {
             <tr className="bg-canvas/95 backdrop-blur-sm [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3">
               <th className="w-12 px-6 py-3">
                 <CbBox on={allOnPage} indeterminate={!allOnPage && someOnPage} onClick={toggleAll} label={t('table.selectAll')} />
+                <span className="sr-only">{t('table.selectAll')}</span>
               </th>
               {visibleCols.map(col => (
                 <th key={col.key} className={`px-6 py-3 ${col.align === 'right' ? 'text-right' : ''}`}>
@@ -4164,7 +4169,7 @@ function FullDataTable() {
                   }
                 </th>
               ))}
-              <th className="w-12 px-6 py-3" />
+              <th className="w-12 px-6 py-3"><span className="sr-only">{t('ui.moreActions')}</span></th>
             </tr>
           </thead>
           <tbody>
@@ -4185,7 +4190,7 @@ function FullDataTable() {
                 <tr key={r.id} className={`group border-b border-line-soft transition-colors duration-150 last:border-0 ${sel ? 'bg-brand-50/60' : 'hover:bg-canvas'}`}>
                   <td className={`px-6 ${rp}`}><CbBox on={sel} onClick={() => toggle(r.id)} label={t('table.select', { name: r.name })} /></td>
                   {!hidden.has('name') && <td className={`px-6 ${rp}`}><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-[11px] text-ink-muted">{r.id}</span></div></td>}
-                  {!hidden.has('owner') && <td className={`px-6 ${rp}`}><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} /><span className="text-ink-soft">{r.owner}</span></div></td>}
+                  {!hidden.has('owner') && <td className={`px-6 ${rp}`}><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} decorative /><span className="text-ink-soft">{r.owner}</span></div></td>}
                   {!hidden.has('region') && <td className={`px-6 ${rp} font-mono text-[13px] text-ink-soft`}>{r.region}</td>}
                   {!hidden.has('status') && <td className={`px-6 ${rp}`}><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></td>}
                   {!hidden.has('throughput') && <td className={`px-6 ${rp} text-right font-mono text-[13px] font-medium text-ink`}>{r.throughput}</td>}
@@ -4269,7 +4274,7 @@ function ExpandableTable() {
       <table className="hidden w-full border-collapse text-left text-sm md:table">
         <thead>
           <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-[11px] [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
-            <th className="w-10" /><th>{t('table.ev.event')}</th><th>{t('table.ev.source')}</th><th>{t('table.ev.time')}</th><th className="text-right">{t('table.ev.count')}</th>
+            <td className="w-10 border-b border-line" /><th>{t('table.ev.event')}</th><th>{t('table.ev.source')}</th><th>{t('table.ev.time')}</th><th className="text-right">{t('table.ev.count')}</th>
           </tr>
         </thead>
         <tbody>
@@ -4317,6 +4322,7 @@ function ExpandableTable() {
 
 /* ── Loading skeleton table ── */
 function SkeletonTable() {
+  const { t } = useI18n()
   return (
     <Card className="overflow-hidden">
       <header className="flex items-center justify-between border-b border-line-soft px-6 py-5">
@@ -4329,12 +4335,12 @@ function SkeletonTable() {
           <Skeleton className="h-9 w-28 rounded-xl" />
         </div>
       </header>
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="pance-focus overflow-x-auto">
       <table className="w-full border-collapse text-sm">
         <thead>
           <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3">
             {['w-12', 'w-1/4', 'w-1/5', 'w-1/6', 'w-1/6', 'w-1/6', 'w-12'].map((w, i) => (
-              <th key={i} className={`px-6 py-3 ${w}`}><Skeleton className="h-3 w-3/4 rounded" /></th>
+              <th key={i} className={`px-6 py-3 ${w}`}><Skeleton className="h-3 w-3/4 rounded" /><span className="sr-only">{t('cards.states.loading')}</span></th>
             ))}
           </tr>
         </thead>
@@ -4380,7 +4386,7 @@ function EmptyTable({ reason }: { reason: 'no-data' | 'filtered' | 'error' }) {
           <Button size="sm" Icon={IconPlus} disabled={reason === 'error'}>{t('table.newStream')}</Button>
         </div>
       </header>
-      <div className="overflow-x-auto border-b border-line [&>th]:px-6">
+      <div tabIndex={0} className="pance-focus overflow-x-auto border-b border-line">
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-[11px] [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
@@ -4859,7 +4865,7 @@ export function CardsPage() {
                 <p className="mt-1 text-xs text-ink-muted">{t('cards.media.meta')}</p>
                 <div className="mt-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Avatar name="Ines Halvorsen" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=48&h=48&fit=crop" size={22} />
+                    <Avatar name="Ines Halvorsen" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=48&h=48&fit=crop" size={22} decorative />
                     <span className="text-xs text-ink-muted">Ines Halvorsen</span>
                   </div>
                   <a href="#" className="pance-focus inline-flex items-center gap-1 text-xs font-medium text-brand-700 hover:text-brand-700">
@@ -4971,7 +4977,7 @@ export function CardsPage() {
                 <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3">
                   <div>
                     <p className="text-sm font-semibold text-danger">{t('cards.panel.deleteThis')}</p>
-                    <p className="text-xs text-rose-600">{t('cards.panel.deleteWarn')}</p>
+                    <p className="text-xs text-rose-700">{t('cards.panel.deleteWarn')}</p>
                   </div>
                   <Button size="sm" severity="danger">{t('cards.panel.delete')}</Button>
                 </div>
@@ -5247,8 +5253,8 @@ export function ContentPage() {
                       <span className="font-mono text-[10px] text-ink-muted">{file.size}</span>
                     </div>
                   </div>
-                  <button className="pance-focus grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-700">
-                    <IconDownload className="h-4 w-4" />
+                  <button aria-label={`${t('content.dl.title')} ${file.name}`} className="pance-focus grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-700">
+                    <IconDownload aria-hidden className="h-4 w-4" />
                   </button>
                 </div>
               ))}
@@ -5864,7 +5870,7 @@ function VizHeatmap({ data, rows, cols, title, sub, color = VC[0] as string }: {
         <p className="text-sm font-semibold text-ink">{title}</p>
         {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
       </div>
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="pance-focus overflow-x-auto">
         <div style={{ minWidth: cols.length * 26 + 80 }}>
           <div className="flex pl-16 mb-1">
             {cols.map(c => (
@@ -6289,7 +6295,7 @@ export function DataVizPage() {
             {(['7d','30d','90d','12m'] as const).map(r => (
               <button key={r}
                 onClick={() => setRange(r)}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors ${range === r ? 'bg-brand-500 text-white' : 'text-ink-soft hover:bg-ground'}`}
+                className={`px-3 py-1.5 text-xs font-medium transition-colors ${range === r ? 'bg-brand-700 text-white' : 'text-ink-soft hover:bg-ground'}`}
               >{t(`dataviz.range.${r}`)}</button>
             ))}
           </div>
@@ -6412,7 +6418,7 @@ export function DataVizPage() {
 
       {/* ── Sparklines ────────────────────────────────────────────── */}
       <Section title={t('dataviz.spark.title')} hint={t('dataviz.spark.hint')}>
-        <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
+        <div tabIndex={0} className="pance-focus overflow-x-auto rounded-2xl border border-line bg-surface">
           <table className="w-full text-sm">
             <thead className="border-b border-line">
               <tr className="text-left">
@@ -6509,7 +6515,7 @@ export function DataVizPage() {
 
       {/* ── Chart form guide ──────────────────────────────────────── */}
       <Section title={t('dataviz.form.title')} hint={t('dataviz.form.hint')}>
-        <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
+        <div tabIndex={0} className="pance-focus overflow-x-auto rounded-2xl border border-line bg-surface">
           <table className="w-full text-sm">
             <thead className="border-b border-line bg-canvas">
               <tr className="text-left">
@@ -7083,7 +7089,7 @@ export function AfterQuakePage() {
     <div className="space-y-0">
 
       {/* ── Simulation banner ───────────────────────────────────────── */}
-      <div className="sticky top-0 z-40 flex items-center justify-center gap-3 bg-amber-500 px-4 py-2.5 text-center text-xs font-semibold text-white shadow-sm sm:text-sm">
+      <div className="sticky top-0 z-40 flex items-center justify-center gap-3 bg-amber-700 px-4 py-2.5 text-center text-xs font-semibold text-white shadow-sm sm:text-sm">
         <IconAlert size={16} weight="fill" className="hidden shrink-0 sm:block" />
         <span>{t('aq.banner')}</span>
         <IconAlert size={16} weight="fill" className="hidden shrink-0 sm:block" />
@@ -7253,7 +7259,7 @@ export function AfterQuakePage() {
             </div>
 
             {/* Full table */}
-            <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
+            <div tabIndex={0} className="pance-focus overflow-x-auto rounded-2xl border border-line bg-surface">
               <table className="w-full min-w-[56rem] text-sm">
                 <thead className="border-b border-line bg-canvas">
                   <tr className="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:font-mono [&>th]:text-[10px] [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
@@ -7332,7 +7338,7 @@ export function AfterQuakePage() {
           <div className="space-y-5">
             {/* Hospitals */}
              <Panel title={t('aq.hosp.title')} icon={IconAmbulance} iconSeverity="danger">
-              <div className="overflow-x-auto">
+              <div tabIndex={0} className="pance-focus overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="border-b border-line-soft">
                     <tr className="[&>th]:px-4 [&>th]:py-2.5 [&>th]:text-left [&>th]:font-mono [&>th]:text-[10px] [&>th]:uppercase [&>th]:tracking-[0.1em] [&>th]:text-ink-muted">
@@ -7470,7 +7476,7 @@ export function AfterQuakePage() {
                       const isCurrent = i === AQ_TIMELINE.length - 1
                       return (
                         <div key={i} className="flex gap-4 relative">
-                          <div className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 ${isCurrent ? 'border-brand-500 bg-brand-500 text-white' : 'border-line bg-surface'}`}>
+                          <div className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 ${isCurrent ? 'border-brand-700 bg-brand-700 text-white' : 'border-line bg-surface'}`}>
                             {isCurrent
                               ? <IconMapPin size={14} weight="fill" />
                               : <span className="font-mono text-[9px] font-bold text-ink-muted">{String(i + 1).padStart(2,'0')}</span>

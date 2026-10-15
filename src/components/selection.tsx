@@ -1,6 +1,8 @@
 /* Pance · Selection controls — Toggle, SwitchRow, Checkbox, Radio, RadioCard, SegmentedControl, CheckboxGroup */
+import { useId, useRef, type KeyboardEvent, type Ref } from 'react'
 import { IconCheck, type IconType } from '../icons'
 import { focus } from './shared'
+import { listKeyNav } from './a11y'
 
 /* ── Selection controls ────────────────────────────────────────────────── */
 /* ── Toggle / Switch ───────────────────────────────────────────────────── */
@@ -22,11 +24,18 @@ export function Toggle({
   onChange,
   disabled,
   size = 'md',
+  label,
+  labelledBy,
+  describedBy,
 }: {
   on: boolean
   onChange: (v: boolean) => void
   disabled?: boolean
   size?: ToggleSize
+  /** Accessible name. Required unless the switch sits inside a <label> or SwitchRow. */
+  label?: string
+  labelledBy?: string
+  describedBy?: string
 }) {
   const t = TOGGLE_THUMB[size]
   return (
@@ -34,11 +43,15 @@ export function Toggle({
       type="button"
       role="switch"
       aria-checked={on}
+      aria-label={label}
+      aria-labelledby={labelledBy}
+      aria-describedby={describedBy}
       disabled={disabled}
       onClick={() => onChange(!on)}
       className={`${focus} relative shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${TOGGLE_TRACK[size]} ${on ? 'bg-brand-700' : 'bg-slate-400'}`}
     >
       <span
+        aria-hidden="true"
         className={`absolute top-1/2 -translate-y-1/2 rounded-full bg-white shadow-sm transition-all duration-300 ${t.size} ${on ? t.on : t.off}`}
       />
     </button>
@@ -61,13 +74,14 @@ export function SwitchRow({
   disabled?: boolean
   size?: ToggleSize
 }) {
+  const id = useId()
   return (
     <label className={`flex items-center justify-between gap-4 rounded-xl border border-line-soft bg-canvas p-4 transition-colors ${disabled ? 'opacity-45' : 'cursor-pointer hover:border-slate-300 hover:bg-ground'}`}>
       <span className="min-w-0">
-        <span className="block text-sm font-medium text-ink">{label}</span>
-        {description && <span className="mt-0.5 block text-xs text-ink-muted">{description}</span>}
+        <span id={`${id}-l`} className="block text-sm font-medium text-ink">{label}</span>
+        {description && <span id={`${id}-d`} className="mt-0.5 block text-xs text-ink-muted">{description}</span>}
       </span>
-      <Toggle on={on} onChange={onChange} disabled={disabled} size={size} />
+      <Toggle on={on} onChange={onChange} disabled={disabled} size={size} labelledBy={`${id}-l`} describedBy={description ? `${id}-d` : undefined} />
     </label>
   )
 }
@@ -100,6 +114,7 @@ export function Checkbox({
   size?: CheckboxSize
 }) {
   const s = CB_SIZE[size]
+  const uid = useId()
   const boxState = indeterminate || checked
     ? error ? 'border-danger bg-danger text-white' : 'border-brand-700 bg-brand-700 text-white'
     : error ? 'border-danger bg-surface hover:border-danger' : 'border-slate-400 bg-surface hover:border-brand-600'
@@ -110,6 +125,9 @@ export function Checkbox({
         type="button"
         role="checkbox"
         aria-checked={indeterminate ? 'mixed' : checked}
+        aria-labelledby={label ? `${uid}-l` : undefined}
+        aria-describedby={description ? `${uid}-d` : undefined}
+        aria-invalid={error || undefined}
         disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
         className={`${focus} mt-0.5 grid shrink-0 place-items-center border transition-colors ${s.box} ${boxState}`}
@@ -122,8 +140,8 @@ export function Checkbox({
       </button>
       {(label || description) && (
         <span className="min-w-0">
-          {label && <span className={`block font-medium ${s.text} ${disabled ? 'text-ink-muted' : error ? 'text-danger' : 'text-ink-soft'}`}>{label}</span>}
-          {description && <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">{description}</span>}
+          {label && <span id={`${uid}-l`} className={`block font-medium ${s.text} ${disabled ? 'text-ink-muted' : error ? 'text-danger' : 'text-ink-soft'}`}>{label}</span>}
+          {description && <span id={`${uid}-d`} className="mt-0.5 block text-xs leading-relaxed text-ink-muted">{description}</span>}
         </span>
       )}
     </label>
@@ -146,6 +164,9 @@ export function Radio({
   disabled,
   error,
   size = 'md',
+  tabIndex,
+  onKeyDown,
+  buttonRef,
 }: {
   checked: boolean
   onChange: () => void
@@ -154,8 +175,13 @@ export function Radio({
   disabled?: boolean
   error?: boolean
   size?: RadioSize
+  /** Set by RadioGroup for roving focus. */
+  tabIndex?: number
+  onKeyDown?: (e: KeyboardEvent<HTMLButtonElement>) => void
+  buttonRef?: Ref<HTMLButtonElement>
 }) {
   const s = RD_SIZE[size]
+  const descId = useId()
   const ringState = checked
     ? error ? 'border-danger' : 'border-brand-700'
     : error ? 'border-danger hover:border-danger' : 'border-slate-400 hover:border-brand-600'
@@ -164,8 +190,12 @@ export function Radio({
     <label className={`inline-flex items-start ${s.gap} ${disabled ? 'cursor-not-allowed opacity-45' : 'cursor-pointer'}`}>
       <button
         type="button"
+        ref={buttonRef}
         role="radio"
         aria-checked={checked}
+        aria-describedby={description ? descId : undefined}
+        tabIndex={tabIndex}
+        onKeyDown={onKeyDown}
         disabled={disabled}
         onClick={() => !disabled && onChange()}
         className={`${focus} mt-0.5 grid shrink-0 place-items-center rounded-full border transition-colors ${s.dot} ${ringState}`}
@@ -177,10 +207,65 @@ export function Radio({
       {(label || description) && (
         <span className="min-w-0">
           {label && <span className={`block font-medium ${s.text} ${disabled ? 'text-ink-muted' : error ? 'text-danger' : 'text-ink-soft'}`}>{label}</span>}
-          {description && <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">{description}</span>}
+          {description && <span id={descId} className="mt-0.5 block text-xs leading-relaxed text-ink-muted">{description}</span>}
         </span>
       )}
     </label>
+  )
+}
+
+/* ── RadioGroup — WAI-ARIA radiogroup ──────────────────────────────────────
+   One Tab stop for the whole group; arrows move AND select (native radio
+   behaviour); the group is named by its visible legend. */
+export function RadioGroup<T extends string>({
+  label,
+  options,
+  value,
+  onChange,
+  size = 'md',
+  orientation = 'vertical',
+  error,
+}: {
+  label: string
+  options: { value: T; label: string; description?: string; disabled?: boolean }[]
+  value: T | null
+  onChange: (v: T) => void
+  size?: RadioSize
+  orientation?: 'vertical' | 'horizontal'
+  error?: boolean
+}) {
+  const id = useId()
+  const refs = useRef<(HTMLButtonElement | null)[]>([])
+  const selected = options.findIndex((o) => o.value === value)
+  const focusIdx = selected >= 0 ? selected : options.findIndex((o) => !o.disabled)
+  const onKey = (i: number) => (e: KeyboardEvent<HTMLButtonElement>) => {
+    const next = listKeyNav(e.key, i, options.length, (j) => !!options[j].disabled, 'both')
+    if (next === null) return
+    e.preventDefault()
+    onChange(options[next].value)
+    refs.current[next]?.focus()
+  }
+  return (
+    <div role="radiogroup" aria-labelledby={`${id}-legend`} aria-invalid={error || undefined} className="flex flex-col gap-2">
+      <span id={`${id}-legend`} className="text-sm font-medium text-ink-soft">{label}</span>
+      <div className={`flex ${orientation === 'horizontal' ? 'flex-row flex-wrap gap-5' : 'flex-col gap-3'}`}>
+        {options.map((o, i) => (
+          <Radio
+            key={o.value}
+            checked={o.value === value}
+            onChange={() => onChange(o.value)}
+            label={o.label}
+            description={o.description}
+            disabled={o.disabled}
+            error={error}
+            size={size}
+            tabIndex={i === focusIdx ? 0 : -1}
+            onKeyDown={onKey(i)}
+            buttonRef={(el) => { refs.current[i] = el }}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -202,11 +287,14 @@ export function RadioCard({
   Icon?: IconType
   badge?: string
 }) {
+  const uid = useId()
   return (
     <button
       type="button"
       role="radio"
       aria-checked={checked}
+      aria-labelledby={`${uid}-l`}
+      aria-describedby={description ? `${uid}-d` : undefined}
       disabled={disabled}
       onClick={() => !disabled && onChange()}
       className={`${focus} w-full rounded-xl border p-4 text-left transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${
@@ -223,8 +311,8 @@ export function RadioCard({
             </span>
           )}
           <span className="min-w-0">
-            <span className={`block text-sm font-semibold ${checked ? 'text-brand-700' : 'text-ink'}`}>{label}</span>
-            {description && <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">{description}</span>}
+            <span id={`${uid}-l`} className={`block text-sm font-semibold ${checked ? 'text-brand-700' : 'text-ink'}`}>{label}</span>
+            {description && <span id={`${uid}-d`} className="mt-0.5 block text-xs leading-relaxed text-ink-muted">{description}</span>}
           </span>
         </div>
         <div className="flex shrink-0 items-center gap-2">
@@ -244,22 +332,37 @@ export function SegmentedControl<T extends string>({
   value,
   onChange,
   size = 'md',
+  label,
 }: {
   options: { value: T; label: string; Icon?: IconType }[]
   value: T
   onChange: (v: T) => void
   size?: 'sm' | 'md' | 'lg'
+  /** Accessible name for the group, e.g. "View". */
+  label?: string
 }) {
   const pad = size === 'sm' ? 'h-8 px-3 text-[13px]' : size === 'lg' ? 'h-11 px-5 text-base' : 'h-10 px-4 text-sm'
   const iconSz = size === 'sm' ? 14 : size === 'lg' ? 20 : 16
+  const refs = useRef<(HTMLButtonElement | null)[]>([])
   return (
-    <div className="inline-flex rounded-xl border border-line bg-canvas p-1">
-      {options.map((opt) => {
+    <div role="radiogroup" aria-label={label} className="inline-flex rounded-xl border border-line bg-canvas p-1">
+      {options.map((opt, i) => {
         const active = opt.value === value
         return (
           <button
             key={opt.value}
+            ref={(el) => { refs.current[i] = el }}
             type="button"
+            role="radio"
+            aria-checked={active}
+            tabIndex={active ? 0 : -1}
+            onKeyDown={(e) => {
+              const next = listKeyNav(e.key, i, options.length, () => false, 'both')
+              if (next === null) return
+              e.preventDefault()
+              onChange(options[next].value)
+              refs.current[next]?.focus()
+            }}
             onClick={() => onChange(opt.value)}
             className={`${focus} inline-flex items-center gap-1.5 rounded-lg font-medium transition-all duration-200 ${pad} ${
               active
@@ -267,7 +370,7 @@ export function SegmentedControl<T extends string>({
                 : 'text-ink-muted hover:text-ink-soft'
             }`}
           >
-            {opt.Icon && <opt.Icon size={iconSz} weight={active ? 'fill' : 'regular'} />}
+            {opt.Icon && <opt.Icon size={iconSz} weight={active ? 'fill' : 'regular'} aria-hidden="true" />}
             {opt.label}
           </button>
         )
@@ -305,7 +408,7 @@ export function CheckboxGroup({
   }
 
   return (
-    <div className="space-y-3">
+    <div role="group" aria-label={title} className="space-y-3">
       {title && (
         <div className="flex items-center gap-2.5 border-b border-line-soft pb-3">
           <Checkbox

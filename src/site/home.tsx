@@ -76,8 +76,7 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
       <div ref={ref} className="relative w-full overflow-hidden bg-canvas" style={{ height: box.h * box.scale }}>
         <div
           aria-hidden
-          // @ts-expect-error inert is valid HTML but missing from this React typing
-          inert=""
+          inert
           className="pointer-events-none absolute left-0 top-0 origin-top-left select-none p-6"
           style={{ width: box.w, transform: `scale(${box.scale})` }}
         >
@@ -212,7 +211,7 @@ export function HomePage() {
       {/* ── Copyright ─────────────────────────────────────────────────── */}
       <section className="border-t border-slate-700/60 bg-river-950 px-8 py-5">
         <div className="mx-auto flex max-w-[1120px] items-center justify-center">
-          <p className="text-center font-mono text-[11px] text-slate-500">
+          <p className="text-center font-mono text-[11px] text-slate-400">
             © {new Date().getFullYear()} · {t('home.credit.by')}{' '}
             <a
               href="https://ux.jonathanlerma.com"

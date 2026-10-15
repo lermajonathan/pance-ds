@@ -1,10 +1,24 @@
 /* Pance · Overlays — Tooltip, Modal, Drawer, Popover, DropdownMenu */
-import { createElement, useEffect, useRef, useState, type ReactNode } from 'react'
+import { createElement, useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useI18n } from '../i18n'
 import { IconX, type IconType } from '../icons'
+import { focusableIn, listKeyNav, mergeTriggerProps, useDialogFocus } from './a11y'
 import { type Severity, TONE } from './shared'
 
-/* ── Tooltip ───────────────────────────────────────────────────────────── */
+/* Closes a floating layer on outside pointer-down. */
+function useOutsideClose(ref: React.RefObject<HTMLElement | null>, open: boolean, close: () => void) {
+  useEffect(() => {
+    if (!open) return
+    const onDown = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && close()
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+}
+
+/* ── Tooltip ───────────────────────────────────────────────────────────────
+   Shows on hover AND keyboard focus (WCAG 1.4.13: hoverable, dismissible with
+   Escape, persistent). The child receives aria-describedby. */
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
 
 const TT_PLACEMENT: Record<TooltipPlacement, { tip: string; arrow: string }> = {
@@ -14,21 +28,48 @@ const TT_PLACEMENT: Record<TooltipPlacement, { tip: string; arrow: string }> = {
   right:  { tip: 'left-full top-1/2 ml-2 -translate-y-1/2', arrow: 'absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-ink' },
 }
 
-export function Tooltip({ label, children, placement = 'top', description }: { label: string; children: ReactNode; placement?: TooltipPlacement; description?: string }) {
+export function Tooltip({
+  label,
+  children,
+  placement = 'top',
+  description,
+  ...forward
+}: {
+  label: string
+  children: ReactNode
+  placement?: TooltipPlacement
+  description?: string
+} & Record<string, unknown>) {
   const p = TT_PLACEMENT[placement]
+  const id = useId()
+  const [dismissed, setDismissed] = useState(false)
+  // Extra props (e.g. ARIA added by a Popover or DropdownMenu using this Tooltip as its trigger)
+  // are forwarded to the child, so the real control receives them.
+  const child = mergeTriggerProps(children, { ...forward, 'aria-describedby': id })
   return (
-    <span className="group/tt relative inline-flex">
-      {children}
-      <span className={`pointer-events-none absolute z-40 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-all duration-200 group-hover/tt:opacity-100 ${p.tip}`}>
+    <span
+      className="group/tt relative inline-flex"
+      onKeyDown={(e) => e.key === 'Escape' && setDismissed(true)}
+      onMouseLeave={() => setDismissed(false)}
+      onBlur={() => setDismissed(false)}
+    >
+      {child}
+      <span
+        id={id}
+        role="tooltip"
+        className={`pointer-events-none absolute z-40 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-all duration-200 ${dismissed ? '' : 'group-hover/tt:opacity-100 group-focus-within/tt:opacity-100'} ${p.tip}`}
+      >
         {label}
         {description && <span className="mt-0.5 block font-normal text-white/70">{description}</span>}
-        <span className={p.arrow} />
+        <span className={p.arrow} aria-hidden="true" />
       </span>
     </span>
   )
 }
 
-/* ── Modal ─────────────────────────────────────────────────────────────── */
+/* ── Modal ─────────────────────────────────────────────────────────────────
+   role="dialog" + aria-modal, labelled by its title, focus trapped while open,
+   Escape closes, focus returns to the element that opened it. */
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'
 const MODAL_SIZE: Record<ModalSize, string> = {
   sm:   'max-w-sm',
@@ -52,24 +93,36 @@ export function Modal({
   children?: ReactNode
 }) {
   const { t: tt } = useI18n()
+  const panel = useRef<HTMLDivElement>(null)
+  const titleId = useId()
+  const descId = useId()
+  useDialogFocus(panel, open, onClose)
   if (!open) return null
   const t = TONE[iconSeverity]
   return (
     <div className="fixed inset-0 z-50 flex h-[100dvh] items-center justify-center overflow-y-auto p-4">
-      <div className="fixed inset-0 h-[100dvh] bg-ink/40 backdrop-blur-sm" onClick={onClose} />
-      <div className={`relative my-auto w-full ${MODAL_SIZE[size]} rounded-2xl border border-line bg-surface shadow-[0_24px_60px_-20px_rgba(15,23,42,0.5)]`}>
+      <div className="fixed inset-0 h-[100dvh] bg-ink/40 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+      <div
+        ref={panel}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={description ? descId : undefined}
+        tabIndex={-1}
+        className={`relative my-auto w-full ${MODAL_SIZE[size]} rounded-2xl border border-line bg-surface shadow-[0_24px_60px_-20px_rgba(15,23,42,0.5)] outline-none`}
+      >
         <div className="p-6">
           <div className="flex items-start gap-4">
             {icon && (
-              <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${t.bg} ${t.fg}`}>
+              <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${t.bg} ${t.fg}`} aria-hidden="true">
                 {createElement(icon, { className: 'h-5 w-5' })}
               </span>
             )}
             <div className="flex-1 min-w-0">
-              <h3 className="font-display text-lg font-bold text-ink">{title}</h3>
-              {description && <p className="mt-1 text-sm text-ink-muted">{description}</p>}
+              <h2 id={titleId} className="font-display text-lg font-bold text-ink">{title}</h2>
+              {description && <p id={descId} className="mt-1 text-sm text-ink-muted">{description}</p>}
             </div>
-            <button onClick={onClose} aria-label={tt('ui.close')} className="pance-focus -m-1 shrink-0 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
+            <button type="button" onClick={onClose} aria-label={tt('ui.close')} className="pance-focus -m-1 shrink-0 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
               <IconX className="h-5 w-5" />
             </button>
           </div>
@@ -106,17 +159,29 @@ export function Drawer({
   children?: ReactNode
 }) {
   const { t: tt } = useI18n()
+  const panel = useRef<HTMLDivElement>(null)
+  const titleId = useId()
+  const descId = useId()
+  useDialogFocus(panel, open, onClose)
   if (!open) return null
   return (
     <div className="fixed inset-0 z-50 flex h-[100dvh]">
-      <div className="fixed inset-0 h-[100dvh] bg-ink/40 backdrop-blur-sm" onClick={onClose} />
-      <div className={`absolute flex flex-col border-line bg-surface shadow-[0_24px_60px_-20px_rgba(15,23,42,0.5)] ${DRAWER_ENTER[side]} ${DRAWER_WIDTH[side]} ${side === 'bottom' ? 'rounded-t-2xl border-t pb-[env(safe-area-inset-bottom)]' : side === 'right' ? 'rounded-l-2xl border-l pb-[env(safe-area-inset-bottom)]' : 'rounded-r-2xl border-r pb-[env(safe-area-inset-bottom)]'}`}>
+      <div className="fixed inset-0 h-[100dvh] bg-ink/40 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+      <div
+        ref={panel}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={description ? descId : undefined}
+        tabIndex={-1}
+        className={`absolute flex flex-col border-line bg-surface shadow-[0_24px_60px_-20px_rgba(15,23,42,0.5)] outline-none ${DRAWER_ENTER[side]} ${DRAWER_WIDTH[side]} ${side === 'bottom' ? 'rounded-t-2xl border-t pb-[env(safe-area-inset-bottom)]' : side === 'right' ? 'rounded-l-2xl border-l pb-[env(safe-area-inset-bottom)]' : 'rounded-r-2xl border-r pb-[env(safe-area-inset-bottom)]'}`}
+      >
         <div className="flex items-start justify-between gap-4 px-6 py-5 border-b border-line-soft">
           <div>
-            <h3 className="font-display text-lg font-bold text-ink">{title}</h3>
-            {description && <p className="mt-0.5 text-sm text-ink-muted">{description}</p>}
+            <h2 id={titleId} className="font-display text-lg font-bold text-ink">{title}</h2>
+            {description && <p id={descId} className="mt-0.5 text-sm text-ink-muted">{description}</p>}
           </div>
-          <button onClick={onClose} aria-label={tt('ui.close')} className="pance-focus -m-1 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
+          <button type="button" onClick={onClose} aria-label={tt('ui.close')} className="pance-focus -m-1 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
             <IconX className="h-5 w-5" />
           </button>
         </div>
@@ -127,7 +192,9 @@ export function Drawer({
   )
 }
 
-/* ── Popover ───────────────────────────────────────────────────────────── */
+/* ── Popover ───────────────────────────────────────────────────────────────
+   Non-modal dialog: trigger gets aria-expanded/aria-controls, Escape closes
+   and returns focus to the trigger. */
 export function Popover({
   trigger, title, description, children, align = 'start',
 }: {
@@ -139,19 +206,31 @@ export function Popover({
 }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
+  const id = useId()
+  const titleId = useId()
+  useOutsideClose(ref, open, () => setOpen(false))
   useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
+    if (open) panel.current?.focus()
   }, [open])
+  const close = () => {
+    setOpen(false)
+    focusableIn(ref.current)[0]?.focus()
+  }
   const alignClass = align === 'end' ? 'right-0' : align === 'center' ? 'left-1/2 -translate-x-1/2' : 'left-0'
   return (
-    <div ref={ref} className="relative inline-flex">
-      <div onClick={() => setOpen((o) => !o)}>{trigger}</div>
+    <div ref={ref} className="relative inline-flex" onKeyDown={(e) => { if (e.key === 'Escape' && open) { e.stopPropagation(); close() } }}>
+      {mergeTriggerProps(trigger, { 'aria-expanded': open, 'aria-haspopup': 'dialog', 'aria-controls': open ? id : undefined, onClick: () => setOpen((o) => !o) })}
       {open && (
-        <div className={`absolute top-full z-40 mt-2 w-72 rounded-xl border border-line bg-surface p-4 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)] ${alignClass}`}>
-          {title && <p className="mb-1 font-semibold text-sm text-ink">{title}</p>}
+        <div
+          ref={panel}
+          id={id}
+          role="dialog"
+          aria-labelledby={title ? titleId : undefined}
+          tabIndex={-1}
+          className={`absolute top-full z-40 mt-2 w-72 rounded-xl border border-line bg-surface p-4 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)] outline-none ${alignClass}`}
+        >
+          {title && <p id={titleId} className="mb-1 font-semibold text-sm text-ink">{title}</p>}
           {description && <p className="mb-3 text-xs text-ink-muted">{description}</p>}
           {children}
         </div>
@@ -160,46 +239,98 @@ export function Popover({
   )
 }
 
-/* ── DropdownMenu ──────────────────────────────────────────────────────── */
+/* ── DropdownMenu ──────────────────────────────────────────────────────────
+   WAI-ARIA menu button: Enter/Space/ArrowDown opens and focuses the first item,
+   ArrowUp opens on the last; arrows/Home/End move; Escape or Tab closes and
+   returns focus to the trigger. */
 export type DropdownItem =
   | { type?: 'item'; label: string; Icon?: IconType; shortcut?: string; danger?: boolean; disabled?: boolean; onClick?: () => void }
   | { type: 'separator' }
   | { type: 'label'; label: string }
 
+type ActionItem = Extract<DropdownItem, { label: string; type?: 'item' }>
+const isAction = (i: DropdownItem): i is ActionItem => i.type === undefined || i.type === 'item'
+
 export function DropdownMenu({
-  trigger, items, align = 'start',
+  trigger, items, align = 'start', label,
 }: {
   trigger: ReactNode
   items: DropdownItem[]
   align?: 'start' | 'end'
+  /** Accessible name for the menu; defaults to the trigger's text. */
+  label?: string
 }) {
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const menuId = useId()
+  const actions = items.filter(isAction)
+  useOutsideClose(ref, open, () => setOpen(false))
   useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [open])
+    if (open) itemRefs.current[active]?.focus()
+  }, [open, active])
+
+  const openAt = (i: number) => {
+    setActive(i)
+    setOpen(true)
+  }
+  const close = (refocus = true) => {
+    setOpen(false)
+    if (refocus) focusableIn(ref.current)[0]?.focus()
+  }
+  const firstEnabled = () => listKeyNav('Home', 0, actions.length, (i) => !!actions[i].disabled) ?? 0
+  const lastEnabled = () => listKeyNav('End', 0, actions.length, (i) => !!actions[i].disabled) ?? 0
+
+  const onTriggerKey = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); openAt(firstEnabled()) }
+    if (e.key === 'ArrowUp') { e.preventDefault(); openAt(lastEnabled()) }
+  }
+  const onMenuKey = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close() ; return }
+    if (e.key === 'Tab') { close(false); return }
+    const next = listKeyNav(e.key, active, actions.length, (i) => !!actions[i].disabled)
+    if (next !== null) { e.preventDefault(); setActive(next) }
+  }
+
+  let actionIndex = -1
   return (
     <div ref={ref} className="relative inline-flex">
-      <div onClick={() => setOpen((o) => !o)}>{trigger}</div>
+      {mergeTriggerProps(trigger, {
+        'aria-haspopup': 'menu',
+        'aria-expanded': open,
+        'aria-controls': open ? menuId : undefined,
+        onClick: () => (open ? close(false) : openAt(firstEnabled())),
+        onKeyDown: onTriggerKey,
+      })}
       {open && (
-        <ul className={`absolute top-full z-40 mt-1.5 min-w-[180px] overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)] ${align === 'end' ? 'right-0' : 'left-0'}`}>
+        <ul
+          id={menuId}
+          role="menu"
+          aria-label={label}
+          onKeyDown={onMenuKey}
+          className={`absolute top-full z-40 mt-1.5 min-w-[180px] overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)] ${align === 'end' ? 'right-0' : 'left-0'}`}
+        >
           {items.map((item, i) => {
-            if (item.type === 'separator') return <li key={i} className="my-1 border-t border-line-soft" />
+            if (item.type === 'separator') return <li key={i} role="separator" className="my-1 border-t border-line-soft" />
             if (item.type === 'label') return (
-              <li key={i} className="px-2.5 pb-1 pt-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-muted">{item.label}</li>
+              <li key={i} role="presentation" className="px-2.5 pb-1 pt-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-muted">{item.label}</li>
             )
+            const idx = ++actionIndex
             return (
-              <li key={i}>
+              <li key={i} role="none">
                 <button
+                  ref={(el) => { itemRefs.current[idx] = el }}
                   type="button"
+                  role="menuitem"
+                  tabIndex={idx === active ? 0 : -1}
                   disabled={item.disabled}
-                  onClick={() => { item.onClick?.(); setOpen(false) }}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${item.danger ? 'text-danger hover:bg-rose-50' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}
+                  aria-disabled={item.disabled || undefined}
+                  onMouseEnter={() => !item.disabled && setActive(idx)}
+                  onClick={() => { item.onClick?.(); close() }}
+                  className={`pance-focus flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${item.danger ? 'text-danger hover:bg-rose-50 focus-visible:bg-rose-50' : 'text-ink-soft hover:bg-ground hover:text-ink focus-visible:bg-ground'}`}
                 >
-                  {item.Icon && <item.Icon className="h-4 w-4 shrink-0 text-ink-muted" />}
+                  {item.Icon && <item.Icon className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />}
                   <span className="flex-1 text-left">{item.label}</span>
                   {item.shortcut && <kbd className="font-mono text-[10px] text-ink-muted">{item.shortcut}</kbd>}
                 </button>

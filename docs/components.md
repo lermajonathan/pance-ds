@@ -43,7 +43,7 @@ States: hover (one step darker), active (two steps darker), disabled (`opacity .
 Joins child buttons, collapsing inner radii and borders.
 
 ### `SplitButton`
-`label`, `Icon?`, `severity?`, `size?`, `items: { label, Icon?, onSelect?, danger? }[]`. Primary action + chevron menu. Closes on outside click.
+`label`, `onClick?`, `Icon?`, `severity?`, `size?`, `menuLabel?`, `items: { label, Icon?, onSelect?, danger?, disabled? }[]`. Primary action + a menu button built on `DropdownMenu` (same keyboard model).
 
 ### `ToggleButton`
 `on`, `onChange`, `onLabel`, `offLabel`, `OnIcon?`, `OffIcon?`, `size?`. Filled primary when on, outlined secondary when off. Sets `aria-pressed`.
@@ -69,7 +69,7 @@ Joins child buttons, collapsing inner radii and borders.
 ## Avatars · `avatar.tsx`
 
 ### `Avatar`
-`name` (required, initials fallback), `src?`, `size = 36`, `ring?`, `square?` (12px radius), `status?: 'online' | 'away' | 'busy' | 'offline'`.
+`name` (required, initials fallback and accessible name), `src?`, `size = 36`, `ring?`, `square?` (12px radius), `status?: 'online' | 'away' | 'busy' | 'offline'`, `statusLabel?` (spoken status), `decorative?` (set when the name is already shown next to it).
 
 ### `AvatarGroup`
 `people: { name, src? }[]`, `max = 4`. Overlapping 32px avatars plus a `+N` chip.
@@ -80,17 +80,17 @@ Joins child buttons, collapsing inner radii and borders.
 
 | Component | Key props | Notes |
 |---|---|---|
-| `Input` | `inputSize: 'sm'\|'md'\|'lg'`, `Icon`, `TrailingIcon`, `error`, `success`, `ref`, …`InputHTMLAttributes` | `type="password"` adds a show/hide toggle |
-| `Field` | `label`, `hint`, `error`, `success`, `required`, `optional`, `charCount`, `maxChars` | Wraps any control; error/success messages carry an icon |
+| `Input` | `inputSize: 'sm'\|'md'\|'lg'`, `Icon`, `TrailingIcon`, `error`, `success`, `ref`, …`InputHTMLAttributes` | `type="password"` adds a show/hide toggle (in the Tab order, `aria-pressed`) |
+| `Field` | `label`, `hint`, `error`, `success`, `required`, `optional`, `charCount`, `maxChars`, `group` | Wires its control automatically: `id` for the label, `aria-describedby` (hint/error/count), `aria-invalid`, `aria-required`. Use `group` when it holds several buttons or chips. Custom controls can read the wiring with `useFieldControl()` |
 | `Textarea` | `error`, `success` | min-height 80px, no resize |
 | `InputGroup` | `prefix`, `suffix`, `prefixIcon`, `suffixIcon`, `suffixButton` | Add-ons share one focus ring |
-| `RangeSlider` | `value`, `onChange`, `min`, `max`, `step`, `severity: 'primary'\|'success'\|'warning'\|'danger'` | Filled track gradient |
-| `FileDropzone` | `accept`, `hint`, `onFiles`, `Icon` | Drag-and-drop + click, lists files with remove |
-| `PinInput` | `length = 6`, `onComplete`, `error` | Numeric, auto-advance, paste support |
+| `RangeSlider` | `value`, `onChange`, `min`, `max`, `step`, `severity: 'primary'\|'success'\|'warning'\|'danger'`, `label`, `valueText`, `disabled` | Native range input; `label` is required outside a `Field` |
+| `FileDropzone` | `accept`, `hint`, `onFiles`, `Icon` | A `<label>` around the native file input: drag-and-drop, click, Enter/Space |
+| `PinInput` | `length = 6`, `onComplete`, `error`, `label`, `digitLabel` | `role="group"`; each box is named ("Digit 2 of 6"); arrows move; `autocomplete="one-time-code"` |
 | `InlineEdit` | `value`, `onChange`, `placeholder` | Enter commits, Esc cancels |
-| `Combobox` | `options: { value, label, meta? }[]`, `value`, `onChange`, `placeholder` | Type-to-filter |
-| `Select` | `options: string[]`, `value`, `onChange` | Custom dropdown |
-| `TagInput` | `tags`, `onChange`, `placeholder`, `suggestions` | Enter / comma adds, Backspace removes last |
+| `Combobox` | `options: { value, label, meta? }[]`, `value`, `onChange`, `placeholder`, `label` | WAI-ARIA combobox with list autocomplete |
+| `Select` | `options: string[]`, `value`, `onChange`, `label`, `disabled`, `error` | Select-only combobox: button + listbox, typeahead |
+| `TagInput` | `tags`, `onChange`, `placeholder`, `suggestions`, `label` | Enter / comma adds, Backspace removes last; suggestions are a listbox reachable with arrows |
 
 Input states: default · hover (`slate-300` border) · focus (focus ring) · error (rose border + rose-50/40 fill) · success (emerald-400 border) · disabled.
 
@@ -98,12 +98,13 @@ Input states: default · hover (`slate-300` border) · focus (focus ring) · err
 
 | Component | Key props | Notes |
 |---|---|---|
-| `Toggle` | `on`, `onChange`, `disabled`, `size` | `role="switch"`. Track 36×20 / 44×24 / 52×28 |
+| `Toggle` | `on`, `onChange`, `disabled`, `size`, `label` / `labelledBy`, `describedBy` | `role="switch"`. Needs a name: `label`, or use `SwitchRow`. Track 36×20 / 44×24 / 52×28 |
 | `SwitchRow` | `label`, `description`, `on`, `onChange`, `disabled`, `size` | Full-width labelled toggle |
 | `Checkbox` | `checked`, `indeterminate`, `onChange`, `label`, `description`, `disabled`, `error`, `size` | `aria-checked="mixed"` when indeterminate |
-| `Radio` | `checked`, `onChange`, `label`, `description`, `disabled`, `error`, `size` | |
+| `Radio` | `checked`, `onChange`, `label`, `description`, `disabled`, `error`, `size` | Use inside `RadioGroup` for arrow-key behaviour |
+| `RadioGroup<T>` | `label`, `options: { value, label, description?, disabled? }[]`, `value`, `onChange`, `size`, `orientation`, `error` | `role="radiogroup"`, one Tab stop, arrows move and select |
 | `RadioCard` | `checked`, `onChange`, `label`, `description`, `Icon`, `badge`, `disabled` | Selectable card |
-| `SegmentedControl<T>` | `options: { value, label, Icon? }[]`, `value`, `onChange`, `size` | Single-select strip |
+| `SegmentedControl<T>` | `options: { value, label, Icon? }[]`, `value`, `onChange`, `size`, `label` | `role="radiogroup"`, one Tab stop, arrows select |
 | `CheckboxGroup` | `title`, `options`, `values: Set<string>`, `onChange` | Select-all with indeterminate parent |
 
 ---
@@ -112,39 +113,60 @@ Input states: default · hover (`slate-300` border) · focus (focus ring) · err
 
 | Component | Key props | Notes |
 |---|---|---|
-| `Alert` | `severity = 'primary'`, `variant: 'soft'\|'solid'\|'outlined'`, `title`, `children`, `Icon`, `actions`, `onClose` | Each severity has a default glyph, so meaning never relies on color alone. `role="alert"` |
-| `Progress` | `value` (0–100), `severity`, `showValue` | `role="progressbar"` |
-| `Skeleton` | `className` | Pulse placeholder, size via classes |
-| `Toast` | `item: { id, severity, title, description? }`, `onDismiss` | severity: `success · info · warning · danger · primary` |
-| `ToastStack` | `toasts`, `onDismiss` | Fixed bottom-right stack |
+| `Alert` | `severity = 'primary'`, `variant: 'soft'\|'solid'\|'outlined'`, `title`, `children`, `Icon`, `actions`, `onClose` | Each severity has a default glyph, so meaning never relies on color alone. `role="alert"` for danger/warning, `role="status"` otherwise |
+| `Progress` | `value` (0–100), `severity`, `showValue`, `label`, `valueText` | `role="progressbar"`; pass `label` |
+| `Skeleton` | `className` | Pulse placeholder (`aria-hidden`, no motion with reduced-motion). Set `aria-busy` on the loading container |
+| `Toast` | `item: { id, severity, title, description? }`, `onDismiss` | severity: `success · info · warning · danger · primary`. `role="status"` (`alert` for danger) |
+| `ToastStack` | `toasts`, `onDismiss`, `label = 'Notifications'` | Fixed bottom-right labelled landmark |
 
 ## Navigation · `navigation.tsx`
 
 | Component | Key props | Notes |
 |---|---|---|
-| `Tabs` | `tabs: (TabItem \| string)[]`, `value`, `onChange`, `variant: 'underline'\|'pills'\|'boxed'`, `size` | `TabItem = { key, label, Icon?, badge?, disabled? }`. Active icon switches to `fill` weight |
-| `Breadcrumb` | `items: { label, href?, Icon? }[]`, `maxItems` | Collapses middle items into an expandable "…" |
-| `Steps` | `steps: { label, description?, status? }[]`, `current`, `orientation: 'horizontal'\|'vertical'` | status: `complete · current · upcoming · error` |
-| `NavMenu` | `items: NavMenuItem[]`, `value`, `onChange`, `collapsed` | One level of children, badges, icon-only collapsed mode |
+| `Tabs` | `tabs: (TabItem \| string)[]`, `value`, `onChange`, `variant: 'underline'\|'pills'\|'boxed'`, `size`, `label`, `id` | `TabItem = { key, label, Icon?, badge?, disabled? }`. WAI-ARIA tabs, automatic activation. Pass `id` and wrap content in `<TabPanel tabsId tabKey>` to link panels |
+| `Breadcrumb` | `items: { label, href?, Icon? }[]`, `maxItems`, `label` | Collapses middle items into an expandable "…". Last item gets `aria-current="page"` |
+| `Steps` | `steps: { label, description?, status? }[]`, `current`, `orientation: 'horizontal'\|'vertical'`, `label`, `statusText` | status: `complete · current · upcoming · error`. Current step has `aria-current="step"`; status is spoken |
+| `NavMenu` | `items: NavMenuItem[]`, `value`, `onChange`, `collapsed`, `label` | One level of children, badges, icon-only collapsed mode. Groups expose `aria-expanded`; active item `aria-current="page"` |
 
 ## Overlays · `overlays.tsx`
 
 | Component | Key props | Notes |
 |---|---|---|
-| `Tooltip` | `label`, `description`, `placement: 'top'\|'bottom'\|'left'\|'right'`, `children` | Ink background, CSS-only on hover |
-| `Modal` | `open`, `onClose`, `title`, `description`, `size: 'sm'\|'md'\|'lg'\|'xl'\|'full'`, `icon`, `iconSeverity = 'danger'`, `footer` | Widths 384 / 448 / 512 / 672 / viewport. Blurred ink scrim |
-| `Drawer` | `open`, `onClose`, `title`, `description`, `side: 'right'\|'left'\|'bottom'`, `footer` | 448px wide; bottom sheet max 85dvh |
-| `Popover` | `trigger`, `title`, `description`, `align: 'start'\|'end'\|'center'` | 288px, closes on outside click |
-| `DropdownMenu` | `trigger`, `items: DropdownItem[]`, `align` | Item types: `item` (Icon, shortcut, danger, disabled) · `separator` · `label` |
+| `Tooltip` | `label`, `description`, `placement: 'top'\|'bottom'\|'left'\|'right'`, `children` | Shows on hover and keyboard focus, Escape dismisses (WCAG 1.4.13). `role="tooltip"` + `aria-describedby` on the child |
+| `Modal` | `open`, `onClose`, `title`, `description`, `size: 'sm'\|'md'\|'lg'\|'xl'\|'full'`, `icon`, `iconSeverity = 'danger'`, `footer` | Widths 384 / 448 / 512 / 672 / viewport. `role="dialog"` + `aria-modal`, focus trapped, Escape closes, focus returns |
+| `Drawer` | `open`, `onClose`, `title`, `description`, `side: 'right'\|'left'\|'bottom'`, `footer` | 448px wide; bottom sheet max 85dvh. Same dialog behaviour as Modal |
+| `Popover` | `trigger`, `title`, `description`, `align: 'start'\|'end'\|'center'` | 288px. Non-modal dialog: trigger gets `aria-expanded`, focus moves in, Escape or outside click closes |
+| `DropdownMenu` | `trigger`, `items: DropdownItem[]`, `align`, `label` | Item types: `item` (Icon, shortcut, danger, disabled) · `separator` · `label`. WAI-ARIA menu button |
 
 ## Layout & containers · `layout.tsx`
 
 | Component | Key props | Notes |
 |---|---|---|
 | `Card` | `className` | 16px radius, hairline border, resting shadow |
-| `Panel` | `title`, `description`, `icon`, `iconSeverity`, `actions`, `footer`, `collapsible` | Card with header/body/footer |
-| `Accordion` | `items: { id, title, description?, content }[]`, `allowMultiple` | |
+| `Panel` | `title`, `description`, `icon`, `iconSeverity`, `actions`, `footer`, `collapsible` | Card with header/body/footer. Collapse button has `aria-expanded` |
+| `Accordion` | `items: { id, title, description?, content }[]`, `allowMultiple`, `headingLevel = 3` | Triggers sit in headings, `aria-expanded` + `aria-controls`, panels are labelled regions |
 | `Divider` | `label`, `soft` | Horizontal rule, optional centred label |
+
+---
+
+## Keyboard and screen-reader contract
+
+Every interactive component follows the matching [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern. `tests/keyboard.mjs` checks the core ones in CI.
+
+| Pattern | Components | Keys |
+|---|---|---|
+| Dialog (modal) | `Modal`, `Drawer` | Focus moves in on open · Tab / Shift+Tab cycle inside · Escape closes · focus returns to the opener |
+| Dialog (non-modal) | `Popover` | Enter/Space opens and moves focus in · Escape closes and refocuses the trigger |
+| Menu button | `DropdownMenu`, `SplitButton` | Enter/Space/↓ open on the first item, ↑ on the last · ↑↓ Home End move · Enter activates · Escape closes · Tab leaves |
+| Select-only combobox | `Select` | Enter/Space/↑↓ open · ↑↓ Home End move · type to jump · Enter/Space choose · Escape closes |
+| Combobox (autocomplete) | `Combobox`, `TagInput` | Type to filter · ↑↓ move the active option · Enter selects · Escape closes |
+| Tabs | `Tabs` | One Tab stop · ←→ move and select · Home End |
+| Radio group | `RadioGroup`, `SegmentedControl` | One Tab stop · arrows move and select |
+| Switch / checkbox | `Toggle`, `SwitchRow`, `Checkbox` | Space toggles |
+| Disclosure | `Accordion`, `Panel`, `NavMenu` groups | Enter/Space expand and collapse |
+| Tooltip | `Tooltip` | Appears on focus · Escape hides it |
+
+Helpers in `src/components/a11y.ts` (`useDialogFocus`, `listKeyNav`, `mergeTriggerProps`) implement these behaviours once, so new components can reuse them.
 
 ---
 

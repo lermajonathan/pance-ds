@@ -140,7 +140,7 @@ function Panel({ title, sub, action, children, className = '' }: { title: string
     <Card className={`flex flex-col overflow-hidden ${className}`}>
       <header className="flex flex-wrap items-start justify-between gap-3 border-b border-line-soft px-6 py-4">
         <div>
-          <h3 className="font-display text-[15px] font-bold tracking-tight text-ink">{title}</h3>
+          <h2 className="font-display text-[15px] font-bold tracking-tight text-ink">{title}</h2>
           {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
         </div>
         {action}
@@ -302,7 +302,7 @@ export default function ConsoleExample() {
                 { key: 'fiado', label: tt('console.tx.tab.credit'), badge: TXS.filter((t) => t.method === 'fiado').length },
               ]} />
             </div>
-            <div className="overflow-x-auto">
+            <div tabIndex={0} className="pance-focus overflow-x-auto">
               <table className="w-full min-w-[720px] text-sm">
                 <thead>
                   <tr className="border-b border-line-soft text-left font-mono text-[10px] uppercase tracking-wider text-ink-muted">
@@ -319,7 +319,7 @@ export default function ConsoleExample() {
                     const m = methodOf(t.method)
                     return (
                       <tr key={t.id} className="transition-colors hover:bg-canvas">
-                        <td className="px-6 py-3 font-mono text-xs text-ink-muted">{t.time}<span className="ml-2 text-[10px] opacity-70">{t.id}</span></td>
+                        <td className="px-6 py-3 font-mono text-xs text-ink-muted">{t.time}<span className="ml-2 text-[10px]">{t.id}</span></td>
                         <td className="px-3 py-3 font-medium text-ink">{t.who}</td>
                         <td className="max-w-[240px] truncate px-3 py-3 text-ink-muted">{t.items}</td>
                         <td className="px-3 py-3"><span className="inline-flex items-center gap-1.5 text-xs text-ink-soft"><span className="h-2 w-2 rounded-full" style={{ background: m.color }} />{METHOD_LABEL[m.key] ? tt(METHOD_LABEL[m.key]!) : m.label}</span></td>
@@ -345,7 +345,7 @@ export default function ConsoleExample() {
                     <li key={d.id} className="px-6 py-4">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex min-w-0 items-center gap-3">
-                          <Avatar name={d.name} size={32} />
+                          <Avatar name={d.name} size={32} decorative />
                           <div className="min-w-0">
                             <p className="truncate text-sm font-medium text-ink">{d.name}</p>
                             <p className="font-mono text-[11px] text-ink-muted">{d.phone} · {d.days === 1 ? tt('console.debt.ago1') : tt('console.debt.ago', { n: d.days })}</p>
@@ -357,7 +357,7 @@ export default function ConsoleExample() {
                         </div>
                       </div>
                       <div className="mt-3 flex items-center gap-3">
-                        <div className="flex-1"><Progress value={pct} severity={sev} /></div>
+                        <div className="flex-1"><Progress value={pct} severity={sev} label={d.name} /></div>
                         <Button size="sm" variant={sent ? 'text' : 'outlined'} severity={sent ? 'success' : 'secondary'} Icon={sent ? IconCheck : IconBell} disabled={sent}
                           onClick={() => { setReminded((r) => new Set(r).add(d.id)); toast({ severity: 'success', title: tt('console.debt.toast.title', { name: d.name.split(' ')[0] }), description: tt('console.debt.toast.desc') }) }}>
                           {sent ? tt('console.debt.sent') : tt('console.debt.remind')}
@@ -382,7 +382,7 @@ export default function ConsoleExample() {
                           <span className="shrink-0 font-mono text-[11px] text-ink-muted">{p.units}/{p.par}</span>
                         </div>
                         <p className="mb-2 truncate text-[11px] text-ink-muted">{p.supplier} · {tt('console.stock.visit', { when: tt(p.next[0], { time: p.next[1] ?? '' }) })}</p>
-                        <Progress value={pct} severity={pct < 20 ? 'danger' : pct < 50 ? 'warning' : 'primary'} />
+                        <Progress value={pct} severity={pct < 20 ? 'danger' : pct < 50 ? 'warning' : 'primary'} label={p.name} />
                       </div>
                       <Button size="sm" variant={done ? 'text' : 'outlined'} severity={done ? 'success' : 'primary'} Icon={done ? IconCheck : IconPlus} disabled={done}
                         onClick={() => { setOrdered((o) => new Set(o).add(p.id)); toast({ severity: 'primary', title: tt('console.stock.toast.title'), description: `${p.par - p.units} × ${p.name} · ${p.supplier}` }) }}>

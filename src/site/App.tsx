@@ -135,7 +135,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
         </button>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 pb-4 pt-2">
+      <nav aria-label={t('shell.designSystem')} className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 pb-4 pt-2">
         {NAV.map((group) => (
           <div key={group.titleKey ?? 'top'} className="mb-1">
             {!group.topLevel && group.titleKey && (
@@ -233,7 +233,7 @@ function Shell() {
           {/* Mobile top bar — always available so navigation is reachable.
               Safe-area padding keeps the hamburger clear of rounded corners /
               the status bar on notched devices. */}
-          <div className="sticky top-0 z-30 flex min-h-16 items-center gap-3 border-b border-line bg-ground/85 pb-2.5 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md lg:hidden">
+          <header className="sticky top-0 z-30 flex min-h-16 items-center gap-3 border-b border-line bg-ground/85 pb-2.5 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md lg:hidden">
             <button
               onClick={() => setMobileOpen(true)}
               className="pance-focus grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink-soft"
@@ -246,7 +246,7 @@ function Shell() {
             </div>
             <span className="min-w-0 truncate font-display text-base font-extrabold tracking-tight text-ink">{isHome ? 'Pance' : label}</span>
             <LanguageSwitch variant="icon" />
-          </div>
+          </header>
 
           <header className="sticky top-0 z-20 hidden h-20 items-center justify-between gap-6 border-b border-line bg-ground/80 px-8 backdrop-blur-md lg:flex">
             {isHome ? (

@@ -4,8 +4,18 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Accessibility
+- WAI-ARIA patterns with full keyboard support: `Modal` / `Drawer` (focus trap, Escape, focus return), `Popover`, `DropdownMenu` and `SplitButton` (menu button), `Select` (select-only combobox), `Combobox` and `TagInput` (autocomplete), `Tabs` (+ new `TabPanel`), `SegmentedControl` and new `RadioGroup` (roving tabindex), `Accordion`, `Panel` and `NavMenu` (disclosure), `Tooltip` (focus + Escape).
+- `Field` now wires `id`, `aria-describedby`, `aria-invalid` and `aria-required` into its control; new `group` prop and `useFieldControl()` hook.
+- Accessible names: `label` props on `Toggle`, `Select`, `Combobox`, `TagInput`, `RangeSlider` (+ `valueText`), `Progress` (+ `valueText`), `PinInput`, `Tabs`, `SegmentedControl`, `DropdownMenu`, `Breadcrumb`, `Steps`, `NavMenu`; `Avatar` gets `decorative` and `statusLabel`.
+- Live regions: `Alert` and `Toast` use `role="alert"` only for danger/warning, `role="status"` otherwise; `ToastStack` is a labelled landmark. `Skeleton` is hidden from assistive tech.
+- `aria-current` on `Breadcrumb`, `Steps` and `NavMenu`; password toggle back in the Tab order with a 24px target; `FileDropzone` is a native label + file input.
+- Docs site: unlabelled demos, landmarks, heading order, empty table headers, scrollable regions and contrast fixed.
+- `tests/keyboard.mjs` and `tests/axe.mjs`, run in CI. axe-core violations: 975 → 36.
+
 ### Fixed
 - Alert outlined/solid borders and Badge remove-hover (Tailwind never generated those classes).
+- `SplitButton` primary action had no `onClick`.
 
 ### Added
 - Design tokens extracted into W3C DTCG JSON: `tokens/primitives.json`, `semantic.json`, `components.json` (852 tokens).

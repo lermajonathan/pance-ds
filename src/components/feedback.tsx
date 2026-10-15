@@ -47,8 +47,11 @@ export function Alert({
         : `border ${t.bg} ${t.border}`
 
   return (
-    <div role="alert" className={`flex items-start gap-3 rounded-xl p-4 ${shell}`}>
-      <Glyph size={20} weight="regular" className={`mt-0.5 shrink-0 ${solid ? 'text-white' : t.fg}`} />
+    <div
+      role={severity === 'danger' || severity === 'warning' ? 'alert' : 'status'}
+      className={`flex items-start gap-3 rounded-xl p-4 ${shell}`}
+    >
+      <Glyph size={20} weight="regular" aria-hidden className={`mt-0.5 shrink-0 ${solid ? 'text-white' : t.fg}`} />
       <div className="min-w-0 flex-1">
         <p className={`text-sm font-semibold ${solid ? 'text-white' : 'text-ink'}`}>{title}</p>
         {children && <p className={`mt-0.5 text-sm ${solid ? 'text-white/85' : 'text-ink-soft'}`}>{children}</p>}
@@ -68,7 +71,21 @@ export function Alert({
 }
 
 /* ── Progress ──────────────────────────────────────────────────────────── */
-export function Progress({ value, severity = 'primary', showValue }: { value: number; severity?: Severity; showValue?: boolean }) {
+export function Progress({
+  value,
+  severity = 'primary',
+  showValue,
+  label,
+  valueText,
+}: {
+  value: number
+  severity?: Severity
+  showValue?: boolean
+  /** Accessible name, e.g. "Upload progress". Required by WCAG 4.1.2 when there is no visible label. */
+  label?: string
+  /** Human-readable value for screen readers, e.g. "3 of 8 files". */
+  valueText?: string
+}) {
   const pct = Math.min(100, Math.max(0, value))
   return (
     <div className="flex items-center gap-3">
@@ -78,17 +95,20 @@ export function Progress({ value, severity = 'primary', showValue }: { value: nu
         aria-valuenow={pct}
         aria-valuemin={0}
         aria-valuemax={100}
+        aria-label={label}
+        aria-valuetext={valueText}
       >
         <div className={`h-full rounded-full transition-all duration-500 ${TONE[severity].dot}`} style={{ width: `${pct}%` }} />
       </div>
-      {showValue && <span className="w-9 shrink-0 text-right font-mono text-[11px] text-ink-muted">{pct}%</span>}
+      {showValue && <span aria-hidden className="w-9 shrink-0 text-right font-mono text-[11px] text-ink-muted">{pct}%</span>}
     </div>
   )
 }
 
 /* ── Skeleton ──────────────────────────────────────────────────────────── */
+/** Decorative placeholder. Mark the container that is loading with `aria-busy="true"`. */
 export function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse rounded-lg bg-slate-200/70 ${className}`} />
+  return <div aria-hidden className={`animate-pulse rounded-lg bg-slate-200/70 motion-reduce:animate-none ${className}`} />
 }
 
 /* ── Toast ─────────────────────────────────────────────────────────────── */
@@ -108,8 +128,11 @@ export function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: st
   const t = TONE[item.severity]
   const Icon = TOAST_ICON[item.severity]
   return (
-    <div className={`flex w-80 items-start gap-3 rounded-xl border p-4 shadow-[0_8px_24px_-8px_rgba(15,23,42,0.25)] ${t.bg} ${t.border}`}>
-      <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full ${t.solid} text-white`}>
+    <div
+      role={item.severity === 'danger' ? 'alert' : 'status'}
+      aria-atomic="true"
+      className={`flex w-80 items-start gap-3 rounded-xl border p-4 shadow-[0_8px_24px_-8px_rgba(15,23,42,0.25)] ${t.bg} ${t.border}`}>
+      <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full ${t.solid} text-white`} aria-hidden>
         <Icon className="h-3.5 w-3.5" />
       </span>
       <div className="flex-1 min-w-0">
@@ -123,10 +146,20 @@ export function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: st
   )
 }
 
-export function ToastStack({ toasts, onDismiss }: { toasts: ToastItem[]; onDismiss: (id: string) => void }) {
+export function ToastStack({
+  toasts,
+  onDismiss,
+  label = 'Notifications',
+}: {
+  toasts: ToastItem[]
+  onDismiss: (id: string) => void
+  /** Name of the notifications landmark. */
+  label?: string
+}) {
+  // Each Toast is its own status/alert live region, so the stack is a plain labelled landmark.
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
+    <section aria-label={label} className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
       {toasts.map((t) => <Toast key={t.id} item={t} onDismiss={onDismiss} />)}
-    </div>
+    </section>
   )
 }

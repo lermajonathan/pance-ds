@@ -1,8 +1,9 @@
 /* Pance · Buttons — Button, IconButton, ButtonGroup, SplitButton, ToggleButton */
-import { useEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { useI18n } from '../i18n'
 import { IconChevronDown, IconSpinner, type IconType } from '../icons'
 import { focus, type Severity } from './shared'
+import { DropdownMenu } from './overlays'
 
 /* ── Button ────────────────────────────────────────────────────────────────
    Severity (what it means) is orthogonal to variant (how loud it is).
@@ -123,7 +124,7 @@ export function Button({
       : `${s.pad} ${shape}`
   const inset = variant === 'link' ? 'px-1' : ''
 
-  const glyph = Glyph ? <Glyph size={s.icon} weight="regular" className={loading ? 'animate-spin' : ''} /> : null
+  const glyph = Glyph ? <Glyph size={s.icon} weight="regular" aria-hidden className={loading ? 'animate-spin' : ''} /> : null
 
   return (
     <button
@@ -140,7 +141,7 @@ export function Button({
       {badge !== undefined && (
         <span
           className={`ml-1 grid h-5 min-w-5 place-items-center rounded-full px-1 font-mono text-[10px] font-bold ${
-            variant === 'filled' ? 'bg-white/25 text-white' : 'bg-current/10 text-current'
+            variant === 'filled' ? 'bg-black/25 text-white' : 'bg-current/10 text-current'
           }`}
         >
           {badge}
@@ -157,7 +158,7 @@ export function IconButton({ Icon, label, className = '', ...rest }: { Icon: Ico
       className={`${focus} grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface text-ink-soft transition-colors hover:border-brand-200 hover:text-brand-700 ${className}`}
       {...rest}
     >
-      <Icon size={18} />
+      <Icon size={18} aria-hidden />
     </button>
   )
 }
@@ -171,58 +172,44 @@ export function ButtonGroup({ children }: { children: ReactNode }) {
   )
 }
 
-/* ── Split button ──────────────────────────────────────────────────────── */
+/* ── Split button ──────────────────────────────────────────────────────
+   Primary action + a menu button (WAI-ARIA menu pattern via DropdownMenu). */
 export function SplitButton({
   label,
   Icon,
   severity = 'primary',
   size = 'md',
   items,
+  onClick,
+  menuLabel,
 }: {
   label: string
   Icon?: IconType
   severity?: Severity
   size?: ButtonSize
-  items: { label: string; Icon?: IconType; onSelect?: () => void; danger?: boolean }[]
+  items: { label: string; Icon?: IconType; onSelect?: () => void; danger?: boolean; disabled?: boolean }[]
+  /** Primary action. */
+  onClick?: () => void
+  /** Accessible name of the arrow button. Defaults to the translated "More actions". */
+  menuLabel?: string
 }) {
   const { t: tt } = useI18n()
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [open])
+  const name = menuLabel ?? tt('ui.moreActions')
   return (
-    <div ref={ref} className="relative inline-flex">
-      <div className="inline-flex -space-x-px">
-        <Button severity={severity} size={size} Icon={Icon} className="rounded-r-none">
-          {label}
-        </Button>
-        <Button severity={severity} size={size} aria-label={tt('ui.moreActions')} onClick={() => setOpen((o) => !o)} className="rounded-l-none px-2">
-          <IconChevronDown size={16} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
-        </Button>
-      </div>
-      {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-40 w-48 overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
-          {items.map((it) => (
-            <button
-              key={it.label}
-              onClick={() => {
-                it.onSelect?.()
-                setOpen(false)
-              }}
-              className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
-                it.danger ? 'text-danger hover:bg-danger-soft' : 'text-ink-soft hover:bg-ground'
-              }`}
-            >
-              {it.Icon && <it.Icon size={16} />}
-              {it.label}
-            </button>
-          ))}
-        </div>
-      )}
+    <div className="relative inline-flex -space-x-px">
+      <Button severity={severity} size={size} Icon={Icon} onClick={onClick} className="rounded-r-none focus-visible:z-10">
+        {label}
+      </Button>
+      <DropdownMenu
+        align="end"
+        label={name}
+        items={items.map((it) => ({ label: it.label, Icon: it.Icon, danger: it.danger, disabled: it.disabled, onClick: it.onSelect }))}
+        trigger={
+          <Button severity={severity} size={size} aria-label={name} className="rounded-l-none px-2 focus-visible:z-10">
+            <IconChevronDown size={16} aria-hidden />
+          </Button>
+        }
+      />
     </div>
   )
 }

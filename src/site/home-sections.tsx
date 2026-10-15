@@ -28,8 +28,8 @@ function HumanArt() {
         <div key={i} className={`pance-rise flex aspect-[4/5] flex-col justify-between rounded-2xl p-3 shadow-sm sm:p-4 ${x.cls}`} style={{ animationDelay: `${i * 90}ms` }}>
           <span className="font-display text-3xl font-extrabold leading-none sm:text-5xl">Aa</span>
           <div>
-            <p className="font-mono text-[11px] opacity-80">{x.ratio}</p>
-            <p className="mt-1 inline-block rounded-full bg-white/20 px-2 py-0.5 font-mono text-[10px] font-bold">{x.grade}</p>
+            <p className="font-mono text-[11px]">{x.ratio}</p>
+            <p className="mt-1 inline-block rounded-full ring-1 ring-current px-2 py-0.5 font-mono text-[10px] font-bold">{x.grade}</p>
           </div>
         </div>
       ))}
@@ -157,7 +157,7 @@ export function PillarsSection() {
               return (
                 <div key={p.id} aria-hidden={!on} inert={!on} className={`col-start-1 row-start-1 ${on ? 'pance-rise' : 'invisible'}`}>
                   <p className="font-mono text-[11px] tracking-[0.18em] text-brand-700">{String(i + 1).padStart(2, '0')} / {String(PILLARS.length).padStart(2, '0')}</p>
-                  <h3 className="mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">{t(p.title)}</h3>
+                  <h2 className="mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">{t(p.title)}</h2>
                   <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">{t(p.body)}</p>
                 </div>
               )

@@ -1,17 +1,37 @@
 /* Pance · Form inputs — Input, Field, Textarea, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, Select, TagInput */
-import { useEffect, useId, useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type TextareaHTMLAttributes, type KeyboardEvent, type ClipboardEvent } from 'react'
+import { createContext, createElement, useContext, useEffect, useId, useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type TextareaHTMLAttributes, type KeyboardEvent, type ClipboardEvent } from 'react'
 import { useI18n } from '../i18n'
 import { IconAlert, IconCheck, IconCheckCircle, IconChevronDown, IconEdit, IconEye, IconEyeOff, IconSearch, IconX, type IconType } from '../icons'
 import { focus } from './shared'
+import { listKeyNav } from './a11y'
 
 /* ── Inputs ────────────────────────────────────────────────────────────── */
 const inputBase =
-  `${focus} w-full rounded-xl border bg-surface text-ink placeholder:text-ink-muted transition-colors duration-200`
+  `${focus} w-full rounded-xl border bg-surface text-ink placeholder:text-ink-subtle transition-colors duration-200`
 const inputNormal = 'border-line hover:border-slate-300'
 const inputError =
   'border-danger bg-rose-50/40 focus-visible:shadow-[var(--pance-focus-ring-danger)]'
 const inputSuccess =
   'border-emerald-400 bg-emerald-50/30 focus-visible:shadow-[var(--pance-focus-ring-success)]'
+
+/* Field ↔ control wiring. Any control rendered inside <Field> picks up the id the
+   <label> points to, the ids of the hint/error text (aria-describedby) and the
+   invalid/required state — no props needed at the call site. */
+type FieldCtx = { id: string; labelId: string; describedBy?: string; invalid?: boolean; required?: boolean }
+const FieldContext = createContext<FieldCtx | null>(null)
+/** Id of the enclosing Field's label, for composite controls that need aria-labelledby. */
+export const useFieldLabelId = () => useContext(FieldContext)?.labelId
+
+export function useFieldControl(own: { id?: string; 'aria-describedby'?: string; 'aria-invalid'?: React.AriaAttributes['aria-invalid']; required?: boolean; error?: boolean }) {
+  const ctx = useContext(FieldContext)
+  const describedBy = [own['aria-describedby'], ctx?.describedBy].filter(Boolean).join(' ') || undefined
+  return {
+    id: own.id ?? ctx?.id,
+    'aria-describedby': describedBy,
+    'aria-invalid': own['aria-invalid'] ?? (own.error || ctx?.invalid ? true : undefined),
+    'aria-required': own.required || ctx?.required || undefined,
+  }
+}
 
 export type InputSize = 'sm' | 'md' | 'lg'
 const INPUT_SIZE: Record<InputSize, string> = {
@@ -40,6 +60,7 @@ export function Input({
 } & InputHTMLAttributes<HTMLInputElement>) {
   const { t: tt } = useI18n()
   const [showPwd, setShowPwd] = useState(false)
+  const a11y = useFieldControl({ ...rest, error })
   const isPwd = type === 'password'
   const resolvedType = isPwd ? (showPwd ? 'text' : 'password') : type
   const state = error ? inputError : success ? inputSuccess : inputNormal
@@ -51,25 +72,26 @@ export function Input({
 
   return (
     <div className="relative">
-      {Icon && <Icon className={`pointer-events-none absolute ${iconLeft} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />}
+      {Icon && <Icon aria-hidden="true" className={`pointer-events-none absolute ${iconLeft} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />}
       <input
         ref={ref}
         type={resolvedType}
         className={`${inputBase} ${INPUT_SIZE[inputSize]} ${state} ${leftPad} ${rightPad} ${className}`}
         {...rest}
+        {...a11y}
       />
       {isPwd ? (
         <button
           type="button"
-          tabIndex={-1}
-          aria-label={showPwd ? tt('ui.hidePassword') : tt('ui.showPassword')}
+          aria-label={tt('ui.showPassword')}
+          aria-pressed={showPwd}
           onClick={() => setShowPwd((v) => !v)}
-          className={`absolute ${iconRight} top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink-soft`}
+          className={`${focus} absolute ${iconRight} top-1/2 -mr-[3px] grid h-6 w-6 -translate-y-1/2 place-items-center rounded-md text-ink-muted hover:text-ink-soft`}
         >
-          {showPwd ? <IconEyeOff className={iconSize} /> : <IconEye className={iconSize} />}
+          {showPwd ? <IconEyeOff aria-hidden className={iconSize} /> : <IconEye aria-hidden className={iconSize} />}
         </button>
       ) : TrailingIcon ? (
-        <TrailingIcon className={`pointer-events-none absolute ${iconRight} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />
+        <TrailingIcon aria-hidden="true" className={`pointer-events-none absolute ${iconRight} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />
       ) : null}
     </div>
   )
@@ -84,9 +106,12 @@ export function Field({
   optional,
   charCount,
   maxChars,
+  group,
   children,
 }: {
   label: string
+  /** Set when the field holds several controls (buttons, radios, chips). The label then names a role="group". */
+  group?: boolean
   hint?: string
   error?: string
   success?: string
@@ -98,33 +123,53 @@ export function Field({
 }) {
   const { t: tt } = useI18n()
   const id = useId()
+  const msgId = `${id}-msg`
+  const countId = `${id}-count`
+  const hasMsg = !!(error || success || hint)
+  const hasCount = maxChars !== undefined && charCount !== undefined
+  const labelId = `${id}-label`
+  const ctx: FieldCtx = {
+    id,
+    labelId,
+    describedBy: [hasMsg ? msgId : '', hasCount ? countId : ''].filter(Boolean).join(' ') || undefined,
+    invalid: !!error,
+    required,
+  }
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between">
-        <label htmlFor={id} className="text-sm font-medium text-ink-soft">
-          {label}
-          {required && <span className="ml-0.5 text-danger">*</span>}
-          {optional && <span className="ml-1.5 font-normal text-ink-muted">{tt('ui.optional')}</span>}
-        </label>
-        {maxChars !== undefined && charCount !== undefined && (
-          <span className={`font-mono text-[11px] ${charCount > maxChars ? 'text-danger' : 'text-ink-muted'}`}>
+        {createElement(
+          group ? 'span' : 'label',
+          { id: labelId, htmlFor: group ? undefined : id, className: 'text-sm font-medium text-ink-soft' },
+          label,
+          required && <span key="r" className="ml-0.5 text-danger" aria-hidden="true">*</span>,
+          optional && <span key="o" className="ml-1.5 font-normal text-ink-muted">{tt('ui.optional')}</span>,
+        )}
+        {hasCount && (
+          <span id={countId} className={`font-mono text-[11px] ${charCount! > maxChars! ? 'text-danger' : 'text-ink-muted'}`}>
             {charCount}/{maxChars}
           </span>
         )}
       </div>
-      {children}
+      <FieldContext.Provider value={ctx}>
+        {group ? (
+          <div role="group" aria-labelledby={labelId} aria-describedby={ctx.describedBy}>{children}</div>
+        ) : (
+          children
+        )}
+      </FieldContext.Provider>
       {error ? (
-        <p className="flex items-center gap-1.5 text-xs font-medium text-danger">
-          <IconAlert className="h-3.5 w-3.5 shrink-0" />
+        <p id={msgId} className="flex items-center gap-1.5 text-xs font-medium text-danger">
+          <IconAlert className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           {error}
         </p>
       ) : success ? (
-        <p className="flex items-center gap-1.5 text-xs font-medium text-emerald-700">
-          <IconCheckCircle className="h-3.5 w-3.5 shrink-0" />
+        <p id={msgId} className="flex items-center gap-1.5 text-xs font-medium text-emerald-700">
+          <IconCheckCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           {success}
         </p>
       ) : hint ? (
-        <p className="text-xs text-ink-muted">{hint}</p>
+        <p id={msgId} className="text-xs text-ink-muted">{hint}</p>
       ) : null}
     </div>
   )
@@ -137,11 +182,13 @@ export function Textarea({
   className = '',
   ...rest
 }: { error?: boolean; success?: boolean; className?: string } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  const a11y = useFieldControl({ ...rest, error })
   const state = error ? inputError : success ? inputSuccess : inputNormal
   return (
     <textarea
       className={`${inputBase} ${state} px-3.5 py-2.5 text-sm leading-relaxed resize-none min-h-[80px] ${className}`}
       {...rest}
+      {...a11y}
     />
   )
 }
@@ -194,6 +241,9 @@ export function RangeSlider({
   max = 100,
   step = 1,
   severity = 'primary',
+  label,
+  valueText,
+  disabled,
 }: {
   value: number
   onChange: (v: number) => void
@@ -201,7 +251,13 @@ export function RangeSlider({
   max?: number
   step?: number
   severity?: 'primary' | 'success' | 'warning' | 'danger'
+  /** Accessible name when the slider is not inside a Field. */
+  label?: string
+  /** Human-readable value, e.g. "40 %" or "3 replicas" (aria-valuetext). */
+  valueText?: string
+  disabled?: boolean
 }) {
+  const a11y = useFieldControl({})
   const pct = ((value - min) / (max - min)) * 100
   const trackColor: Record<string, string> = {
     primary: 'var(--pance-color-intent-primary-solid)',
@@ -218,8 +274,12 @@ export function RangeSlider({
         max={max}
         step={step}
         value={value}
+        disabled={disabled}
+        aria-label={a11y.id ? undefined : label}
+        aria-valuetext={valueText}
+        {...a11y}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-200 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110 [&:focus]:outline-none"
+        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-200 disabled:cursor-not-allowed disabled:opacity-45 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
         style={{
           background: `linear-gradient(to right, ${thumb} ${pct}%, var(--pance-color-border-default) ${pct}%)`,
           ['--thumb' as string]: thumb,
@@ -245,6 +305,7 @@ export function FileDropzone({
   const [over, setOver] = useState(false)
   const [files, setFiles] = useState<File[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
+  const a11y = useFieldControl({})
 
   const handle = (f: FileList | null) => {
     if (!f) return
@@ -255,17 +316,17 @@ export function FileDropzone({
 
   return (
     <div className="space-y-3">
-      <div
-        onClick={() => inputRef.current?.click()}
+      {/* A <label> wrapping the native file input: click, Enter/Space and screen readers all work natively. */}
+      <label
         onDragOver={(e) => { e.preventDefault(); setOver(true) }}
         onDragLeave={() => setOver(false)}
         onDrop={(e) => { e.preventDefault(); setOver(false); handle(e.dataTransfer.files) }}
-        className={`${focus} flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors ${over ? 'border-brand-400 bg-brand-50' : 'border-line hover:border-brand-300 hover:bg-brand-50/40'}`}
+        className={`flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors has-[input:focus-visible]:border-brand-600 has-[input:focus-visible]:shadow-[var(--pance-focus-ring)] ${over ? 'border-brand-400 bg-brand-50' : 'border-line hover:border-brand-300 hover:bg-brand-50/40'}`}
       >
-        <input ref={inputRef} type="file" accept={accept} multiple className="sr-only" onChange={(e) => handle(e.target.files)} />
+        <input ref={inputRef} {...a11y} type="file" accept={accept} multiple className="sr-only" onChange={(e) => handle(e.target.files)} />
         {DropIcon && (
           <span className={`grid h-12 w-12 place-items-center rounded-xl transition-colors ${over ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-ink-muted'}`}>
-            <DropIcon size={24} />
+            <DropIcon size={24} aria-hidden />
           </span>
         )}
         <div>
@@ -274,7 +335,7 @@ export function FileDropzone({
           </p>
           {hint && <p className="mt-1 text-xs text-ink-muted">{hint}</p>}
         </div>
-      </div>
+      </label>
       {files.length > 0 && (
         <ul className="space-y-1.5">
           {files.map((f, i) => (
@@ -302,13 +363,21 @@ export function PinInput({
   length = 6,
   onComplete,
   error,
+  label = 'Verification code',
+  digitLabel = (n, total) => `Digit ${n} of ${total}`,
 }: {
   length?: number
   onComplete?: (pin: string) => void
   error?: boolean
+  /** Name of the group (translate it). */
+  label?: string
+  /** Name of each box (translate it). */
+  digitLabel?: (n: number, total: number) => string
 }) {
   const [values, setValues] = useState<string[]>(Array(length).fill(''))
   const refs = useRef<(HTMLInputElement | null)[]>([])
+  const a11y = useFieldControl({ error })
+  const labelId = useFieldLabelId()
 
   const update = (i: number, v: string) => {
     const char = v.replace(/\D/g, '').slice(-1)
@@ -323,6 +392,8 @@ export function PinInput({
     if (e.key === 'Backspace' && !values[i] && i > 0) {
       refs.current[i - 1]?.focus()
     }
+    if (e.key === 'ArrowLeft' && i > 0) { e.preventDefault(); refs.current[i - 1]?.focus() }
+    if (e.key === 'ArrowRight' && i < length - 1) { e.preventDefault(); refs.current[i + 1]?.focus() }
   }
 
   const onPaste = (e: ClipboardEvent) => {
@@ -336,10 +407,14 @@ export function PinInput({
   }
 
   return (
-    <div className="flex gap-1.5 sm:gap-2">
+    <div role="group" aria-labelledby={labelId} aria-label={labelId ? undefined : label} aria-describedby={a11y['aria-describedby']} className="flex gap-1.5 sm:gap-2">
       {values.map((v, i) => (
         <input
           key={i}
+          id={i === 0 ? a11y.id : undefined}
+          aria-label={digitLabel(i + 1, length)}
+          aria-invalid={a11y['aria-invalid']}
+          autoComplete={i === 0 ? 'one-time-code' : 'off'}
           ref={(el) => { refs.current[i] = el }}
           type="text"
           inputMode="numeric"
@@ -417,23 +492,34 @@ export function InlineEdit({
   )
 }
 
-/* ── Combobox ──────────────────────────────────────────────────────────── */
+/* ── Combobox ──────────────────────────────────────────────────────────────
+   WAI-ARIA combobox (list autocomplete): role=combobox input with
+   aria-activedescendant; ArrowUp/Down/Home/End move, Enter selects,
+   Escape closes and returns focus to the trigger. */
 export function Combobox({
   options,
   value,
   onChange,
   placeholder,
+  label,
 }: {
   options: { value: string; label: string; meta?: string }[]
   value: string
   onChange: (v: string) => void
   placeholder?: string
+  /** Accessible name when not inside a Field. */
+  label?: string
 }) {
   const { t: tt } = useI18n()
   placeholder ??= tt('ui.search')
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const [active, setActive] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const a11y = useFieldControl({})
+  const listId = useId()
+  const optId = (i: number) => `${listId}-opt-${i}`
 
   useEffect(() => {
     if (!open) return
@@ -445,47 +531,72 @@ export function Combobox({
   const selected = options.find((o) => o.value === value)
   const filtered = query ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()) || (o.meta ?? '').toLowerCase().includes(query.toLowerCase())) : options
 
-  const open_ = () => { setOpen(true); setQuery('') }
+  const open_ = () => { setOpen(true); setQuery(''); setActive(Math.max(0, options.findIndex((o) => o.value === value))) }
+  const close = () => { setOpen(false); requestAnimationFrame(() => triggerRef.current?.focus()) }
+  const choose = (v: string) => { onChange(v); close() }
+
+  const onInputKey = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') { e.preventDefault(); close(); return }
+    if (e.key === 'Enter') { e.preventDefault(); const o = filtered[active]; if (o) choose(o.value); return }
+    if (e.key === 'Tab') { setOpen(false); return }
+    const next = listKeyNav(e.key, active, filtered.length)
+    if (next !== null) { e.preventDefault(); setActive(next) }
+  }
 
   return (
     <div ref={ref} className="relative">
       {open ? (
-        <div className={`${inputBase} ${inputNormal} flex items-center gap-2 h-10 px-3.5`}>
-          <IconSearch className="h-4 w-4 shrink-0 text-ink-muted" />
+        <div className={`${inputBase} ${inputNormal} flex items-center gap-2 h-10 px-3.5 focus-within:border-brand-500 focus-within:shadow-[var(--pance-focus-ring)]`}>
+          <IconSearch className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />
           <input
             autoFocus
+            role="combobox"
+            aria-expanded="true"
+            aria-controls={listId}
+            aria-autocomplete="list"
+            aria-activedescendant={filtered[active] ? optId(active) : undefined}
+            aria-label={label ?? placeholder}
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => { setQuery(e.target.value); setActive(0) }}
+            onKeyDown={onInputKey}
             placeholder={placeholder}
-            className="flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-muted"
+            className="flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-subtle"
           />
         </div>
       ) : (
         <button
+          ref={triggerRef}
           type="button"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-label={a11y.id ? undefined : label}
+          {...a11y}
           onClick={open_}
+          onKeyDown={(e) => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open_() } }}
           className={`${inputBase} ${inputNormal} flex h-10 items-center justify-between px-3.5 text-left`}
         >
-          <span className={`truncate text-sm ${selected ? 'text-ink' : 'text-ink-muted'}`}>{selected?.label ?? placeholder}</span>
-          <IconChevronDown className="h-4 w-4 shrink-0 text-ink-muted" />
+          <span className={`truncate text-sm ${selected ? 'text-ink' : 'text-ink-subtle'}`}>{selected?.label ?? placeholder}</span>
+          <IconChevronDown className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />
         </button>
       )}
       {open && (
-        <ul className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
+        <ul id={listId} role="listbox" aria-label={label ?? placeholder} className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
           {filtered.length === 0 ? (
-            <li className="px-3 py-2 text-sm text-ink-muted">{tt('ui.noResults', { query })}</li>
+            <li role="presentation" className="px-3 py-2 text-sm text-ink-muted">{tt('ui.noResults', { query })}</li>
           ) : (
-            filtered.map((o) => (
-              <li key={o.value}>
-                <button
-                  type="button"
-                  onClick={() => { onChange(o.value); setOpen(false) }}
-                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o.value === value ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground'}`}
-                >
-                  <span>{o.label}</span>
-                  <span className="font-mono text-[11px] text-ink-muted">{o.meta}</span>
-                  {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-brand-700" />}
-                </button>
+            filtered.map((o, i) => (
+              <li
+                key={o.value}
+                id={optId(i)}
+                role="option"
+                aria-selected={o.value === value}
+                onMouseDown={(e) => { e.preventDefault(); choose(o.value) }}
+                onMouseEnter={() => setActive(i)}
+                className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o.value === value ? 'bg-brand-50 text-brand-700' : 'text-ink-soft'} ${i === active ? 'ring-2 ring-inset ring-brand-600' : ''} ${o.value !== value ? 'hover:bg-ground' : ''}`}
+              >
+                <span>{o.label}</span>
+                <span className="font-mono text-[11px] text-ink-muted">{o.meta}</span>
+                {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-brand-700" aria-hidden="true" />}
               </li>
             ))
           )}
@@ -495,44 +606,108 @@ export function Combobox({
   )
 }
 
-/* ── Select (custom dropdown) ──────────────────────────────────────────── */
-export function Select({ options, value, onChange }: { options: string[]; value: string; onChange: (v: string) => void }) {
+/* ── Select (custom dropdown) ──────────────────────────────────────────────
+   WAI-ARIA select-only combobox: button + listbox. Enter/Space/Arrows open on
+   the selected option; Arrows/Home/End move; type-ahead jumps by first letter;
+   Enter/Space selects; Escape/Tab closes; focus returns to the button. */
+export function Select({
+  options,
+  value,
+  onChange,
+  label,
+  disabled,
+  error,
+}: {
+  options: string[]
+  value: string
+  onChange: (v: string) => void
+  /** Accessible name when not inside a Field. */
+  label?: string
+  disabled?: boolean
+  error?: boolean
+}) {
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+  const btnRef = useRef<HTMLButtonElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+  const a11y = useFieldControl({ error })
+  const listId = useId()
+  const optId = (i: number) => `${listId}-opt-${i}`
   useEffect(() => {
     if (!open) return
+    listRef.current?.focus()
     const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
     document.addEventListener('mousedown', close)
     return () => document.removeEventListener('mousedown', close)
   }, [open])
+
+  const openAt = (i: number) => { setActive(Math.max(0, i)); setOpen(true) }
+  const close = () => { setOpen(false); btnRef.current?.focus() }
+  const choose = (i: number) => { onChange(options[i]); close() }
+  const current = options.indexOf(value)
+
+  const onButtonKey = (e: React.KeyboardEvent) => {
+    if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) { e.preventDefault(); openAt(e.key === 'ArrowUp' && current < 0 ? options.length - 1 : current) }
+  }
+  const onListKey = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); return }
+    if (e.key === 'Tab') { setOpen(false); return }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(active); return }
+    const next = listKeyNav(e.key, active, options.length)
+    if (next !== null) { e.preventDefault(); setActive(next); return }
+    if (e.key.length === 1) {
+      const k = e.key.toLowerCase()
+      const hit = options.findIndex((o, i) => i > active && o.toLowerCase().startsWith(k))
+      const wrap = hit >= 0 ? hit : options.findIndex((o) => o.toLowerCase().startsWith(k))
+      if (wrap >= 0) setActive(wrap)
+    }
+  }
   return (
     <div ref={ref} className="relative">
       <button
+        ref={btnRef}
         type="button"
-        onClick={() => setOpen((o) => !o)}
-        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between border-line text-left hover:border-slate-300 ${open ? 'border-brand-500 shadow-[var(--pance-focus-ring)]' : ''}`}
+        disabled={disabled}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={open ? listId : undefined}
+        aria-label={a11y.id ? undefined : label}
+        {...a11y}
+        onClick={() => (open ? close() : openAt(current))}
+        onKeyDown={onButtonKey}
+        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between text-left disabled:cursor-not-allowed disabled:opacity-45 ${error ? 'border-danger' : 'border-line hover:border-slate-300'} ${open ? 'border-brand-500 shadow-[var(--pance-focus-ring)]' : ''}`}
       >
         <span className="flex items-center gap-2 truncate">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-brand-500" />
+          <span className="h-2 w-2 shrink-0 rounded-full bg-brand-500" aria-hidden="true" />
           {value}
         </span>
-        <IconChevronDown className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <IconChevronDown className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
       </button>
       {open && (
-        <ul className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
-          {options.map((o) => (
-            <li key={o}>
-              <button
-                type="button"
-                onClick={() => {
-                  onChange(o)
-                  setOpen(false)
-                }}
-                className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o === value ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground'}`}
-              >
-                {o}
-                {o === value && <IconCheck className="h-4 w-4 text-brand-700" />}
-              </button>
+        <ul
+          ref={listRef}
+          id={listId}
+          role="listbox"
+          tabIndex={-1}
+          aria-label={label}
+          aria-labelledby={label ? undefined : a11y.id}
+          aria-activedescendant={optId(active)}
+          onKeyDown={onListKey}
+          className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)] outline-none"
+        >
+          {options.map((o, i) => (
+            <li
+              key={o}
+              id={optId(i)}
+              role="option"
+              aria-selected={o === value}
+              onMouseDown={(e) => { e.preventDefault(); choose(i) }}
+              onMouseEnter={() => setActive(i)}
+              className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o === value ? 'bg-brand-50 text-brand-700' : 'text-ink-soft'} ${i === active ? 'ring-2 ring-inset ring-brand-600' : ''} ${o !== value ? 'hover:bg-ground' : ''}`}
+            >
+              {o}
+              {o === value && <IconCheck className="h-4 w-4 text-brand-700" aria-hidden="true" />}
             </li>
           ))}
         </ul>
@@ -543,74 +718,104 @@ export function Select({ options, value, onChange }: { options: string[]; value:
 
 /* ── TagInput ───────────────────────────────────────────────────────────── */
 export function TagInput({
-  tags, onChange, placeholder, suggestions = [],
+  tags, onChange, placeholder, suggestions = [], label,
 }: {
   tags: string[]
   onChange: (tags: string[]) => void
   placeholder?: string
   suggestions?: string[]
+  /** Accessible name when the input isn't inside a <Field>. */
+  label?: string
 }) {
   const { t: tt } = useI18n()
   placeholder ??= tt('ui.addTag')
+  const a11y = useFieldControl({})
+  const listId = useId()
   const [input, setInput] = useState('')
   const [focused, setFocused] = useState(false)
+  const [active, setActive] = useState(-1)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const add = (val: string) => {
     const v = val.trim().toLowerCase()
     if (v && !tags.includes(v)) onChange([...tags, v])
     setInput('')
+    setActive(-1)
   }
 
-  const remove = (tag: string) => onChange(tags.filter((t) => t !== tag))
+  const remove = (tag: string) => {
+    onChange(tags.filter((t) => t !== tag))
+    inputRef.current?.focus()
+  }
+
+  const filtered = suggestions.filter((s) => s.toLowerCase().includes(input.toLowerCase()) && !tags.includes(s)).slice(0, 6)
+  const open = focused && filtered.length > 0
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
-    if ((e.key === 'Enter' || e.key === ',') && input.trim()) {
+    if (open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+      e.preventDefault()
+      setActive((i) => listKeyNav(e.key, i < 0 ? (e.key === 'ArrowDown' ? -1 : 0) : i, filtered.length) ?? 0)
+      return
+    }
+    if (e.key === 'Escape' && active >= 0) { setActive(-1); return }
+    if (e.key === 'Enter' && open && active >= 0) {
+      e.preventDefault()
+      add(filtered[active])
+    } else if ((e.key === 'Enter' || e.key === ',') && input.trim()) {
       e.preventDefault()
       add(input)
     } else if (e.key === 'Backspace' && !input && tags.length) {
-      remove(tags[tags.length - 1])
+      onChange(tags.slice(0, -1))
     }
   }
-
-  const filtered = suggestions.filter((s) => s.toLowerCase().includes(input.toLowerCase()) && !tags.includes(s))
 
   return (
     <div className="relative">
       <div
         onClick={() => inputRef.current?.focus()}
-        className={`${focus} flex min-h-[42px] cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-brand-500 shadow-[var(--pance-focus-ring)]' : 'border-line hover:border-slate-300'}`}
+        className={`flex min-h-[42px] cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-brand-600 shadow-[var(--pance-focus-ring)]' : 'border-line hover:border-slate-300'}`}
       >
-        {tags.map((tag) => (
-          <span key={tag} className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
-            {tag}
-            <button type="button" onClick={() => remove(tag)} aria-label={`${tt('ui.remove')} ${tag}`} className="rounded-full hover:bg-brand-100">
-              <IconX className="h-3 w-3" />
-            </button>
-          </span>
-        ))}
+        <ul className="contents">
+          {tags.map((tag) => (
+            <li key={tag} className="inline-flex items-center gap-1 rounded-full bg-brand-50 py-0.5 pl-2.5 pr-1 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
+              {tag}
+              <button type="button" onClick={() => remove(tag)} aria-label={`${tt('ui.remove')} ${tag}`} className="pance-focus grid h-5 w-5 place-items-center rounded-full hover:bg-brand-100">
+                <IconX aria-hidden className="h-3 w-3" />
+              </button>
+            </li>
+          ))}
+        </ul>
         <input
           ref={inputRef}
+          {...a11y}
+          role="combobox"
+          aria-label={a11y.id ? undefined : label ?? placeholder}
+          aria-autocomplete="list"
+          aria-expanded={open}
+          aria-controls={open ? listId : undefined}
+          aria-activedescendant={open && active >= 0 ? `${listId}-${active}` : undefined}
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => { setInput(e.target.value); setActive(-1) }}
           onKeyDown={handleKey}
           onFocus={() => setFocused(true)}
-          onBlur={() => { setFocused(false); if (input.trim()) add(input) }}
+          onBlur={() => { setFocused(false); setActive(-1); if (input.trim()) add(input) }}
           placeholder={tags.length ? '' : placeholder}
-          className="min-w-[80px] flex-1 bg-transparent text-sm text-ink placeholder:text-ink-muted outline-none"
+          className="min-w-[80px] flex-1 bg-transparent text-sm text-ink placeholder:text-ink-subtle outline-none"
         />
       </div>
-      {focused && filtered.length > 0 && (
-        <ul className="absolute z-30 mt-1.5 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)]">
-          {filtered.slice(0, 6).map((s) => (
-            <li key={s}>
-              <button
-                type="button"
-                onMouseDown={(e) => { e.preventDefault(); add(s) }}
-                className="flex w-full items-center rounded-lg px-3 py-2 text-sm text-ink-soft hover:bg-ground hover:text-ink"
-              >
-                {s}
-              </button>
+      {open && (
+        <ul id={listId} role="listbox" aria-label={label ?? placeholder} className="absolute z-30 mt-1.5 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)]">
+          {filtered.map((s, i) => (
+            <li
+              key={s}
+              id={`${listId}-${i}`}
+              role="option"
+              aria-selected={i === active}
+              onMouseDown={(e) => { e.preventDefault(); add(s) }}
+              onMouseEnter={() => setActive(i)}
+              className={`flex w-full cursor-pointer items-center rounded-lg px-3 py-2 text-sm ${i === active ? 'bg-ground text-ink ring-1 ring-brand-600' : 'text-ink-soft'}`}
+            >
+              {s}
             </li>
           ))}
         </ul>

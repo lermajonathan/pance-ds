@@ -16,17 +16,15 @@ export function NotificationsBell() {
     try { localStorage.setItem(SEEN, '1') } catch { /* storage unavailable */ }
   }
   return (
+    <span className="relative inline-flex">
     <Popover
       align="end"
       title={t('release.title')}
       description={t('release.subtitle')}
       trigger={
-        <span className="relative inline-flex">
-          <Tooltip label={t('shell.notifications')} placement="bottom">
-            <IconButton Icon={IconBell} label={t('shell.notifications')} onClick={markSeen} />
-          </Tooltip>
-          {!seen && <span role="status" aria-label={t('release.unread')} className="pointer-events-none absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-brand-500 ring-2 ring-surface" />}
-        </span>
+        <Tooltip label={t('shell.notifications')} placement="bottom">
+          <IconButton Icon={IconBell} label={t('shell.notifications')} onClick={markSeen} />
+        </Tooltip>
       }
     >
       <ul className="-mx-1 max-h-[min(22rem,60vh)] space-y-1 overflow-y-auto">
@@ -39,5 +37,7 @@ export function NotificationsBell() {
         ))}
       </ul>
     </Popover>
+      {!seen && <span role="status" aria-label={t('release.unread')} className="pointer-events-none absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-brand-500 ring-2 ring-surface" />}
+    </span>
   )
 }
