@@ -223,6 +223,7 @@ Every interactive component follows the matching [WAI-ARIA Authoring Practices](
 | Switch / checkbox | `Toggle`, `SwitchRow`, `Checkbox` | Space toggles |
 | Disclosure | `Accordion`, `Panel`, `NavMenu` groups | Enter/Space expand and collapse |
 | Tooltip | `Tooltip` | Appears on focus · Escape hides it |
+| Date picker grid | `Calendar`, `RangeCalendar`, `DatePicker`, `DateRangePicker` | One Tab stop · ←→ day · ↑↓ week · Home End week start and end · Page Up/Down month (Shift: year) · Enter/Space select · Escape closes and refocuses the trigger |
 
 Helpers in `src/components/a11y.ts` (`useDialogFocus`, `listKeyNav`, `mergeTriggerProps`) implement these behaviours once, so new components can reuse them.
 

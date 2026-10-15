@@ -18,7 +18,7 @@
 |---|---|---|---|
 | Primitives | Value | 224 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
 | Semantic | Light · Dark | 147 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz (series 1–8, no-data), radius, icon. Dark is a draft (ships v1.1) |
-| Components | Value | 468 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
+| Components | Value | 486 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
 | Legacy · Primitives / Legacy · Semantic | — | 405 | Old collections, hidden from publishing. Safe to delete once nothing in Archive needs them |
 
 Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` (`var(--pance-color-intent-primary-solid)`).
@@ -80,6 +80,19 @@ Property names match the React props so a component reads the same in design and
 | Chart / Line, Bar grouped, Bar stacked, Ranked bar, Bar diverging, Heatmap, Donut | 7 | static references, one component each |
 
 Charts in Figma are reference drawings, not data-driven. Series fills, strokes, grid, axis labels and the surface are bound to `color/dataviz/*` and `chart/*`, so they follow Light and Dark. Each legend repeats the marker shape used in the plot (WCAG 1.4.1). New component tokens: `sparkline/*`, `metric-card/*`, `data-table/*`, `chart/*`. The existing Metric card now binds its padding, radius, fill and border to `metric-card/*`.
+
+## Components (v1.3 dates, added Oct 15)
+
+| Component | Variants | Properties |
+|---|---|---|
+| Calendar day | 8 | state (default · hover · today · selected · range · range-start · range-end · disabled) |
+| Calendar | 1 | one month, built from Calendar day instances (today ring, one selected day) |
+| Calendar / Range | 1 | range-start, range and range-end cells forming a continuous band |
+| Date picker | 5 | state (empty · filled · open · error · disabled): the trigger of DatePicker and DateRangePicker |
+| Date picker panel | 1 | Calendar + Today / Clear |
+| Date range panel | 1 | presets + two months + Clear (one month below `md`) |
+
+New component tokens: `calendar/*` and `date-picker/*`. The today ring uses `color/intent/primary/fg` (3:1 on white); `border-strong` measured 1.81:1.
 
 Not yet in Figma (P2/P3): ButtonGroup, SplitButton, ToggleButton, CountBadge, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, TagInput, RadioCard, CheckboxGroup, Skeleton, Breadcrumb, NavMenu, Drawer, Popover, Panel, Divider, RadioGroup.
 
