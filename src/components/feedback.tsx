@@ -1,6 +1,6 @@
 /* Pance · Feedback — Alert, Progress, Skeleton, Toast, ToastStack */
 import { type ReactNode } from 'react'
-import { useI18n } from '../i18n'
+import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconCheckCircle, IconInfo, IconQuestion, IconSparkle, IconX, type IconType } from '../icons'
 import { focus, type Severity, type SurfaceVariant, TONE } from './shared'
 
@@ -35,7 +35,7 @@ export function Alert({
   actions?: ReactNode
   onClose?: () => void
 }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const t = TONE[severity]
   const Glyph = Icon ?? ALERT_ICON[severity]
   const solid = variant === 'solid'
@@ -60,7 +60,7 @@ export function Alert({
       {onClose && (
         <button
           onClick={onClose}
-          aria-label={tt('ui.dismiss')}
+          aria-label={tt.dismiss}
           className={`${focus} -m-1 rounded-lg p-1 transition-colors ${solid ? `${t.onSolid} opacity-80 hover:bg-current/15 hover:opacity-100` : 'text-ink-muted hover:bg-current/5 hover:text-ink'}`}
         >
           <IconX size={16} />
@@ -124,7 +124,7 @@ const TOAST_ICON: Record<ToastSeverity, IconType> = {
 }
 
 export function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: string) => void }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const t = TONE[item.severity]
   const Icon = TOAST_ICON[item.severity]
   return (
@@ -139,7 +139,7 @@ export function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: st
         <p className={`text-sm font-semibold ${t.fg}`}>{item.title}</p>
         {item.description && <p className="mt-0.5 text-xs text-ink-muted">{item.description}</p>}
       </div>
-      <button onClick={() => onDismiss(item.id)} aria-label={tt('ui.dismiss')} className="pance-focus -m-1 rounded-lg p-1 text-ink-muted hover:text-ink">
+      <button onClick={() => onDismiss(item.id)} aria-label={tt.dismiss} className="pance-focus -m-1 rounded-lg p-1 text-ink-muted hover:text-ink">
         <IconX className="h-4 w-4" />
       </button>
     </div>

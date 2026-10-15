@@ -1,0 +1,53 @@
+name: Release
+
+# Publishes @pance/tokens and @pance/react to npm when a GitHub release is published.
+# Uses npm trusted publishing (OIDC): no npm token is stored in the repo. One-time setup on
+# npmjs.com, for each package: Settings → Trusted publishing → GitHub Actions,
+# repository lermajonathan/pance-ds, workflow release.yml.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Pack and verify without publishing
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write # required for trusted publishing and provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@11 # trusted publishing needs npm ≥ 11.5
+      - run: pnpm install --frozen-lockfile
+      - name: Release tag matches the package versions
+        if: github.event_name == 'release'
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          for p in tokens react; do
+            V=$(node -p "require('./packages/$p/package.json').version")
+            [ "$V" = "$TAG" ] || { echo "::error::packages/$p is $V but the release is $TAG"; exit 1; }
+          done
+      - run: pnpm test:contrast
+      - run: pnpm lint:tokens
+      - run: pnpm typecheck
+      - run: pnpm build:packages
+      - run: pnpm test:packages
+      - name: Publish @pance/tokens
+        working-directory: packages/tokens
+        run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}
+      - name: Publish @pance/react
+        working-directory: packages/react
+        run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}

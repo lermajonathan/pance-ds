@@ -1,6 +1,6 @@
 /* Pance · Form inputs — Input, Field, Textarea, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, Select, TagInput */
 import { createContext, createElement, useContext, useEffect, useId, useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type TextareaHTMLAttributes, type KeyboardEvent, type ClipboardEvent } from 'react'
-import { useI18n } from '../i18n'
+import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconCheckCircle, IconChevronDown, IconEdit, IconEye, IconEyeOff, IconSearch, IconX, type IconType } from '../icons'
 import { focus } from './shared'
 import { listKeyNav } from './a11y'
@@ -59,7 +59,7 @@ export function Input({
   success?: boolean
   inputSize?: InputSize
 } & InputHTMLAttributes<HTMLInputElement>) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const [showPwd, setShowPwd] = useState(false)
   const a11y = useFieldControl({ ...rest, error })
   const isPwd = type === 'password'
@@ -84,7 +84,7 @@ export function Input({
       {isPwd ? (
         <button
           type="button"
-          aria-label={tt('ui.showPassword')}
+          aria-label={tt.showPassword}
           aria-pressed={showPwd}
           onClick={() => setShowPwd((v) => !v)}
           className={`${focus} absolute ${iconRight} top-1/2 -mr-[3px] grid h-6 w-6 -translate-y-1/2 place-items-center rounded-md text-ink-muted hover:text-ink-soft`}
@@ -122,7 +122,7 @@ export function Field({
   maxChars?: number
   children: ReactNode
 }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const id = useId()
   const msgId = `${id}-msg`
   const countId = `${id}-count`
@@ -144,7 +144,7 @@ export function Field({
           { id: labelId, htmlFor: group ? undefined : id, className: 'text-sm font-medium text-ink-soft' },
           label,
           required && <span key="r" className="ml-0.5 text-danger" aria-hidden="true">*</span>,
-          optional && <span key="o" className="ml-1.5 font-normal text-ink-muted">{tt('ui.optional')}</span>,
+          optional && <span key="o" className="ml-1.5 font-normal text-ink-muted">{tt.optional}</span>,
         )}
         {hasCount && (
           <span id={countId} className={`font-mono text-11 ${charCount! > maxChars! ? 'text-danger' : 'text-ink-muted'}`}>
@@ -302,7 +302,7 @@ export function FileDropzone({
   onFiles?: (files: FileList) => void
   Icon?: IconType
 }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const [over, setOver] = useState(false)
   const [files, setFiles] = useState<File[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
@@ -332,7 +332,7 @@ export function FileDropzone({
         )}
         <div>
           <p className="text-sm font-semibold text-ink">
-            <span className="text-primary-fg">{tt('ui.clickToUpload')}</span> {tt('ui.orDrag')}
+            <span className="text-primary-fg">{tt.clickToUpload}</span> {tt.orDrag}
           </p>
           {hint && <p className="mt-1 text-xs text-ink-muted">{hint}</p>}
         </div>
@@ -347,7 +347,7 @@ export function FileDropzone({
                 type="button"
                 onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}
                 className="ml-3 shrink-0 text-ink-muted hover:text-danger"
-                aria-label={tt('ui.removeFile')}
+                aria-label={tt.removeFile}
               >
                 <IconX className="h-4 w-4" />
               </button>
@@ -447,8 +447,8 @@ export function InlineEdit({
   onChange: (v: string) => void
   placeholder?: string
 }) {
-  const { t: tt } = useI18n()
-  placeholder ??= tt('ui.clickToEdit')
+  const tt = useLabels()
+  placeholder ??= tt.clickToEdit
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(value)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -511,8 +511,8 @@ export function Combobox({
   /** Accessible name when not inside a Field. */
   label?: string
 }) {
-  const { t: tt } = useI18n()
-  placeholder ??= tt('ui.search')
+  const tt = useLabels()
+  placeholder ??= tt.search
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
@@ -583,7 +583,7 @@ export function Combobox({
       {open && (
         <ul id={listId} role="listbox" aria-label={label ?? placeholder} className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-menu">
           {filtered.length === 0 ? (
-            <li role="presentation" className="px-3 py-2 text-sm text-ink-muted">{tt('ui.noResults', { query })}</li>
+            <li role="presentation" className="px-3 py-2 text-sm text-ink-muted">{tt.noResults(query)}</li>
           ) : (
             filtered.map((o, i) => (
               <li
@@ -728,8 +728,8 @@ export function TagInput({
   /** Accessible name when the input isn't inside a <Field>. */
   label?: string
 }) {
-  const { t: tt } = useI18n()
-  placeholder ??= tt('ui.addTag')
+  const tt = useLabels()
+  placeholder ??= tt.addTag
   const a11y = useFieldControl({})
   const listId = useId()
   const [input, setInput] = useState('')
@@ -780,7 +780,7 @@ export function TagInput({
           {tags.map((tag) => (
             <li key={tag} className="inline-flex items-center gap-1 rounded-full bg-primary-soft py-0.5 pl-2.5 pr-1 text-xs font-medium text-primary-fg ring-1 ring-primary-border">
               {tag}
-              <button type="button" onClick={() => remove(tag)} aria-label={`${tt('ui.remove')} ${tag}`} className="pance-focus grid h-5 w-5 place-items-center rounded-full hover:bg-primary-soft-hover">
+              <button type="button" onClick={() => remove(tag)} aria-label={`${tt.remove} ${tag}`} className="pance-focus grid h-5 w-5 place-items-center rounded-full hover:bg-primary-soft-hover">
                 <IconX aria-hidden className="h-3 w-3" />
               </button>
             </li>

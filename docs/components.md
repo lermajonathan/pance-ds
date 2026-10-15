@@ -162,6 +162,18 @@ Input states: default · hover (`slate-300` border) · focus (focus ring) · err
 
 ---
 
+## Built-in strings · `labels.tsx`
+
+Components have no i18n or router dependency. Their built-in strings (close, dismiss, remove, remove file, more actions, breadcrumb, show full path, show password, optional, click to upload, or drag and drop, click to edit, search, add tag, no results) default to English. Translate any of them once:
+
+```tsx
+<PanceProvider labels={{ close: 'Cerrar', noResults: (q) => `Sin resultados para "${q}"` }}>
+  <App />
+</PanceProvider>
+```
+
+`useLabels()` returns the active set for your own components.
+
 ## Keyboard and screen-reader contract
 
 Every interactive component follows the matching [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/) pattern. `tests/keyboard.mjs` checks the core ones in CI.

@@ -1,0 +1,56 @@
+{
+  "name": "@pance/react",
+  "version": "1.1.0",
+  "license": "MIT",
+  "author": "Jonathan Lerma",
+  "homepage": "https://pance-ds.jonathanlerma.com",
+  "bugs": "https://github.com/lermajonathan/pance-ds/issues",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "description": "Pance React components: accessible (WCAG 2.2 AA, WAI-ARIA keyboard patterns), token-driven, for social and data-heavy products.",
+  "keywords": [
+    "react",
+    "components",
+    "design-system",
+    "accessibility",
+    "wcag",
+    "tailwind",
+    "data",
+    "pance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lermajonathan/pance-ds.git",
+    "directory": "packages/react"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/lib.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/lib.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  }
+}

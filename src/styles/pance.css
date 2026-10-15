@@ -1,0 +1,9 @@
+/* @pance/react/styles.css — precompiled stylesheet for apps without Tailwind.
+   Contains a CSS reset (Tailwind preflight), the Pance tokens, and only the
+   utilities the components use. Fonts are not bundled: load Plus Jakarta Sans,
+   Inter and JetBrains Mono yourself (see README). */
+@import 'tailwindcss' source(none);
+@source '../components';
+@import './tokens.css';
+@import './theme.css';
+@import './components.css';

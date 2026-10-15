@@ -21,7 +21,8 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | §5.5 Secondary severity | ✅ Aligned to tokens: soft text slate-700, soft bg slate-100 |
 | Dimensions from tokens | ✅ Tailwind spacing, radius, type, weight, leading, tracking and container scales resolve to Pance tokens; Button, Input, Badge, Toggle, Checkbox, Radio, Tabs, Modal, Drawer, Popover, Toast and Progress read their size tokens; `lint:tokens` also blocks magic pixel sizes |
 | Token contrast test | ✅ `tests/contrast.mjs`: 147 pairs (text 4.5:1, controls and focus 3:1) in light and dark. Found and fixed: unchecked checkbox/radio and switch-off boundaries at 2.56:1 (new `color.border.control`, slate-500, 4.76:1) and 27 dark-mode pairs (hover/active states, soft hovers, subtle text, slider) |
-| §6 i18n/router decoupling, npm packages | ⏳ Next |
+| §6 i18n/router decoupling | ✅ Components use `PanceProvider` labels (English default); the docs site feeds its EN/ES dictionary into it. The library has no router or i18n import |
+| npm packages | ✅ Ready: `@pance/tokens` and `@pance/react` (ESM, types, precompiled `styles.css` and a Tailwind entry). `pnpm test:packages` installs both in a fresh project and checks rendering, labels, stylesheets, token exports and types. Release workflow publishes with npm trusted publishing. ⏳ Waiting for the npm account and the `pance` organization |
 
 ## 1 · Changes made during extraction
 
@@ -86,7 +87,7 @@ Quick alternative for all three: add `@source inline("border-{sky,amber,violet,r
 ## 6 · Architecture notes
 
 - ~~**Components aren't token-driven yet.**~~ ✅ Resolved: components use semantic utilities and component tokens; see README › How a change flows.
-- **Components depend on the i18n context** (`useI18n`), which depends on `react-router`. You can't use the library outside the docs app without `<LangProvider>` inside a router.
+- ~~**Components depend on the i18n context**~~ ✅ Resolved: `PanceProvider` labels, no router or i18n dependency.
 - **No dark theme.** `river-900/950` exist, but there's no semantic dark mapping.
 - **Bundle**: the site ships as one 1.15 MB JS chunk (all pages + Phosphor). Route-level `lazy()` would cut first load substantially.
 

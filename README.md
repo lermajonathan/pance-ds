@@ -28,7 +28,14 @@ pnpm typecheck
 pnpm preview --port 4173 &   # then, in another shell:
 pnpm test:keyboard           # WAI-ARIA keyboard behaviour
 pnpm test:axe                # axe-core, 20 pages × 2 viewports
+pnpm build:packages          # build @pance/tokens and @pance/react
+pnpm test:packages           # install both in a fresh project and smoke-test them
 ```
+
+### Releasing
+
+1. Bump `version` in `packages/tokens/package.json` and `packages/react/package.json` (same number) and move the CHANGELOG entries under it.
+2. Create a GitHub release tagged `v<version>`. The [release workflow](.github/workflows/release.yml) runs every check and publishes both packages to npm with provenance.
 
 ## Token architecture
 
@@ -70,11 +77,22 @@ tokens/components.json   Decisions per component: button size × severity × var
 | **Elevation** | 6 levels: flat · raised · card · popover · modal · brand glow |
 | **Icons** | Phosphor, `regular` weight at 16–24px, referenced by intent (`IconDanger`, not `Warning`) |
 
-## Using the components
+## Install
+
+Pance ships as two npm packages, built from this repo:
+
+| Package | What it is |
+|---|---|
+| [`@pance/react`](packages/react) | The components and icons, with a precompiled stylesheet (or a Tailwind v4 entry). React 19 |
+| [`@pance/tokens`](packages/tokens) | The tokens alone: CSS variables, Tailwind theme, typed JS object, JSON |
+
+```bash
+npm install @pance/react
+```
 
 ```tsx
-import { Button, Badge, Field, Input, Alert } from './components'
-import { IconPlus } from './icons'
+import '@pance/react/styles.css'
+import { Button, Badge, Field, Input, Alert, IconPlus } from '@pance/react'
 
 <Button severity="primary" variant="filled" size="md" Icon={IconPlus}>New stream</Button>
 <Badge severity="success" dot>Flowing</Badge>
@@ -82,9 +100,9 @@ import { IconPlus } from './icons'
 <Alert severity="warning" title="Retention window is ending" />
 ```
 
-Every component shares one model: **severity** (what it means) is independent from **variant** (how loud it is) and **size** (`sm · md · lg`). See the full [component reference](docs/components.md).
+Every component shares one model: **severity** (what it means) is independent from **variant** (how loud it is) and **size** (`sm · md · lg`). See the full [component reference](docs/components.md) and the [package README](packages/react/README.md) for the Tailwind setup, fonts, dark mode and translations.
 
-> Components read their built-in strings ("Close", "Remove"…) from the i18n context, so render them inside `<LangProvider>` (see `src/i18n`).
+> The library has no router or i18n dependency. Its few built-in strings ("Close", "Remove"…) are English by default; translate them with `<PanceProvider labels={…}>`.
 
 ## Project structure
 
@@ -94,12 +112,18 @@ Every component shares one model: **severity** (what it means) is independent fr
 │   ├── semantic.json
 │   ├── components.json
 │   └── dist/tokens.json     ← generated
-├── scripts/build-tokens.mjs
+├── scripts/
+│   ├── build-tokens.mjs     ← tokens → CSS, Tailwind theme, TS, JSON, docs
+│   └── build-packages.mjs   ← builds packages/*/dist for npm
+├── packages/
+│   ├── tokens/              ← @pance/tokens (package.json + README; dist is built)
+│   └── react/               ← @pance/react
 ├── src/
 │   ├── components/          ← the library (button, badge, avatar, forms, selection,
 │   │                          feedback, navigation, overlays, layout, shared)
 │   ├── icons.tsx
-│   ├── i18n/                ← EN / ES dictionaries
+│   ├── lib.ts               ← @pance/react entry
+│   ├── i18n/                ← EN / ES dictionaries (docs site only)
 │   ├── styles/              ← index.css + generated tokens.css, theme.css
 │   ├── tokens.ts            ← generated
 │   ├── site/                ← documentation site (pages, showcase, examples)

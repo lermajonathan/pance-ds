@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react'
+import { useState, useEffect, useMemo, useRef, type ReactNode } from 'react'
 import { Link, Outlet, RouterProvider, createBrowserRouter, redirect, useParams, useNavigate } from 'react-router'
 import {
   IconArticle,
@@ -25,7 +25,7 @@ import {
   IconMapPin,
   type IconType as IconComp,
 } from '../icons'
-import { Badge, Button } from '../components'
+import { Badge, Button, PanceProvider, type PanceLabels } from '../components'
 import {
   BadgesPage,
   ButtonsPage,
@@ -287,12 +287,27 @@ function useNavigateTo() {
   return (k: string) => nav(path(k))
 }
 
+/* Feeds the docs site's EN/ES dictionary into the library's built-in strings. */
+function SiteLabels({ children }: { children: ReactNode }) {
+  const { t } = useI18n()
+  const labels = useMemo<Partial<PanceLabels>>(() => ({
+    close: t('ui.close'), dismiss: t('ui.dismiss'), remove: t('ui.remove'), removeFile: t('ui.removeFile'),
+    moreActions: t('ui.moreActions'), breadcrumb: t('ui.breadcrumb'), showFullPath: t('ui.showFullPath'),
+    showPassword: t('ui.showPassword'), optional: t('ui.optional'), clickToUpload: t('ui.clickToUpload'),
+    orDrag: t('ui.orDrag'), clickToEdit: t('ui.clickToEdit'), search: t('ui.search'), addTag: t('ui.addTag'),
+    noResults: (query: string) => t('ui.noResults', { query }),
+  }), [t])
+  return <PanceProvider labels={labels}>{children}</PanceProvider>
+}
+
 function LangRoute() {
   const { lang } = useParams()
   return (
     <LangProvider lang={isLang(lang) ? lang : 'en'}>
-      <Shell />
-      <Outlet />
+      <SiteLabels>
+        <Shell />
+        <Outlet />
+      </SiteLabels>
     </LangProvider>
   )
 }

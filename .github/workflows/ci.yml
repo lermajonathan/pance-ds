@@ -26,6 +26,8 @@ jobs:
         run: pnpm lint:tokens
       - run: pnpm typecheck
       - run: pnpm build
+      - name: Build and smoke-test the npm packages
+        run: pnpm build:packages && pnpm test:packages
       - name: Install Chromium for accessibility tests
         run: pnpm exec playwright install --with-deps chromium
       - name: Accessibility (keyboard patterns + axe-core)

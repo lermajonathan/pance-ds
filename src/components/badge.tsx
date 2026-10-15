@@ -1,6 +1,6 @@
 /* Pance · Badges — Badge, CountBadge */
 import { type ReactNode } from 'react'
-import { useI18n } from '../i18n'
+import { useLabels } from './labels'
 import { type IconType } from '../icons'
 import { type Severity, type SurfaceVariant, TONE } from './shared'
 
@@ -47,7 +47,7 @@ export function Badge({
   onRemove?: () => void
   children: ReactNode
 }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const t = BADGE_TONE[severity]
   const sz = BADGE_SIZE[size]
   return (
@@ -60,7 +60,7 @@ export function Badge({
           type="button"
           onClick={onRemove}
           className={`-mr-0.5 ml-0.5 rounded-full p-0.5 transition-colors hover:bg-current/15 focus:outline-none`}
-          aria-label={tt('ui.remove')}
+          aria-label={tt.remove}
         >
           <svg className={sz.icon} viewBox="0 0 12 12" fill="none">
             <path d="M9 3L3 9M3 3l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

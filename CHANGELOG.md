@@ -4,6 +4,11 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Packages
+- Two npm packages built from the repo: `@pance/tokens` (CSS variables, Tailwind v4 theme, typed JS, JSON, DTCG sources) and `@pance/react` (components, icons, `styles.css` for apps without Tailwind, `tailwind.css` for Tailwind v4 apps, TypeScript types). `pnpm build:packages`, `pnpm test:packages`, and a release workflow that publishes on a GitHub release with npm trusted publishing.
+- **Breaking for direct source users:** components no longer read `useI18n`. Built-in strings come from the new `PanceProvider` / `useLabels` (English by default). The docs site passes its EN/ES dictionary to it.
+- Component-only CSS (focus ring, range thumb) moved to `src/styles/components.css`.
+
 ### Figma
 - New components bound to tokens: Avatar (20 variants) and Avatar group, Progress, Segmented control, Steps (Step, connector), Metric card (with Delta), and the Data table family (header cell, cell, row, composed table).
 - Dogfooding gaps closed: Field has separate hint / error / success messages and an exposed, swappable control (Select now sits inside Field); Input separates placeholder and value.

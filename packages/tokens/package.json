@@ -1,0 +1,48 @@
+{
+  "name": "@pance/tokens",
+  "version": "1.1.0",
+  "license": "MIT",
+  "author": "Jonathan Lerma",
+  "homepage": "https://pance-ds.jonathanlerma.com",
+  "bugs": "https://github.com/lermajonathan/pance-ds/issues",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "description": "Pance design tokens: 855 W3C DTCG tokens (primitives → semantic → components) as CSS variables, a Tailwind v4 theme, a typed JS object and JSON. Light and dark.",
+  "keywords": [
+    "design-tokens",
+    "design-system",
+    "dtcg",
+    "tailwind",
+    "css-variables",
+    "pance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lermajonathan/pance-ds.git",
+    "directory": "packages/tokens"
+  },
+  "main": "./dist/tokens.js",
+  "types": "./dist/tokens.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./theme.css": "./dist/theme.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./json/*": "./dist/json/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ]
+}

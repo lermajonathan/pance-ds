@@ -1,6 +1,6 @@
 /* Pance · Buttons — Button, IconButton, ButtonGroup, SplitButton, ToggleButton */
 import { type ButtonHTMLAttributes, type ReactNode } from 'react'
-import { useI18n } from '../i18n'
+import { useLabels } from './labels'
 import { IconChevronDown, IconSpinner, type IconType } from '../icons'
 import { focus, type Severity } from './shared'
 import { DropdownMenu } from './overlays'
@@ -195,8 +195,8 @@ export function SplitButton({
   /** Accessible name of the arrow button. Defaults to the translated "More actions". */
   menuLabel?: string
 }) {
-  const { t: tt } = useI18n()
-  const name = menuLabel ?? tt('ui.moreActions')
+  const tt = useLabels()
+  const name = menuLabel ?? tt.moreActions
   return (
     <div className="relative inline-flex -space-x-px">
       <Button severity={severity} size={size} Icon={Icon} onClick={onClick} className="rounded-r-none focus-visible:z-10">

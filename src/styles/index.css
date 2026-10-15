@@ -11,6 +11,7 @@
 @import 'tailwindcss';
 @import './tokens.css';
 @import './theme.css';
+@import './components.css';
 
 html {
   -webkit-font-smoothing: antialiased;
@@ -22,26 +23,6 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-ground);
   color: var(--color-ink);
-}
-
-/* Fluid focus ring used across interactive elements */
-.pance-focus:focus-visible {
-  outline: none;
-  box-shadow: var(--pance-focus-ring);
-  border-color: var(--pance-color-focus-inner);
-}
-
-/* Range slider thumb — color driven by --thumb CSS variable set inline */
-input[type='range']::-webkit-slider-thumb {
-  background: var(--thumb, var(--color-brand-500));
-}
-input[type='range']::-moz-range-thumb {
-  background: var(--thumb, var(--color-brand-500));
-  border: none;
-  border-radius: 50%;
-  width: var(--pance-range-slider-thumb);
-  height: var(--pance-range-slider-thumb);
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.2);
 }
 
 /* Scrollbars: hidden until hover */

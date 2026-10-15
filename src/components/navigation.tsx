@@ -1,6 +1,6 @@
 /* Pance · Navigation — Tabs, Breadcrumb, Steps, NavMenu */
 import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
-import { useI18n } from '../i18n'
+import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconChevronDown, type IconType } from '../icons'
 import { focus, type Severity } from './shared'
 import { Badge } from './badge'
@@ -142,7 +142,7 @@ export function Breadcrumb({
   /** Landmark name. Defaults to the translated "Breadcrumb"; make it unique when a page has several. */
   label?: string
 }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const [expanded, setExpanded] = useState(false)
   const shouldCollapse = maxItems > 0 && items.length > maxItems && !expanded
   const visible: (BreadcrumbItem | null)[] = shouldCollapse
@@ -150,7 +150,7 @@ export function Breadcrumb({
     : items
 
   return (
-    <nav aria-label={label ?? tt('ui.breadcrumb')} className="flex flex-wrap items-center gap-1 text-sm">
+    <nav aria-label={label ?? tt.breadcrumb} className="flex flex-wrap items-center gap-1 text-sm">
       {visible.map((item, i) => {
         const isLast = i === visible.length - 1
         if (item === null) {
@@ -160,7 +160,7 @@ export function Breadcrumb({
                 type="button"
                 onClick={() => setExpanded(true)}
                 className={`${focus} rounded px-1 font-mono text-xs text-ink-muted hover:bg-ground hover:text-ink`}
-                aria-label={tt('ui.showFullPath')}
+                aria-label={tt.showFullPath}
               >
                 …
               </button>

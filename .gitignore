@@ -13,3 +13,8 @@ logs/
 .tmp-*
 
 # Generated token outputs ARE committed (tokens/dist, src/styles/tokens.css, theme.css, src/tokens.ts, docs/tokens.md)
+
+# Built package outputs (published to npm, not committed)
+packages/*/dist/
+packages/*/LICENSE
+*.tgz

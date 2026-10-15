@@ -1,6 +1,6 @@
 /* Pance · Overlays — Tooltip, Modal, Drawer, Popover, DropdownMenu */
 import { createElement, useEffect, useId, useRef, useState, type ReactNode } from 'react'
-import { useI18n } from '../i18n'
+import { useLabels } from './labels'
 import { IconX, type IconType } from '../icons'
 import { focusableIn, listKeyNav, mergeTriggerProps, useDialogFocus } from './a11y'
 import { type Severity, TONE } from './shared'
@@ -92,7 +92,7 @@ export function Modal({
   footer?: ReactNode
   children?: ReactNode
 }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const panel = useRef<HTMLDivElement>(null)
   const titleId = useId()
   const descId = useId()
@@ -122,7 +122,7 @@ export function Modal({
               <h2 id={titleId} className="font-display text-lg font-bold text-ink">{title}</h2>
               {description && <p id={descId} className="mt-1 text-sm text-ink-muted">{description}</p>}
             </div>
-            <button type="button" onClick={onClose} aria-label={tt('ui.close')} className="pance-focus -m-1 shrink-0 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
+            <button type="button" onClick={onClose} aria-label={tt.close} className="pance-focus -m-1 shrink-0 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
               <IconX className="h-5 w-5" />
             </button>
           </div>
@@ -158,7 +158,7 @@ export function Drawer({
   footer?: ReactNode
   children?: ReactNode
 }) {
-  const { t: tt } = useI18n()
+  const tt = useLabels()
   const panel = useRef<HTMLDivElement>(null)
   const titleId = useId()
   const descId = useId()
@@ -181,7 +181,7 @@ export function Drawer({
             <h2 id={titleId} className="font-display text-lg font-bold text-ink">{title}</h2>
             {description && <p id={descId} className="mt-0.5 text-sm text-ink-muted">{description}</p>}
           </div>
-          <button type="button" onClick={onClose} aria-label={tt('ui.close')} className="pance-focus -m-1 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
+          <button type="button" onClick={onClose} aria-label={tt.close} className="pance-focus -m-1 rounded-lg p-1 text-ink-muted hover:bg-ground hover:text-ink">
             <IconX className="h-5 w-5" />
           </button>
         </div>
