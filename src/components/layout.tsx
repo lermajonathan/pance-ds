@@ -6,7 +6,7 @@ import { type Severity, TONE } from './shared'
 /* ── Card ──────────────────────────────────────────────────────────────── */
 export function Card({ className = '', children }: { className?: string; children: ReactNode }) {
   return (
-    <div className={`rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgba(15,23,42,0.04)] ${className}`}>{children}</div>
+    <div className={`rounded-2xl border border-line bg-surface shadow-card-rest ${className}`}>{children}</div>
   )
 }
 
@@ -53,7 +53,7 @@ export function Accordion({
                 <span className="block text-sm font-semibold text-ink">{item.title}</span>
                 {item.description && <span className="mt-0.5 block text-xs font-normal text-ink-muted">{item.description}</span>}
               </span>
-              <IconChevronDown aria-hidden className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${isOpen ? 'rotate-180 text-brand-700' : ''}`} />
+              <IconChevronDown aria-hidden className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${isOpen ? 'rotate-180 text-primary-fg' : ''}`} />
             </button>,
             )}
             {isOpen && (
@@ -99,7 +99,7 @@ export function Panel({
   const bodyId = useId()
   const t = TONE[iconSeverity]
   return (
-    <div className={`rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgba(15,23,42,0.04)] ${className}`}>
+    <div className={`rounded-2xl border border-line bg-surface shadow-card-rest ${className}`}>
       <div className="flex items-center gap-3 rounded-t-2xl border-b border-line-soft px-5 py-4 bg-surface">
         {icon && (
           <span aria-hidden className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${t.bg} ${t.fg}`}>

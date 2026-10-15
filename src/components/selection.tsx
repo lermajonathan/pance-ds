@@ -48,11 +48,11 @@ export function Toggle({
       aria-describedby={describedBy}
       disabled={disabled}
       onClick={() => onChange(!on)}
-      className={`${focus} relative shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${TOGGLE_TRACK[size]} ${on ? 'bg-brand-700' : 'bg-slate-400'}`}
+      className={`${focus} relative shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${TOGGLE_TRACK[size]} ${on ? 'bg-(--pance-toggle-color-track-on)' : 'bg-(--pance-toggle-color-track-off)'}`}
     >
       <span
         aria-hidden="true"
-        className={`absolute top-1/2 -translate-y-1/2 rounded-full bg-white shadow-sm transition-all duration-300 ${t.size} ${on ? t.on : t.off}`}
+        className={`absolute top-1/2 -translate-y-1/2 rounded-full bg-(--pance-toggle-color-thumb) shadow-sm transition-all duration-300 ${t.size} ${on ? t.on : t.off}`}
       />
     </button>
   )
@@ -76,7 +76,7 @@ export function SwitchRow({
 }) {
   const id = useId()
   return (
-    <label className={`flex items-center justify-between gap-4 rounded-xl border border-line-soft bg-canvas p-4 transition-colors ${disabled ? 'opacity-45' : 'cursor-pointer hover:border-slate-300 hover:bg-ground'}`}>
+    <label className={`flex items-center justify-between gap-4 rounded-xl border border-line-soft bg-canvas p-4 transition-colors ${disabled ? 'opacity-45' : 'cursor-pointer hover:border-line-strong hover:bg-ground'}`}>
       <span className="min-w-0">
         <span id={`${id}-l`} className="block text-sm font-medium text-ink">{label}</span>
         {description && <span id={`${id}-d`} className="mt-0.5 block text-xs text-ink-muted">{description}</span>}
@@ -116,8 +116,8 @@ export function Checkbox({
   const s = CB_SIZE[size]
   const uid = useId()
   const boxState = indeterminate || checked
-    ? error ? 'border-danger bg-danger text-white' : 'border-brand-700 bg-brand-700 text-white'
-    : error ? 'border-danger bg-surface hover:border-danger' : 'border-slate-400 bg-surface hover:border-brand-600'
+    ? error ? 'border-(--pance-checkbox-color-error) bg-(--pance-checkbox-color-error) text-danger-on-solid' : 'border-(--pance-checkbox-color-checked) bg-(--pance-checkbox-color-checked) text-primary-on-solid'
+    : error ? 'border-danger bg-surface hover:border-danger' : 'border-(--pance-checkbox-color-border) bg-surface hover:border-(--pance-checkbox-color-border-hover)'
 
   return (
     <label className={`inline-flex items-start ${s.gap} ${disabled ? 'cursor-not-allowed opacity-45' : 'cursor-pointer'}`}>
@@ -133,7 +133,7 @@ export function Checkbox({
         className={`${focus} mt-0.5 grid shrink-0 place-items-center border transition-colors ${s.box} ${boxState}`}
       >
         {indeterminate
-          ? <span className="block h-0.5 w-[55%] rounded-full bg-white" />
+          ? <span className="block h-0.5 w-[55%] rounded-full bg-current" />
           : checked
           ? <IconCheck className={s.icon} />
           : null}
@@ -183,8 +183,8 @@ export function Radio({
   const s = RD_SIZE[size]
   const descId = useId()
   const ringState = checked
-    ? error ? 'border-danger' : 'border-brand-700'
-    : error ? 'border-danger hover:border-danger' : 'border-slate-400 hover:border-brand-600'
+    ? error ? 'border-danger' : 'border-(--pance-radio-color-checked)'
+    : error ? 'border-danger hover:border-danger' : 'border-(--pance-radio-color-border) hover:border-(--pance-radio-color-border-hover)'
 
   return (
     <label className={`inline-flex items-start ${s.gap} ${disabled ? 'cursor-not-allowed opacity-45' : 'cursor-pointer'}`}>
@@ -201,7 +201,7 @@ export function Radio({
         className={`${focus} mt-0.5 grid shrink-0 place-items-center rounded-full border transition-colors ${s.dot} ${ringState}`}
       >
         <span
-          className={`rounded-full transition-transform duration-200 ${s.inner} ${checked ? (error ? 'bg-danger scale-100' : 'bg-brand-700 scale-100') : 'scale-0 bg-brand-700'}`}
+          className={`rounded-full transition-transform duration-200 ${s.inner} ${checked ? (error ? 'bg-danger scale-100' : 'bg-(--pance-radio-color-checked) scale-100') : 'scale-0 bg-(--pance-radio-color-checked)'}`}
         />
       </button>
       {(label || description) && (
@@ -299,26 +299,26 @@ export function RadioCard({
       onClick={() => !disabled && onChange()}
       className={`${focus} w-full rounded-xl border p-4 text-left transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${
         checked
-          ? 'border-brand-400 bg-brand-50 shadow-[0_0_0_1px_var(--color-brand-400)]'
-          : 'border-line bg-surface hover:border-slate-300 hover:bg-canvas'
+          ? 'border-primary-border-strong bg-primary-soft shadow-[0_0_0_1px_var(--color-primary-border-strong)]'
+          : 'border-line bg-surface hover:border-line-strong hover:bg-canvas'
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
           {CardIcon && (
-            <span className={`mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg ${checked ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-ink-muted'}`}>
+            <span className={`mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg ${checked ? 'bg-primary-soft-hover text-primary-fg' : 'bg-secondary-soft text-ink-muted'}`}>
               <CardIcon size={16} />
             </span>
           )}
           <span className="min-w-0">
-            <span id={`${uid}-l`} className={`block text-sm font-semibold ${checked ? 'text-brand-700' : 'text-ink'}`}>{label}</span>
+            <span id={`${uid}-l`} className={`block text-sm font-semibold ${checked ? 'text-primary-fg' : 'text-ink'}`}>{label}</span>
             {description && <span id={`${uid}-d`} className="mt-0.5 block text-xs leading-relaxed text-ink-muted">{description}</span>}
           </span>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          {badge && <span className="rounded-full bg-brand-100 px-2 py-0.5 font-mono text-[10px] font-semibold text-brand-700">{badge}</span>}
-          <span className={`grid h-5 w-5 place-items-center rounded-full border transition-colors ${checked ? 'border-brand-700' : 'border-slate-400'}`}>
-            <span className={`h-2.5 w-2.5 rounded-full bg-brand-700 transition-transform duration-200 ${checked ? 'scale-100' : 'scale-0'}`} />
+          {badge && <span className="rounded-full bg-primary-soft-hover px-2 py-0.5 font-mono text-[10px] font-semibold text-primary-fg">{badge}</span>}
+          <span className={`grid h-5 w-5 place-items-center rounded-full border transition-colors ${checked ? 'border-primary-solid' : 'border-secondary-border-strong'}`}>
+            <span className={`h-2.5 w-2.5 rounded-full bg-primary-solid transition-transform duration-200 ${checked ? 'scale-100' : 'scale-0'}`} />
           </span>
         </div>
       </div>
@@ -366,7 +366,7 @@ export function SegmentedControl<T extends string>({
             onClick={() => onChange(opt.value)}
             className={`${focus} inline-flex items-center gap-1.5 rounded-lg font-medium transition-all duration-200 ${pad} ${
               active
-                ? 'bg-surface text-brand-700 shadow-sm ring-1 ring-line'
+                ? 'bg-surface text-primary-fg shadow-sm ring-1 ring-line'
                 : 'text-ink-muted hover:text-ink-soft'
             }`}
           >

@@ -24,26 +24,26 @@ const TAB_LOOK: Record<TabVariant, { list: string; tab: string; on: string; off:
   pills: {
     list: 'flex flex-wrap gap-1',
     tab: 'rounded-xl',
-    on: 'bg-brand-700 text-white shadow-sm',
+    on: 'bg-(--pance-tabs-color-pill-active-bg) text-(--pance-tabs-color-pill-active-text) shadow-sm',
     off: 'text-ink-soft hover:bg-ground hover:text-ink',
-    badgeOn: 'ml-0.5 bg-white/25 text-white',
-    badgeOff: 'ml-0.5 bg-slate-200 text-ink-muted',
+    badgeOn: 'ml-0.5 bg-current/20 text-current',
+    badgeOff: 'ml-0.5 bg-line text-ink-muted',
   },
   boxed: {
     list: 'inline-flex rounded-xl border border-line bg-canvas p-1',
     tab: 'shrink-0 whitespace-nowrap rounded-lg',
-    on: 'bg-surface text-brand-700 shadow-sm ring-1 ring-line',
+    on: 'bg-surface text-primary-fg shadow-sm ring-1 ring-line',
     off: 'text-ink-muted hover:text-ink-soft',
-    badgeOn: 'ml-0.5 bg-brand-100 text-brand-700',
-    badgeOff: 'ml-0.5 bg-slate-200 text-ink-muted',
+    badgeOn: 'ml-0.5 bg-primary-soft-hover text-primary-fg',
+    badgeOff: 'ml-0.5 bg-line text-ink-muted',
   },
   underline: {
     list: 'flex w-max min-w-full gap-1 border-b border-line',
     tab: 'relative shrink-0 whitespace-nowrap',
-    on: 'text-brand-700',
+    on: 'text-primary-fg',
     off: 'text-ink-muted hover:text-ink-soft',
-    badgeOn: 'bg-brand-100 text-brand-700',
-    badgeOff: 'bg-slate-200 text-ink-muted',
+    badgeOn: 'bg-primary-soft-hover text-primary-fg',
+    badgeOff: 'bg-line text-ink-muted',
   },
 }
 
@@ -108,7 +108,7 @@ export function Tabs({
               <span className={`rounded-full px-1.5 py-0.5 font-mono text-[10px] font-bold ${active ? look.badgeOn : look.badgeOff}`}>{badge}</span>
             )}
             {variant === 'underline' && (
-              <span aria-hidden className={`absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-brand-700 transition-all duration-300 ${active ? 'opacity-100' : 'opacity-0'}`} />
+              <span aria-hidden className={`absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-primary-solid transition-all duration-300 ${active ? 'opacity-100' : 'opacity-0'}`} />
             )}
           </button>
         )
@@ -164,7 +164,7 @@ export function Breadcrumb({
               >
                 …
               </button>
-              <IconChevronDown aria-hidden className="h-3.5 w-3.5 rotate-[-90deg] text-slate-300" />
+              <IconChevronDown aria-hidden className="h-3.5 w-3.5 rotate-[-90deg] text-line-strong" />
             </span>
           )
         }
@@ -175,7 +175,7 @@ export function Breadcrumb({
                 href={item.href}
                 aria-current={isLast ? 'page' : undefined}
                 className={`pance-focus flex items-center gap-1 rounded px-1 py-0.5 transition-colors ${
-                  isLast ? 'font-medium text-ink' : 'text-ink-muted hover:text-brand-700'
+                  isLast ? 'font-medium text-ink' : 'text-ink-muted hover:text-primary-fg'
                 }`}
               >
                 {item.Icon && <item.Icon size={14} />}
@@ -187,7 +187,7 @@ export function Breadcrumb({
                 {item.label}
               </span>
             )}
-            {!isLast && <IconChevronDown aria-hidden className="h-3.5 w-3.5 shrink-0 rotate-[-90deg] text-slate-300" />}
+            {!isLast && <IconChevronDown aria-hidden className="h-3.5 w-3.5 shrink-0 rotate-[-90deg] text-line-strong" />}
           </span>
         )
       })}
@@ -231,14 +231,14 @@ export function Steps({
             <li key={s.label} aria-current={s.status === 'current' ? 'step' : undefined} className="relative flex gap-4">
               {!last && (
                 <span
-                  className={`absolute left-[15px] top-8 h-[calc(100%-8px)] w-0.5 ${s.status === 'complete' ? 'bg-brand-600' : 'bg-line'}`}
+                  className={`absolute left-[15px] top-8 h-[calc(100%-8px)] w-0.5 ${s.status === 'complete' ? 'bg-(--pance-steps-color-connector-complete)' : 'bg-line'}`}
                 />
               )}
               <span aria-hidden className="relative z-10 mt-1.5 flex shrink-0 flex-col items-center">
                 <StepDot status={s.status} index={i + 1} />
               </span>
               <div className={`pb-8 ${last ? 'pb-0' : ''}`}>
-                <p className={`text-sm font-semibold ${s.status === 'current' ? 'text-brand-700' : s.status === 'complete' ? 'text-ink' : s.status === 'error' ? 'text-danger' : 'text-ink-muted'}`}>
+                <p className={`text-sm font-semibold ${s.status === 'current' ? 'text-primary-fg' : s.status === 'complete' ? 'text-ink' : s.status === 'error' ? 'text-danger' : 'text-ink-muted'}`}>
                   {s.label}
                   {sr(s.status)}
                 </p>
@@ -259,15 +259,15 @@ export function Steps({
           <li key={s.label} aria-current={s.status === 'current' ? 'step' : undefined} className="relative flex min-w-0 flex-1 flex-col items-center gap-2">
             <div aria-hidden className="flex w-full items-center">
               {i > 0 && (
-                <span className={`h-0.5 flex-1 ${resolved[i - 1].status === 'complete' ? 'bg-brand-600' : 'bg-line'}`} />
+                <span className={`h-0.5 flex-1 ${resolved[i - 1].status === 'complete' ? 'bg-(--pance-steps-color-connector-complete)' : 'bg-line'}`} />
               )}
               <StepDot status={s.status} index={i + 1} />
               {!last && (
-                <span className={`h-0.5 flex-1 ${s.status === 'complete' ? 'bg-brand-600' : 'bg-line'}`} />
+                <span className={`h-0.5 flex-1 ${s.status === 'complete' ? 'bg-(--pance-steps-color-connector-complete)' : 'bg-line'}`} />
               )}
             </div>
             <div className="max-w-[100px] text-center">
-              <p className={`text-xs font-semibold leading-snug ${s.status === 'current' ? 'text-brand-700' : s.status === 'complete' ? 'text-ink' : s.status === 'error' ? 'text-danger' : 'text-ink-muted'}`}>
+              <p className={`text-xs font-semibold leading-snug ${s.status === 'current' ? 'text-primary-fg' : s.status === 'complete' ? 'text-ink' : s.status === 'error' ? 'text-danger' : 'text-ink-muted'}`}>
                 {s.label}
                 {sr(s.status)}
               </p>
@@ -282,9 +282,9 @@ export function Steps({
 
 function StepDot({ status, index }: { status: StepStatus; index: number }) {
   const base = 'grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[13px] font-bold transition-colors'
-  if (status === 'complete') return <span className={`${base} bg-brand-700 text-white`}><IconCheck className="h-4 w-4" /></span>
-  if (status === 'current') return <span className={`${base} border-2 border-brand-700 bg-brand-50 text-brand-700`}>{index}</span>
-  if (status === 'error') return <span className={`${base} border-2 border-danger bg-rose-50 text-danger`}><IconAlert className="h-4 w-4" /></span>
+  if (status === 'complete') return <span className={`${base} bg-(--pance-steps-color-complete) text-primary-on-solid`}><IconCheck className="h-4 w-4" /></span>
+  if (status === 'current') return <span className={`${base} border-2 border-primary-solid bg-primary-soft text-primary-fg`}>{index}</span>
+  if (status === 'error') return <span className={`${base} border-2 border-danger bg-danger-soft text-danger`}><IconAlert className="h-4 w-4" /></span>
   return <span className={`${base} border-2 border-line bg-surface text-ink-muted`}>{index}</span>
 }
 
@@ -340,11 +340,11 @@ export function NavMenu({
               }}
               title={collapsed ? item.label : undefined}
               className={`${focus} group relative flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ${
-                active ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'
+                active ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'
               }`}
             >
               {item.Icon && (
-                <item.Icon aria-hidden size={18} weight={active ? 'fill' : 'regular'} className={`shrink-0 ${active ? 'text-brand-700' : 'text-ink-muted group-hover:text-ink-soft'}`} />
+                <item.Icon aria-hidden size={18} weight={active ? 'fill' : 'regular'} className={`shrink-0 ${active ? 'text-primary-fg' : 'text-ink-muted group-hover:text-ink-soft'}`} />
               )}
               {!collapsed && (
                 <>
@@ -370,7 +370,7 @@ export function NavMenu({
                       aria-current={childActive ? 'page' : undefined}
                       onClick={() => onChange(child.key)}
                       className={`${focus} flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
-                        childActive ? 'bg-brand-50 font-medium text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'
+                        childActive ? 'bg-primary-soft font-medium text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'
                       }`}
                     >
                       {child.Icon && <child.Icon aria-hidden size={15} weight={childActive ? 'fill' : 'regular'} className="shrink-0 text-ink-muted" />}

@@ -13,62 +13,63 @@ export type ButtonVariant = 'filled' | 'outlined' | 'text' | 'link'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 export type IconPos = 'left' | 'right' | 'top' | 'bottom'
 
+// Every value is a component token (tokens/components.json → button.color.*), which aliases semantic intents.
 const SEV: Record<Severity, Record<ButtonVariant, string> & { raised: string }> = {
   primary: {
-    filled: 'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900',
-    outlined: 'border border-brand-300 text-brand-700 hover:border-brand-500 hover:bg-brand-50 active:bg-brand-100',
-    text: 'text-brand-700 hover:bg-brand-50 active:bg-brand-100',
-    link: 'text-brand-700 underline decoration-brand-300 underline-offset-2 hover:decoration-brand-600',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(8,145,178,0.7)]',
+    filled: 'bg-(--pance-button-color-primary-filled-bg) text-(--pance-button-color-primary-filled-text) hover:bg-(--pance-button-color-primary-filled-bg-hover) active:bg-(--pance-button-color-primary-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-primary-outlined-border) text-(--pance-button-color-primary-outlined-text) hover:border-(--pance-button-color-primary-outlined-border-hover) hover:bg-(--pance-button-color-primary-outlined-bg-hover) active:bg-(--pance-button-color-primary-outlined-bg-active)',
+    text: 'text-(--pance-button-color-primary-text-text) hover:bg-(--pance-button-color-primary-text-bg-hover) active:bg-(--pance-button-color-primary-text-bg-active)',
+    link: 'text-(--pance-button-color-primary-link-text) underline decoration-(--pance-button-color-primary-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-primary-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-primary)',
   },
   secondary: {
-    filled: 'bg-slate-600 text-white hover:bg-slate-700 active:bg-slate-800',
-    outlined: 'border border-slate-300 text-slate-700 hover:border-slate-500 hover:bg-slate-50 active:bg-slate-100',
-    text: 'text-slate-700 hover:bg-slate-100 active:bg-slate-200',
-    link: 'text-slate-700 underline decoration-slate-300 underline-offset-2 hover:decoration-slate-600',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(71,85,105,0.55)]',
+    filled: 'bg-(--pance-button-color-secondary-filled-bg) text-(--pance-button-color-secondary-filled-text) hover:bg-(--pance-button-color-secondary-filled-bg-hover) active:bg-(--pance-button-color-secondary-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-secondary-outlined-border) text-(--pance-button-color-secondary-outlined-text) hover:border-(--pance-button-color-secondary-outlined-border-hover) hover:bg-(--pance-button-color-secondary-outlined-bg-hover) active:bg-(--pance-button-color-secondary-outlined-bg-active)',
+    text: 'text-(--pance-button-color-secondary-text-text) hover:bg-(--pance-button-color-secondary-text-bg-hover) active:bg-(--pance-button-color-secondary-text-bg-active)',
+    link: 'text-(--pance-button-color-secondary-link-text) underline decoration-(--pance-button-color-secondary-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-secondary-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-secondary)',
   },
   success: {
-    filled: 'bg-emerald-700 text-white hover:bg-emerald-800 active:bg-emerald-900',
-    outlined: 'border border-emerald-300 text-emerald-700 hover:border-emerald-500 hover:bg-emerald-50 active:bg-emerald-100',
-    text: 'text-emerald-700 hover:bg-emerald-50 active:bg-emerald-100',
-    link: 'text-emerald-700 underline decoration-emerald-300 underline-offset-2 hover:decoration-emerald-600',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(5,150,105,0.6)]',
+    filled: 'bg-(--pance-button-color-success-filled-bg) text-(--pance-button-color-success-filled-text) hover:bg-(--pance-button-color-success-filled-bg-hover) active:bg-(--pance-button-color-success-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-success-outlined-border) text-(--pance-button-color-success-outlined-text) hover:border-(--pance-button-color-success-outlined-border-hover) hover:bg-(--pance-button-color-success-outlined-bg-hover) active:bg-(--pance-button-color-success-outlined-bg-active)',
+    text: 'text-(--pance-button-color-success-text-text) hover:bg-(--pance-button-color-success-text-bg-hover) active:bg-(--pance-button-color-success-text-bg-active)',
+    link: 'text-(--pance-button-color-success-link-text) underline decoration-(--pance-button-color-success-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-success-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-success)',
   },
   info: {
-    filled: 'bg-sky-700 text-white hover:bg-sky-800 active:bg-sky-900',
-    outlined: 'border border-sky-300 text-sky-700 hover:border-sky-500 hover:bg-sky-50 active:bg-sky-100',
-    text: 'text-sky-700 hover:bg-sky-50 active:bg-sky-100',
-    link: 'text-sky-700 underline decoration-sky-300 underline-offset-2 hover:decoration-sky-600',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(2,132,199,0.6)]',
+    filled: 'bg-(--pance-button-color-info-filled-bg) text-(--pance-button-color-info-filled-text) hover:bg-(--pance-button-color-info-filled-bg-hover) active:bg-(--pance-button-color-info-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-info-outlined-border) text-(--pance-button-color-info-outlined-text) hover:border-(--pance-button-color-info-outlined-border-hover) hover:bg-(--pance-button-color-info-outlined-bg-hover) active:bg-(--pance-button-color-info-outlined-bg-active)',
+    text: 'text-(--pance-button-color-info-text-text) hover:bg-(--pance-button-color-info-text-bg-hover) active:bg-(--pance-button-color-info-text-bg-active)',
+    link: 'text-(--pance-button-color-info-link-text) underline decoration-(--pance-button-color-info-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-info-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-info)',
   },
   warning: {
-    filled: 'bg-amber-700 text-white hover:bg-amber-800 active:bg-amber-900',
-    outlined: 'border border-amber-300 text-amber-700 hover:border-amber-500 hover:bg-amber-50 active:bg-amber-100',
-    text: 'text-amber-700 hover:bg-amber-50 active:bg-amber-100',
-    link: 'text-amber-700 underline decoration-amber-300 underline-offset-2 hover:decoration-amber-600',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(245,158,11,0.6)]',
+    filled: 'bg-(--pance-button-color-warning-filled-bg) text-(--pance-button-color-warning-filled-text) hover:bg-(--pance-button-color-warning-filled-bg-hover) active:bg-(--pance-button-color-warning-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-warning-outlined-border) text-(--pance-button-color-warning-outlined-text) hover:border-(--pance-button-color-warning-outlined-border-hover) hover:bg-(--pance-button-color-warning-outlined-bg-hover) active:bg-(--pance-button-color-warning-outlined-bg-active)',
+    text: 'text-(--pance-button-color-warning-text-text) hover:bg-(--pance-button-color-warning-text-bg-hover) active:bg-(--pance-button-color-warning-text-bg-active)',
+    link: 'text-(--pance-button-color-warning-link-text) underline decoration-(--pance-button-color-warning-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-warning-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-warning)',
   },
   help: {
-    filled: 'bg-violet-600 text-white hover:bg-violet-700 active:bg-violet-800',
-    outlined: 'border border-violet-300 text-violet-700 hover:border-violet-500 hover:bg-violet-50 active:bg-violet-100',
-    text: 'text-violet-700 hover:bg-violet-50 active:bg-violet-100',
-    link: 'text-violet-700 underline decoration-violet-300 underline-offset-2 hover:decoration-violet-600',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(124,58,237,0.6)]',
+    filled: 'bg-(--pance-button-color-help-filled-bg) text-(--pance-button-color-help-filled-text) hover:bg-(--pance-button-color-help-filled-bg-hover) active:bg-(--pance-button-color-help-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-help-outlined-border) text-(--pance-button-color-help-outlined-text) hover:border-(--pance-button-color-help-outlined-border-hover) hover:bg-(--pance-button-color-help-outlined-bg-hover) active:bg-(--pance-button-color-help-outlined-bg-active)',
+    text: 'text-(--pance-button-color-help-text-text) hover:bg-(--pance-button-color-help-text-bg-hover) active:bg-(--pance-button-color-help-text-bg-active)',
+    link: 'text-(--pance-button-color-help-link-text) underline decoration-(--pance-button-color-help-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-help-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-help)',
   },
   danger: {
-    filled: 'bg-rose-600 text-white hover:bg-rose-700 active:bg-rose-800',
-    outlined: 'border border-rose-300 text-rose-700 hover:border-rose-500 hover:bg-rose-50 active:bg-rose-100',
-    text: 'text-rose-700 hover:bg-rose-50 active:bg-rose-100',
-    link: 'text-rose-700 underline decoration-rose-300 underline-offset-2 hover:decoration-rose-600',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(225,29,72,0.6)]',
+    filled: 'bg-(--pance-button-color-danger-filled-bg) text-(--pance-button-color-danger-filled-text) hover:bg-(--pance-button-color-danger-filled-bg-hover) active:bg-(--pance-button-color-danger-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-danger-outlined-border) text-(--pance-button-color-danger-outlined-text) hover:border-(--pance-button-color-danger-outlined-border-hover) hover:bg-(--pance-button-color-danger-outlined-bg-hover) active:bg-(--pance-button-color-danger-outlined-bg-active)',
+    text: 'text-(--pance-button-color-danger-text-text) hover:bg-(--pance-button-color-danger-text-bg-hover) active:bg-(--pance-button-color-danger-text-bg-active)',
+    link: 'text-(--pance-button-color-danger-link-text) underline decoration-(--pance-button-color-danger-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-danger-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-danger)',
   },
   contrast: {
-    filled: 'bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-950',
-    outlined: 'border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white',
-    text: 'text-slate-900 hover:bg-slate-200 active:bg-slate-300',
-    link: 'text-slate-900 underline decoration-slate-400 underline-offset-2 hover:decoration-slate-900',
-    raised: 'shadow-[0_6px_16px_-6px_rgba(15,23,42,0.7)]',
+    filled: 'bg-(--pance-button-color-contrast-filled-bg) text-(--pance-button-color-contrast-filled-text) hover:bg-(--pance-button-color-contrast-filled-bg-hover) active:bg-(--pance-button-color-contrast-filled-bg-active)',
+    outlined: 'border border-(--pance-button-color-contrast-outlined-border) text-(--pance-button-color-contrast-outlined-text) hover:bg-(--pance-button-color-contrast-outlined-bg-hover) hover:text-(--pance-button-color-contrast-outlined-text-hover)',
+    text: 'text-(--pance-button-color-contrast-text-text) hover:bg-(--pance-button-color-contrast-text-bg-hover) active:bg-(--pance-button-color-contrast-text-bg-active)',
+    link: 'text-(--pance-button-color-contrast-link-text) underline decoration-(--pance-button-color-contrast-link-underline) underline-offset-2 hover:decoration-(--pance-button-color-contrast-link-underline-hover)',
+    raised: 'shadow-(--pance-button-raised-contrast)',
   },
 }
 
@@ -155,7 +156,7 @@ export function IconButton({ Icon, label, className = '', ...rest }: { Icon: Ico
   return (
     <button
       aria-label={label}
-      className={`${focus} grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface text-ink-soft transition-colors hover:border-brand-200 hover:text-brand-700 ${className}`}
+      className={`${focus} grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface text-ink-soft transition-colors hover:border-primary-border hover:text-primary-fg ${className}`}
       {...rest}
     >
       <Icon size={18} aria-hidden />

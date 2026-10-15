@@ -48,12 +48,12 @@ tokens/components.json   Decisions per component: button size × severity × var
 | Output | Use it for |
 |---|---|
 | `src/styles/tokens.css` | Every token as a CSS custom property, e.g. `--pance-color-intent-primary-solid`. Aliases stay live as `var()` |
-| `src/styles/theme.css` | Tailwind v4 `@theme` mapping, so utilities like `bg-brand-600`, `text-ink-muted` and `border-line` resolve to tokens |
+| `src/styles/theme.css` | Tailwind v4 `@theme` mapping: intent utilities (`bg-primary-solid`, `text-danger-fg`, `ring-success-border`…), neutrals (`text-ink-muted`, `border-line-strong`…), shadows and the raw palettes (`bg-brand-600`) for the docs site |
 | `src/tokens.ts` | Fully-resolved typed object for JavaScript (charts, canvas, tests) |
 | `tokens/dist/tokens.json` | Flat resolved map for Figma plugins (Tokens Studio, etc.) or other platforms |
 | `docs/tokens.md` | The human-readable [token reference](docs/tokens.md) |
 
-> **How a change flows today:** editing a **primitive** (e.g. `color.aqua.600`) updates every component, because Tailwind's `brand-*`, `slate-*`, `emerald-*`… utilities point at the primitives. Components don't read **semantic/component** tokens directly yet; they use Tailwind palette classes. Those tiers are documented and available as CSS variables, and wiring components to them is the main item in the [roadmap](docs/audit.md#roadmap).
+> **How a change flows:** components read tokens, never palette steps. Shared styles use semantic utilities (`bg-primary-solid`, `text-danger-fg`, `border-line`, `text-ink-muted`…) and component-specific values use component tokens directly (`bg-(--pance-button-color-primary-filled-bg)`, `bg-(--pance-toggle-color-track-off)`). Editing a primitive, a semantic token or a component token in `tokens/*.json` restyles every component that uses it, and `data-theme="dark"` swaps the semantic layer. `pnpm lint:tokens` (run in CI) fails if a component hard-codes a colour.
 
 ### Foundations at a glance
 

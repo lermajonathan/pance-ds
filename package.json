@@ -2,7 +2,7 @@
   "name": "pance-design-system",
   "private": true,
   "version": "1.0.0",
-  "description": "Pance Design System — river-inspired tokens, React components and documentation site. Bilingual (EN/ES).",
+  "description": "Pance Design System \u2014 river-inspired tokens, React components and documentation site. Bilingual (EN/ES).",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "format": "oxfmt",
     "test:keyboard": "node tests/keyboard.mjs",
-    "test:axe": "node tests/axe.mjs"
+    "test:axe": "node tests/axe.mjs",
+    "lint:tokens": "node scripts/check-token-usage.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

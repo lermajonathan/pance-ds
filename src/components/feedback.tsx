@@ -51,17 +51,17 @@ export function Alert({
       role={severity === 'danger' || severity === 'warning' ? 'alert' : 'status'}
       className={`flex items-start gap-3 rounded-xl p-4 ${shell}`}
     >
-      <Glyph size={20} weight="regular" aria-hidden className={`mt-0.5 shrink-0 ${solid ? 'text-white' : t.fg}`} />
+      <Glyph size={20} weight="regular" aria-hidden className={`mt-0.5 shrink-0 ${solid ? t.onSolid : t.fg}`} />
       <div className="min-w-0 flex-1">
-        <p className={`text-sm font-semibold ${solid ? 'text-white' : 'text-ink'}`}>{title}</p>
-        {children && <p className={`mt-0.5 text-sm ${solid ? 'text-white/85' : 'text-ink-soft'}`}>{children}</p>}
+        <p className={`text-sm font-semibold ${solid ? t.onSolid : 'text-ink'}`}>{title}</p>
+        {children && <p className={`mt-0.5 text-sm ${solid ? `${t.onSolid} opacity-90` : 'text-ink-soft'}`}>{children}</p>}
         {actions && <div className="mt-3 flex flex-wrap gap-2">{actions}</div>}
       </div>
       {onClose && (
         <button
           onClick={onClose}
           aria-label={tt('ui.dismiss')}
-          className={`${focus} -m-1 rounded-lg p-1 transition-colors ${solid ? 'text-white/80 hover:bg-white/20 hover:text-white' : 'text-ink-muted hover:bg-black/5 hover:text-ink'}`}
+          className={`${focus} -m-1 rounded-lg p-1 transition-colors ${solid ? `${t.onSolid} opacity-80 hover:bg-current/15 hover:opacity-100` : 'text-ink-muted hover:bg-current/5 hover:text-ink'}`}
         >
           <IconX size={16} />
         </button>
@@ -90,7 +90,7 @@ export function Progress({
   return (
     <div className="flex items-center gap-3">
       <div
-        className="h-2 flex-1 overflow-hidden rounded-full bg-slate-200"
+        className="h-2 flex-1 overflow-hidden rounded-full bg-line"
         role="progressbar"
         aria-valuenow={pct}
         aria-valuemin={0}
@@ -108,7 +108,7 @@ export function Progress({
 /* ── Skeleton ──────────────────────────────────────────────────────────── */
 /** Decorative placeholder. Mark the container that is loading with `aria-busy="true"`. */
 export function Skeleton({ className = '' }: { className?: string }) {
-  return <div aria-hidden className={`animate-pulse rounded-lg bg-slate-200/70 motion-reduce:animate-none ${className}`} />
+  return <div aria-hidden className={`animate-pulse rounded-lg bg-line/70 motion-reduce:animate-none ${className}`} />
 }
 
 /* ── Toast ─────────────────────────────────────────────────────────────── */
@@ -131,8 +131,8 @@ export function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: st
     <div
       role={item.severity === 'danger' ? 'alert' : 'status'}
       aria-atomic="true"
-      className={`flex w-80 items-start gap-3 rounded-xl border p-4 shadow-[0_8px_24px_-8px_rgba(15,23,42,0.25)] ${t.bg} ${t.border}`}>
-      <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full ${t.solid} text-white`} aria-hidden>
+      className={`flex w-80 items-start gap-3 rounded-xl border p-4 shadow-toast ${t.bg} ${t.border}`}>
+      <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full ${t.solid}`} aria-hidden>
         <Icon className="h-3.5 w-3.5" />
       </span>
       <div className="flex-1 min-w-0">

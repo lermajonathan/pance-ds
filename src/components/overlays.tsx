@@ -22,10 +22,10 @@ function useOutsideClose(ref: React.RefObject<HTMLElement | null>, open: boolean
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
 
 const TT_PLACEMENT: Record<TooltipPlacement, { tip: string; arrow: string }> = {
-  top:    { tip: 'bottom-full left-1/2 mb-2 -translate-x-1/2', arrow: 'absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-ink' },
-  bottom: { tip: 'top-full left-1/2 mt-2 -translate-x-1/2', arrow: 'absolute left-1/2 bottom-full -translate-x-1/2 border-4 border-transparent border-b-ink' },
-  left:   { tip: 'right-full top-1/2 mr-2 -translate-y-1/2', arrow: 'absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-ink' },
-  right:  { tip: 'left-full top-1/2 ml-2 -translate-y-1/2', arrow: 'absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-ink' },
+  top:    { tip: 'bottom-full left-1/2 mb-2 -translate-x-1/2', arrow: 'absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-(--pance-tooltip-bg)' },
+  bottom: { tip: 'top-full left-1/2 mt-2 -translate-x-1/2', arrow: 'absolute left-1/2 bottom-full -translate-x-1/2 border-4 border-transparent border-b-(--pance-tooltip-bg)' },
+  left:   { tip: 'right-full top-1/2 mr-2 -translate-y-1/2', arrow: 'absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-(--pance-tooltip-bg)' },
+  right:  { tip: 'left-full top-1/2 ml-2 -translate-y-1/2', arrow: 'absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-(--pance-tooltip-bg)' },
 }
 
 export function Tooltip({
@@ -57,10 +57,10 @@ export function Tooltip({
       <span
         id={id}
         role="tooltip"
-        className={`pointer-events-none absolute z-40 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-all duration-200 ${dismissed ? '' : 'group-hover/tt:opacity-100 group-focus-within/tt:opacity-100'} ${p.tip}`}
+        className={`pointer-events-none absolute z-40 whitespace-nowrap rounded-lg bg-(--pance-tooltip-bg) px-2.5 py-1.5 text-xs font-medium text-(--pance-tooltip-text) opacity-0 shadow-lg transition-all duration-200 ${dismissed ? '' : 'group-hover/tt:opacity-100 group-focus-within/tt:opacity-100'} ${p.tip}`}
       >
         {label}
-        {description && <span className="mt-0.5 block font-normal text-white/70">{description}</span>}
+        {description && <span className="mt-0.5 block font-normal text-ink-inverse opacity-70">{description}</span>}
         <span className={p.arrow} aria-hidden="true" />
       </span>
     </span>
@@ -109,7 +109,7 @@ export function Modal({
         aria-labelledby={titleId}
         aria-describedby={description ? descId : undefined}
         tabIndex={-1}
-        className={`relative my-auto w-full ${MODAL_SIZE[size]} rounded-2xl border border-line bg-surface shadow-[0_24px_60px_-20px_rgba(15,23,42,0.5)] outline-none`}
+        className={`relative my-auto w-full ${MODAL_SIZE[size]} rounded-2xl border border-line bg-surface shadow-modal outline-none`}
       >
         <div className="p-6">
           <div className="flex items-start gap-4">
@@ -174,7 +174,7 @@ export function Drawer({
         aria-labelledby={titleId}
         aria-describedby={description ? descId : undefined}
         tabIndex={-1}
-        className={`absolute flex flex-col border-line bg-surface shadow-[0_24px_60px_-20px_rgba(15,23,42,0.5)] outline-none ${DRAWER_ENTER[side]} ${DRAWER_WIDTH[side]} ${side === 'bottom' ? 'rounded-t-2xl border-t pb-[env(safe-area-inset-bottom)]' : side === 'right' ? 'rounded-l-2xl border-l pb-[env(safe-area-inset-bottom)]' : 'rounded-r-2xl border-r pb-[env(safe-area-inset-bottom)]'}`}
+        className={`absolute flex flex-col border-line bg-surface shadow-modal outline-none ${DRAWER_ENTER[side]} ${DRAWER_WIDTH[side]} ${side === 'bottom' ? 'rounded-t-2xl border-t pb-[env(safe-area-inset-bottom)]' : side === 'right' ? 'rounded-l-2xl border-l pb-[env(safe-area-inset-bottom)]' : 'rounded-r-2xl border-r pb-[env(safe-area-inset-bottom)]'}`}
       >
         <div className="flex items-start justify-between gap-4 px-6 py-5 border-b border-line-soft">
           <div>
@@ -228,7 +228,7 @@ export function Popover({
           role="dialog"
           aria-labelledby={title ? titleId : undefined}
           tabIndex={-1}
-          className={`absolute top-full z-40 mt-2 w-72 rounded-xl border border-line bg-surface p-4 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)] outline-none ${alignClass}`}
+          className={`absolute top-full z-40 mt-2 w-72 rounded-xl border border-line bg-surface p-4 shadow-popover outline-none ${alignClass}`}
         >
           {title && <p id={titleId} className="mb-1 font-semibold text-sm text-ink">{title}</p>}
           {description && <p className="mb-3 text-xs text-ink-muted">{description}</p>}
@@ -309,7 +309,7 @@ export function DropdownMenu({
           role="menu"
           aria-label={label}
           onKeyDown={onMenuKey}
-          className={`absolute top-full z-40 mt-1.5 min-w-[180px] overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)] ${align === 'end' ? 'right-0' : 'left-0'}`}
+          className={`absolute top-full z-40 mt-1.5 min-w-[180px] overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover ${align === 'end' ? 'right-0' : 'left-0'}`}
         >
           {items.map((item, i) => {
             if (item.type === 'separator') return <li key={i} role="separator" className="my-1 border-t border-line-soft" />
@@ -328,7 +328,7 @@ export function DropdownMenu({
                   aria-disabled={item.disabled || undefined}
                   onMouseEnter={() => !item.disabled && setActive(idx)}
                   onClick={() => { item.onClick?.(); close() }}
-                  className={`pance-focus flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${item.danger ? 'text-danger hover:bg-rose-50 focus-visible:bg-rose-50' : 'text-ink-soft hover:bg-ground hover:text-ink focus-visible:bg-ground'}`}
+                  className={`pance-focus flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${item.danger ? 'text-danger hover:bg-danger-soft focus-visible:bg-danger-soft' : 'text-ink-soft hover:bg-ground hover:text-ink focus-visible:bg-ground'}`}
                 >
                   {item.Icon && <item.Icon className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />}
                   <span className="flex-1 text-left">{item.label}</span>

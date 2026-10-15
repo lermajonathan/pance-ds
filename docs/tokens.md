@@ -921,9 +921,9 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `input.color.border` | {color.border.default} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
 | `input.color.border-hover` | {color.border.strong} | ![](https://placehold.co/14x14/cbd5e1/cbd5e1.png) #cbd5e1 |  |  |
 | `input.color.border-focus` | {color.border.focus} | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 |  |  |
-| `input.color.error-border` | {color.rose.600} | ![](https://placehold.co/14x14/e11d48/e11d48.png) #e11d48 |  |  |
+| `input.color.error-border` | {color.intent.danger.solid} | ![](https://placehold.co/14x14/e11d48/e11d48.png) #e11d48 |  |  |
 | `input.color.error-bg` | rgba(255,241,242,0.4) | rgba(255,241,242,0.4) |  | rose-50 at 40% |
-| `input.color.success-border` | {color.emerald.400} | ![](https://placehold.co/14x14/34d399/34d399.png) #34d399 |  |  |
+| `input.color.success-border` | {color.intent.success.border-strong} | ![](https://placehold.co/14x14/34d399/34d399.png) #34d399 |  |  |
 | `input.color.success-bg` | rgba(236,253,245,0.3) | rgba(236,253,245,0.3) |  | emerald-50 at 30% |
 | `input.color.addon-bg` | {color.bg.sunken} | ![](https://placehold.co/14x14/f8fafc/f8fafc.png) #f8fafc |  |  |
 | `input.textarea-min-height` | 80px | 80px |  |  |
@@ -937,7 +937,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `field.gap` | {space.0-75} | 6px |  |  |
 | `field.label` | {typography.label} | fontFamily: Inter,ui-sans-serif,system-ui,sans-serif<br>fontSize: 14px<br>fontWeight: 500<br>lineHeight: 1.43<br>letterSpacing: 0em |  |  |
 | `field.hint` | {typography.caption} | fontFamily: Inter,ui-sans-serif,system-ui,sans-serif<br>fontSize: 12px<br>fontWeight: 400<br>lineHeight: 1.333<br>letterSpacing: 0em |  |  |
-| `field.required-color` | {color.rose.600} | ![](https://placehold.co/14x14/e11d48/e11d48.png) #e11d48 |  |  |
+| `field.required-color` | {color.intent.danger.fg} | ![](https://placehold.co/14x14/be123c/be123c.png) #be123c |  |  |
 
 ### `toggle`
 
@@ -953,8 +953,8 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `toggle.size.lg.track-height` | {size.28} | 28px |  |  |
 | `toggle.size.lg.thumb` | {size.22} | 22px |  |  |
 | `toggle.color.track-on` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `toggle.color.track-off` | {color.slate.400} | ![](https://placehold.co/14x14/94a3b8/94a3b8.png) #94a3b8 |  |  |
-| `toggle.color.thumb` | {color.white} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff |  |  |
+| `toggle.color.track-off` | {color.intent.secondary.border-strong} | ![](https://placehold.co/14x14/94a3b8/94a3b8.png) #94a3b8 |  |  |
+| `toggle.color.thumb` | {color.intent.primary.on-solid} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff |  |  |
 | `toggle.disabled-opacity` | {opacity.disabled} | 0.45 |  |  |
 | `toggle.transition` | {motion.transition.control} | 300ms 0.4,0,0.2,1 0ms |  |  |
 
@@ -975,8 +975,8 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `checkbox.size.lg.icon` | {size.16} | 16px |  |  |
 | `checkbox.size.lg.font-size` | {fontSize.16} | 16px |  |  |
 | `checkbox.color.checked` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `checkbox.color.border` | {color.slate.400} | ![](https://placehold.co/14x14/94a3b8/94a3b8.png) #94a3b8 |  |  |
-| `checkbox.color.border-hover` | {color.aqua.600} | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 |  |  |
+| `checkbox.color.border` | {color.intent.secondary.border-strong} | ![](https://placehold.co/14x14/94a3b8/94a3b8.png) #94a3b8 |  |  |
+| `checkbox.color.border-hover` | {color.border.focus} | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 |  |  |
 | `checkbox.color.error` | {color.intent.danger.solid} | ![](https://placehold.co/14x14/e11d48/e11d48.png) #e11d48 |  |  |
 | `checkbox.disabled-opacity` | {opacity.disabled} | 0.45 |  |  |
 
@@ -991,11 +991,11 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `radio.size.lg.control` | {size.24} | 24px |  |  |
 | `radio.size.lg.dot` | {size.12} | 12px |  |  |
 | `radio.color.checked` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `radio.color.border` | {color.slate.400} | ![](https://placehold.co/14x14/94a3b8/94a3b8.png) #94a3b8 |  |  |
-| `radio.color.border-hover` | {color.aqua.600} | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 |  |  |
-| `radio.card.bg-checked` | {color.aqua.50} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
-| `radio.card.border-checked` | {color.aqua.400} | ![](https://placehold.co/14x14/22d3ee/22d3ee.png) #22d3ee |  |  |
-| `radio.card.label-checked` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `radio.color.border` | {color.intent.secondary.border-strong} | ![](https://placehold.co/14x14/94a3b8/94a3b8.png) #94a3b8 |  |  |
+| `radio.color.border-hover` | {color.border.focus} | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 |  |  |
+| `radio.card.bg-checked` | {color.intent.primary.soft} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
+| `radio.card.border-checked` | {color.intent.primary.border-strong} | ![](https://placehold.co/14x14/22d3ee/22d3ee.png) #22d3ee |  |  |
+| `radio.card.label-checked` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
 
 ### `segmented-control`
 
@@ -1009,7 +1009,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `segmented-control.height.lg` | {size.44} | 44px |  |  |
 | `segmented-control.color.track` | {color.bg.sunken} | ![](https://placehold.co/14x14/f8fafc/f8fafc.png) #f8fafc |  |  |
 | `segmented-control.color.active-bg` | {color.bg.surface} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff |  |  |
-| `segmented-control.color.active-text` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `segmented-control.color.active-text` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
 | `segmented-control.color.text` | {color.fg.muted} | ![](https://placehold.co/14x14/475569/475569.png) #475569 |  |  |
 
 ### `range-slider`
@@ -1019,7 +1019,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `range-slider.track-height` | {size.6} | 6px |  |  |
 | `range-slider.thumb` | {size.20} | 20px |  |  |
 | `range-slider.thumb-border` | 2px | 2px |  |  |
-| `range-slider.color.track` | {color.slate.200} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
+| `range-slider.color.track` | {color.border.default} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
 | `range-slider.color.primary` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
 | `range-slider.color.success` | {color.intent.success.solid} | ![](https://placehold.co/14x14/047857/047857.png) #047857 |  |  |
 | `range-slider.color.warning` | {color.intent.warning.solid} | ![](https://placehold.co/14x14/b45309/b45309.png) #b45309 |  |  |
@@ -1034,10 +1034,10 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `avatar.initials-scale` | 0.36 | 0.36 |  | Font size = avatar size × 0.36 |
 | `avatar.status-scale` | 0.27 | 0.27 |  | Status dot = max(8px, size × 0.27) |
 | `avatar.ring` | 2px | 2px |  |  |
-| `avatar.color.bg` | {color.aqua.100} | ![](https://placehold.co/14x14/cffafe/cffafe.png) #cffafe |  |  |
-| `avatar.color.text` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `avatar.color.overflow-bg` | {color.slate.200} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
-| `avatar.color.overflow-text` | {color.slate.700} | ![](https://placehold.co/14x14/334155/334155.png) #334155 |  |  |
+| `avatar.color.bg` | {color.intent.primary.soft-hover} | ![](https://placehold.co/14x14/cffafe/cffafe.png) #cffafe |  |  |
+| `avatar.color.text` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `avatar.color.overflow-bg` | {color.intent.secondary.soft-hover} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
+| `avatar.color.overflow-text` | {color.fg.soft} | ![](https://placehold.co/14x14/334155/334155.png) #334155 |  |  |
 | `avatar.color.status-online` | {color.status.online} | ![](https://placehold.co/14x14/10b981/10b981.png) #10b981 |  |  |
 | `avatar.color.status-away` | {color.status.away} | ![](https://placehold.co/14x14/fbbf24/fbbf24.png) #fbbf24 |  |  |
 | `avatar.color.status-busy` | {color.status.busy} | ![](https://placehold.co/14x14/f43f5e/f43f5e.png) #f43f5e |  |  |
@@ -1064,7 +1064,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `tabs.color.active-text` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
 | `tabs.color.text` | {color.fg.muted} | ![](https://placehold.co/14x14/475569/475569.png) #475569 |  |  |
 | `tabs.color.pill-active-bg` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `tabs.color.pill-active-text` | {color.white} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff |  |  |
+| `tabs.color.pill-active-text` | {color.intent.primary.on-solid} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff |  |  |
 
 ### `steps`
 
@@ -1073,11 +1073,11 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `steps.dot` | {size.32} | 32px |  |  |
 | `steps.connector` | {size.2} | 2px |  |  |
 | `steps.color.complete` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `steps.color.connector-complete` | {color.aqua.600} | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 |  |  |
-| `steps.color.current-bg` | {color.aqua.50} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
-| `steps.color.current-text` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `steps.color.connector-complete` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `steps.color.current-bg` | {color.intent.primary.soft} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
+| `steps.color.current-text` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
 | `steps.color.upcoming` | {color.border.default} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
-| `steps.color.error` | {color.rose.600} | ![](https://placehold.co/14x14/e11d48/e11d48.png) #e11d48 |  |  |
+| `steps.color.error` | {color.intent.danger.solid} | ![](https://placehold.co/14x14/e11d48/e11d48.png) #e11d48 |  |  |
 
 ### `nav-menu`
 
@@ -1087,9 +1087,9 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `nav-menu.item-padding-y` | {space.1-25} | 10px |  |  |
 | `nav-menu.item-radius` | {radius.md} | 12px |  |  |
 | `nav-menu.icon` | {size.18} | 18px |  |  |
-| `nav-menu.color.active-bg` | {color.aqua.50} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
-| `nav-menu.color.active-text` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `nav-menu.color.active-icon` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `nav-menu.color.active-bg` | {color.intent.primary.soft} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
+| `nav-menu.color.active-text` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `nav-menu.color.active-icon` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
 | `nav-menu.color.hover-bg` | {color.bg.page} | ![](https://placehold.co/14x14/f1f5f9/f1f5f9.png) #f1f5f9 |  |  |
 
 ### `card`
@@ -1132,7 +1132,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | Token | Value | Resolved | Dark (draft) | Notes |
 |---|---|---|---|---|
 | `progress.height` | {size.8} | 8px |  |  |
-| `progress.track` | {color.slate.200} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
+| `progress.track` | {color.border.default} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
 | `progress.radius` | {radius.full} | 9999px |  |  |
 
 ### `skeleton`
@@ -1220,15 +1220,15 @@ Per-component decisions, aliased to semantic or primitive tokens.
 | `file-dropzone.padding-y` | {space.5} | 40px |  |  |
 | `file-dropzone.radius` | {radius.md} | 12px |  |  |
 | `file-dropzone.color.border` | {color.border.default} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
-| `file-dropzone.color.border-active` | {color.aqua.400} | ![](https://placehold.co/14x14/22d3ee/22d3ee.png) #22d3ee |  |  |
-| `file-dropzone.color.bg-active` | {color.aqua.50} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
+| `file-dropzone.color.border-active` | {color.intent.primary.border-strong} | ![](https://placehold.co/14x14/22d3ee/22d3ee.png) #22d3ee |  |  |
+| `file-dropzone.color.bg-active` | {color.intent.primary.soft} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
 
 ### `tag-input`
 
 | Token | Value | Resolved | Dark (draft) | Notes |
 |---|---|---|---|---|
 | `tag-input.min-height` | 42px | 42px |  |  |
-| `tag-input.chip-bg` | {color.aqua.50} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
-| `tag-input.chip-text` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
-| `tag-input.chip-ring` | {color.aqua.200} | ![](https://placehold.co/14x14/a5f3fc/a5f3fc.png) #a5f3fc |  |  |
+| `tag-input.chip-bg` | {color.intent.primary.soft} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
+| `tag-input.chip-text` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
+| `tag-input.chip-ring` | {color.intent.primary.border} | ![](https://placehold.co/14x14/a5f3fc/a5f3fc.png) #a5f3fc |  |  |
 

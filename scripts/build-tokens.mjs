@@ -134,7 +134,9 @@ for (const [tw, prim] of Object.entries(PALETTES)) {
 const ALIASES = {
   ground: 'color.bg.page', canvas: 'color.bg.sunken', surface: 'color.bg.surface',
   ink: 'color.fg.default', 'ink-soft': 'color.fg.soft', 'ink-muted': 'color.fg.muted', 'ink-subtle': 'color.fg.subtle',
-  line: 'color.border.default', 'line-soft': 'color.border.soft',
+  line: 'color.border.default', 'line-soft': 'color.border.soft', 'line-strong': 'color.border.strong', 'line-focus': 'color.border.focus',
+  'ink-disabled': 'color.fg.disabled', 'ink-inverse': 'color.fg.inverse', 'ink-brand': 'color.fg.brand', 'ink-link': 'color.fg.link',
+  'surface-inverse': 'color.bg.inverse', scrim: 'color.bg.scrim',
   'river-900': 'color.river.900', 'river-950': 'color.river.950',
   danger: 'color.intent.danger.fg', 'danger-soft': 'color.intent.danger.soft',
   success: 'color.intent.success.fg', warning: 'color.intent.warning.fg',
@@ -142,7 +144,18 @@ const ALIASES = {
 }
 theme += '\n  /* Semantic surface / text / line aliases */\n'
 for (const [tw, path] of Object.entries(ALIASES)) { target(path, 'theme'); theme += `  --color-${tw}: var(${cssName(path)});\n` }
-const SHADOWS = { raised: 'shadow.xs', card: 'shadow.sm', popover: 'shadow.md', modal: 'shadow.lg', brand: 'shadow.brand', menu: 'shadow.menu', toast: 'shadow.toast' }
+// Intent utilities: bg-primary-solid, text-danger-fg, ring-success-border, border-warning-border-strong…
+// Components use these instead of palette steps, so a semantic edit (or dark mode) reaches every component.
+const INTENTS = ['primary', 'secondary', 'success', 'info', 'warning', 'help', 'danger', 'contrast']
+const INTENT_KEYS = ['solid', 'solid-hover', 'solid-active', 'on-solid', 'soft', 'soft-hover', 'border', 'outline', 'border-strong', 'fg', 'dot']
+theme += '\n  /* Intent utilities: {intent}-{solid|solid-hover|solid-active|on-solid|soft|soft-hover|border|outline|border-strong|fg|dot} */\n'
+for (const i of INTENTS) for (const k of INTENT_KEYS) {
+  const path = `color.intent.${i}.${k}`
+  if (!tokens.has(path)) continue
+  target(path, 'theme')
+  theme += `  --color-${i}-${k}: var(${cssName(path)});\n`
+}
+const SHADOWS = { 'card-rest': 'shadow.card-rest', 'hover-lift': 'shadow.hover-lift', raised: 'shadow.xs', card: 'shadow.sm', popover: 'shadow.md', modal: 'shadow.lg', brand: 'shadow.brand', menu: 'shadow.menu', toast: 'shadow.toast' }
 theme += '\n  /* Elevation utilities: shadow-raised, shadow-card, shadow-popover, shadow-modal, shadow-brand… */\n'
 for (const [tw, path] of Object.entries(SHADOWS)) { target(path, 'theme'); theme += `  --shadow-${tw}: var(${cssName(path)});\n` }
 theme += '\n  /* Radius utilities: rounded-control (12px), rounded-container (16px), rounded-item (8px) */\n'

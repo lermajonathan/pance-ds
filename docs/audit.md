@@ -17,7 +17,9 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | Figma library | ✅ Rebuilt from tokens: 789 variables, 14 text + 13 effect styles, 67 icons, 20 core components ([docs/figma.md](figma.md)) |
 | §3.5–3.10 ARIA patterns, keyboard, Field association | ✅ Fixed: dialog, menu button, select-only and autocomplete combobox, tabs, radio group, tooltip, disclosure; Field wires `id`, `aria-describedby`, `aria-invalid`, `aria-required`. 11 keyboard tests in `tests/keyboard.mjs` |
 | axe-core, 20 pages × 2 viewports | ✅ 975 → 36 violations (all of them the contrast exceptions above). Runs in CI via `tests/axe.mjs` |
-| §6 Components reading semantic tokens, i18n/router decoupling, npm packages | ⏳ Next |
+| §6 Components reading semantic tokens | ✅ Done: every component reads semantic utilities or component tokens; 32 component tokens re-aliased from primitives to semantic (code and Figma); `pnpm lint:tokens` in CI blocks hard-coded colours. Visual diff against the previous build: 0 px changed on 18 of 19 pages |
+| §5.5 Secondary severity | ✅ Aligned to tokens: soft text slate-700, soft bg slate-100 |
+| §6 i18n/router decoupling, npm packages | ⏳ Next |
 
 ## 1 · Changes made during extraction
 
@@ -81,7 +83,7 @@ Quick alternative for all three: add `@source inline("border-{sky,amber,violet,r
 
 ## 6 · Architecture notes
 
-- **Components aren't token-driven yet.** They use Tailwind palette classes (`bg-brand-600`), so only primitive edits propagate. Semantic and component tokens are complete and available as CSS variables, but nothing reads them yet.
+- ~~**Components aren't token-driven yet.**~~ ✅ Resolved: components use semantic utilities and component tokens; see README › How a change flows.
 - **Components depend on the i18n context** (`useI18n`), which depends on `react-router`. You can't use the library outside the docs app without `<LangProvider>` inside a router.
 - **No dark theme.** `river-900/950` exist, but there's no semantic dark mapping.
 - **Bundle**: the site ships as one 1.15 MB JS chunk (all pages + Phosphor). Route-level `lazy()` would cut first load substantially.

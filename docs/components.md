@@ -17,6 +17,18 @@ Severity → color ramp: primary = aqua · secondary = slate · success = emeral
 
 ---
 
+
+### Styling with tokens
+
+Components never use palette steps. Use the same vocabulary in your own components:
+
+| Need | Utility |
+|---|---|
+| Intent fills and text | `bg-{intent}-solid`, `hover:bg-{intent}-solid-hover`, `text-{intent}-on-solid`, `bg-{intent}-soft`, `text-{intent}-fg`, `ring-{intent}-border`, `bg-{intent}-dot` (intent = primary · secondary · success · info · warning · help · danger · contrast) |
+| Neutrals | `bg-ground` (page) · `bg-canvas` (sunken) · `bg-surface` · `text-ink` / `-soft` / `-muted` / `-subtle` / `-disabled` · `border-line` / `-soft` / `-strong` / `-focus` |
+| Elevation | `shadow-card-rest` · `shadow-raised` · `shadow-card` · `shadow-popover` · `shadow-menu` · `shadow-toast` · `shadow-modal` |
+| A component's own value | `bg-(--pance-toggle-color-track-off)` and the other component tokens in [tokens.md](tokens.md) |
+
 ## Buttons · `button.tsx`
 
 ### `Button`

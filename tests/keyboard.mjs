@@ -10,6 +10,12 @@ const test = async (name, fn) => {
   try { await fn(); results.push(['✓', name]) } catch (e) { results.push(['✗', name, e.message.split('\n')[0]]) }
 }
 const assert = (c, msg) => { if (!c) throw new Error(msg) }
+// Polls until fn() returns the expected value (CSS transitions, React state) or times out.
+const settle = async (fn, expected, ms = 1500) => {
+  let v
+  for (const end = Date.now() + ms; Date.now() < end; await page.waitForTimeout(50)) if ((v = await fn()) === expected) return v
+  return v
+}
 const active = () => page.evaluate(() => {
   const a = document.activeElement
   return { role: a?.getAttribute('role'), tag: a?.tagName, id: a?.id, text: a?.textContent?.trim().slice(0, 40), inDialog: !!a?.closest('[role="dialog"]') }
@@ -28,8 +34,7 @@ await test('Modal: focus moves in, Tab is trapped, Escape closes and focus retur
     assert((await active()).inDialog, `focus escaped the dialog after ${i + 1} Tab presses`)
   }
   await page.keyboard.press('Escape')
-  await page.waitForTimeout(250)
-  assert((await page.locator('[role="dialog"][aria-modal="true"]').count()) === 0, 'dialog still open after Escape')
+  assert((await settle(() => page.locator('[role="dialog"][aria-modal="true"]').count(), 0)) === 0, 'dialog still open after Escape')
   assert(await opener.evaluate((el) => el === document.activeElement), 'focus did not return to the opener')
 })
 
@@ -66,12 +71,11 @@ await test('Tooltip: shows on keyboard focus and is referenced by aria-described
   await el.focus()
   const id = await el.getAttribute('aria-describedby')
   const tip = page.locator(`[id="${id}"][role="tooltip"]`)
-  await page.waitForTimeout(300)
-  const op = await tip.evaluate((n) => getComputedStyle(n).opacity)
+  const opacity = () => tip.evaluate((n) => getComputedStyle(n).opacity)
+  const op = await settle(opacity, '1')
   assert(op === '1', `tooltip opacity ${op} on focus`)
   await page.keyboard.press('Escape')
-  await page.waitForTimeout(300)
-  assert((await tip.evaluate((n) => getComputedStyle(n).opacity)) === '0', 'Escape did not dismiss tooltip')
+  assert((await settle(opacity, '0')) === '0', 'Escape did not dismiss tooltip')
 })
 
 await page.goto(`${BASE}/forms`, { waitUntil: 'networkidle' })

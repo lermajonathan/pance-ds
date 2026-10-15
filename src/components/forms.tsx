@@ -8,11 +8,11 @@ import { listKeyNav } from './a11y'
 /* ── Inputs ────────────────────────────────────────────────────────────── */
 const inputBase =
   `${focus} w-full rounded-xl border bg-surface text-ink placeholder:text-ink-subtle transition-colors duration-200`
-const inputNormal = 'border-line hover:border-slate-300'
+const inputNormal = 'border-line hover:border-line-strong'
 const inputError =
-  'border-danger bg-rose-50/40 focus-visible:shadow-[var(--pance-focus-ring-danger)]'
+  'border-danger bg-danger-soft/40 focus-visible:shadow-[var(--pance-focus-ring-danger)]'
 const inputSuccess =
-  'border-emerald-400 bg-emerald-50/30 focus-visible:shadow-[var(--pance-focus-ring-success)]'
+  'border-success-border-strong bg-success-soft/30 focus-visible:shadow-[var(--pance-focus-ring-success)]'
 
 /* Field ↔ control wiring. Any control rendered inside <Field> picks up the id the
    <label> points to, the ids of the hint/error text (aria-describedby) and the
@@ -164,7 +164,7 @@ export function Field({
           {error}
         </p>
       ) : success ? (
-        <p id={msgId} className="flex items-center gap-1.5 text-xs font-medium text-emerald-700">
+        <p id={msgId} className="flex items-center gap-1.5 text-xs font-medium text-success-fg">
           <IconCheckCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           {success}
         </p>
@@ -210,7 +210,7 @@ export function InputGroup({
   children: ReactNode
 }) {
   return (
-    <div className="flex items-stretch rounded-xl border border-line bg-surface transition-colors focus-within:border-brand-500 focus-within:shadow-[var(--pance-focus-ring)]">
+    <div className="flex items-stretch rounded-xl border border-line bg-surface transition-colors focus-within:border-line-focus focus-within:shadow-[var(--pance-focus-ring)]">
       {(prefix || PrefixIcon) && (
         <span className="flex shrink-0 items-center gap-1.5 rounded-l-xl border-r border-line bg-canvas px-3 text-sm text-ink-muted">
           {PrefixIcon && <PrefixIcon className="h-4 w-4" />}
@@ -279,7 +279,7 @@ export function RangeSlider({
         aria-valuetext={valueText}
         {...a11y}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-200 disabled:cursor-not-allowed disabled:opacity-45 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
+        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full bg-line disabled:cursor-not-allowed disabled:opacity-45 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
         style={{
           background: `linear-gradient(to right, ${thumb} ${pct}%, var(--pance-color-border-default) ${pct}%)`,
           ['--thumb' as string]: thumb,
@@ -321,17 +321,17 @@ export function FileDropzone({
         onDragOver={(e) => { e.preventDefault(); setOver(true) }}
         onDragLeave={() => setOver(false)}
         onDrop={(e) => { e.preventDefault(); setOver(false); handle(e.dataTransfer.files) }}
-        className={`flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors has-[input:focus-visible]:border-brand-600 has-[input:focus-visible]:shadow-[var(--pance-focus-ring)] ${over ? 'border-brand-400 bg-brand-50' : 'border-line hover:border-brand-300 hover:bg-brand-50/40'}`}
+        className={`flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors has-[input:focus-visible]:border-line-focus has-[input:focus-visible]:shadow-[var(--pance-focus-ring)] ${over ? 'border-primary-border-strong bg-primary-soft' : 'border-line hover:border-primary-outline hover:bg-primary-soft/40'}`}
       >
         <input ref={inputRef} {...a11y} type="file" accept={accept} multiple className="sr-only" onChange={(e) => handle(e.target.files)} />
         {DropIcon && (
-          <span className={`grid h-12 w-12 place-items-center rounded-xl transition-colors ${over ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-ink-muted'}`}>
+          <span className={`grid h-12 w-12 place-items-center rounded-xl transition-colors ${over ? 'bg-primary-soft-hover text-primary-fg' : 'bg-secondary-soft text-ink-muted'}`}>
             <DropIcon size={24} aria-hidden />
           </span>
         )}
         <div>
           <p className="text-sm font-semibold text-ink">
-            <span className="text-brand-700">{tt('ui.clickToUpload')}</span> {tt('ui.orDrag')}
+            <span className="text-primary-fg">{tt('ui.clickToUpload')}</span> {tt('ui.orDrag')}
           </p>
           {hint && <p className="mt-1 text-xs text-ink-muted">{hint}</p>}
         </div>
@@ -425,10 +425,10 @@ export function PinInput({
           onPaste={onPaste}
           className={`${focus} aspect-square w-0 min-w-0 flex-1 basis-0 max-w-[3rem] rounded-xl border text-center font-mono text-base font-semibold text-ink transition-colors sm:text-lg ${
             error
-              ? 'border-danger bg-rose-50/40 text-danger'
+              ? 'border-danger bg-danger-soft/40 text-danger'
               : v
-              ? 'border-brand-400 bg-brand-50 text-brand-700'
-              : 'border-line bg-surface hover:border-slate-300'
+              ? 'border-primary-border-strong bg-primary-soft text-primary-fg'
+              : 'border-line bg-surface hover:border-line-strong'
           }`}
         />
       ))}
@@ -475,7 +475,7 @@ export function InlineEdit({
           if (e.key === 'Enter') commit()
           if (e.key === 'Escape') { setDraft(value); setEditing(false) }
         }}
-        className={`${focus} -mx-2 rounded-lg border border-brand-400 bg-brand-50 px-2 py-0.5 text-sm font-medium text-ink shadow-[var(--pance-focus-ring)]`}
+        className={`${focus} -mx-2 rounded-lg border border-primary-border-strong bg-primary-soft px-2 py-0.5 text-sm font-medium text-ink shadow-[var(--pance-focus-ring)]`}
       />
     )
   }
@@ -484,7 +484,7 @@ export function InlineEdit({
     <button
       type="button"
       onClick={() => setEditing(true)}
-      className={`${focus} group -mx-2 flex items-center gap-1.5 rounded-lg px-2 py-0.5 text-sm font-medium text-ink transition-colors hover:bg-brand-50`}
+      className={`${focus} group -mx-2 flex items-center gap-1.5 rounded-lg px-2 py-0.5 text-sm font-medium text-ink transition-colors hover:bg-primary-soft`}
     >
       <span>{value || placeholder}</span>
       <IconEdit className="h-3.5 w-3.5 text-ink-muted opacity-0 transition-opacity group-hover:opacity-100" />
@@ -546,7 +546,7 @@ export function Combobox({
   return (
     <div ref={ref} className="relative">
       {open ? (
-        <div className={`${inputBase} ${inputNormal} flex items-center gap-2 h-10 px-3.5 focus-within:border-brand-500 focus-within:shadow-[var(--pance-focus-ring)]`}>
+        <div className={`${inputBase} ${inputNormal} flex items-center gap-2 h-10 px-3.5 focus-within:border-line-focus focus-within:shadow-[var(--pance-focus-ring)]`}>
           <IconSearch className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />
           <input
             autoFocus
@@ -580,7 +580,7 @@ export function Combobox({
         </button>
       )}
       {open && (
-        <ul id={listId} role="listbox" aria-label={label ?? placeholder} className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
+        <ul id={listId} role="listbox" aria-label={label ?? placeholder} className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-menu">
           {filtered.length === 0 ? (
             <li role="presentation" className="px-3 py-2 text-sm text-ink-muted">{tt('ui.noResults', { query })}</li>
           ) : (
@@ -592,11 +592,11 @@ export function Combobox({
                 aria-selected={o.value === value}
                 onMouseDown={(e) => { e.preventDefault(); choose(o.value) }}
                 onMouseEnter={() => setActive(i)}
-                className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o.value === value ? 'bg-brand-50 text-brand-700' : 'text-ink-soft'} ${i === active ? 'ring-2 ring-inset ring-brand-600' : ''} ${o.value !== value ? 'hover:bg-ground' : ''}`}
+                className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o.value === value ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft'} ${i === active ? 'ring-2 ring-inset ring-line-focus' : ''} ${o.value !== value ? 'hover:bg-ground' : ''}`}
               >
                 <span>{o.label}</span>
                 <span className="font-mono text-[11px] text-ink-muted">{o.meta}</span>
-                {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-brand-700" aria-hidden="true" />}
+                {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-primary-fg" aria-hidden="true" />}
               </li>
             ))
           )}
@@ -676,10 +676,10 @@ export function Select({
         {...a11y}
         onClick={() => (open ? close() : openAt(current))}
         onKeyDown={onButtonKey}
-        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between text-left disabled:cursor-not-allowed disabled:opacity-45 ${error ? 'border-danger' : 'border-line hover:border-slate-300'} ${open ? 'border-brand-500 shadow-[var(--pance-focus-ring)]' : ''}`}
+        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between text-left disabled:cursor-not-allowed disabled:opacity-45 ${error ? 'border-danger' : 'border-line hover:border-line-strong'} ${open ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : ''}`}
       >
         <span className="flex items-center gap-2 truncate">
-          <span className="h-2 w-2 shrink-0 rounded-full bg-brand-500" aria-hidden="true" />
+          <span className="h-2 w-2 shrink-0 rounded-full bg-primary-dot" aria-hidden="true" />
           {value}
         </span>
         <IconChevronDown className={`h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
@@ -694,7 +694,7 @@ export function Select({
           aria-labelledby={label ? undefined : a11y.id}
           aria-activedescendant={optId(active)}
           onKeyDown={onListKey}
-          className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)] outline-none"
+          className="absolute z-30 mt-2 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-menu outline-none"
         >
           {options.map((o, i) => (
             <li
@@ -704,10 +704,10 @@ export function Select({
               aria-selected={o === value}
               onMouseDown={(e) => { e.preventDefault(); choose(i) }}
               onMouseEnter={() => setActive(i)}
-              className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o === value ? 'bg-brand-50 text-brand-700' : 'text-ink-soft'} ${i === active ? 'ring-2 ring-inset ring-brand-600' : ''} ${o !== value ? 'hover:bg-ground' : ''}`}
+              className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o === value ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft'} ${i === active ? 'ring-2 ring-inset ring-line-focus' : ''} ${o !== value ? 'hover:bg-ground' : ''}`}
             >
               {o}
-              {o === value && <IconCheck className="h-4 w-4 text-brand-700" aria-hidden="true" />}
+              {o === value && <IconCheck className="h-4 w-4 text-primary-fg" aria-hidden="true" />}
             </li>
           ))}
         </ul>
@@ -773,13 +773,13 @@ export function TagInput({
     <div className="relative">
       <div
         onClick={() => inputRef.current?.focus()}
-        className={`flex min-h-[42px] cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-brand-600 shadow-[var(--pance-focus-ring)]' : 'border-line hover:border-slate-300'}`}
+        className={`flex min-h-[42px] cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : 'border-line hover:border-line-strong'}`}
       >
         <ul className="contents">
           {tags.map((tag) => (
-            <li key={tag} className="inline-flex items-center gap-1 rounded-full bg-brand-50 py-0.5 pl-2.5 pr-1 text-xs font-medium text-brand-700 ring-1 ring-brand-200">
+            <li key={tag} className="inline-flex items-center gap-1 rounded-full bg-primary-soft py-0.5 pl-2.5 pr-1 text-xs font-medium text-primary-fg ring-1 ring-primary-border">
               {tag}
-              <button type="button" onClick={() => remove(tag)} aria-label={`${tt('ui.remove')} ${tag}`} className="pance-focus grid h-5 w-5 place-items-center rounded-full hover:bg-brand-100">
+              <button type="button" onClick={() => remove(tag)} aria-label={`${tt('ui.remove')} ${tag}`} className="pance-focus grid h-5 w-5 place-items-center rounded-full hover:bg-primary-soft-hover">
                 <IconX aria-hidden className="h-3 w-3" />
               </button>
             </li>
@@ -804,7 +804,7 @@ export function TagInput({
         />
       </div>
       {open && (
-        <ul id={listId} role="listbox" aria-label={label ?? placeholder} className="absolute z-30 mt-1.5 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)]">
+        <ul id={listId} role="listbox" aria-label={label ?? placeholder} className="absolute z-30 mt-1.5 w-full overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover">
           {filtered.map((s, i) => (
             <li
               key={s}
@@ -813,7 +813,7 @@ export function TagInput({
               aria-selected={i === active}
               onMouseDown={(e) => { e.preventDefault(); add(s) }}
               onMouseEnter={() => setActive(i)}
-              className={`flex w-full cursor-pointer items-center rounded-lg px-3 py-2 text-sm ${i === active ? 'bg-ground text-ink ring-1 ring-brand-600' : 'text-ink-soft'}`}
+              className={`flex w-full cursor-pointer items-center rounded-lg px-3 py-2 text-sm ${i === active ? 'bg-ground text-ink ring-1 ring-line-focus' : 'text-ink-soft'}`}
             >
               {s}
             </li>

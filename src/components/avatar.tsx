@@ -3,10 +3,10 @@
 /* ── Avatar ────────────────────────────────────────────────────────────── */
 export type AvatarStatus = 'online' | 'away' | 'busy' | 'offline'
 const STATUS_COLOR: Record<AvatarStatus, string> = {
-  online: 'bg-emerald-500',
-  away: 'bg-amber-400',
-  busy: 'bg-rose-500',
-  offline: 'bg-slate-300',
+  online: 'bg-(--pance-avatar-color-status-online)',
+  away: 'bg-(--pance-avatar-color-status-away)',
+  busy: 'bg-(--pance-avatar-color-status-busy)',
+  offline: 'bg-(--pance-avatar-color-status-offline)',
 }
 
 export function Avatar({
@@ -34,7 +34,7 @@ export function Avatar({
       aria-label={decorative ? undefined : name}
       aria-hidden={decorative || undefined}
       style={{ width: size, height: size, fontSize: size * 0.36 }}
-      className={`grid shrink-0 place-items-center ${radius} bg-brand-100 font-semibold text-brand-700 ${ring ? 'ring-2 ring-surface' : ''}`}>
+      className={`grid shrink-0 place-items-center ${radius} bg-(--pance-avatar-color-bg) font-semibold text-(--pance-avatar-color-text) ${ring ? 'ring-2 ring-surface' : ''}`}>
       {initials}
     </span>
   )
@@ -61,7 +61,7 @@ export function AvatarGroup({ people, max = 4 }: { people: { name: string; src?:
         <Avatar key={p.name} name={p.name} src={p.src} size={32} ring />
       ))}
       {extra > 0 && (
-        <span className="grid h-8 w-8 place-items-center rounded-full bg-slate-200 text-[11px] font-semibold text-slate-700 ring-2 ring-surface">
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-(--pance-avatar-color-overflow-bg) text-[11px] font-semibold text-(--pance-avatar-color-overflow-text) ring-2 ring-surface">
           +{extra}
         </span>
       )}

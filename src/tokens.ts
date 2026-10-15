@@ -1147,7 +1147,7 @@ export const tokens = {
       "lineHeight": 1.333,
       "letterSpacing": "0em"
     },
-    "required-color": "#e11d48"
+    "required-color": "#be123c"
   },
   "toggle": {
     "size": {
@@ -1312,7 +1312,7 @@ export const tokens = {
     "connector": "2px",
     "color": {
       "complete": "#0e7490",
-      "connector-complete": "#0891b2",
+      "connector-complete": "#0e7490",
       "current-bg": "#ecfeff",
       "current-text": "#0e7490",
       "upcoming": "#e2e8f0",

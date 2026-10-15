@@ -4,6 +4,16 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Tokens
+- Components are token-driven: every colour comes from a semantic utility (`bg-primary-solid`, `text-danger-fg`, `border-line-strong`, `text-ink-muted`…) or a component token (`bg-(--pance-button-color-primary-filled-bg)`). Button, Badge, Toggle, Checkbox, Radio, Steps, Tabs, Avatar and Tooltip read their component tokens directly.
+- `theme.css` adds 88 intent utilities (`{intent}-{solid|solid-hover|solid-active|on-solid|soft|soft-hover|border|outline|border-strong|fg|dot}`), neutrals (`ink-disabled`, `ink-inverse`, `ink-brand`, `ink-link`, `line-strong`, `line-focus`, `surface-inverse`, `scrim`) and `shadow-card-rest` / `shadow-hover-lift`.
+- 32 component tokens now alias semantic tokens instead of primitives (toggle, checkbox, radio, steps, nav-menu, avatar, tag-input, file-dropzone…); same values except `steps.color.connector-complete` (aqua-600 → primary solid, aqua-700). Mirrored in Figma.
+- Hard-coded shadows, `text-white` and `bg-white` in components replaced by shadow tokens and `on-solid` / inverse tokens, so dark mode reaches them.
+- `pnpm lint:tokens` (`scripts/check-token-usage.mjs`) fails CI if a component uses a palette step, hex or rgb colour.
+
+### Changed
+- Secondary severity aligned to its tokens: soft badge/alert text slate-700 (was 600), soft background slate-100 (was slate-50). Contrast soft badge background slate-100 (was 200).
+
 ### Accessibility
 - WAI-ARIA patterns with full keyboard support: `Modal` / `Drawer` (focus trap, Escape, focus return), `Popover`, `DropdownMenu` and `SplitButton` (menu button), `Select` (select-only combobox), `Combobox` and `TagInput` (autocomplete), `Tabs` (+ new `TabPanel`), `SegmentedControl` and new `RadioGroup` (roving tabindex), `Accordion`, `Panel` and `NavMenu` (disclosure), `Tooltip` (focus + Escape).
 - `Field` now wires `id`, `aria-describedby`, `aria-invalid` and `aria-required` into its control; new `group` prop and `useFieldControl()` hook.
