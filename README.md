@@ -3,13 +3,13 @@
 A production-ready design system built for products where complex data and human impact meet. Pance is inspired by a river: a vibrant aquatic teal for every interactive moment, grounded by a high-contrast slate neutral and a strict 8pt grid.
 
 **Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español  
-**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 789 variables, 20 core components and 67 icons, mirrored from this repo ([details](docs/figma.md))
+**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 792 variables, 20 core components and 67 icons, mirrored from this repo ([details](docs/figma.md))
 
 This repository contains:
 
 | | What | Where |
 |---|---|---|
-| 🎨 | **Design tokens**: 852 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
+| 🎨 | **Design tokens**: 855 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
 | 🧩 | **React components**: 45 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
 | 🔣 | **Iconography**: 67 semantic aliases over Phosphor Icons | [`src/icons.tsx`](src/icons.tsx) |
 | 📖 | **Documentation site**: the bilingual explorer published at the URL above | [`src/site/`](src/site) |
@@ -53,7 +53,9 @@ tokens/components.json   Decisions per component: button size × severity × var
 | `tokens/dist/tokens.json` | Flat resolved map for Figma plugins (Tokens Studio, etc.) or other platforms |
 | `docs/tokens.md` | The human-readable [token reference](docs/tokens.md) |
 
-> **How a change flows:** components read tokens, never palette steps. Shared styles use semantic utilities (`bg-primary-solid`, `text-danger-fg`, `border-line`, `text-ink-muted`…) and component-specific values use component tokens directly (`bg-(--pance-button-color-primary-filled-bg)`, `bg-(--pance-toggle-color-track-off)`). Editing a primitive, a semantic token or a component token in `tokens/*.json` restyles every component that uses it, and `data-theme="dark"` swaps the semantic layer. `pnpm lint:tokens` (run in CI) fails if a component hard-codes a colour.
+> **How a change flows:** components read tokens, never palette steps. Shared styles use semantic utilities (`bg-primary-solid`, `text-danger-fg`, `border-line`, `text-ink-muted`…) and component-specific values use component tokens directly (`bg-(--pance-button-color-primary-filled-bg)`, `bg-(--pance-toggle-color-track-off)`). Editing a primitive, a semantic token or a component token in `tokens/*.json` restyles every component that uses it, and `data-theme="dark"` swaps the semantic layer. Dimensions work the same way: Tailwind's spacing, radius, type, weight and container scales are mapped onto Pance tokens (`p-4` = `space.2`, `rounded-xl` = `radius.12`, `text-sm` = `fontSize.14`), and component sizes read component tokens (`h-(--pance-button-size-md-height)`).
+>
+> Two checks keep it that way in CI: `pnpm lint:tokens` fails if a component hard-codes a colour or a pixel size, and `pnpm test:contrast` checks 147 token pairs against WCAG 2.2 in light and dark mode.
 
 ### Foundations at a glance
 

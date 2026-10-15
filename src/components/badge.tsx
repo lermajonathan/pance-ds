@@ -11,9 +11,9 @@ import { type Severity, type SurfaceVariant, TONE } from './shared'
 export type BadgeSize = 'sm' | 'md' | 'lg'
 
 const BADGE_SIZE: Record<BadgeSize, { wrap: string; dot: string; icon: string }> = {
-  sm: { wrap: 'px-1.5 py-0.5 text-[10px] gap-1', dot: 'h-1.5 w-1.5', icon: 'h-2.5 w-2.5' },
-  md: { wrap: 'px-2.5 py-1 text-xs gap-1.5', dot: 'h-1.5 w-1.5', icon: 'h-3 w-3' },
-  lg: { wrap: 'px-3 py-1.5 text-sm gap-2', dot: 'h-2 w-2', icon: 'h-3.5 w-3.5' },
+  sm: { wrap: 'px-(--pance-badge-size-sm-padding-x) py-(--pance-badge-size-sm-padding-y) text-10 gap-(--pance-badge-size-sm-gap)', dot: 'size-(--pance-badge-size-sm-dot)', icon: 'size-(--pance-badge-size-sm-icon)' },
+  md: { wrap: 'px-(--pance-badge-size-md-padding-x) py-(--pance-badge-size-md-padding-y) text-xs gap-(--pance-badge-size-md-gap)', dot: 'size-(--pance-badge-size-md-dot)', icon: 'size-(--pance-badge-size-md-icon)' },
+  lg: { wrap: 'px-(--pance-badge-size-lg-padding-x) py-(--pance-badge-size-lg-padding-y) text-sm gap-(--pance-badge-size-lg-gap)', dot: 'size-(--pance-badge-size-lg-dot)', icon: 'size-(--pance-badge-size-lg-icon)' },
 }
 
 // Component tokens (tokens/components.json → badge.color.*), aliasing semantic intents.
@@ -75,7 +75,7 @@ export function CountBadge({ count, max = 99, severity = 'danger' }: { count: nu
   const t = TONE[severity]
   const label = count > max ? `${max}+` : String(count)
   return (
-    <span className={`inline-flex min-w-[18px] items-center justify-center rounded-full px-1 py-0.5 font-mono text-[10px] font-bold leading-none ring-1 ${t.solid}`}>
+    <span className={`inline-flex min-w-(--pance-badge-count-min-width) items-center justify-center rounded-full px-1 py-0.5 font-mono text-10 font-bold leading-none ring-1 ${t.solid}`}>
       {label}
     </span>
   )

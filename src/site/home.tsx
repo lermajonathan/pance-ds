@@ -66,10 +66,10 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
           <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
           <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
         </div>
-        <span className="mx-auto truncate rounded-md bg-surface px-3 py-1 font-mono text-[11px] text-ink-muted">pance / patterns / console-dashboard</span>
+        <span className="mx-auto truncate rounded-md bg-surface px-3 py-1 font-mono text-11 text-ink-muted">pance / patterns / console-dashboard</span>
         <span className="hidden items-center gap-1.5 sm:flex">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          <span className="font-mono text-[10px] text-ink-muted">LIVE</span>
+          <span className="font-mono text-10 text-ink-muted">LIVE</span>
         </span>
       </div>
 
@@ -120,7 +120,7 @@ export function HomePage() {
               <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--color-brand-600)_60%,transparent)]">
                 <IconWave size={14} weight="bold" className="text-white" />
               </div>
-              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-brand-400">{t('home.eyebrow')}</span>
+              <span className="font-mono text-11 uppercase tracking-[0.22em] text-brand-400">{t('home.eyebrow')}</span>
             </div>
 
             <h1 className="font-display text-5xl font-extrabold leading-[1.08] tracking-tight text-white md:text-6xl lg:text-7xl">
@@ -165,7 +165,7 @@ export function HomePage() {
         <div className="mx-auto max-w-[1120px]">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-700">{t('home.context.eyebrow')}</p>
+              <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.context.eyebrow')}</p>
               <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink">{t('home.context.title')}</h2>
               <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-muted">
                 {t('home.context.body')}
@@ -189,7 +189,7 @@ export function HomePage() {
       <section className="border-t border-line bg-river-900 px-8 py-16">
         <div className="mx-auto flex max-w-[1120px] flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-400">{t('home.start.eyebrow')}</p>
+            <p className="font-mono text-11 uppercase tracking-[0.2em] text-brand-400">{t('home.start.eyebrow')}</p>
             <h2 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-white">{t('home.start.title')}</h2>
             <p className="mt-1.5 text-sm text-slate-400">{t('home.start.body')}</p>
           </div>
@@ -211,7 +211,7 @@ export function HomePage() {
       {/* ── Copyright ─────────────────────────────────────────────────── */}
       <section className="border-t border-slate-700/60 bg-river-950 px-8 py-5">
         <div className="mx-auto flex max-w-[1120px] items-center justify-center">
-          <p className="text-center font-mono text-[11px] text-slate-400">
+          <p className="text-center font-mono text-11 text-slate-400">
             © {new Date().getFullYear()} · {t('home.credit.by')}{' '}
             <a
               href="https://ux.jonathanlerma.com"

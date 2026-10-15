@@ -9,14 +9,14 @@ import { listKeyNav } from './a11y'
 export type ToggleSize = 'sm' | 'md' | 'lg'
 
 const TOGGLE_TRACK: Record<ToggleSize, string> = {
-  sm: 'h-5 w-9',
-  md: 'h-6 w-11',
-  lg: 'h-7 w-[52px]',
+  sm: 'h-(--pance-toggle-size-sm-track-height) w-(--pance-toggle-size-sm-track-width)',
+  md: 'h-(--pance-toggle-size-md-track-height) w-(--pance-toggle-size-md-track-width)',
+  lg: 'h-(--pance-toggle-size-lg-track-height) w-(--pance-toggle-size-lg-track-width)',
 }
 const TOGGLE_THUMB: Record<ToggleSize, { size: string; on: string; off: string }> = {
-  sm: { size: 'h-3.5 w-3.5', on: 'left-[18px]', off: 'left-0.5' },
-  md: { size: 'h-5 w-5', on: 'left-[22px]', off: 'left-0.5' },
-  lg: { size: 'h-[22px] w-[22px]', on: 'left-[26px]', off: 'left-[3px]' },
+  sm: { size: 'size-(--pance-toggle-size-sm-thumb)', on: 'left-[18px]', off: 'left-0.5' },
+  md: { size: 'size-(--pance-toggle-size-md-thumb)', on: 'left-[22px]', off: 'left-0.5' },
+  lg: { size: 'size-(--pance-toggle-size-lg-thumb)', on: 'left-[26px]', off: 'left-[3px]' },
 }
 
 export function Toggle({
@@ -48,7 +48,7 @@ export function Toggle({
       aria-describedby={describedBy}
       disabled={disabled}
       onClick={() => onChange(!on)}
-      className={`${focus} relative shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${TOGGLE_TRACK[size]} ${on ? 'bg-(--pance-toggle-color-track-on)' : 'bg-(--pance-toggle-color-track-off)'}`}
+      className={`${focus} relative shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${TOGGLE_TRACK[size]} ${on ? 'bg-(--pance-toggle-color-track-on)' : 'bg-(--pance-toggle-color-track-off)'}`}
     >
       <span
         aria-hidden="true"
@@ -76,7 +76,7 @@ export function SwitchRow({
 }) {
   const id = useId()
   return (
-    <label className={`flex items-center justify-between gap-4 rounded-xl border border-line-soft bg-canvas p-4 transition-colors ${disabled ? 'opacity-45' : 'cursor-pointer hover:border-line-strong hover:bg-ground'}`}>
+    <label className={`flex items-center justify-between gap-4 rounded-xl border border-line-soft bg-canvas p-4 transition-colors ${disabled ? 'opacity-(--pance-opacity-disabled)' : 'cursor-pointer hover:border-line-strong hover:bg-ground'}`}>
       <span className="min-w-0">
         <span id={`${id}-l`} className="block text-sm font-medium text-ink">{label}</span>
         {description && <span id={`${id}-d`} className="mt-0.5 block text-xs text-ink-muted">{description}</span>}
@@ -89,9 +89,9 @@ export function SwitchRow({
 /* ── Checkbox ──────────────────────────────────────────────────────────── */
 export type CheckboxSize = 'sm' | 'md' | 'lg'
 const CB_SIZE: Record<CheckboxSize, { box: string; icon: string; text: string; gap: string }> = {
-  sm: { box: 'h-4 w-4 rounded', icon: 'h-3 w-3', text: 'text-xs', gap: 'gap-2' },
-  md: { box: 'h-5 w-5 rounded-md', icon: 'h-3.5 w-3.5', text: 'text-sm', gap: 'gap-2.5' },
-  lg: { box: 'h-6 w-6 rounded-lg', icon: 'h-4 w-4', text: 'text-base', gap: 'gap-3' },
+  sm: { box: 'size-(--pance-checkbox-size-sm-box) rounded-(--pance-checkbox-size-sm-radius)', icon: 'size-(--pance-checkbox-size-sm-icon)', text: 'text-xs', gap: 'gap-2' },
+  md: { box: 'size-(--pance-checkbox-size-md-box) rounded-(--pance-checkbox-size-md-radius)', icon: 'size-(--pance-checkbox-size-md-icon)', text: 'text-sm', gap: 'gap-2.5' },
+  lg: { box: 'size-(--pance-checkbox-size-lg-box) rounded-(--pance-checkbox-size-lg-radius)', icon: 'size-(--pance-checkbox-size-lg-icon)', text: 'text-base', gap: 'gap-3' },
 }
 
 export function Checkbox({
@@ -120,7 +120,7 @@ export function Checkbox({
     : error ? 'border-danger bg-surface hover:border-danger' : 'border-(--pance-checkbox-color-border) bg-surface hover:border-(--pance-checkbox-color-border-hover)'
 
   return (
-    <label className={`inline-flex items-start ${s.gap} ${disabled ? 'cursor-not-allowed opacity-45' : 'cursor-pointer'}`}>
+    <label className={`inline-flex items-start ${s.gap} ${disabled ? 'cursor-not-allowed opacity-(--pance-opacity-disabled)' : 'cursor-pointer'}`}>
       <button
         type="button"
         role="checkbox"
@@ -151,9 +151,9 @@ export function Checkbox({
 /* ── Radio ─────────────────────────────────────────────────────────────── */
 export type RadioSize = 'sm' | 'md' | 'lg'
 const RD_SIZE: Record<RadioSize, { dot: string; ring: string; text: string; gap: string; inner: string }> = {
-  sm: { dot: 'h-4 w-4', ring: 'h-2 w-2', text: 'text-xs', gap: 'gap-2', inner: 'h-1.5 w-1.5' },
-  md: { dot: 'h-5 w-5', ring: 'h-2.5 w-2.5', text: 'text-sm', gap: 'gap-2.5', inner: 'h-2.5 w-2.5' },
-  lg: { dot: 'h-6 w-6', ring: 'h-3 w-3', text: 'text-base', gap: 'gap-3', inner: 'h-3 w-3' },
+  sm: { dot: 'size-(--pance-radio-size-sm-control)', ring: 'h-2 w-2', text: 'text-xs', gap: 'gap-2', inner: 'size-(--pance-radio-size-sm-dot)' },
+  md: { dot: 'size-(--pance-radio-size-md-control)', ring: 'h-2.5 w-2.5', text: 'text-sm', gap: 'gap-2.5', inner: 'size-(--pance-radio-size-md-dot)' },
+  lg: { dot: 'size-(--pance-radio-size-lg-control)', ring: 'h-3 w-3', text: 'text-base', gap: 'gap-3', inner: 'size-(--pance-radio-size-lg-dot)' },
 }
 
 export function Radio({
@@ -187,7 +187,7 @@ export function Radio({
     : error ? 'border-danger hover:border-danger' : 'border-(--pance-radio-color-border) hover:border-(--pance-radio-color-border-hover)'
 
   return (
-    <label className={`inline-flex items-start ${s.gap} ${disabled ? 'cursor-not-allowed opacity-45' : 'cursor-pointer'}`}>
+    <label className={`inline-flex items-start ${s.gap} ${disabled ? 'cursor-not-allowed opacity-(--pance-opacity-disabled)' : 'cursor-pointer'}`}>
       <button
         type="button"
         ref={buttonRef}
@@ -297,7 +297,7 @@ export function RadioCard({
       aria-describedby={description ? `${uid}-d` : undefined}
       disabled={disabled}
       onClick={() => !disabled && onChange()}
-      className={`${focus} w-full rounded-xl border p-4 text-left transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${
+      className={`${focus} w-full rounded-xl border p-4 text-left transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${
         checked
           ? 'border-primary-border-strong bg-primary-soft shadow-[0_0_0_1px_var(--color-primary-border-strong)]'
           : 'border-line bg-surface hover:border-line-strong hover:bg-canvas'
@@ -316,7 +316,7 @@ export function RadioCard({
           </span>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          {badge && <span className="rounded-full bg-primary-soft-hover px-2 py-0.5 font-mono text-[10px] font-semibold text-primary-fg">{badge}</span>}
+          {badge && <span className="rounded-full bg-primary-soft-hover px-2 py-0.5 font-mono text-10 font-semibold text-primary-fg">{badge}</span>}
           <span className={`grid h-5 w-5 place-items-center rounded-full border transition-colors ${checked ? 'border-primary-solid' : 'border-secondary-border-strong'}`}>
             <span className={`h-2.5 w-2.5 rounded-full bg-primary-solid transition-transform duration-200 ${checked ? 'scale-100' : 'scale-0'}`} />
           </span>
@@ -341,7 +341,7 @@ export function SegmentedControl<T extends string>({
   /** Accessible name for the group, e.g. "View". */
   label?: string
 }) {
-  const pad = size === 'sm' ? 'h-8 px-3 text-[13px]' : size === 'lg' ? 'h-11 px-5 text-base' : 'h-10 px-4 text-sm'
+  const pad = size === 'sm' ? 'h-8 px-3 text-13' : size === 'lg' ? 'h-11 px-5 text-base' : 'h-10 px-4 text-sm'
   const iconSz = size === 'sm' ? 14 : size === 'lg' ? 20 : 16
   const refs = useRef<(HTMLButtonElement | null)[]>([])
   return (

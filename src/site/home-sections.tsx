@@ -28,8 +28,8 @@ function HumanArt() {
         <div key={i} className={`pance-rise flex aspect-[4/5] flex-col justify-between rounded-2xl p-3 shadow-sm sm:p-4 ${x.cls}`} style={{ animationDelay: `${i * 90}ms` }}>
           <span className="font-display text-3xl font-extrabold leading-none sm:text-5xl">Aa</span>
           <div>
-            <p className="font-mono text-[11px]">{x.ratio}</p>
-            <p className="mt-1 inline-block rounded-full ring-1 ring-current px-2 py-0.5 font-mono text-[10px] font-bold">{x.grade}</p>
+            <p className="font-mono text-11">{x.ratio}</p>
+            <p className="mt-1 inline-block rounded-full ring-1 ring-current px-2 py-0.5 font-mono text-10 font-bold">{x.grade}</p>
           </div>
         </div>
       ))}
@@ -43,7 +43,7 @@ function DataArt() {
     <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-5">
       <div className="flex items-end justify-between gap-3">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">KPI</p>
+          <p className="font-mono text-10 uppercase tracking-[0.16em] text-ink-muted">KPI</p>
           <p className="font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">12,480</p>
         </div>
         <Badge severity="success" variant="soft">+12.4%</Badge>
@@ -64,7 +64,7 @@ function OpenArt() {
       <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
         <div className="flex items-center gap-2 border-b border-line bg-ground px-4 py-2">
           <IconGlobe size={14} className="text-brand-700" />
-          <span className="min-w-0 truncate font-mono text-[11px] text-ink-muted">pance / design-system</span>
+          <span className="min-w-0 truncate font-mono text-11 text-ink-muted">pance / design-system</span>
           <span className="ml-auto shrink-0"><Badge severity="success" variant="soft" size="sm">{t('shell.openSource')}</Badge></span>
         </div>
         <pre className="overflow-x-auto p-4 font-mono text-[12px] leading-relaxed text-ink-soft">{'<Button severity="primary">\n  Ship it\n</Button>'}</pre>
@@ -143,7 +143,7 @@ export function PillarsSection() {
                 <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-colors ${on ? 'bg-brand-600 text-white' : 'bg-brand-50 text-brand-700'}`}>
                   <p.Icon size={18} weight="duotone" />
                 </span>
-                <span className={`min-w-0 text-[13px] font-semibold leading-snug sm:text-sm ${on ? 'text-ink' : ''}`}>{t(p.title)}</span>
+                <span className={`min-w-0 text-13 font-semibold leading-snug sm:text-sm ${on ? 'text-ink' : ''}`}>{t(p.title)}</span>
                 {on && auto && <span key={`${active}-bar`} aria-hidden className="pance-fill absolute inset-x-0 bottom-0 h-0.5 bg-brand-500" style={{ ['--pance-dur' as string]: `${ROTATE_MS}ms` }} />}
               </button>
             )
@@ -156,7 +156,7 @@ export function PillarsSection() {
               const on = i === active
               return (
                 <div key={p.id} aria-hidden={!on} inert={!on} className={`col-start-1 row-start-1 ${on ? 'pance-rise' : 'invisible'}`}>
-                  <p className="font-mono text-[11px] tracking-[0.18em] text-brand-700">{String(i + 1).padStart(2, '0')} / {String(PILLARS.length).padStart(2, '0')}</p>
+                  <p className="font-mono text-11 tracking-[0.18em] text-brand-700">{String(i + 1).padStart(2, '0')} / {String(PILLARS.length).padStart(2, '0')}</p>
                   <h2 className="mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">{t(p.title)}</h2>
                   <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">{t(p.body)}</p>
                 </div>
@@ -250,7 +250,7 @@ export function CoverageSection({ onOpen }: { onOpen: () => void }) {
       <div className="relative mx-auto max-w-[1120px]">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-x-8 gap-y-5 sm:mb-16">
           <div className="min-w-0 max-w-xl">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-700">{t('home.coverage.eyebrow')}</p>
+            <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.coverage.eyebrow')}</p>
             <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">{t('home.coverage.title')}</h2>
             <p className="mt-3 text-base leading-relaxed text-ink-muted">{t('home.coverage.lede')}</p>
           </div>
@@ -278,7 +278,7 @@ export function CoverageSection({ onOpen }: { onOpen: () => void }) {
                 <div aria-hidden className={`pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t ${c.glow} to-transparent transition-opacity duration-500 ${on ? 'opacity-100' : 'opacity-0'}`} />
 
                 <div className="relative flex items-center justify-between gap-3">
-                  <span className="font-mono text-[11px] tracking-[0.14em] text-ink-muted">0{i + 1}</span>
+                  <span className="font-mono text-11 tracking-[0.14em] text-ink-muted">0{i + 1}</span>
                   <span className={`h-2 w-2 rounded-full bg-current ${c.accent} transition-transform duration-500 ${on ? 'scale-100' : 'scale-75 opacity-50'}`} />
                 </div>
 

@@ -134,7 +134,7 @@ for (const [tw, prim] of Object.entries(PALETTES)) {
 const ALIASES = {
   ground: 'color.bg.page', canvas: 'color.bg.sunken', surface: 'color.bg.surface',
   ink: 'color.fg.default', 'ink-soft': 'color.fg.soft', 'ink-muted': 'color.fg.muted', 'ink-subtle': 'color.fg.subtle',
-  line: 'color.border.default', 'line-soft': 'color.border.soft', 'line-strong': 'color.border.strong', 'line-focus': 'color.border.focus',
+  line: 'color.border.default', 'line-soft': 'color.border.soft', 'line-strong': 'color.border.strong', 'line-control': 'color.border.control', 'line-focus': 'color.border.focus',
   'ink-disabled': 'color.fg.disabled', 'ink-inverse': 'color.fg.inverse', 'ink-brand': 'color.fg.brand', 'ink-link': 'color.fg.link',
   'surface-inverse': 'color.bg.inverse', scrim: 'color.bg.scrim',
   'river-900': 'color.river.900', 'river-950': 'color.river.950',
@@ -158,6 +158,34 @@ for (const i of INTENTS) for (const k of INTENT_KEYS) {
 const SHADOWS = { 'card-rest': 'shadow.card-rest', 'hover-lift': 'shadow.hover-lift', raised: 'shadow.xs', card: 'shadow.sm', popover: 'shadow.md', modal: 'shadow.lg', brand: 'shadow.brand', menu: 'shadow.menu', toast: 'shadow.toast' }
 theme += '\n  /* Elevation utilities: shadow-raised, shadow-card, shadow-popover, shadow-modal, shadow-brand… */\n'
 for (const [tw, path] of Object.entries(SHADOWS)) { target(path, 'theme'); theme += `  --shadow-${tw}: var(${cssName(path)});\n` }
+theme += '\n  /* Tailwind scales → Pance dimension tokens, so p-4, gap-2, rounded-xl, text-sm, font-semibold, max-w-md… all resolve to tokens */\n'
+const SCALES = {
+  // 1 spacing unit = 4px (space.0-5); p-4 = 16px = space.2
+  spacing: 'space.0-5',
+  // radius
+  'radius-sm': 'radius.4', 'radius-md': 'radius.6', 'radius-lg': 'radius.8',
+  'radius-xl': 'radius.12', 'radius-2xl': 'radius.16',
+  // type scale (Tailwind names + exact Pance sizes: text-9, text-10, text-11, text-13, text-15)
+  'text-xs': 'fontSize.12', 'text-sm': 'fontSize.14', 'text-base': 'fontSize.16', 'text-lg': 'fontSize.18',
+  'text-xl': 'fontSize.20', 'text-2xl': 'fontSize.24', 'text-3xl': 'fontSize.30', 'text-4xl': 'fontSize.36',
+  'text-5xl': 'fontSize.48', 'text-6xl': 'fontSize.60',
+  'text-9': 'fontSize.9', 'text-10': 'fontSize.10', 'text-11': 'fontSize.11', 'text-13': 'fontSize.13', 'text-15': 'fontSize.15',
+  // weights
+  'font-weight-normal': 'fontWeight.regular', 'font-weight-medium': 'fontWeight.medium', 'font-weight-semibold': 'fontWeight.semibold',
+  'font-weight-bold': 'fontWeight.bold', 'font-weight-extrabold': 'fontWeight.extrabold',
+  // leading & tracking
+  'leading-tight': 'lineHeight.tight', 'leading-snug': 'lineHeight.snug', 'leading-normal': 'lineHeight.normal', 'leading-relaxed': 'lineHeight.relaxed',
+  'tracking-tight': 'letterSpacing.tight', 'tracking-normal': 'letterSpacing.normal', 'tracking-wider': 'letterSpacing.wider', 'tracking-widest': 'letterSpacing.widest',
+  // containers (max-w-sm … max-w-6xl) and backdrop blur
+  'container-sm': 'container.sm', 'container-md': 'container.md', 'container-lg': 'container.lg', 'container-xl': 'container.xl',
+  'container-2xl': 'container.2xl', 'container-4xl': 'container.4xl', 'container-6xl': 'container.6xl',
+  'blur-sm': 'blur.backdrop',
+}
+for (const [tw, path] of Object.entries(SCALES)) {
+  if (!tokens.has(path)) throw new Error(`theme scale ${tw} → missing token ${path}`)
+  target(path, 'theme')
+  theme += `  --${tw}: var(${cssName(path)});\n`
+}
 theme += '\n  /* Radius utilities: rounded-control (12px), rounded-container (16px), rounded-item (8px) */\n'
 theme += `  --radius-item: var(${cssName('radius.item')});\n  --radius-control: var(${cssName('radius.md')});\n  --radius-container: var(${cssName('radius.lg')});\n`
 theme += '}\n'

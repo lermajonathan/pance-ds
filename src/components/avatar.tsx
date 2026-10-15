@@ -61,7 +61,7 @@ export function AvatarGroup({ people, max = 4 }: { people: { name: string; src?:
         <Avatar key={p.name} name={p.name} src={p.src} size={32} ring />
       ))}
       {extra > 0 && (
-        <span className="grid h-8 w-8 place-items-center rounded-full bg-(--pance-avatar-color-overflow-bg) text-[11px] font-semibold text-(--pance-avatar-color-overflow-text) ring-2 ring-surface">
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-(--pance-avatar-color-overflow-bg) text-11 font-semibold text-(--pance-avatar-color-overflow-text) ring-2 ring-surface">
           +{extra}
         </span>
       )}

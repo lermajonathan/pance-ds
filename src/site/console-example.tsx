@@ -81,7 +81,7 @@ function Kpi({ label, value, sub, delta, upIsGood = true, Icon }: { label: strin
         <span className="flex items-center gap-2 text-sm font-medium text-ink-muted">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-700"><Icon size={16} /></span>{label}
         </span>
-        <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-mono text-[11px] font-semibold ${good ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}`}>
+        <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-mono text-11 font-semibold ${good ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}`}>
           {delta >= 0 ? <IconArrowUp size={10} weight="bold" /> : <IconArrowDown size={10} weight="bold" />}{Math.abs(delta).toFixed(1)}%
         </span>
       </div>
@@ -106,7 +106,7 @@ function SalesChart({ total, hidden, onToggle }: { total: number; hidden: Set<Me
           return (
             <button key={m.key} onClick={() => onToggle(m.key)} aria-pressed={!off} className={`pance-focus inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${off ? 'border-line text-ink-muted line-through opacity-60' : 'border-line bg-surface text-ink-soft hover:border-slate-300'}`}>
               <span className="h-2 w-2 rounded-full" style={{ background: m.color }} />{METHOD_LABEL[m.key] ? tt(METHOD_LABEL[m.key]!) : m.label}
-              <span className="font-mono text-[10px] text-ink-muted">{Math.round(MIX[m.key] * 100)}%</span>
+              <span className="font-mono text-10 text-ink-muted">{Math.round(MIX[m.key] * 100)}%</span>
             </button>
           )
         })}
@@ -117,7 +117,7 @@ function SalesChart({ total, hidden, onToggle }: { total: number; hidden: Set<Me
           return (
             <div key={i} className="relative flex h-full flex-1 flex-col justify-end" onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}>
               {hover === i && (
-                <div className="pointer-events-none absolute left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-lg bg-slate-900 px-2.5 py-1.5 font-mono text-[11px] text-white shadow-lg" style={{ bottom: `calc(${(h / max) * 100}% + 8px)` }}>
+                <div className="pointer-events-none absolute left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-lg bg-slate-900 px-2.5 py-1.5 font-mono text-11 text-white shadow-lg" style={{ bottom: `calc(${(h / max) * 100}% + 8px)` }}>
                   {HOURS[i]}:00 · {cop(h)}
                 </div>
               )}
@@ -128,7 +128,7 @@ function SalesChart({ total, hidden, onToggle }: { total: number; hidden: Set<Me
           )
         })}
       </div>
-      <div className="mt-2 flex gap-1 font-mono text-[10px] text-ink-muted sm:gap-2">
+      <div className="mt-2 flex gap-1 font-mono text-10 text-ink-muted sm:gap-2">
         {HOURS.map((h, i) => <span key={h} className="flex-1 text-center">{i % 2 === 0 ? h : ''}</span>)}
       </div>
     </div>
@@ -140,7 +140,7 @@ function Panel({ title, sub, action, children, className = '' }: { title: string
     <Card className={`flex flex-col overflow-hidden ${className}`}>
       <header className="flex flex-wrap items-start justify-between gap-3 border-b border-line-soft px-6 py-4">
         <div>
-          <h2 className="font-display text-[15px] font-bold tracking-tight text-ink">{title}</h2>
+          <h2 className="font-display text-15 font-bold tracking-tight text-ink">{title}</h2>
           {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
         </div>
         {action}
@@ -202,7 +202,7 @@ export default function ConsoleExample() {
           <div className="flex min-w-0 items-center gap-3">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 font-display text-base font-extrabold text-white">T</span>
             <div className="min-w-0">
-              <p className="truncate font-display text-[15px] font-bold leading-tight text-ink">Tienda La Esquina de Doña Marta</p>
+              <p className="truncate font-display text-15 font-bold leading-tight text-ink">Tienda La Esquina de Doña Marta</p>
               <p className="flex items-center gap-1 truncate text-xs text-ink-muted"><IconMapPin size={12} /> Manrique Central · Medellín, Antioquia</p>
             </div>
           </div>
@@ -305,7 +305,7 @@ export default function ConsoleExample() {
             <div tabIndex={0} className="pance-focus overflow-x-auto">
               <table className="w-full min-w-[720px] text-sm">
                 <thead>
-                  <tr className="border-b border-line-soft text-left font-mono text-[10px] uppercase tracking-wider text-ink-muted">
+                  <tr className="border-b border-line-soft text-left font-mono text-10 uppercase tracking-wider text-ink-muted">
                     <th className="px-6 py-3 font-medium">{tt('console.tx.th.time')}</th>
                     <th className="px-3 py-3 font-medium">{tt('console.tx.th.customer')}</th>
                     <th className="px-3 py-3 font-medium">{tt('console.tx.th.detail')}</th>
@@ -319,7 +319,7 @@ export default function ConsoleExample() {
                     const m = methodOf(t.method)
                     return (
                       <tr key={t.id} className="transition-colors hover:bg-canvas">
-                        <td className="px-6 py-3 font-mono text-xs text-ink-muted">{t.time}<span className="ml-2 text-[10px]">{t.id}</span></td>
+                        <td className="px-6 py-3 font-mono text-xs text-ink-muted">{t.time}<span className="ml-2 text-10">{t.id}</span></td>
                         <td className="px-3 py-3 font-medium text-ink">{t.who}</td>
                         <td className="max-w-[240px] truncate px-3 py-3 text-ink-muted">{t.items}</td>
                         <td className="px-3 py-3"><span className="inline-flex items-center gap-1.5 text-xs text-ink-soft"><span className="h-2 w-2 rounded-full" style={{ background: m.color }} />{METHOD_LABEL[m.key] ? tt(METHOD_LABEL[m.key]!) : m.label}</span></td>
@@ -348,12 +348,12 @@ export default function ConsoleExample() {
                           <Avatar name={d.name} size={32} decorative />
                           <div className="min-w-0">
                             <p className="truncate text-sm font-medium text-ink">{d.name}</p>
-                            <p className="font-mono text-[11px] text-ink-muted">{d.phone} · {d.days === 1 ? tt('console.debt.ago1') : tt('console.debt.ago', { n: d.days })}</p>
+                            <p className="font-mono text-11 text-ink-muted">{d.phone} · {d.days === 1 ? tt('console.debt.ago1') : tt('console.debt.ago', { n: d.days })}</p>
                           </div>
                         </div>
                         <div className="text-right">
                           <p className={`font-mono text-sm font-semibold ${pct > 100 ? 'text-rose-600' : 'text-ink'}`}>{cop(d.balance)}</p>
-                          <p className="font-mono text-[10px] text-ink-muted">{tt('console.debt.limit', { amount: cop(d.limit) })}</p>
+                          <p className="font-mono text-10 text-ink-muted">{tt('console.debt.limit', { amount: cop(d.limit) })}</p>
                         </div>
                       </div>
                       <div className="mt-3 flex items-center gap-3">
@@ -379,9 +379,9 @@ export default function ConsoleExample() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-baseline justify-between gap-2">
                           <p className="truncate text-sm font-medium text-ink">{p.name}</p>
-                          <span className="shrink-0 font-mono text-[11px] text-ink-muted">{p.units}/{p.par}</span>
+                          <span className="shrink-0 font-mono text-11 text-ink-muted">{p.units}/{p.par}</span>
                         </div>
-                        <p className="mb-2 truncate text-[11px] text-ink-muted">{p.supplier} · {tt('console.stock.visit', { when: tt(p.next[0], { time: p.next[1] ?? '' }) })}</p>
+                        <p className="mb-2 truncate text-11 text-ink-muted">{p.supplier} · {tt('console.stock.visit', { when: tt(p.next[0], { time: p.next[1] ?? '' }) })}</p>
                         <Progress value={pct} severity={pct < 20 ? 'danger' : pct < 50 ? 'warning' : 'primary'} label={p.name} />
                       </div>
                       <Button size="sm" variant={done ? 'text' : 'outlined'} severity={done ? 'success' : 'primary'} Icon={done ? IconCheck : IconPlus} disabled={done}
@@ -401,11 +401,11 @@ export default function ConsoleExample() {
                     <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${d.onRoute ? 'bg-brand-50 text-brand-700' : 'bg-ground text-ink-muted'}`}><IconBuildings size={18} /></span>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-ink">{d.to}</p>
-                      <p className="font-mono text-[11px] text-ink-muted">{d.id} · {d.rider}</p>
+                      <p className="font-mono text-11 text-ink-muted">{d.id} · {d.rider}</p>
                     </div>
                     <div className="text-right">
                       <Badge size="sm" severity={d.onRoute ? 'primary' : 'secondary'} dot>{d.onRoute ? tt('console.deliv.onroute') : tt('console.deliv.preparing')}</Badge>
-                      <p className="mt-1 font-mono text-[11px] text-ink-muted">{tt('console.deliv.min', { n: d.eta })}</p>
+                      <p className="mt-1 font-mono text-11 text-ink-muted">{tt('console.deliv.min', { n: d.eta })}</p>
                     </div>
                   </li>
                 ))}

@@ -72,11 +72,11 @@ export function Tooltip({
    Escape closes, focus returns to the element that opened it. */
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'
 const MODAL_SIZE: Record<ModalSize, string> = {
-  sm:   'max-w-sm',
-  md:   'max-w-md',
-  lg:   'max-w-lg',
-  xl:   'max-w-2xl',
-  full: 'max-w-[calc(100vw-2rem)]',
+  sm:   'max-w-(--pance-modal-width-sm)',
+  md:   'max-w-(--pance-modal-width-md)',
+  lg:   'max-w-(--pance-modal-width-lg)',
+  xl:   'max-w-(--pance-modal-width-xl)',
+  full: 'max-w-(--pance-modal-width-full)',
 }
 
 export function Modal({
@@ -101,7 +101,7 @@ export function Modal({
   const t = TONE[iconSeverity]
   return (
     <div className="fixed inset-0 z-50 flex h-[100dvh] items-center justify-center overflow-y-auto p-4">
-      <div className="fixed inset-0 h-[100dvh] bg-ink/40 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+      <div className="fixed inset-0 h-[100dvh] bg-scrim backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
       <div
         ref={panel}
         role="dialog"
@@ -142,9 +142,9 @@ const DRAWER_ENTER: Record<DrawerSide, string> = {
   bottom: 'bottom-0 left-0 w-full',
 }
 const DRAWER_WIDTH: Record<DrawerSide, string> = {
-  right:  'w-full max-w-md',
-  left:   'w-full max-w-md',
-  bottom: 'max-h-[85dvh]',
+  right:  'w-full max-w-(--pance-drawer-width)',
+  left:   'w-full max-w-(--pance-drawer-width)',
+  bottom: 'max-h-(--pance-drawer-max-height-bottom)',
 }
 
 export function Drawer({
@@ -166,7 +166,7 @@ export function Drawer({
   if (!open) return null
   return (
     <div className="fixed inset-0 z-50 flex h-[100dvh]">
-      <div className="fixed inset-0 h-[100dvh] bg-ink/40 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+      <div className="fixed inset-0 h-[100dvh] bg-scrim backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
       <div
         ref={panel}
         role="dialog"
@@ -228,7 +228,7 @@ export function Popover({
           role="dialog"
           aria-labelledby={title ? titleId : undefined}
           tabIndex={-1}
-          className={`absolute top-full z-40 mt-2 w-72 rounded-xl border border-line bg-surface p-4 shadow-popover outline-none ${alignClass}`}
+          className={`absolute top-full z-40 mt-2 w-(--pance-popover-width) rounded-(--pance-popover-radius) border border-line bg-surface p-(--pance-popover-padding) shadow-popover outline-none ${alignClass}`}
         >
           {title && <p id={titleId} className="mb-1 font-semibold text-sm text-ink">{title}</p>}
           {description && <p className="mb-3 text-xs text-ink-muted">{description}</p>}
@@ -309,12 +309,12 @@ export function DropdownMenu({
           role="menu"
           aria-label={label}
           onKeyDown={onMenuKey}
-          className={`absolute top-full z-40 mt-1.5 min-w-[180px] overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover ${align === 'end' ? 'right-0' : 'left-0'}`}
+          className={`absolute top-full z-40 mt-1.5 min-w-(--pance-dropdown-menu-min-width) overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover ${align === 'end' ? 'right-0' : 'left-0'}`}
         >
           {items.map((item, i) => {
             if (item.type === 'separator') return <li key={i} role="separator" className="my-1 border-t border-line-soft" />
             if (item.type === 'label') return (
-              <li key={i} role="presentation" className="px-2.5 pb-1 pt-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-muted">{item.label}</li>
+              <li key={i} role="presentation" className="px-2.5 pb-1 pt-2 font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{item.label}</li>
             )
             const idx = ++actionIndex
             return (
@@ -328,11 +328,11 @@ export function DropdownMenu({
                   aria-disabled={item.disabled || undefined}
                   onMouseEnter={() => !item.disabled && setActive(idx)}
                   onClick={() => { item.onClick?.(); close() }}
-                  className={`pance-focus flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${item.danger ? 'text-danger hover:bg-danger-soft focus-visible:bg-danger-soft' : 'text-ink-soft hover:bg-ground hover:text-ink focus-visible:bg-ground'}`}
+                  className={`pance-focus flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${item.danger ? 'text-danger hover:bg-danger-soft focus-visible:bg-danger-soft' : 'text-ink-soft hover:bg-ground hover:text-ink focus-visible:bg-ground'}`}
                 >
                   {item.Icon && <item.Icon className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />}
                   <span className="flex-1 text-left">{item.label}</span>
-                  {item.shortcut && <kbd className="font-mono text-[10px] text-ink-muted">{item.shortcut}</kbd>}
+                  {item.shortcut && <kbd className="font-mono text-10 text-ink-muted">{item.shortcut}</kbd>}
                 </button>
               </li>
             )

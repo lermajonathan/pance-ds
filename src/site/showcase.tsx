@@ -136,9 +136,9 @@ export function Page({ eyebrow, title, lead, children }: { eyebrow: string; titl
   return (
     <div className="space-y-10">
       <header className="max-w-2xl">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-brand-700">{eyebrow}</p>
+        <p className="font-mono text-11 font-medium uppercase tracking-[0.18em] text-brand-700">{eyebrow}</p>
         <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-ink">{title}</h1>
-        <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">{lead}</p>
+        <p className="mt-3 text-15 leading-relaxed text-ink-muted">{lead}</p>
       </header>
       {children}
     </div>
@@ -150,7 +150,7 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
     <section className="space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line-soft pb-2">
         <h2 className="font-display text-base font-bold tracking-tight text-ink">{title}</h2>
-        {hint && <span className="hidden font-mono text-[11px] text-ink-muted sm:inline">{hint}</span>}
+        {hint && <span className="hidden font-mono text-11 text-ink-muted sm:inline">{hint}</span>}
       </div>
       {children}
     </section>
@@ -166,7 +166,7 @@ function Demo({ children, className = '' }: { children: ReactNode; className?: s
 }
 
 function Meta({ children }: { children: ReactNode }) {
-  return <span className="font-mono text-[11px] uppercase tracking-wider text-ink-muted">{children}</span>
+  return <span className="font-mono text-11 uppercase tracking-wider text-ink-muted">{children}</span>
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -288,12 +288,12 @@ function Ramp({ name, role, scale, steps }: { name: string; role: Key; scale: st
                 className="flex h-16 flex-col justify-between rounded-xl p-2 ring-1 ring-inset ring-black/5 transition-transform duration-200 group-hover:-translate-y-1"
                 style={{ backgroundColor: s.hex, color: light ? '#fff' : '#0f172a' }}
               >
-                {s.base && <span className="font-mono text-[9px] font-semibold uppercase tracking-wider">base</span>}
-                <span className="mt-auto font-mono text-[10px] font-semibold opacity-0 transition-opacity group-hover:opacity-90">
+                {s.base && <span className="font-mono text-9 font-semibold uppercase tracking-wider">base</span>}
+                <span className="mt-auto font-mono text-10 font-semibold opacity-0 transition-opacity group-hover:opacity-90">
                   {copied === s.hex ? t('colors.copied') : s.hex}
                 </span>
               </div>
-              <p className="mt-1.5 font-mono text-[10px] text-ink-muted">{s.step}</p>
+              <p className="mt-1.5 font-mono text-10 text-ink-muted">{s.step}</p>
             </button>
           )
         })}
@@ -367,7 +367,7 @@ export function ColorsPage() {
                 <span className="h-9 w-9 shrink-0 rounded-lg ring-1 ring-inset ring-black/5" style={{ backgroundColor: s.solid }} />
                 <div>
                   <p className="text-sm font-semibold text-ink">{s.name}</p>
-                  <p className="text-[11px] text-ink-muted">{s.role}</p>
+                  <p className="text-11 text-ink-muted">{s.role}</p>
                 </div>
               </div>
               <div className="flex flex-1 flex-wrap items-center gap-2">
@@ -381,7 +381,7 @@ export function ColorsPage() {
                   Text <span className="font-mono font-normal">{s.text}</span>
                 </span>
               </div>
-              <p className="font-mono text-[10px] text-ink-muted">{s.token}</p>
+              <p className="font-mono text-10 text-ink-muted">{s.token}</p>
             </div>
           ))}
         </Card>
@@ -394,8 +394,8 @@ export function ColorsPage() {
               <div className="h-16 border-b border-line" style={{ backgroundColor: s.hex }} />
               <div className="p-3">
                 <p className="text-sm font-semibold text-ink">{s.name}</p>
-                <p className="text-[11px] text-ink-muted">{s.use}</p>
-                <p className="mt-1 font-mono text-[10px] text-ink-muted">{s.token}</p>
+                <p className="text-11 text-ink-muted">{s.use}</p>
+                <p className="mt-1 font-mono text-10 text-ink-muted">{s.token}</p>
               </div>
             </Card>
           ))}
@@ -413,8 +413,8 @@ export function ColorsPage() {
                   <span className="font-display text-lg font-extrabold">Aa</span>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13px] font-medium text-ink">{p.label}</p>
-                  <p className="font-mono text-[11px] text-ink-muted">{ratio.toFixed(2)} : 1</p>
+                  <p className="truncate text-13 font-medium text-ink">{p.label}</p>
+                  <p className="font-mono text-11 text-ink-muted">{ratio.toFixed(2)} : 1</p>
                 </div>
                 <Badge severity={r.tone}>{r.grade === 'AAA' || r.grade === 'AA' ? r.grade : t(r.grade)}</Badge>
               </div>
@@ -431,10 +431,10 @@ const TYPE_SCALE: { name: string; font: string; cls: string; size: string; sampl
   { name: 'H1', font: 'Plus Jakarta Sans', cls: 'font-display text-3xl font-extrabold tracking-tight', size: '30 / 800', sample: 'type.sample.h1' },
   { name: 'H2', font: 'Plus Jakarta Sans', cls: 'font-display text-2xl font-bold tracking-tight', size: '24 / 700', sample: 'type.sample.h2' },
   { name: 'H3', font: 'Plus Jakarta Sans', cls: 'font-display text-xl font-bold', size: '20 / 700', sample: 'type.sample.h3' },
-  { name: 'type.scale.bodyLarge', font: 'Inter', cls: 'text-[15px] leading-relaxed', size: '15 / 400', sample: 'type.sample.bodyLarge' },
+  { name: 'type.scale.bodyLarge', font: 'Inter', cls: 'text-15 leading-relaxed', size: '15 / 400', sample: 'type.sample.bodyLarge' },
   { name: 'type.scale.body', font: 'Inter', cls: 'text-sm', size: '14 / 400', sample: 'type.sample.body' },
   { name: 'type.scale.caption', font: 'Inter', cls: 'text-xs text-ink-muted', size: '12 / 400', sample: 'type.sample.caption' },
-  { name: 'type.scale.monoLabel', font: 'JetBrains Mono', cls: 'font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted', size: '11 / 500', sample: 'type.sample.monoLabel' },
+  { name: 'type.scale.monoLabel', font: 'JetBrains Mono', cls: 'font-mono text-11 uppercase tracking-[0.16em] text-ink-muted', size: '11 / 500', sample: 'type.sample.monoLabel' },
 ]
 export function TypographyPage() {
   const { t } = useI18n()
@@ -465,10 +465,10 @@ export function TypographyPage() {
             <div key={ts.name} className="flex flex-wrap items-center gap-x-6 gap-y-2 px-6 py-4 sm:flex-nowrap">
               <div className="w-28 shrink-0 sm:w-36">
                 <p className="text-sm font-semibold text-ink">{ts.name.startsWith('type.') ? t(ts.name as Key) : ts.name}</p>
-                <p className="font-mono text-[10px] text-ink-muted">{ts.size}</p>
+                <p className="font-mono text-10 text-ink-muted">{ts.size}</p>
               </div>
               <p className={`${ts.cls} min-w-0 basis-full truncate text-ink sm:flex-1 sm:basis-0`}>{t(ts.sample)}</p>
-              <span className="hidden shrink-0 rounded-full border border-line bg-canvas px-2.5 py-1 font-mono text-[10px] text-ink-muted sm:inline">
+              <span className="hidden shrink-0 rounded-full border border-line bg-canvas px-2.5 py-1 font-mono text-10 text-ink-muted sm:inline">
                 {ts.font}
               </span>
             </div>
@@ -486,12 +486,12 @@ export function TypographyPage() {
             { role: 'H4', cls: 'font-display text-base font-bold text-ink', sample: t('type.tsample.h4'), note: '16px · Plus Jakarta Sans · bold' },
             { role: t('type.role.subheading'), cls: 'text-base font-semibold text-ink-soft', sample: t('type.tsample.subheading'), note: '16px · Inter · semibold' },
             { role: t('type.role.label'), cls: 'text-sm font-medium text-ink-muted', sample: t('type.tsample.label'), note: '14px · Inter · medium' },
-            { role: 'Eyebrow', cls: 'font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700', sample: t('type.tsample.eyebrow'), note: '11px · JetBrains Mono · semibold · ' + t('type.note.tracked') },
+            { role: 'Eyebrow', cls: 'font-mono text-11 font-semibold uppercase tracking-[0.18em] text-brand-700', sample: t('type.tsample.eyebrow'), note: '11px · JetBrains Mono · semibold · ' + t('type.note.tracked') },
           ].map((r) => (
             <div key={r.role} className="flex flex-wrap items-center gap-x-6 gap-y-2 px-6 py-4 sm:flex-nowrap">
-              <span className="w-24 shrink-0 font-mono text-[10px] uppercase tracking-wider text-ink-muted sm:w-28">{r.role}</span>
+              <span className="w-24 shrink-0 font-mono text-10 uppercase tracking-wider text-ink-muted sm:w-28">{r.role}</span>
               <p className={`min-w-0 basis-full truncate sm:flex-1 sm:basis-0 ${r.cls}`}>{r.sample}</p>
-              <span className="hidden shrink-0 font-mono text-[10px] text-ink-muted lg:block">{r.note}</span>
+              <span className="hidden shrink-0 font-mono text-10 text-ink-muted lg:block">{r.note}</span>
             </div>
           ))}
         </Card>
@@ -500,9 +500,9 @@ export function TypographyPage() {
       <Section title={t('type.context.title')} hint={t('type.context.hint')}>
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <Card className="p-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-700">{t('type.ctx.eyebrow')}</p>
+            <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('type.ctx.eyebrow')}</p>
             <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-ink">{t('type.ctx.heading')}</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
+            <p className="mt-4 text-15 leading-relaxed text-ink-soft">
               {t('type.ctx.p1')}
             </p>
             <h3 className="mt-6 font-display text-lg font-bold text-ink">{t('type.ctx.h3')}</h3>
@@ -526,7 +526,7 @@ export function TypographyPage() {
 
           <div className="space-y-6">
             <Card className="p-6">
-              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted">{t('type.ctx.throughput')}</p>
+              <p className="font-mono text-11 uppercase tracking-[0.16em] text-ink-muted">{t('type.ctx.throughput')}</p>
               <p className="mt-2 font-display text-4xl font-extrabold tracking-tight text-ink">
                 2.9<span className="ml-1 font-mono text-lg font-semibold text-ink-muted">M/s</span>
               </p>
@@ -581,7 +581,7 @@ export function SpacingPage() {
             <div key={s.t} className="flex items-center gap-4">
               <span className="w-10 font-mono text-xs text-ink-muted">{s.t}</span>
               <div className="h-6 rounded-md bg-brand-500/85" style={{ width: s.px }} />
-              <span className="font-mono text-[11px] text-ink-muted">{s.px}px</span>
+              <span className="font-mono text-11 text-ink-muted">{s.px}px</span>
             </div>
           ))}
         </Card>
@@ -592,7 +592,7 @@ export function SpacingPage() {
             <Card key={r.name} className="p-6">
               <div className={`h-20 border-2 border-dashed border-brand-300 bg-brand-50 ${r.cls}`} />
               <p className="mt-3 text-sm font-semibold text-ink">{r.name}</p>
-              <p className="font-mono text-[10px] text-ink-muted">{r.px}px</p>
+              <p className="font-mono text-10 text-ink-muted">{r.px}px</p>
             </Card>
           ))}
         </div>
@@ -610,12 +610,12 @@ export function SpacingPage() {
             <div key={e.level} className={`flex flex-col justify-between rounded-2xl border border-line bg-surface p-6 ${e.shadow}`}>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-brand-50 font-mono text-[10px] font-bold text-brand-700">{e.level}</span>
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-brand-50 font-mono text-10 font-bold text-brand-700">{e.level}</span>
                   <p className="text-sm font-semibold text-ink">{e.name}</p>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-ink-muted">{e.desc}</p>
               </div>
-              <span className="mt-4 inline-block rounded-full border border-line bg-canvas px-2.5 py-1 font-mono text-[10px] text-ink-muted">{e.token}</span>
+              <span className="mt-4 inline-block rounded-full border border-line bg-canvas px-2.5 py-1 font-mono text-10 text-ink-muted">{e.token}</span>
             </div>
           ))}
         </div>
@@ -639,7 +639,7 @@ export function SpacingPage() {
       <Section title={t('spacing.div.title')} hint={t('spacing.div.hint')}>
         <Card className="divide-y divide-line-soft">
           <div className="px-6 py-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('spacing.div.horizontal')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('spacing.div.horizontal')}</p>
             <div className="space-y-6">
               <div>
                 <p className="text-sm text-ink-soft">{t('spacing.div.above')}</p>
@@ -654,7 +654,7 @@ export function SpacingPage() {
             </div>
           </div>
           <div className="px-6 py-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('spacing.div.withLabel')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('spacing.div.withLabel')}</p>
             <div className="flex items-center gap-3">
               <div className="h-px flex-1 bg-line" />
               <span className="shrink-0 text-xs font-medium text-ink-muted">{t('spacing.div.or')}</span>
@@ -662,12 +662,12 @@ export function SpacingPage() {
             </div>
             <div className="mt-4 flex items-center gap-3">
               <div className="h-px flex-1 bg-line" />
-              <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('spacing.div.sectionB')}</span>
+              <span className="shrink-0 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('spacing.div.sectionB')}</span>
               <div className="h-px flex-1 bg-line" />
             </div>
           </div>
           <div className="px-6 py-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('spacing.div.vertical')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('spacing.div.vertical')}</p>
             <div className="flex items-center gap-6">
               <span className="text-sm text-ink-soft">{t('spacing.div.streams')}</span>
               <div className="h-5 w-px bg-line" />
@@ -717,7 +717,7 @@ export function IconsPage() {
           {WEIGHTS.map((w) => (
             <div key={w} className="flex flex-col items-center gap-2">
               <Waveform size={40} weight={w} className="text-brand-700" />
-              <span className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{w}</span>
+              <span className="font-mono text-10 uppercase tracking-wider text-ink-muted">{w}</span>
             </div>
           ))}
         </Card>
@@ -731,7 +731,7 @@ export function IconsPage() {
               className="group flex flex-col items-center gap-2.5 rounded-xl border border-line-soft bg-surface p-5 transition-colors hover:border-brand-200 hover:bg-brand-50/40"
             >
               <Cmp size={26} weight="regular" className="text-ink-soft transition-colors group-hover:text-brand-700" />
-              <span className="w-full truncate text-center font-mono text-[10px] text-ink-muted">{name}</span>
+              <span className="w-full truncate text-center font-mono text-10 text-ink-muted">{name}</span>
             </div>
           ))}
         </div>
@@ -742,7 +742,7 @@ export function IconsPage() {
           {[20, 24, 32, 48].map((s) => (
             <div key={s} className="flex flex-col items-center gap-2">
               <Broadcast size={s} weight="regular" className="text-ink-soft" />
-              <span className="font-mono text-[10px] text-ink-muted">{s}px</span>
+              <span className="font-mono text-10 text-ink-muted">{s}px</span>
             </div>
           ))}
         </Card>
@@ -791,7 +791,7 @@ export function ButtonsPage() {
         <Card className="divide-y divide-line-soft">
           {(['filled', 'outlined', 'text', 'link'] as const).map((v) => (
             <div key={v} className="flex flex-wrap items-center gap-3 px-6 py-4">
-              <span className="w-20 shrink-0 font-mono text-[11px] uppercase tracking-wider text-ink-muted">{v}</span>
+              <span className="w-20 shrink-0 font-mono text-11 uppercase tracking-wider text-ink-muted">{v}</span>
               {SEVERITIES.map((s) => (
                 <Button key={s.key} severity={s.key} variant={v} size="sm">{s.label}</Button>
               ))}
@@ -1226,13 +1226,13 @@ export function FormsPage() {
       <Section title={t('forms.tags.title')} hint={t('forms.tags.hint')}>
         <div className="grid gap-4 sm:grid-cols-2">
           <Card className="p-5 space-y-3">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('forms.tags.free')}</p>
+            <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('forms.tags.free')}</p>
             <Field label={t('forms.tags.freeLabel')} hint={t('forms.tags.freeHint')}>
               <TagInputDemo />
             </Field>
           </Card>
           <Card className="p-5 space-y-3">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('forms.tags.suggest')}</p>
+            <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('forms.tags.suggest')}</p>
             <Field label={t('forms.tags.tech')} hint={t('forms.tags.techHint')}>
               <TagInputSuggestDemo />
             </Field>
@@ -1270,7 +1270,7 @@ export function FormsPage() {
       <Section title={t('forms.val.title')} hint={t('forms.val.hint')}>
         <div className="grid gap-6 md:grid-cols-3">
           <Card className="space-y-1 p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('forms.val.realtime')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('forms.val.realtime')}</p>
             <Field
               label={t('forms.val.email')}
               error={emailDraft.length > 0 && !!emailError ? emailError : undefined}
@@ -1280,13 +1280,13 @@ export function FormsPage() {
             </Field>
           </Card>
           <Card className="space-y-1 p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('forms.val.required')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('forms.val.required')}</p>
             <Field label={t('forms.val.fullName')} required hint={t('forms.val.fullNameHint')}>
               <Input Icon={IconUser} placeholder="Ines Halvorsen" />
             </Field>
           </Card>
           <Card className="space-y-1 p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('forms.val.optional')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('forms.val.optional')}</p>
             <Field label={t('forms.val.company')} optional hint={t('forms.val.companyHint')}>
               <Input placeholder="River Labs" />
             </Field>
@@ -1300,7 +1300,7 @@ export function FormsPage() {
           {/* Stacked */}
           <Card className="overflow-hidden">
             <header className="border-b border-line-soft px-6 py-4">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('forms.layout.stacked')}</p>
+              <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('forms.layout.stacked')}</p>
               <p className="mt-0.5 text-sm text-ink-soft">{t('forms.layout.stackedDesc')}</p>
             </header>
             <div className="space-y-5 p-6">
@@ -1323,7 +1323,7 @@ export function FormsPage() {
           {/* Two-column */}
           <Card className="overflow-hidden">
             <header className="border-b border-line-soft px-6 py-4">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('forms.layout.twoCol')}</p>
+              <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('forms.layout.twoCol')}</p>
               <p className="mt-0.5 text-sm text-ink-soft">{t('forms.layout.twoColDesc')}</p>
             </header>
             <div className="grid gap-5 p-6 sm:grid-cols-2">
@@ -1481,7 +1481,7 @@ export function SelectionPage() {
       <Section title={t('selection.cb.title')} hint="unchecked · checked · indeterminate · error · disabled">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.states')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.states')}</p>
             <div className="flex flex-col gap-4">
               <Checkbox checked={cbChecked} onChange={setCbChecked} label={t('selection.cb.checked')} />
               <Checkbox checked={cbUnchecked} onChange={setCbUnchecked} label={t('selection.cb.unchecked')} />
@@ -1492,7 +1492,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.disabled')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.disabled')}</p>
             <div className="flex flex-col gap-4">
               <Checkbox checked={false} onChange={() => {}} label={t('selection.cb.unchecked')} disabled />
               <Checkbox checked={true} onChange={() => {}} label={t('selection.cb.checked')} disabled />
@@ -1501,7 +1501,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.sizes')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.sizes')}</p>
             <div className="flex flex-col gap-4">
               <Checkbox checked={true} onChange={() => {}} label={t('selection.cb.small')} size="sm" />
               <Checkbox checked={true} onChange={() => {}} label={t('selection.cb.medium')} size="md" />
@@ -1510,7 +1510,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.withDesc')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.withDesc')}</p>
             <div className="flex flex-col gap-5">
               <Checkbox
                 checked={cbChecked}
@@ -1547,7 +1547,7 @@ export function SelectionPage() {
             />
           </Card>
           <Card className="space-y-4 p-5">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.group.horizontal')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.group.horizontal')}</p>
             <div className="flex flex-wrap gap-5">
               {[
                 { v: 'json', l: 'JSON' },
@@ -1576,7 +1576,7 @@ export function SelectionPage() {
       <Section title={t('selection.radio.title')} hint={t('selection.radio.hint')}>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.states')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.states')}</p>
             <div className="flex flex-col gap-4">
               <Radio checked={tier === 'standard'} onChange={() => setTier('standard')} label={t('selection.radio.standard')} />
               <Radio checked={tier === 'burst'} onChange={() => setTier('burst')} label={t('selection.radio.burst')} />
@@ -1586,7 +1586,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.disabled')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.disabled')}</p>
             <div className="flex flex-col gap-4">
               <Radio checked={false} onChange={() => {}} label={t('selection.radio.unselected')} disabled />
               <Radio checked={true} onChange={() => {}} label={t('selection.radio.selected')} disabled />
@@ -1594,7 +1594,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.sizes')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.sizes')}</p>
             <div className="flex flex-col gap-4">
               <Radio checked={true} onChange={() => {}} label={t('selection.cb.small')} size="sm" />
               <Radio checked={true} onChange={() => {}} label={t('selection.cb.medium')} size="md" />
@@ -1603,7 +1603,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.withDesc')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.withDesc')}</p>
             <div className="flex flex-col gap-5">
               {[
                 { k: 'standard', l: t('selection.radio.standard'), d: t('selection.radio.standardDesc') },
@@ -1621,7 +1621,7 @@ export function SelectionPage() {
       <Section title={t('selection.rg.title')} hint={t('selection.rg.hint')}>
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="space-y-4 p-5">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.rg.vertical')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.rg.vertical')}</p>
             <div className="space-y-3">
               {[
                 { k: 'hourly', l: t('selection.rg.hourly'), d: t('selection.rg.hourlyDesc') },
@@ -1633,14 +1633,14 @@ export function SelectionPage() {
             </div>
           </Card>
           <Card className="space-y-4 p-5">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.rg.horizontal')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.rg.horizontal')}</p>
             <div className="flex flex-wrap gap-6">
               {['JSON', 'Avro', 'Protobuf', 'CSV'].map((f) => (
                 <Radio key={f} checked={layout === f} onChange={() => setLayout(f)} label={f} />
               ))}
             </div>
             <div className="mt-2 border-t border-line-soft pt-4">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.rg.disabledGroup')}</p>
+              <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.rg.disabledGroup')}</p>
               <div className="mt-3 flex flex-wrap gap-6">
                 {['JSON', 'Avro', 'Protobuf'].map((f) => (
                   <Radio key={f} checked={f === 'JSON'} onChange={() => {}} label={f} disabled />
@@ -1668,7 +1668,7 @@ export function SelectionPage() {
       <Section title={t('selection.toggle.title')} hint={t('selection.toggle.hint')}>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card className="space-y-5 p-5">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.states')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.states')}</p>
             <div className="flex items-center justify-between">
               <span className="text-sm text-ink-soft">{t('selection.toggle.off')}</span>
               <Toggle label={t('selection.toggle.off')} on={false} onChange={() => {}} />
@@ -1688,7 +1688,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="space-y-5 p-5">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.sizes')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.sizes')}</p>
             <div className="flex items-center justify-between">
               <span className="text-xs text-ink-soft">{t('selection.toggle.small')}</span>
               <Toggle label={t('selection.toggle.small')} on={true} onChange={() => {}} size="sm" />
@@ -1704,7 +1704,7 @@ export function SelectionPage() {
           </Card>
 
           <Card className="space-y-4 p-5 md:col-span-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.toggle.interactive')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.toggle.interactive')}</p>
             <div className="space-y-2">
               <SwitchRow
                 label={t('selection.toggle.autoscale')}
@@ -1740,7 +1740,7 @@ export function SelectionPage() {
       <Section title={t('selection.seg.title')} hint={t('selection.seg.hint')}>
         <Card className="space-y-8 p-6">
           <div className="space-y-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.seg.withIcons')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.seg.withIcons')}</p>
             <SegmentedControl
               value={view}
               onChange={setView}
@@ -1752,7 +1752,7 @@ export function SelectionPage() {
             />
           </div>
           <div className="space-y-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.seg.textOnly')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.seg.textOnly')}</p>
             <SegmentedControl
               value={period}
               onChange={setPeriod}
@@ -1767,7 +1767,7 @@ export function SelectionPage() {
           <div className="grid gap-4 md:grid-cols-3">
             {(['sm', 'md', 'lg'] as const).map((s) => (
               <div key={s} className="space-y-2">
-                <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('selection.seg.size', { s })}</p>
+                <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('selection.seg.size', { s })}</p>
                 <SegmentedControl
                   size={s}
                   value={view}
@@ -1858,7 +1858,7 @@ export function BadgesPage() {
         <Card className="divide-y divide-line-soft">
           {(['soft', 'solid', 'outlined'] as const).map((v) => (
             <div key={v} className="flex flex-wrap items-center gap-2.5 px-6 py-4">
-              <span className="w-20 shrink-0 font-mono text-[11px] uppercase tracking-wider text-ink-muted">{v}</span>
+              <span className="w-20 shrink-0 font-mono text-11 uppercase tracking-wider text-ink-muted">{v}</span>
               {SEVERITIES.map((s) => (
                 <Badge key={s.key} severity={s.key} variant={v}>{s.label}</Badge>
               ))}
@@ -1872,7 +1872,7 @@ export function BadgesPage() {
         <Card className="divide-y divide-line-soft">
           {(['sm', 'md', 'lg'] as const).map((sz) => (
             <div key={sz} className="flex flex-wrap items-center gap-2.5 px-6 py-4">
-              <span className="w-20 shrink-0 font-mono text-[11px] uppercase tracking-wider text-ink-muted">{sz}</span>
+              <span className="w-20 shrink-0 font-mono text-11 uppercase tracking-wider text-ink-muted">{sz}</span>
               <Badge size={sz} severity="primary">Primary</Badge>
               <Badge size={sz} severity="success" dot>{t('badges.sizes.healthy')}</Badge>
               <Badge size={sz} severity="danger" variant="solid">{t('badges.sizes.failed')}</Badge>
@@ -1949,7 +1949,7 @@ export function BadgesPage() {
         <div className="grid gap-4 sm:grid-cols-3">
           {/* Button with badge */}
           <Card className="px-6 py-5 space-y-3">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('badges.ctx.buttonBadge')}</p>
+            <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('badges.ctx.buttonBadge')}</p>
             <div className="flex flex-col gap-2">
               <div className="relative inline-flex w-fit">
                 <Button severity="secondary" variant="outlined" Icon={IconBell}>{t('badges.ctx.alerts')}</Button>
@@ -1963,7 +1963,7 @@ export function BadgesPage() {
           </Card>
           {/* List rows */}
           <Card className="overflow-hidden">
-            <p className="px-5 py-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted border-b border-line-soft">{t('badges.ctx.streamList')}</p>
+            <p className="px-5 py-3 font-mono text-10 uppercase tracking-wider text-ink-muted border-b border-line-soft">{t('badges.ctx.streamList')}</p>
             {[
               { name: 'billing-webhooks', status: 'success', label: t('badges.sizes.healthy') },
               { name: 'user-events', status: 'warning', label: t('badges.dots.draining') },
@@ -1977,7 +1977,7 @@ export function BadgesPage() {
           </Card>
           {/* Version/tag badges */}
           <Card className="px-6 py-5 space-y-3">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('badges.ctx.versionTags')}</p>
+            <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('badges.ctx.versionTags')}</p>
             <div className="flex flex-wrap gap-2">
               <Badge severity="primary" rounded={false} variant="soft">v2.0.0</Badge>
               <Badge severity="success" rounded={false} variant="soft">stable</Badge>
@@ -1994,19 +1994,19 @@ export function BadgesPage() {
       <Section title={t('badges.avatar.title')} hint={t('badges.avatar.hint')}>
         <Card className="divide-y divide-line-soft">
           <div className="flex flex-wrap items-end gap-4 px-6 py-5">
-            <span className="w-20 self-center shrink-0 font-mono text-[11px] uppercase tracking-wider text-ink-muted">{t('badges.avatar.photo')}</span>
+            <span className="w-20 self-center shrink-0 font-mono text-11 uppercase tracking-wider text-ink-muted">{t('badges.avatar.photo')}</span>
             {[20, 28, 36, 44, 56, 72].map((sz) => (
               <Avatar key={sz} name="Ines Halvorsen" src={toUrl('photo-1438761681033-6461ffad8d80')} size={sz} />
             ))}
           </div>
           <div className="flex flex-wrap items-end gap-4 px-6 py-5">
-            <span className="w-20 self-center shrink-0 font-mono text-[11px] uppercase tracking-wider text-ink-muted">{t('badges.avatar.initials')}</span>
+            <span className="w-20 self-center shrink-0 font-mono text-11 uppercase tracking-wider text-ink-muted">{t('badges.avatar.initials')}</span>
             {[20, 28, 36, 44, 56, 72].map((sz) => (
               <Avatar key={sz} name="Kai Fenwick" size={sz} />
             ))}
           </div>
           <div className="flex flex-wrap items-end gap-4 px-6 py-5">
-            <span className="w-20 self-center shrink-0 font-mono text-[11px] uppercase tracking-wider text-ink-muted">{t('badges.avatar.square')}</span>
+            <span className="w-20 self-center shrink-0 font-mono text-11 uppercase tracking-wider text-ink-muted">{t('badges.avatar.square')}</span>
             {[20, 28, 36, 44, 56, 72].map((sz) => (
               <Avatar key={sz} name="Devon Achebe" src={toUrl('photo-1500648767791-00dcc994a43e')} size={sz} square />
             ))}
@@ -2020,13 +2020,13 @@ export function BadgesPage() {
           {(['online', 'away', 'busy', 'offline'] as const).map((s, i) => (
             <div key={s} className="flex flex-col items-center gap-2">
               <Avatar name={people[i].name} src={toUrl(people[i].avatar)} size={44} status={s} />
-              <span className="font-mono text-[10px] capitalize text-ink-muted">{s}</span>
+              <span className="font-mono text-10 capitalize text-ink-muted">{s}</span>
             </div>
           ))}
           <span className="mx-2 h-16 w-px bg-line" />
           <div className="flex flex-col items-center gap-2">
             <Avatar name="Kai Fenwick" size={44} status="online" />
-            <span className="font-mono text-[10px] text-ink-muted">initials</span>
+            <span className="font-mono text-10 text-ink-muted">initials</span>
           </div>
         </Demo>
       </Section>
@@ -2177,7 +2177,7 @@ export function FeedbackPage() {
               <div className={`min-w-0 max-w-sm ${msg.own ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs font-semibold text-ink">{msg.own ? t('feedback.chat.you') : msg.name}</span>
-                  <span className="font-mono text-[10px] text-ink-muted">{msg.time}</span>
+                  <span className="font-mono text-10 text-ink-muted">{msg.time}</span>
                 </div>
                 <div className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${msg.own ? 'rounded-tr-sm bg-brand-700 text-white' : 'rounded-tl-sm bg-ground text-ink'}`}>
                   {msg.text}
@@ -2268,7 +2268,7 @@ export function NavigationPage() {
       <Section title={t('navigation.tabs.variants.title')} hint={t('navigation.tabs.variants.hint')}>
         <div className="space-y-4">
           <Card className="p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.underline')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.underline')}</p>
             <Tabs
               tabs={tabItems}
               value={tab1}
@@ -2277,7 +2277,7 @@ export function NavigationPage() {
             <p className="mt-4 text-sm text-ink-muted">{t('navigation.tabs.activePanel')} <span className="font-medium text-ink">{tabItems.find((x) => x.key === tab1)?.label}</span></p>
           </Card>
           <Card className="p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.pills')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.pills')}</p>
             <Tabs
               variant="pills"
               tabs={tabItems}
@@ -2286,7 +2286,7 @@ export function NavigationPage() {
             />
           </Card>
           <Card className="p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.boxed')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.boxed')}</p>
             <Tabs
               variant="boxed"
               tabs={tabItems}
@@ -2301,7 +2301,7 @@ export function NavigationPage() {
       <Section title={t('navigation.tabs.api.title')} hint={t('navigation.tabs.api.hint')}>
         <div className="space-y-4">
           <Card className="p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.withIcons')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.withIcons')}</p>
             <Tabs
               tabs={[
                 { key: 'overview', label: t('navigation.tab.overview'), Icon: IconWave },
@@ -2314,7 +2314,7 @@ export function NavigationPage() {
             />
           </Card>
           <Card className="p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.withBadges')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.withBadges')}</p>
             <Tabs
               tabs={[
                 { key: 'overview', label: t('navigation.tab.overview') },
@@ -2328,7 +2328,7 @@ export function NavigationPage() {
             />
           </Card>
           <Card className="p-6">
-            <p className="mb-4 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.pillsIconsBadges')}</p>
+            <p className="mb-4 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.pillsIconsBadges')}</p>
             <Tabs
               variant="pills"
               tabs={[
@@ -2349,7 +2349,7 @@ export function NavigationPage() {
         <Card className="space-y-6 p-6">
           <div className="flex flex-wrap items-center gap-3">
             {(['sm', 'md', 'lg'] as const).map((s) => (
-              <button key={s} onClick={() => setTabSize(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-[13px] font-medium transition-colors ${tabSize === s ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line text-ink-muted hover:border-slate-300'}`}>{s}</button>
+              <button key={s} onClick={() => setTabSize(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-13 font-medium transition-colors ${tabSize === s ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line text-ink-muted hover:border-slate-300'}`}>{s}</button>
             ))}
           </div>
           <div>
@@ -2366,7 +2366,7 @@ export function NavigationPage() {
         <div className="space-y-3">
           <Card className="space-y-5 p-6">
             <div className="space-y-1">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.breadcrumb.default')}</p>
+              <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.breadcrumb.default')}</p>
               <Breadcrumb items={[
                 { label: t('navigation.breadcrumb.console'), href: '#' },
                 { label: t('navigation.breadcrumb.streams'), href: '#' },
@@ -2374,7 +2374,7 @@ export function NavigationPage() {
               ]} />
             </div>
             <div className="space-y-1">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.withIcons')}</p>
+              <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.tabs.withIcons')}</p>
               <Breadcrumb label={`${t('ui.breadcrumb')} · ${t('navigation.tabs.withIcons')}`} items={[
                 { label: t('navigation.breadcrumb.console'), href: '#', Icon: IconHome },
                 { label: t('navigation.breadcrumb.streams'), href: '#', Icon: IconStream },
@@ -2382,7 +2382,7 @@ export function NavigationPage() {
               ]} />
             </div>
             <div className="space-y-1">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{tr('navigation.breadcrumb.collapsing')}</p>
+              <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{tr('navigation.breadcrumb.collapsing')}</p>
               <Breadcrumb
                 label={`${t('ui.breadcrumb')} · ${tr('navigation.breadcrumb.collapsing')}`}
                 maxItems={2}
@@ -2396,7 +2396,7 @@ export function NavigationPage() {
               />
             </div>
             <div className="space-y-1">
-              <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.breadcrumb.single')}</p>
+              <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.breadcrumb.single')}</p>
               <Breadcrumb label={`${t('ui.breadcrumb')} · ${t('navigation.breadcrumb.single')}`} items={[{ label: t('navigation.breadcrumb.console'), Icon: IconHome }]} />
             </div>
           </Card>
@@ -2407,7 +2407,7 @@ export function NavigationPage() {
       <Section title={t('navigation.stepper.title')} hint={t('navigation.stepper.hint')}>
         <div className="space-y-4">
           <Card className="space-y-6 p-6">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.stepper.horizontal')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.stepper.horizontal')}</p>
             <Steps steps={WIZARD_STEPS} current={step} />
             <div className="flex flex-wrap items-center gap-3 border-t border-line-soft pt-4">
               <Button variant="outlined" severity="secondary" disabled={step === 0} onClick={() => setStep((s) => Math.max(0, s - 1))}>{t('navigation.stepper.back')}</Button>
@@ -2418,7 +2418,7 @@ export function NavigationPage() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="p-6">
-              <p className="mb-5 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.stepper.vertical')}</p>
+              <p className="mb-5 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.stepper.vertical')}</p>
               <Steps
                 orientation="vertical"
                 current={2}
@@ -2431,7 +2431,7 @@ export function NavigationPage() {
               />
             </Card>
             <Card className="p-6">
-              <p className="mb-5 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.stepper.errorMixed')}</p>
+              <p className="mb-5 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.stepper.errorMixed')}</p>
               <Steps
                 orientation="vertical"
                 current={1}
@@ -2451,16 +2451,16 @@ export function NavigationPage() {
       <Section title={t('navigation.menu.title')} hint={t('navigation.menu.hint')}>
         <div className="grid gap-4 md:grid-cols-2">
           <Card className="p-4">
-            <p className="mb-3 px-3 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.expanded')}</p>
+            <p className="mb-3 px-3 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.expanded')}</p>
             <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} label={`${t('navigation.menu.title')} · ${t('navigation.menu.expanded')}`} />
           </Card>
           <Card className="flex items-start gap-4 p-4">
             <div className="w-20 shrink-0">
-              <p className="mb-3 px-1 font-mono text-[10px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.collapsed')}</p>
+              <p className="mb-3 px-1 font-mono text-10 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.collapsed')}</p>
               <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} collapsed label={`${t('navigation.menu.title')} · ${t('navigation.menu.collapsed')}`} />
             </div>
             <div className="min-w-0 flex-1 border-l border-line-soft pl-4">
-              <p className="mb-2 font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-brand-700">{navKey}</span></p>
+              <p className="mb-2 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-brand-700">{navKey}</span></p>
               <p className="text-xs text-ink-muted">{t('navigation.menu.collapsedNote')}</p>
             </div>
           </Card>
@@ -2471,23 +2471,23 @@ export function NavigationPage() {
       <Section title={t('navigation.pagination.title')} hint={t('navigation.pagination.hint')}>
         <Card className="space-y-8 p-6">
           <div className="space-y-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.default')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.default')}</p>
             <Pagination page={page1} pages={20} onChange={setPage1} />
           </div>
           <div className="space-y-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.info')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.info')}</p>
             <Pagination page={page2} pages={12} onChange={setPage2} total={234} pageSize={20} />
           </div>
           <div className="space-y-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.compact')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.compact')}</p>
             <Pagination page={page3} pages={8} onChange={setPage3} compact />
           </div>
           <div className="space-y-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.small')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.small')}</p>
             <Pagination page={1} pages={5} onChange={() => {}} />
           </div>
           <div className="space-y-2">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.boundary')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.pagination.boundary')}</p>
             <div className="flex flex-wrap gap-8">
               <div>
                 <p className="mb-2 text-xs text-ink-muted">{t('navigation.pagination.first')}</p>
@@ -2507,7 +2507,7 @@ export function NavigationPage() {
         <div className="space-y-4">
           {/* Full navbar */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('navigation.navbar.full')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('navigation.navbar.full')}</p>
             <div className="overflow-hidden rounded-2xl border border-line">
               <header className="flex h-16 items-center justify-between gap-4 border-b border-line bg-surface px-6">
                 <div className="flex items-center gap-3">
@@ -2533,7 +2533,7 @@ export function NavigationPage() {
 
           {/* Condensed / secondary navbar */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('navigation.navbar.condensed')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('navigation.navbar.condensed')}</p>
             <div className="overflow-hidden rounded-2xl border border-line">
               <header className="flex h-14 items-center justify-between gap-4 border-b border-line bg-surface px-5 py-3">
                 <div className="flex min-w-0 items-center gap-3">
@@ -2552,7 +2552,7 @@ export function NavigationPage() {
 
           {/* Transparent / landing navbar */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('navigation.navbar.transparent')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('navigation.navbar.transparent')}</p>
             <div className="overflow-hidden rounded-2xl border border-line">
               <header className="flex h-16 items-center justify-between gap-4 bg-gradient-to-r from-brand-900 to-brand-700 px-6">
                 <div className="flex items-center gap-3">
@@ -2581,7 +2581,7 @@ export function NavigationPage() {
       <Section title={t('navigation.link.title')} hint={t('navigation.link.hint')}>
         <Card className="space-y-6 p-6">
           <div className="space-y-3">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.inline')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.inline')}</p>
             <p className="max-w-xl text-sm leading-relaxed text-ink-soft">
               {t('navigation.link.p1')}{' '}
               <a href="#" className="pance-focus rounded font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-700 hover:decoration-brand-500">{t('navigation.link.keyGuide')}</a>
@@ -2591,7 +2591,7 @@ export function NavigationPage() {
             </p>
           </div>
           <div className="space-y-3">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.standalone')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.standalone')}</p>
             <div className="flex flex-wrap gap-6">
               <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-brand-700 transition-colors hover:text-brand-700">
                 <IconArrowRight className="h-4 w-4" /> {t('navigation.link.docs')}
@@ -2608,7 +2608,7 @@ export function NavigationPage() {
             </div>
           </div>
           <div className="space-y-3">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.external')}</p>
+            <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.external')}</p>
             <div className="flex flex-wrap gap-4">
               {(['navigation.link.changelog', 'navigation.link.api', 'navigation.link.sdks', 'navigation.link.status'] as const).map((l) => (
                 <a key={l} href="#" className="pance-focus inline-flex items-center gap-1 rounded-lg border border-line bg-surface px-3 py-1.5 text-sm font-medium text-ink-soft shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors hover:border-brand-200 hover:text-brand-700">
@@ -2688,7 +2688,7 @@ export function Pagination({
           <button
             key={p}
             onClick={() => onChange(p as number)}
-            className={`pance-focus h-8 min-w-8 rounded-lg px-2 font-mono text-[13px] font-medium transition-colors ${p === page ? 'bg-brand-600 text-white' : 'text-ink-soft hover:bg-ground'}`}
+            className={`pance-focus h-8 min-w-8 rounded-lg px-2 font-mono text-13 font-medium transition-colors ${p === page ? 'bg-brand-600 text-white' : 'text-ink-soft hover:bg-ground'}`}
           >
             {p}
           </button>
@@ -2817,7 +2817,7 @@ function NotificationCenter() {
       >
         <IconBellRinging className="h-4 w-4" />
         {unread > 0 && (
-          <span aria-hidden className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[9px] font-bold text-white">
+          <span aria-hidden className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-9 font-bold text-white">
             {unread}
           </span>
         )}
@@ -2856,7 +2856,7 @@ function NotificationCenter() {
                       {!n.read && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />}
                     </div>
                     <p className="mt-0.5 text-xs leading-relaxed text-ink-muted">{t(n.body)}</p>
-                    <p className="mt-1 font-mono text-[10px] text-ink-muted">{t(n.time)}</p>
+                    <p className="mt-1 font-mono text-10 text-ink-muted">{t(n.time)}</p>
                   </div>
                   <button aria-label={t('overlays.notif.dismiss')} onClick={() => dismiss(n.id)} className="pance-focus mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded text-ink-muted opacity-0 transition-opacity hover:text-ink focus-visible:opacity-100 group-hover:opacity-100">
                     <IconX className="h-3.5 w-3.5" />
@@ -3046,7 +3046,7 @@ export function OverlaysPage() {
         <div className="space-y-4">
           {/* Affordance scale */}
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('overlays.destructive.scale')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('overlays.destructive.scale')}</p>
             <div className="flex flex-wrap items-center gap-3">
               <Button severity="danger" variant="text" Icon={IconTrash}>{t('overlays.delete')}</Button>
               <Button severity="danger" variant="outlined" Icon={IconTrash}>{t('overlays.deleteStream')}</Button>
@@ -3059,7 +3059,7 @@ export function OverlaysPage() {
 
           {/* Inline row delete */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('overlays.destructive.inline')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('overlays.destructive.inline')}</p>
             <Card className="divide-y divide-line-soft overflow-hidden">
               {[
                 { name: 'checkout-events', region: 'us-east-1' },
@@ -3073,14 +3073,14 @@ export function OverlaysPage() {
 
           {/* Soft delete / trash pattern */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('overlays.destructive.soft')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('overlays.destructive.soft')}</p>
             <SoftDeleteDemo />
           </div>
 
           {/* Do / Don't */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-wider text-emerald-700">{t('overlays.do.title')}</p>
+              <p className="mb-3 font-mono text-10 font-semibold uppercase tracking-wider text-emerald-700">{t('overlays.do.title')}</p>
               <div className="space-y-2 text-sm text-emerald-900">
                 <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.name')} <em>"{t('overlays.do.nameEx')}"</em></span></div>
                 <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.state')} <em>"{t('overlays.do.stateEx')}"</em></span></div>
@@ -3089,7 +3089,7 @@ export function OverlaysPage() {
               </div>
             </div>
             <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5">
-              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-wider text-rose-700">{t('overlays.dont.title')}</p>
+              <p className="mb-3 font-mono text-10 font-semibold uppercase tracking-wider text-rose-700">{t('overlays.dont.title')}</p>
               <div className="space-y-2 text-sm text-rose-900">
                 <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" /><span>{t('overlays.dont.generic')} <em>"{t('overlays.dont.genericEx')}"</em></span></div>
                 <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" /><span>{t('overlays.dont.ambiguous')} <em>"{t('overlays.dont.yes')}"</em> / <em>"{t('overlays.dont.no')}"</em>.</span></div>
@@ -3306,11 +3306,11 @@ function SparkFlat({ w = 72, h = 28 }: { w?: number; h?: number }) {
 
 /* ── DeltaBadge ────────────────────────────────────────────────────────── */
 function DeltaBadge({ delta, upIsGood = true }: { delta: number; upIsGood?: boolean }) {
-  if (delta === 0) return <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 font-mono text-[11px] font-semibold text-slate-600">—  0%</span>
+  if (delta === 0) return <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 font-mono text-11 font-semibold text-slate-600">—  0%</span>
   const up = delta > 0
   const good = upIsGood ? up : !up
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-[11px] font-semibold ${good ? 'bg-brand-50 text-brand-700' : 'bg-danger-soft text-danger'}`}>
+    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-11 font-semibold ${good ? 'bg-brand-50 text-brand-700' : 'bg-danger-soft text-danger'}`}>
       {up ? <IconArrowUp className="h-3 w-3" /> : <IconArrowDown className="h-3 w-3" />}
       {Math.abs(delta)}%
     </span>
@@ -3488,13 +3488,13 @@ function MetricCardComparison({ label, current, previous, unit, delta, Icon, per
       </div>
       <div className="mt-5 grid grid-cols-2 divide-x divide-line">
         <div className="pr-4">
-          <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-ink-muted">{periodA ?? t('metrics.thisMonth')}</p>
+          <p className="text-10 font-medium uppercase tracking-[0.12em] text-ink-muted">{periodA ?? t('metrics.thisMonth')}</p>
           <p className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-ink">
             {current}{unit && <span className="ml-0.5 font-mono text-base font-semibold text-ink-muted">{unit}</span>}
           </p>
         </div>
         <div className="pl-4">
-          <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-ink-muted">{periodB ?? t('metrics.lastMonth')}</p>
+          <p className="text-10 font-medium uppercase tracking-[0.12em] text-ink-muted">{periodB ?? t('metrics.lastMonth')}</p>
           <p className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-ink-soft">
             {previous}{unit && <span className="ml-0.5 font-mono text-base font-semibold text-ink-muted">{unit}</span>}
           </p>
@@ -3588,7 +3588,7 @@ export function MetricsPage() {
               { n: t('metrics.anatomy.compare'), d: t('metrics.anatomy.compareD') },
             ].map(({ n, d }, i) => (
               <div key={i} className="flex gap-3">
-                <span className="mt-0.5 h-5 w-5 shrink-0 grid place-items-center rounded-full bg-brand-50 font-mono text-[9px] font-bold text-brand-700">→</span>
+                <span className="mt-0.5 h-5 w-5 shrink-0 grid place-items-center rounded-full bg-brand-50 font-mono text-9 font-bold text-brand-700">→</span>
                 <span><strong className="font-semibold text-ink">{n}</strong><span className="text-ink-muted"> — {d}</span></span>
               </div>
             ))}
@@ -3599,7 +3599,7 @@ export function MetricsPage() {
       {/* ── Sizes ────────────────────────────────────────────────── */}
       <Section title={t('metrics.sizes.title')} hint={t('metrics.sizes.hint')}>
         {/* Compact row */}
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted">{t('metrics.sizes.compact')}</p>
+        <p className="mb-2 font-mono text-10 uppercase tracking-[0.14em] text-ink-muted">{t('metrics.sizes.compact')}</p>
         <div className="mb-5 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCardCompact label={t('metrics.m.activeStreams')}  value="18,204"  delta={12.4} upIsGood spark={[8,12,9,14,13,18,17,22]} />
           <MetricCardCompact label={t('metrics.m.flowThroughput')} value="2.9" unit="M/s" delta={6.1} upIsGood spark={[14,13,15,12,16,15,19,21]} />
@@ -3607,12 +3607,12 @@ export function MetricsPage() {
           <MetricCardCompact label={t('metrics.m.errorRate')}      value="0.42" unit="%" delta={18.6} upIsGood={false} spark={[4,3,4,5,6,8,9,10]} />
         </div>
         {/* Default row */}
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted">{t('metrics.sizes.default')}</p>
+        <p className="mb-2 font-mono text-10 uppercase tracking-[0.14em] text-ink-muted">{t('metrics.sizes.default')}</p>
         <div className="mb-5 grid gap-4 sm:grid-cols-3">
           {METRICS.map(m => <MetricCard key={m.label} m={m} />)}
         </div>
         {/* Hero */}
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted">{t('metrics.sizes.hero')}</p>
+        <p className="mb-2 font-mono text-10 uppercase tracking-[0.14em] text-ink-muted">{t('metrics.sizes.hero')}</p>
         <MetricCardHero label={t('metrics.m.totalThroughput')} value="704" unit="K/s"
           delta={23.4} sub={t('metrics.sizes.heroSub')}
           spark={[180,195,210,225,240,280,310,295,320,340,365,392]} />
@@ -3629,7 +3629,7 @@ export function MetricsPage() {
               <DeltaBadge delta={12.4} />
               <Sparkline data={[8,12,9,14,13,18,17,22]} positive w={80} h={32} />
             </div>
-            <p className="mt-2 font-mono text-[10px] text-ink-muted">{t('metrics.spark.line')}</p>
+            <p className="mt-2 font-mono text-10 text-ink-muted">{t('metrics.spark.line')}</p>
           </div>
           {/* Bar */}
           <div className="rounded-2xl border border-line bg-surface p-5">
@@ -3639,7 +3639,7 @@ export function MetricsPage() {
               <DeltaBadge delta={8.2} />
               <SparkBar data={[6,7,5,8,7,9,11,13]} positive w={72} h={28} />
             </div>
-            <p className="mt-2 font-mono text-[10px] text-ink-muted">{t('metrics.spark.bar')}</p>
+            <p className="mt-2 font-mono text-10 text-ink-muted">{t('metrics.spark.bar')}</p>
           </div>
           {/* Flat */}
           <div className="rounded-2xl border border-line bg-surface p-5">
@@ -3649,7 +3649,7 @@ export function MetricsPage() {
               <DeltaBadge delta={0} />
               <SparkFlat w={72} h={28} />
             </div>
-            <p className="mt-2 font-mono text-[10px] text-ink-muted">{t('metrics.spark.flat')}</p>
+            <p className="mt-2 font-mono text-10 text-ink-muted">{t('metrics.spark.flat')}</p>
           </div>
         </div>
       </Section>
@@ -3696,7 +3696,7 @@ export function MetricsPage() {
             <article key={s.accent} className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.1)]">
               <div className="flex items-start justify-between">
                 <div className="h-2 w-2 rounded-full mt-1.5" style={{ backgroundColor: s.accent }} />
-                <span className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-[11px] font-semibold"
+                <span className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-11 font-semibold"
                   style={{ backgroundColor: s.bg, color: s.text }}>
                   {s.delta >= 0 ? <IconArrowUp className="h-3 w-3" /> : <IconArrowDown className="h-3 w-3" />}
                   {Math.abs(s.delta)}%
@@ -3765,21 +3765,21 @@ export function MetricsPage() {
       <Section title={t('metrics.states.title')} hint={t('metrics.states.hint')}>
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.loading')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.loading')}</p>
             <MetricCardSkeleton />
           </div>
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.empty')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.empty')}</p>
             <MetricCardEmpty label={t('metrics.m.archivedStreams')} Icon={IconStream} />
           </div>
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.error')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.error')}</p>
             <MetricCardError label={t('metrics.m.billingThroughput')} onRetry={() => {}} />
           </div>
         </div>
         {/* Deferred load demo */}
         <div className="mt-4">
-          <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.deferred')}</p>
+          <p className="mb-2 font-mono text-10 uppercase tracking-[0.12em] text-ink-muted">{t('metrics.states.deferred')}</p>
           <div className="grid gap-4 sm:grid-cols-3">
             {loadingDemo
               ? [1, 2, 3].map(i => <MetricCardSkeleton key={i} />)
@@ -3884,7 +3884,7 @@ function ActionMenu({ id }: { id: string }) {
 function CardField({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="min-w-0">
-      <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-muted">{label}</dt>
+      <dt className="font-mono text-10 font-semibold uppercase tracking-[0.12em] text-ink-muted">{label}</dt>
       <dd className="mt-0.5 truncate text-sm text-ink-soft">{children}</dd>
     </div>
   )
@@ -3899,7 +3899,7 @@ function StreamCard({ r, selectable, selected, onToggle }: { r: Row; selectable?
           {selectable && onToggle && <span className="mt-0.5"><CbBox on={!!selected} onClick={onToggle} label={t('table.select', { name: r.name })} /></span>}
           <div className="min-w-0">
             <p className="truncate font-medium text-ink">{r.name}</p>
-            <p className="font-mono text-[11px] text-ink-muted">{r.id}</p>
+            <p className="font-mono text-11 text-ink-muted">{r.id}</p>
           </div>
         </div>
         <ActionMenu id={r.id} />
@@ -3909,9 +3909,9 @@ function StreamCard({ r, selectable, selected, onToggle }: { r: Row; selectable?
         <span className="truncate text-sm text-ink-soft">{r.owner}</span>
       </div>
       <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line-soft pt-4">
-        <CardField label={t('table.col.region')}><span className="font-mono text-[13px]">{r.region}</span></CardField>
+        <CardField label={t('table.col.region')}><span className="font-mono text-13">{r.region}</span></CardField>
         <CardField label={t('table.col.status')}><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></CardField>
-        <CardField label={t('table.col.throughput')}><span className="font-mono text-[13px] font-medium text-ink">{r.throughput}</span></CardField>
+        <CardField label={t('table.col.throughput')}><span className="font-mono text-13 font-medium text-ink">{r.throughput}</span></CardField>
         <CardField label={t('table.col.updated')}>{t(r.updated)}</CardField>
       </dl>
     </div>
@@ -3952,7 +3952,7 @@ export function DataTable({ compact }: { compact?: boolean } = {}) {
       <div className={`hidden md:block ${compact ? 'overflow-auto' : 'max-h-[420px] overflow-auto'}`}>
         <table className="w-full border-collapse text-left text-sm">
           <thead className="sticky top-0 z-10">
-            <tr className="bg-canvas/95 backdrop-blur-sm [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-[11px] [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
+            <tr className="bg-canvas/95 backdrop-blur-sm [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
               <th className="w-12"><button onClick={toggleAll} aria-label={t('table.selectAll')} className={box(allOnPage)}>{allOnPage && <IconCheck className="h-3 w-3" />}</button></th>
               <th>{t('table.col.name')}</th><th>{t('table.col.owner')}</th><th>{t('table.col.region')}</th><th>{t('table.col.status')}</th><th className="text-right">{t('table.col.throughput')}</th><th>{t('table.col.updated')}</th><th className="w-12"><span className="sr-only">{t('ui.moreActions')}</span></th>
             </tr>
@@ -3963,11 +3963,11 @@ export function DataTable({ compact }: { compact?: boolean } = {}) {
               return (
                 <tr key={r.id} className={`group border-b border-line-soft transition-colors duration-150 last:border-0 ${sel ? 'bg-brand-50/60' : 'hover:bg-canvas'}`}>
                   <td className="px-6 py-3.5"><button onClick={() => toggle(r.id)} aria-label={t('table.select', { name: r.name })} className={box(sel)}>{sel && <IconCheck className="h-3 w-3" />}</button></td>
-                  <td className="px-6 py-3.5"><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-[11px] text-ink-muted">{r.id}</span></div></td>
+                  <td className="px-6 py-3.5"><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-11 text-ink-muted">{r.id}</span></div></td>
                   <td className="px-6 py-3.5"><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} decorative /><span className="text-ink-soft">{r.owner}</span></div></td>
-                  <td className="px-6 py-3.5 font-mono text-[13px] text-ink-soft">{r.region}</td>
+                  <td className="px-6 py-3.5 font-mono text-13 text-ink-soft">{r.region}</td>
                   <td className="px-6 py-3.5"><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></td>
-                  <td className="px-6 py-3.5 text-right font-mono text-[13px] font-medium text-ink">{r.throughput}</td>
+                  <td className="px-6 py-3.5 text-right font-mono text-13 font-medium text-ink">{r.throughput}</td>
                   <td className="px-6 py-3.5 text-ink-muted">{t(r.updated)}</td>
                   <td className="px-6 py-3.5"><ActionMenu id={r.id} /></td>
                 </tr>
@@ -4016,7 +4016,7 @@ function SortBtn({ col, sortCol, sortDir, onSort }: { col: string; sortCol: stri
   return (
     <button
       onClick={() => onSort(col)}
-      className={`group inline-flex items-center gap-1 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors hover:text-ink ${active ? 'text-brand-700' : 'text-ink-muted'}`}
+      className={`group inline-flex items-center gap-1 font-mono text-11 font-semibold uppercase tracking-[0.12em] transition-colors hover:text-ink ${active ? 'text-brand-700' : 'text-ink-muted'}`}
     >
       <span>{t(ALL_COLS.find(c => c.key === col)!.label)}</span>
       <span className={`transition-opacity ${active ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'}`}>
@@ -4107,7 +4107,7 @@ function FullDataTable() {
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex rounded-lg border border-line bg-canvas p-0.5">
               {(['compact', 'default', 'comfortable'] as const).map(d => (
-                <button key={d} onClick={() => setDensity(d)} title={t(DENSITY_LABEL[d].title)} className={`pance-focus rounded-md px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider transition-colors ${density === d ? 'bg-surface text-brand-700 shadow-sm ring-1 ring-line' : 'text-ink-muted hover:text-ink-soft'}`}>
+                <button key={d} onClick={() => setDensity(d)} title={t(DENSITY_LABEL[d].title)} className={`pance-focus rounded-md px-2.5 py-1 font-mono text-10 font-semibold uppercase tracking-wider transition-colors ${density === d ? 'bg-surface text-brand-700 shadow-sm ring-1 ring-line' : 'text-ink-muted hover:text-ink-soft'}`}>
                   {t(DENSITY_LABEL[d].short)}
                 </button>
               ))}
@@ -4118,7 +4118,7 @@ function FullDataTable() {
               </button>
               {colMenu && (
                 <div className="absolute right-0 top-11 z-40 w-48 rounded-xl border border-line bg-surface p-2 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
-                  <p className="px-2 pb-2 pt-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-muted">{t('table.toggleColumns')}</p>
+                  <p className="px-2 pb-2 pt-1 font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{t('table.toggleColumns')}</p>
                   {ALL_COLS.map(c => (
                     <label key={c.key} className="flex cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1.5 text-sm text-ink-soft hover:bg-ground">
                       <CbBox
@@ -4165,7 +4165,7 @@ function FullDataTable() {
                 <th key={col.key} className={`px-6 py-3 ${col.align === 'right' ? 'text-right' : ''}`}>
                   {col.sortable
                     ? <SortBtn col={col.key} sortCol={sortCol} sortDir={sortDir} onSort={cycleSort} />
-                    : <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-muted">{t(col.label)}</span>
+                    : <span className="font-mono text-11 font-semibold uppercase tracking-[0.12em] text-ink-muted">{t(col.label)}</span>
                   }
                 </th>
               ))}
@@ -4189,11 +4189,11 @@ function FullDataTable() {
               return (
                 <tr key={r.id} className={`group border-b border-line-soft transition-colors duration-150 last:border-0 ${sel ? 'bg-brand-50/60' : 'hover:bg-canvas'}`}>
                   <td className={`px-6 ${rp}`}><CbBox on={sel} onClick={() => toggle(r.id)} label={t('table.select', { name: r.name })} /></td>
-                  {!hidden.has('name') && <td className={`px-6 ${rp}`}><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-[11px] text-ink-muted">{r.id}</span></div></td>}
+                  {!hidden.has('name') && <td className={`px-6 ${rp}`}><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-11 text-ink-muted">{r.id}</span></div></td>}
                   {!hidden.has('owner') && <td className={`px-6 ${rp}`}><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} decorative /><span className="text-ink-soft">{r.owner}</span></div></td>}
-                  {!hidden.has('region') && <td className={`px-6 ${rp} font-mono text-[13px] text-ink-soft`}>{r.region}</td>}
+                  {!hidden.has('region') && <td className={`px-6 ${rp} font-mono text-13 text-ink-soft`}>{r.region}</td>}
                   {!hidden.has('status') && <td className={`px-6 ${rp}`}><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></td>}
-                  {!hidden.has('throughput') && <td className={`px-6 ${rp} text-right font-mono text-[13px] font-medium text-ink`}>{r.throughput}</td>}
+                  {!hidden.has('throughput') && <td className={`px-6 ${rp} text-right font-mono text-13 font-medium text-ink`}>{r.throughput}</td>}
                   {!hidden.has('updated') && <td className={`px-6 ${rp} text-ink-muted`}>{t(r.updated)}</td>}
                   <td className={`px-6 ${rp}`}><ActionMenu id={r.id} /></td>
                 </tr>
@@ -4248,11 +4248,11 @@ function ExpandableTable() {
             <div key={ev.id} className={`rounded-xl border transition-colors ${open ? 'border-brand-300 bg-brand-50/40' : 'border-line bg-surface'}`}>
               <button onClick={() => toggle(ev.id)} className="flex w-full items-center justify-between gap-3 p-4 text-left">
                 <div className="min-w-0">
-                  <p className="truncate font-mono text-[13px] font-medium text-ink">{ev.event}</p>
+                  <p className="truncate font-mono text-13 font-medium text-ink">{ev.event}</p>
                   <p className="mt-0.5 text-sm text-ink-muted">{ev.source} · {ev.ts}</p>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
-                  <span className="font-mono text-[13px] font-medium text-ink">{num(ev.count)}</span>
+                  <span className="font-mono text-13 font-medium text-ink">{num(ev.count)}</span>
                   <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-700' : ''}`} />
                 </div>
               </button>
@@ -4260,7 +4260,7 @@ function ExpandableTable() {
                 <div className="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-line-soft px-4 pb-4 pt-3">
                   {detailOf(ev).map(d => (
                     <div key={d.field}>
-                      <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-muted">{d.field}</p>
+                      <p className="font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{d.field}</p>
                       <p className="mt-0.5 text-sm font-medium text-ink">{d.value}</p>
                     </div>
                   ))}
@@ -4273,7 +4273,7 @@ function ExpandableTable() {
       {/* md+: table */}
       <table className="hidden w-full border-collapse text-left text-sm md:table">
         <thead>
-          <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-[11px] [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
+          <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
             <td className="w-10 border-b border-line" /><th>{t('table.ev.event')}</th><th>{t('table.ev.source')}</th><th>{t('table.ev.time')}</th><th className="text-right">{t('table.ev.count')}</th>
           </tr>
         </thead>
@@ -4290,11 +4290,11 @@ function ExpandableTable() {
                     <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-700' : ''}`} />
                   </td>
                   <td className="px-6 py-3.5">
-                    <span className="font-mono text-[13px] font-medium text-ink">{ev.event}</span>
+                    <span className="font-mono text-13 font-medium text-ink">{ev.event}</span>
                   </td>
                   <td className="px-6 py-3.5 text-ink-muted">{ev.source}</td>
-                  <td className="px-6 py-3.5 font-mono text-[13px] text-ink-muted">{ev.ts}</td>
-                  <td className="px-6 py-3.5 text-right font-mono text-[13px] font-medium text-ink">{num(ev.count)}</td>
+                  <td className="px-6 py-3.5 font-mono text-13 text-ink-muted">{ev.ts}</td>
+                  <td className="px-6 py-3.5 text-right font-mono text-13 font-medium text-ink">{num(ev.count)}</td>
                 </tr>
                 {open && (
                   <tr key={`${ev.id}-detail`} className="border-b border-line-soft bg-brand-50/20 last:border-0">
@@ -4303,7 +4303,7 @@ function ExpandableTable() {
                       <div className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-4">
                         {detailOf(ev).map(d => (
                           <div key={d.field}>
-                            <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ink-muted">{d.field}</p>
+                            <p className="font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{d.field}</p>
                             <p className="mt-0.5 text-sm font-medium text-ink">{d.value}</p>
                           </div>
                         ))}
@@ -4389,7 +4389,7 @@ function EmptyTable({ reason }: { reason: 'no-data' | 'filtered' | 'error' }) {
       <div tabIndex={0} className="pance-focus overflow-x-auto border-b border-line">
         <table className="w-full border-collapse text-sm">
           <thead>
-            <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-[11px] [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
+            <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
               <th>{t('table.col.name')}</th><th>{t('table.col.owner')}</th><th>{t('table.col.region')}</th><th>{t('table.col.status')}</th><th className="text-right">{t('table.col.throughput')}</th>
             </tr>
           </thead>
@@ -4431,17 +4431,17 @@ function SimpleTable() {
           <div key={r.region} className="rounded-xl border border-line bg-surface p-4">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <p className="font-mono text-[13px] font-medium text-ink">{r.region}</p>
+                <p className="font-mono text-13 font-medium text-ink">{r.region}</p>
                 <p className="text-sm text-ink-muted">{r.location}</p>
               </div>
-              <span className={`font-mono text-[13px] font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
+              <span className={`font-mono text-13 font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
             </div>
             <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line-soft pt-4">
-              <CardField label={t('table.col.throughput')}><span className="font-mono text-[13px] font-medium text-ink">{r.throughput}</span></CardField>
+              <CardField label={t('table.col.throughput')}><span className="font-mono text-13 font-medium text-ink">{r.throughput}</span></CardField>
               <CardField label={t('table.simple.streams')}>
                 <span className="flex items-center gap-2">
                   <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-200"><span className="block h-full rounded-full bg-brand-400" style={{ width: `${(r.streams / r.quota) * 100}%` }} /></span>
-                  <span className="font-mono text-[13px] text-ink-soft">{r.streams}/{r.quota}</span>
+                  <span className="font-mono text-13 text-ink-soft">{r.streams}/{r.quota}</span>
                 </span>
               </CardField>
             </dl>
@@ -4451,27 +4451,27 @@ function SimpleTable() {
       {/* md+: table */}
       <table className="hidden w-full border-collapse text-left text-sm md:table">
         <thead>
-          <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-[11px] [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
+          <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
             <th>{t('table.col.region')}</th><th>{t('table.simple.location')}</th><th className="text-right">{t('table.simple.streams')}</th><th className="text-right">{t('table.simple.quota')}</th><th className="text-right">{t('table.col.throughput')}</th><th className="text-right">{t('table.simple.latency')}</th>
           </tr>
         </thead>
         <tbody>
           {REGION_DATA.map((r, i) => (
             <tr key={r.region} className={`border-b border-line-soft transition-colors last:border-0 hover:bg-canvas ${i % 2 === 1 ? 'bg-canvas/60' : ''}`}>
-              <td className="px-6 py-3.5 font-mono text-[13px] font-medium text-ink">{r.region}</td>
+              <td className="px-6 py-3.5 font-mono text-13 font-medium text-ink">{r.region}</td>
               <td className="px-6 py-3.5 text-ink-soft">{r.location}</td>
-              <td className="px-6 py-3.5 text-right font-mono text-[13px] text-ink">{r.streams}</td>
+              <td className="px-6 py-3.5 text-right font-mono text-13 text-ink">{r.streams}</td>
               <td className="px-6 py-3.5 text-right">
                 <div className="inline-flex items-center gap-2">
                   <div className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-200">
                     <div className="h-full rounded-full bg-brand-400 transition-all" style={{ width: `${(r.streams / r.quota) * 100}%` }} />
                   </div>
-                  <span className="font-mono text-[13px] text-ink-soft">{r.streams}/{r.quota}</span>
+                  <span className="font-mono text-13 text-ink-soft">{r.streams}/{r.quota}</span>
                 </div>
               </td>
-              <td className="px-6 py-3.5 text-right font-mono text-[13px] font-medium text-ink">{r.throughput}</td>
+              <td className="px-6 py-3.5 text-right font-mono text-13 font-medium text-ink">{r.throughput}</td>
               <td className="px-6 py-3.5 text-right">
-                <span className={`font-mono text-[13px] font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
+                <span className={`font-mono text-13 font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
               </td>
             </tr>
           ))}
@@ -4508,7 +4508,7 @@ export function TablePage() {
         <div className="space-y-3">
           <div className="flex flex-wrap gap-2">
             {(['no-data', 'filtered', 'error'] as const).map(s => (
-              <button key={s} onClick={() => setEmptyState(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-[13px] font-medium transition-colors ${emptyState === s ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line text-ink-muted hover:border-slate-300'}`}>{s}</button>
+              <button key={s} onClick={() => setEmptyState(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-13 font-medium transition-colors ${emptyState === s ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line text-ink-muted hover:border-slate-300'}`}>{s}</button>
             ))}
           </div>
           <EmptyTable reason={emptyState} />
@@ -4576,10 +4576,10 @@ export function LayoutPage() {
             { name: 'max-w-6xl', px: '1152px', pct: '95' },
           ].map((c) => (
             <div key={c.name} className="flex items-center gap-4">
-              <span className="w-28 shrink-0 font-mono text-[11px] text-ink-muted">{c.name}</span>
+              <span className="w-28 shrink-0 font-mono text-11 text-ink-muted">{c.name}</span>
               <div className="flex-1 rounded-full bg-ground">
                 <div className="flex h-7 items-center justify-end rounded-full bg-brand-100 pr-3 transition-all" style={{ width: `${c.pct}%` }}>
-                  <span className="font-mono text-[10px] font-semibold text-brand-700">{c.px}</span>
+                  <span className="font-mono text-10 font-semibold text-brand-700">{c.px}</span>
                 </div>
               </div>
             </div>
@@ -4590,15 +4590,15 @@ export function LayoutPage() {
       <Section title={t('layout.grid.title')} hint={t('layout.grid.hint')}>
         <div className="space-y-4">
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.grid.equal')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.grid.equal')}</p>
             <div className="grid grid-cols-12 gap-2">
               {Array.from({ length: 12 }, (_, i) => (
-                <div key={i} className="flex h-10 items-center justify-center rounded-lg bg-brand-100 font-mono text-[10px] font-semibold text-brand-700">{i + 1}</div>
+                <div key={i} className="flex h-10 items-center justify-center rounded-lg bg-brand-100 font-mono text-10 font-semibold text-brand-700">{i + 1}</div>
               ))}
             </div>
           </div>
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.grid.splits')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.grid.splits')}</p>
             <div className="space-y-2">
               {[
                 { label: '1/2 + 1/2', cols: ['col-span-6', 'col-span-6'] },
@@ -4608,7 +4608,7 @@ export function LayoutPage() {
               ].map((row) => (
                 <div key={row.label} className="grid grid-cols-12 gap-2">
                   {row.cols.map((cls, i) => (
-                    <div key={i} className={`flex h-10 items-center justify-center rounded-lg bg-brand-50 border border-brand-200 font-mono text-[10px] text-brand-700 ${cls}`}>{cls.replace('col-span-', '')} {t('layout.grid.col')}</div>
+                    <div key={i} className={`flex h-10 items-center justify-center rounded-lg bg-brand-50 border border-brand-200 font-mono text-10 text-brand-700 ${cls}`}>{cls.replace('col-span-', '')} {t('layout.grid.col')}</div>
                   ))}
                 </div>
               ))}
@@ -4621,16 +4621,16 @@ export function LayoutPage() {
         <div className="space-y-4">
           {/* Sidebar + main */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.pat.sidebarMain')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.pat.sidebarMain')}</p>
             <div className="grid grid-cols-4 gap-3">
               <div className="rounded-xl border border-dashed border-brand-300 bg-brand-50 p-4">
-                <p className="font-mono text-[10px] font-semibold text-brand-700">{t('layout.pat.sidebar')}</p>
+                <p className="font-mono text-10 font-semibold text-brand-700">{t('layout.pat.sidebar')}</p>
                 <div className="mt-3 space-y-2">
                   {[0, 1, 2].map((i) => <div key={i} className="h-7 rounded-lg bg-brand-100" />)}
                 </div>
               </div>
               <div className="col-span-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4">
-                <p className="font-mono text-[10px] font-semibold text-slate-500">{t('layout.pat.main')}</p>
+                <p className="font-mono text-10 font-semibold text-slate-500">{t('layout.pat.main')}</p>
                 <div className="mt-3 grid grid-cols-3 gap-2">
                   {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-16 rounded-lg bg-slate-200" />)}
                 </div>
@@ -4641,18 +4641,18 @@ export function LayoutPage() {
 
           {/* Dashboard grid */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.pat.dashboard')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.pat.dashboard')}</p>
             <div className="grid grid-cols-3 gap-3">
-              {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-20 rounded-xl border border-dashed border-brand-300 bg-brand-50 p-3"><p className="font-mono text-[10px] text-brand-700">{t('layout.pat.metric', { n: i + 1 })}</p></div>)}
+              {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-20 rounded-xl border border-dashed border-brand-300 bg-brand-50 p-3"><p className="font-mono text-10 text-brand-700">{t('layout.pat.metric', { n: i + 1 })}</p></div>)}
             </div>
             <div className="mt-3 h-28 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
-              <p className="font-mono text-[10px] text-slate-500">{t('layout.pat.table')}</p>
+              <p className="font-mono text-10 text-slate-500">{t('layout.pat.table')}</p>
             </div>
           </div>
 
           {/* Form layout */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.pat.form')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.pat.form')}</p>
             <div className="mx-auto max-w-lg rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 space-y-3">
               <div className="h-8 w-1/2 rounded-lg bg-slate-200" />
               <div className="grid grid-cols-2 gap-3">
@@ -4672,7 +4672,7 @@ export function LayoutPage() {
 
       <Section title={t('layout.box.title')} hint={t('layout.box.hint')}>
         <div className="space-y-3">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.box.intro')}</p>
+          <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.box.intro')}</p>
           <div className="grid gap-3 sm:grid-cols-3">
             {[
               { id: 'surface', label: t('layout.box.surface'), cls: 'bg-surface border border-line rounded-2xl p-6', desc: t('layout.box.surfaceDesc') },
@@ -4684,7 +4684,7 @@ export function LayoutPage() {
             ].map((b) => (
               <div key={b.label} className={b.cls}>
                 <p className={`text-xs font-semibold ${b.id === 'bleed' ? 'text-white' : 'text-ink'}`}>{b.label}</p>
-                <p className={`mt-1 font-mono text-[10px] ${b.id === 'bleed' ? 'text-white/60' : 'text-ink-muted'}`}>{b.desc}</p>
+                <p className={`mt-1 font-mono text-10 ${b.id === 'bleed' ? 'text-white/60' : 'text-ink-muted'}`}>{b.desc}</p>
               </div>
             ))}
           </div>
@@ -4693,11 +4693,11 @@ export function LayoutPage() {
 
       <Section title={t('layout.block.title')} hint={t('layout.block.hint')}>
         <div className="space-y-3">
-          <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.block.intro')}</p>
+          <p className="mb-1 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.block.intro')}</p>
           <div className="space-y-6">
             {/* Block with eyebrow */}
             <div className="rounded-2xl border border-line bg-surface p-6">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.block.eyebrow')}</p>
+              <p className="font-mono text-11 font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.block.eyebrow')}</p>
               <h3 className="mt-1 font-display text-xl font-bold text-ink">{t('layout.block.heading')}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-muted">{t('layout.block.desc')}</p>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -4734,15 +4734,15 @@ export function LayoutPage() {
 
       <Section title={t('layout.content.title')} hint={t('layout.content.hint')}>
         <div className="space-y-3">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{tr('layout.content.intro')}</p>
+          <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{tr('layout.content.intro')}</p>
           <Card className="p-6 lg:p-8">
             <div className="mx-auto max-w-prose space-y-4">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.content.eyebrow')}</p>
+              <p className="font-mono text-11 font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.content.eyebrow')}</p>
               <h2 className="font-display text-2xl font-extrabold tracking-tight text-ink">{t('layout.content.heading')}</h2>
-              <p className="text-[15px] leading-relaxed text-ink-soft">{t('layout.content.p1')}</p>
+              <p className="text-15 leading-relaxed text-ink-soft">{t('layout.content.p1')}</p>
               <h3 className="font-display text-lg font-bold text-ink">{t('layout.content.h3')}</h3>
-              <p className="text-[15px] leading-relaxed text-ink-soft">{tr('layout.content.p2', { a: '`user_id`', b: '`order_id`', c: '`device_id`' })}</p>
-              <ul className="space-y-2 text-[15px] text-ink-soft">
+              <p className="text-15 leading-relaxed text-ink-soft">{tr('layout.content.p2', { a: '`user_id`', b: '`order_id`', c: '`device_id`' })}</p>
+              <ul className="space-y-2 text-15 text-ink-soft">
                 {(['layout.content.li1', 'layout.content.li2', 'layout.content.li3'] as const).map((li) => (
                   <li key={li} className="flex items-start gap-2.5">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
@@ -4761,15 +4761,15 @@ export function LayoutPage() {
       <Section title={t('layout.gap.title')} hint={t('layout.gap.hint')}>
         <Card className="p-6 space-y-6">
           <div>
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('layout.gap.label')}</p>
+            <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.gap.label')}</p>
             <div className="flex flex-col gap-2">
               {[['gap-1', '4px'], ['gap-2', '8px'], ['gap-3', '12px'], ['gap-4', '16px'], ['gap-6', '24px'], ['gap-8', '32px']].map(([cls, val]) => (
                 <div key={cls} className="flex items-center gap-4">
-                  <span className="w-16 font-mono text-[11px] text-ink-muted">{cls}</span>
+                  <span className="w-16 font-mono text-11 text-ink-muted">{cls}</span>
                   <div className={`flex ${cls}`}>
                     {[0, 1, 2].map((i) => <div key={i} className="h-6 w-12 rounded-md bg-brand-200" />)}
                   </div>
-                  <span className="font-mono text-[10px] text-ink-muted">{val}</span>
+                  <span className="font-mono text-10 text-ink-muted">{val}</span>
                 </div>
               ))}
             </div>
@@ -4794,17 +4794,17 @@ export function CardsPage() {
       <Section title={t('cards.anatomy.title')} hint={t('cards.anatomy.hint')}>
         <div className="grid gap-4 sm:grid-cols-3">
           <Card className="p-6">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('cards.anatomy.default')}</p>
+            <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('cards.anatomy.default')}</p>
             <p className="mt-3 text-sm font-semibold text-ink">{t('cards.anatomy.basic')}</p>
             <p className="mt-1 text-sm text-ink-muted">{tr('cards.anatomy.basicDesc')}</p>
           </Card>
           <Card className="p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('cards.anatomy.elevated')}</p>
+            <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('cards.anatomy.elevated')}</p>
             <p className="mt-3 text-sm font-semibold text-ink">{t('cards.anatomy.raised')}</p>
             <p className="mt-1 text-sm text-ink-muted">{t('cards.anatomy.raisedDesc')}</p>
           </Card>
           <div className="rounded-2xl border border-line bg-canvas p-6">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('cards.anatomy.tinted')}</p>
+            <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{t('cards.anatomy.tinted')}</p>
             <p className="mt-3 text-sm font-semibold text-ink">{t('cards.anatomy.canvas')}</p>
             <p className="mt-1 text-sm text-ink-muted">{tr('cards.anatomy.tintedDesc')}</p>
           </div>
@@ -4889,7 +4889,7 @@ export function CardsPage() {
             <Card key={label} className="p-5">
               <div className="flex items-center justify-between">
                 <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-4 w-4" /></span>
-                <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[11px] font-semibold ${up ? 'bg-brand-50 text-brand-700' : 'bg-emerald-50 text-emerald-700'}`}>
+                <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-11 font-semibold ${up ? 'bg-brand-50 text-brand-700' : 'bg-emerald-50 text-emerald-700'}`}>
                   {up ? <IconArrowUp className="h-3 w-3" /> : <IconArrowDown className="h-3 w-3" />}{delta}
                 </span>
               </div>
@@ -4964,7 +4964,7 @@ export function CardsPage() {
 
           {/* Collapsible panels */}
           <div>
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('cards.panel.collapsible')}</p>
+            <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('cards.panel.collapsible')}</p>
             <div className="space-y-2">
               <Panel title={t('cards.panel.advanced')} description={t('cards.panel.advancedDesc')} icon={IconGear} iconSeverity="secondary" collapsible
                 actions={<Button size="sm" severity="secondary" variant="outlined" Icon={IconEdit}>{t('cards.panel.edit')}</Button>}>
@@ -4997,7 +4997,7 @@ export function CardsPage() {
             { label: t('cards.states.loading'), cls: 'border-line bg-surface', content: null },
           ].map((s) => (
             <div key={s.label} className={`rounded-2xl border p-4 transition-all ${s.cls}`}>
-              <p className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">{s.label}</p>
+              <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{s.label}</p>
               {s.content ? (
                 <p className="mt-2 text-sm text-ink-soft">{s.content}</p>
               ) : (
@@ -5026,7 +5026,7 @@ export function ContentPage() {
       <Section title="Accordion" hint={t('content.accordion.hint')}>
         <div className="grid gap-6 lg:grid-cols-2">
           <div>
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.accordion.single')}</p>
+            <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.accordion.single')}</p>
             <Accordion items={[
               { id: 'a1', title: t('content.acc.a1.t'), content: t('content.acc.a1.c') },
               { id: 'a2', title: t('content.acc.a2.t'), description: t('content.acc.a2.d'), content: t('content.acc.a2.c') },
@@ -5035,7 +5035,7 @@ export function ContentPage() {
             ]} />
           </div>
           <div>
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.accordion.multi')}</p>
+            <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.accordion.multi')}</p>
             <Accordion allowMultiple items={[
               { id: 'b1', title: t('content.acc.b1.t'), content: t('content.acc.b1.c') },
               { id: 'b2', title: t('content.acc.b2.t'), content: t('content.acc.b2.c') },
@@ -5058,21 +5058,21 @@ export function ContentPage() {
               </div>
               <figcaption className="px-4 py-3">
                 <p className="text-xs font-medium text-ink">{t('content.image.caption')}</p>
-                <p className="mt-0.5 font-mono text-[10px] text-ink-muted">{im.label} · object-cover</p>
+                <p className="mt-0.5 font-mono text-10 text-ink-muted">{im.label} · object-cover</p>
               </figcaption>
             </figure>
           ))}
         </div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.image.placeholder')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.image.placeholder')}</p>
             <div className="aspect-video overflow-hidden rounded-2xl border border-line bg-ground flex items-center justify-center gap-2 text-ink-muted">
               <IconDownload className="h-5 w-5" />
               <span className="text-sm">{t('content.image.unavailable')}</span>
             </div>
           </div>
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.image.rounded')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.image.rounded')}</p>
             <div className="flex items-center gap-4">
               {[48, 64, 80, 96].map((sz) => (
                 <div key={sz} className="overflow-hidden rounded-full border-2 border-line" style={{ width: sz, height: sz }}>
@@ -5088,25 +5088,25 @@ export function ContentPage() {
         <Card className="divide-y divide-line-soft">
           <div className="px-6 py-5 space-y-6">
             <div>
-              <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.divider.default')}</p>
+              <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.divider.default')}</p>
               <p className="text-sm text-ink-soft">{t('content.divider.above')}</p>
               <Divider />
               <p className="text-sm text-ink-soft">{t('content.divider.below')}</p>
             </div>
             <div>
-              <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.divider.soft')}</p>
+              <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.divider.soft')}</p>
               <p className="text-sm text-ink-soft">{t('content.divider.above')}</p>
               <Divider soft />
               <p className="text-sm text-ink-soft">{t('content.divider.below')}</p>
             </div>
           </div>
           <div className="px-6 py-5">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.divider.withLabel')}</p>
+            <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.divider.withLabel')}</p>
             <Divider label={t('content.divider.or')} />
             <Divider label={t('content.divider.secB')} />
           </div>
           <div className="px-6 py-5">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.divider.vertical')}</p>
+            <p className="mb-3 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.divider.vertical')}</p>
             <div className="flex items-center gap-4 text-sm text-ink-soft">
               <span>Streams</span>
               <div className="h-4 w-px bg-line" />
@@ -5122,7 +5122,7 @@ export function ContentPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           {/* Metadata row list */}
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.it.meta')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.it.meta')}</p>
             <div className="space-y-3">
               {[
                 { Icon: IconStream, label: t('content.it.streamName'), value: 'checkout-events' },
@@ -5142,7 +5142,7 @@ export function ContentPage() {
 
           {/* Feature list */}
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.it.features')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.it.features')}</p>
             <div className="space-y-3">
               {[
                 { Icon: IconCheckCircle, text: t('content.it.f1'), color: 'text-emerald-700 bg-emerald-50' },
@@ -5161,7 +5161,7 @@ export function ContentPage() {
 
           {/* Attribute grid */}
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.it.attrs')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.it.attrs')}</p>
             <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               {[
                 { Icon: IconGauge, label: t('content.it.throughput'), value: '412 K/s' },
@@ -5174,7 +5174,7 @@ export function ContentPage() {
                 <div key={label} className="flex items-center gap-2.5">
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700"><Icon className="h-3.5 w-3.5" /></span>
                   <div>
-                    <p className="font-mono text-[10px] text-ink-muted">{label}</p>
+                    <p className="font-mono text-10 text-ink-muted">{label}</p>
                     <p className="text-sm font-semibold text-ink">{value}</p>
                   </div>
                 </div>
@@ -5184,13 +5184,13 @@ export function ContentPage() {
 
           {/* Inline icon+text pairs */}
           <Card className="p-5">
-            <p className="mb-4 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.it.pairs')}</p>
+            <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.it.pairs')}</p>
             <div className="space-y-4">
               {(['sm', 'md', 'lg'] as const).map((sz) => {
                 const cfg = { sm: { icon: 'h-3 w-3', text: 'text-xs', gap: 'gap-1.5' }, md: { icon: 'h-4 w-4', text: 'text-sm', gap: 'gap-2' }, lg: { icon: 'h-5 w-5', text: 'text-base', gap: 'gap-2.5' } }[sz]
                 return (
                   <div key={sz} className="flex flex-wrap items-center gap-4">
-                    <span className="w-6 font-mono text-[10px] text-ink-muted">{sz}</span>
+                    <span className="w-6 font-mono text-10 text-ink-muted">{sz}</span>
                     <span className={`inline-flex items-center text-ink-soft ${cfg.gap}`}><IconStream className={cfg.icon} /><span className={cfg.text}>checkout-events</span></span>
                     <span className={`inline-flex items-center text-ink-muted ${cfg.gap}`}><IconGlobe className={cfg.icon} /><span className={cfg.text}>us-east-1</span></span>
                     <span className={`inline-flex items-center text-emerald-700 ${cfg.gap}`}><IconCheckCircle className={cfg.icon} /><span className={cfg.text}>{t('content.it.flowing')}</span></span>
@@ -5224,7 +5224,7 @@ export function ContentPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Badge severity={file.severity} size="sm" rounded={false}>{file.type}</Badge>
-                    <span className="font-mono text-[11px] text-ink-muted">{file.size}</span>
+                    <span className="font-mono text-11 text-ink-muted">{file.size}</span>
                   </div>
                   <Button size="sm" severity="secondary" variant="outlined" Icon={IconDownload}>{t('content.dl.button')}</Button>
                 </div>
@@ -5234,7 +5234,7 @@ export function ContentPage() {
 
           {/* Inline download row */}
           <div>
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-ink-muted">{t('content.dl.inline')}</p>
+            <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.dl.inline')}</p>
             <Card className="divide-y divide-line-soft overflow-hidden">
               {[
                 { name: t('content.dl.r1'), type: 'PDF', size: '840 KB' },
@@ -5248,9 +5248,9 @@ export function ContentPage() {
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium text-ink">{file.name}</p>
                     <div className="mt-0.5 flex items-center gap-2">
-                      <span className="font-mono text-[10px] text-ink-muted">{file.type}</span>
+                      <span className="font-mono text-10 text-ink-muted">{file.type}</span>
                       <span className="h-1 w-1 rounded-full bg-line" />
-                      <span className="font-mono text-[10px] text-ink-muted">{file.size}</span>
+                      <span className="font-mono text-10 text-ink-muted">{file.size}</span>
                     </div>
                   </div>
                   <button aria-label={`${t('content.dl.title')} ${file.name}`} className="pance-focus grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-700">
@@ -5283,7 +5283,7 @@ export function ContentPage() {
                 <Avatar name="Devon Achebe" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=48&h=48&fit=crop" size={28} />
                 <div>
                   <p className="text-xs font-semibold text-ink">Devon Achebe</p>
-                  <p className="font-mono text-[10px] text-ink-muted">{t('content.art.read')}</p>
+                  <p className="font-mono text-10 text-ink-muted">{t('content.art.read')}</p>
                 </div>
               </div>
               <Button size="sm" severity="primary" Icon={IconArrowRight}>{t('content.art.cta')}</Button>
@@ -5874,13 +5874,13 @@ function VizHeatmap({ data, rows, cols, title, sub, color = VC[0] as string }: {
         <div style={{ minWidth: cols.length * 26 + 80 }}>
           <div className="flex pl-16 mb-1">
             {cols.map(c => (
-              <div key={c} className="flex-1 text-center font-mono text-[9px] text-ink-muted">{c}</div>
+              <div key={c} className="flex-1 text-center font-mono text-9 text-ink-muted">{c}</div>
             ))}
           </div>
           <div className="space-y-0.5">
             {data.map((row, ri) => (
               <div key={rows[ri]} className="flex items-center gap-1">
-                <div className="w-14 shrink-0 text-right font-mono text-[9px] text-ink-muted pr-1">{rows[ri]}</div>
+                <div className="w-14 shrink-0 text-right font-mono text-9 text-ink-muted pr-1">{rows[ri]}</div>
                 <div className="flex flex-1 gap-0.5">
                   {row.map((val, ci) => {
                     const n = norm(val)
@@ -5905,14 +5905,14 @@ function VizHeatmap({ data, rows, cols, title, sub, color = VC[0] as string }: {
             ))}
           </div>
           <div className="mt-3 flex items-center gap-2 pl-16">
-            <span className="text-[9px] text-ink-muted">{t('dataviz.low')}</span>
+            <span className="text-9 text-ink-muted">{t('dataviz.low')}</span>
             <div className="flex h-2 w-20 overflow-hidden rounded-sm">
               {Array.from({ length: 10 }, (_, i) => (
                 <div key={i} className="flex-1 h-full"
                   style={{ backgroundColor: color, opacity: 0.07 + (i / 9) * 0.88 }} />
               ))}
             </div>
-            <span className="text-[9px] text-ink-muted">{t('dataviz.high')}</span>
+            <span className="text-9 text-ink-muted">{t('dataviz.high')}</span>
           </div>
           {hov !== null && (
             <div className="mt-2 rounded-xl border border-line bg-canvas px-3 py-2 text-xs">
@@ -5976,12 +5976,12 @@ function VizDonut({ slices, title, sub, size = 180 }: {
             {active ? (
               <>
                 <p className="text-xl font-bold leading-none text-ink">{((active.value / total) * 100).toFixed(1)}%</p>
-                <p className="mt-1 max-w-[56px] text-center text-[10px] leading-tight text-ink-muted">{active.label}</p>
+                <p className="mt-1 max-w-[56px] text-center text-10 leading-tight text-ink-muted">{active.label}</p>
               </>
             ) : (
               <>
                 <p className="text-xl font-bold leading-none text-ink">{fv(total)}</p>
-                <p className="mt-1 text-[10px] text-ink-muted">{t('dataviz.totalLower')}</p>
+                <p className="mt-1 text-10 text-ink-muted">{t('dataviz.totalLower')}</p>
               </>
             )}
           </div>
@@ -6000,7 +6000,7 @@ function VizDonut({ slices, title, sub, size = 180 }: {
               </div>
               <div className="flex shrink-0 items-center gap-2">
                 <span className="font-mono text-xs font-semibold text-ink tabular-nums">{fv(s.value)}</span>
-                <span className="w-10 text-right font-mono text-[10px] tabular-nums text-ink-muted">
+                <span className="w-10 text-right font-mono text-10 tabular-nums text-ink-muted">
                   {(s.value / total * 100).toFixed(1)}%
                 </span>
               </div>
@@ -6112,7 +6112,7 @@ function VizMeter({ label, value, max, unit = '', severity = 'default' }: {
         <div className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-500"
           style={{ width: `${pct}%`, backgroundColor: fillBg }} />
       </div>
-      <p className="mt-1.5 text-right font-mono text-[11px] tabular-nums text-ink-muted">{pct.toFixed(1)}%</p>
+      <p className="mt-1.5 text-right font-mono text-11 tabular-nums text-ink-muted">{pct.toFixed(1)}%</p>
     </div>
   )
 }
@@ -6446,7 +6446,7 @@ export function DataVizPage() {
                   <td className="px-4 py-3"><VizSparkline data={row.trend} color={VC[i % 3]} width={72} height={24} /></td>
                   <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink">{row.lat}</td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium ${row.ok ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-11 font-medium ${row.ok ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
                       <span className={`h-1.5 w-1.5 rounded-full ${row.ok ? 'bg-emerald-500' : 'bg-amber-500'}`} />
                       {row.ok ? t('dataviz.spark.healthy') : t('dataviz.spark.degraded')}
                     </span>
@@ -6465,8 +6465,8 @@ export function DataVizPage() {
             {VC.map((c, i) => (
               <div key={c} className="rounded-xl border border-line bg-surface p-3 text-center">
                 <div className="mx-auto mb-2 h-8 w-full rounded-lg" style={{ backgroundColor: c }} />
-                <p className="text-[10px] font-medium text-ink">{t('dataviz.palette.slot', { n: i + 1 })}</p>
-                <p className="font-mono text-[9px] text-ink-muted">{c}</p>
+                <p className="text-10 font-medium text-ink">{t('dataviz.palette.slot', { n: i + 1 })}</p>
+                <p className="font-mono text-9 text-ink-muted">{c}</p>
               </div>
             ))}
           </div>
@@ -6505,8 +6505,8 @@ export function DataVizPage() {
                     <span className={`text-xs font-medium ${text}`}>{role}</span>
                   </div>
                 </div>
-                <p className="font-mono text-[9px] text-ink-muted">{c}</p>
-                <p className="mt-0.5 text-[9px] text-ink-muted">{t('dataviz.palette.statusNote')}</p>
+                <p className="font-mono text-9 text-ink-muted">{c}</p>
+                <p className="mt-0.5 text-9 text-ink-muted">{t('dataviz.palette.statusNote')}</p>
               </div>
             ))}
           </div>
@@ -6567,7 +6567,7 @@ export function DataVizPage() {
                 <span className="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700">{t('dataviz.spec.last30')}</span>
                 <span className="rounded-full bg-ground px-2 py-0.5 text-xs text-ink-muted">{t('dataviz.spec.allRegions')}</span>
               </div>
-              <span className="text-[10px] text-ink-muted">{t('dataviz.spec.updated')}</span>
+              <span className="text-10 text-ink-muted">{t('dataviz.spec.updated')}</span>
             </div>
             {/* KPI row */}
             <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -6888,9 +6888,9 @@ function ColombiaMap({ depts, selected, onSelect, hoveredDept, onHover }: {
           <div className="pointer-events-none absolute left-1/2 top-2 z-20 -translate-x-1/2 rounded-xl border border-line bg-surface px-3 py-2 shadow-lg text-xs min-w-[180px]">
             <div className="flex items-center justify-between gap-3 mb-1">
               <span className="font-semibold text-ink">{d.name}</span>
-              <span className="rounded-full px-1.5 py-0.5 font-mono text-[10px] font-bold" style={{ backgroundColor: s.bg, color: s.text }}>{t(s.key)}</span>
+              <span className="rounded-full px-1.5 py-0.5 font-mono text-10 font-bold" style={{ backgroundColor: s.bg, color: s.text }}>{t(s.key)}</span>
             </div>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-[10px] text-ink-muted">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-10 text-ink-muted">
               <span>{t('aq.m.deceased')} <strong className="text-ink">{d.deceased.toLocaleString(loc)}</strong></span>
               <span>{t('aq.m.rescued')} <strong className="text-ink">{d.rescued.toLocaleString(loc)}</strong></span>
               <span>{t('aq.m.missing')} <strong className="text-ink">{d.missing.toLocaleString(loc)}</strong></span>
@@ -6914,7 +6914,7 @@ function DeptPanel({ dept, onDetail, onClose }: { dept: AQDept; onDetail: () => 
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-display text-lg font-bold text-ink">{dept.name}</h3>
-            <span className="rounded-full px-2 py-0.5 text-[11px] font-bold uppercase" style={{ backgroundColor: s.bg, color: s.text }}>{t(s.key)}</span>
+            <span className="rounded-full px-2 py-0.5 text-11 font-bold uppercase" style={{ backgroundColor: s.bg, color: s.text }}>{t(s.key)}</span>
           </div>
           <p className="text-xs text-ink-muted">{t('aq.panel.pop', { pop: dept.population.toLocaleString(loc), cap: dept.hospitalCapacity })}</p>
         </div>
@@ -6933,7 +6933,7 @@ function DeptPanel({ dept, onDetail, onClose }: { dept: AQDept; onDetail: () => 
           { label: t('aq.m.rescued'),         val: dept.rescued.toLocaleString(loc),         color: '#0891b2' },
         ].map(({ label, val, color }) => (
           <div key={label} className="rounded-xl border border-line bg-canvas p-2.5">
-            <p className="text-[10px] text-ink-muted">{label}</p>
+            <p className="text-10 text-ink-muted">{label}</p>
             <p className="mt-0.5 font-mono text-base font-bold" style={{ color }}>{val}</p>
           </div>
         ))}
@@ -6990,7 +6990,7 @@ function DeptModal({ dept, onClose }: { dept: AQDept; onClose: () => void }) {
             { l: t('aq.m.rescued'),         v: dept.rescued.toLocaleString(loc),         c: '#0891b2' },
           ].map(({ l, v, c }) => (
             <div key={l} className="rounded-xl border border-line bg-canvas p-3 text-center">
-              <p className="text-[10px] text-ink-muted">{l}</p>
+              <p className="text-10 text-ink-muted">{l}</p>
               <p className="mt-1 font-mono text-xl font-bold" style={{ color: c }}>{v}</p>
             </div>
           ))}
@@ -7100,7 +7100,7 @@ export function AfterQuakePage() {
         <div className="flex flex-wrap items-start justify-between gap-4 mx-6">
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-rose-100 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide text-rose-700">{t('aq.eyebrow')}</span>
+              <span className="rounded-full bg-rose-100 px-2.5 py-1 font-mono text-10 font-bold uppercase tracking-wide text-rose-700">{t('aq.eyebrow')}</span>
               <Badge severity="danger" variant="solid">{t('aq.badge.quake')}</Badge>
               <Badge severity="secondary">{t('aq.badge.region')}</Badge>
             </div>
@@ -7111,12 +7111,12 @@ export function AfterQuakePage() {
           </div>
           <div className="flex flex-col items-end gap-2">
             <div className="rounded-2xl border border-line bg-canvas px-5 py-3 text-center">
-              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-muted">{t('aq.elapsed')}</p>
+              <p className="font-mono text-10 uppercase tracking-[0.12em] text-ink-muted">{t('aq.elapsed')}</p>
               <p className="mt-0.5 font-display text-3xl font-extrabold text-danger">
                 T+{elapsedH}h {String(elapsedM).padStart(2,'0')}m
               </p>
             </div>
-            <p className="text-[10px] text-ink-muted">{t('aq.updated')}</p>
+            <p className="text-10 text-ink-muted">{t('aq.updated')}</p>
           </div>
         </div>
 
@@ -7158,7 +7158,7 @@ export function AfterQuakePage() {
                     </span>
                   </div>
                   <p className="mt-2 font-display text-2xl font-bold leading-none" style={{ color }}>{val}</p>
-                  <p className="mt-1 text-[10px] text-ink-muted">{sub}</p>
+                  <p className="mt-1 text-10 text-ink-muted">{sub}</p>
                 </div>
               ))}
             </div>
@@ -7262,7 +7262,7 @@ export function AfterQuakePage() {
             <div tabIndex={0} className="pance-focus overflow-x-auto rounded-2xl border border-line bg-surface">
               <table className="w-full min-w-[56rem] text-sm">
                 <thead className="border-b border-line bg-canvas">
-                  <tr className="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:font-mono [&>th]:text-[10px] [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
+                  <tr className="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:font-mono [&>th]:text-10 [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
                     <th>{t('aq.th.department')}</th>
                     <th>{t('aq.th.severity')}</th>
                     <th className="text-right">{t('aq.m.deceased')}</th>
@@ -7283,7 +7283,7 @@ export function AfterQuakePage() {
                       <tr key={d.id} className="hover:bg-canvas transition-colors">
                         <td className="px-4 py-3 font-medium text-ink">{d.name}</td>
                         <td className="px-4 py-3">
-                          <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-semibold" style={{ backgroundColor: s.bg, color: s.text }}>
+                          <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-11 font-semibold" style={{ backgroundColor: s.bg, color: s.text }}>
                             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: s.color }} />
                             {t(s.key)}
                           </span>
@@ -7301,7 +7301,7 @@ export function AfterQuakePage() {
                               <div className="h-full rounded-full"
                                 style={{ width: `${d.hospitalCapacity}%`, backgroundColor: d.hospitalCapacity >= 95 ? '#e11d48' : d.hospitalCapacity >= 80 ? '#f97316' : '#0891b2' }} />
                             </div>
-                            <span className="w-9 text-right font-mono text-[10px] tabular-nums text-ink-muted">{d.hospitalCapacity}%</span>
+                            <span className="w-9 text-right font-mono text-10 tabular-nums text-ink-muted">{d.hospitalCapacity}%</span>
                           </div>
                         </td>
                         <td className="px-4 py-3">
@@ -7341,7 +7341,7 @@ export function AfterQuakePage() {
               <div tabIndex={0} className="pance-focus overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="border-b border-line-soft">
-                    <tr className="[&>th]:px-4 [&>th]:py-2.5 [&>th]:text-left [&>th]:font-mono [&>th]:text-[10px] [&>th]:uppercase [&>th]:tracking-[0.1em] [&>th]:text-ink-muted">
+                    <tr className="[&>th]:px-4 [&>th]:py-2.5 [&>th]:text-left [&>th]:font-mono [&>th]:text-10 [&>th]:uppercase [&>th]:tracking-[0.1em] [&>th]:text-ink-muted">
                       <th>{t('aq.hosp.hospital')}</th><th>{t('aq.hosp.city')}</th><th>{t('aq.hosp.type')}</th><th>{t('aq.hosp.capacity')}</th><th>{t('aq.hosp.occupancy')}</th><th>{t('aq.hosp.status')}</th>
                     </tr>
                   </thead>
@@ -7370,11 +7370,11 @@ export function AfterQuakePage() {
                               <div className="flex-1 overflow-hidden rounded-full bg-ground" style={{ height: 6 }}>
                                 <div className="h-full rounded-full" style={{ width: `${Math.min(100,h.occ)}%`, backgroundColor: sevColor }} />
                               </div>
-                              <span className="w-8 text-right font-mono text-[10px] tabular-nums text-ink-muted">{h.occ}%</span>
+                              <span className="w-8 text-right font-mono text-10 tabular-nums text-ink-muted">{h.occ}%</span>
                             </div>
                           </td>
                           <td className="px-4 py-3">
-                            <span className="whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-semibold" style={{ backgroundColor: sevBg, color: sevColor }}>{t(AQ_SEV[h.st].key)}</span>
+                            <span className="whitespace-nowrap rounded-full px-2 py-0.5 text-11 font-semibold" style={{ backgroundColor: sevBg, color: sevColor }}>{t(AQ_SEV[h.st].key)}</span>
                           </td>
                         </tr>
                       )
@@ -7407,7 +7407,7 @@ export function AfterQuakePage() {
                       <Badge severity={tm.status === 'active' ? 'primary' : 'warning'} dot>{t(tm.status === 'active' ? 'aq.team.active' : 'aq.team.enRoute')}</Badge>
                     </div>
                     <div className="mt-3">
-                      <div className="flex justify-between text-[10px] text-ink-muted mb-1">
+                      <div className="flex justify-between text-10 text-ink-muted mb-1">
                         <span>{t('aq.team.covered')}</span><span className="font-mono font-medium">{tm.progress}%</span>
                       </div>
                       <div className="h-1.5 overflow-hidden rounded-full bg-ground">
@@ -7437,7 +7437,7 @@ export function AfterQuakePage() {
                       <p className="text-xs text-ink-muted mb-3">{sh.dept}</p>
                       {sh.cap > 0 && (
                         <div className="mb-2">
-                          <div className="flex justify-between text-[10px] text-ink-muted mb-1">
+                          <div className="flex justify-between text-10 text-ink-muted mb-1">
                             <span>{t('aq.shelter.occupancy', { occ: nf(sh.occ), cap: nf(sh.cap) })}</span>
                             <span className="font-mono font-medium">{occPct}%</span>
                           </div>
@@ -7447,7 +7447,7 @@ export function AfterQuakePage() {
                         </div>
                       )}
                       <div>
-                        <div className="flex justify-between text-[10px] text-ink-muted mb-1">
+                        <div className="flex justify-between text-10 text-ink-muted mb-1">
                           <span>{t('aq.shelter.supplies')}</span><span className="font-mono font-medium">{sh.supplies}%</span>
                         </div>
                         <div className="h-1.5 overflow-hidden rounded-full bg-ground">
@@ -7479,13 +7479,13 @@ export function AfterQuakePage() {
                           <div className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 ${isCurrent ? 'border-brand-700 bg-brand-700 text-white' : 'border-line bg-surface'}`}>
                             {isCurrent
                               ? <IconMapPin size={14} weight="fill" />
-                              : <span className="font-mono text-[9px] font-bold text-ink-muted">{String(i + 1).padStart(2,'0')}</span>
+                              : <span className="font-mono text-9 font-bold text-ink-muted">{String(i + 1).padStart(2,'0')}</span>
                             }
                           </div>
                           <div className="min-w-0 flex-1 pb-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-mono text-[10px] font-bold text-ink-muted">{ev.t}</span>
-                              <span className="rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase" style={{ backgroundColor: s.bg, color: s.text }}>{t(s.key)}</span>
+                              <span className="font-mono text-10 font-bold text-ink-muted">{ev.t}</span>
+                              <span className="rounded-full px-1.5 py-0.5 text-9 font-bold uppercase" style={{ backgroundColor: s.bg, color: s.text }}>{t(s.key)}</span>
                             </div>
                             <p className={`mt-0.5 text-sm ${isCurrent ? 'font-semibold text-brand-700' : 'text-ink-soft'}`}>{t(ev.txt)}</p>
                           </div>

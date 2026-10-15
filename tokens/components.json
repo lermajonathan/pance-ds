@@ -1140,7 +1140,7 @@
         "$value": "{color.intent.primary.solid}"
       },
       "track-off": {
-        "$value": "{color.intent.secondary.border-strong}"
+        "$value": "{color.border.control}"
       },
       "thumb": {
         "$value": "{color.intent.primary.on-solid}"
@@ -1207,7 +1207,7 @@
         "$value": "{color.intent.primary.solid}"
       },
       "border": {
-        "$value": "{color.intent.secondary.border-strong}"
+        "$value": "{color.border.control}"
       },
       "border-hover": {
         "$value": "{color.border.focus}"
@@ -1255,7 +1255,7 @@
         "$value": "{color.intent.primary.solid}"
       },
       "border": {
-        "$value": "{color.intent.secondary.border-strong}"
+        "$value": "{color.border.control}"
       },
       "border-hover": {
         "$value": "{color.border.focus}"
@@ -1329,16 +1329,36 @@
         "$value": "{color.border.default}"
       },
       "primary": {
-        "$value": "{color.intent.primary.solid}"
+        "$value": "{color.intent.primary.solid}",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.intent.primary.dot}"
+          }
+        }
       },
       "success": {
-        "$value": "{color.intent.success.solid}"
+        "$value": "{color.intent.success.solid}",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.intent.success.dot}"
+          }
+        }
       },
       "warning": {
-        "$value": "{color.intent.warning.solid}"
+        "$value": "{color.intent.warning.solid}",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.intent.warning.dot}"
+          }
+        }
       },
       "danger": {
-        "$value": "{color.intent.danger.solid}"
+        "$value": "{color.intent.danger.solid}",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.intent.danger.dot}"
+          }
+        }
       }
     }
   },
@@ -1470,6 +1490,10 @@
     },
     "connector": {
       "$value": "{size.2}"
+    },
+    "label-max-width": {
+      "$value": "100px",
+      "$description": "Max width of a step label in horizontal Steps"
     },
     "color": {
       "$type": "color",
@@ -1816,6 +1840,11 @@
     "min-height": {
       "$value": "42px",
       "$type": "dimension"
+    },
+    "input-min-width": {
+      "$value": "80px",
+      "$type": "dimension",
+      "$description": "Minimum width of the text field that follows the chips"
     },
     "chip-bg": {
       "$value": "{color.intent.primary.soft}",

@@ -20,6 +20,8 @@ jobs:
         run: pnpm tokens
       - name: Generated token files are up to date
         run: git diff --exit-code -- src/styles/tokens.css src/styles/theme.css src/tokens.ts tokens/dist docs/tokens.md || (echo "::error::Run 'pnpm tokens' and commit the generated files" && exit 1)
+      - name: Token contrast (WCAG 2.2, light + dark)
+        run: pnpm test:contrast
       - name: Components only use tokens
         run: pnpm lint:tokens
       - run: pnpm typecheck

@@ -17,8 +17,8 @@
 | Collection | Modes | Count | Notes |
 |---|---|---|---|
 | Primitives | Value | 220 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
-| Semantic | Light · Dark | 137 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz, radius, icon. Dark is a draft (ships v1.1) |
-| Components | Value | 432 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
+| Semantic | Light · Dark | 138 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz, radius, icon. Dark is a draft (ships v1.1) |
+| Components | Value | 434 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
 | Legacy · Primitives / Legacy · Semantic | — | 405 | Old collections, hidden from publishing. Safe to delete once nothing in Archive needs them |
 
 Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` (`var(--pance-color-intent-primary-solid)`).

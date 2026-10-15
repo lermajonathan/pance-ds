@@ -14,11 +14,13 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | §4.2 H3 size | ✅ Decided: 20px (`typography/h3`), 18px is `typography/h3-compact` for modal/drawer titles |
 | §4.5 Warning solid | ✅ amber-700 everywhere |
 | §5.1 Disabled opacity | ✅ 0.45 everywhere |
-| Figma library | ✅ Rebuilt from tokens: 789 variables, 14 text + 13 effect styles, 67 icons, 20 core components ([docs/figma.md](figma.md)) |
+| Figma library | ✅ Rebuilt from tokens: 792 variables, 14 text + 13 effect styles, 67 icons, 20 core components ([docs/figma.md](figma.md)) |
 | §3.5–3.10 ARIA patterns, keyboard, Field association | ✅ Fixed: dialog, menu button, select-only and autocomplete combobox, tabs, radio group, tooltip, disclosure; Field wires `id`, `aria-describedby`, `aria-invalid`, `aria-required`. 11 keyboard tests in `tests/keyboard.mjs` |
 | axe-core, 20 pages × 2 viewports | ✅ 975 → 36 violations (all of them the contrast exceptions above). Runs in CI via `tests/axe.mjs` |
 | §6 Components reading semantic tokens | ✅ Done: every component reads semantic utilities or component tokens; 32 component tokens re-aliased from primitives to semantic (code and Figma); `pnpm lint:tokens` in CI blocks hard-coded colours. Visual diff against the previous build: 0 px changed on 18 of 19 pages |
 | §5.5 Secondary severity | ✅ Aligned to tokens: soft text slate-700, soft bg slate-100 |
+| Dimensions from tokens | ✅ Tailwind spacing, radius, type, weight, leading, tracking and container scales resolve to Pance tokens; Button, Input, Badge, Toggle, Checkbox, Radio, Tabs, Modal, Drawer, Popover, Toast and Progress read their size tokens; `lint:tokens` also blocks magic pixel sizes |
+| Token contrast test | ✅ `tests/contrast.mjs`: 147 pairs (text 4.5:1, controls and focus 3:1) in light and dark. Found and fixed: unchecked checkbox/radio and switch-off boundaries at 2.56:1 (new `color.border.control`, slate-500, 4.76:1) and 27 dark-mode pairs (hover/active states, soft hovers, subtle text, slider) |
 | §6 i18n/router decoupling, npm packages | ⏳ Next |
 
 ## 1 · Changes made during extraction

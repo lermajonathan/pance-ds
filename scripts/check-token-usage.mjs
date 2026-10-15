@@ -1,4 +1,4 @@
-// Fails if a library component uses a raw palette step, hex or rgba colour instead of a token.
+// Fails if a library component uses a raw palette step, hex/rgba colour or a magic pixel size instead of a token.
 // Components must use semantic utilities (bg-primary-solid, text-ink-muted, border-line…) or
 // component tokens (bg-(--pance-button-color-primary-filled-bg)), so token edits and themes reach them.
 import fs from 'node:fs'
@@ -9,6 +9,8 @@ const rules = [
   [/\b(?:bg|text|border|ring|outline|decoration|fill|stroke|from|via|to|divide|shadow)-(?:brand|slate|emerald|sky|amber|violet|rose|orange|gray|zinc|neutral|red|green|blue|cyan|teal|yellow|purple|pink)-\d{2,3}\b/g, 'palette step'],
   [/#[0-9a-fA-F]{3,8}\b(?![^'"`]*\}\})/g, 'hex colour'],
   [/rgba?\(/g, 'rgb() colour'],
+  // Sizes, padding, gaps, type and radius must come from the token scale or a component token, not a magic number.
+  [/\b(?:min-|max-)?(?:w|h|size|p[trblxy]?|gap(?:-[xy])?|text|rounded(?:-[a-z]+)?|leading|tracking)-\[[0-9.]+(?:px|rem)\]/g, 'magic dimension'],
 ]
 let problems = 0
 for (const file of fs.readdirSync(dir).filter((f) => /\.(tsx?|ts)$/.test(f))) {
@@ -22,7 +24,7 @@ for (const file of fs.readdirSync(dir).filter((f) => /\.(tsx?|ts)$/.test(f))) {
   })
 }
 if (problems) {
-  console.log(`\n${problems} hard-coded colour(s). Use a semantic utility or a component token instead (see docs/tokens.md).`)
+  console.log(`\n${problems} hard-coded value(s). Use a semantic utility, the token scale or a component token instead (see docs/tokens.md).`)
   process.exit(1)
 }
-console.log('✓ Components only use tokens')
+console.log('✓ Components only use tokens (colours and dimensions)')

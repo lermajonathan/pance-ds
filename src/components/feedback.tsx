@@ -90,7 +90,7 @@ export function Progress({
   return (
     <div className="flex items-center gap-3">
       <div
-        className="h-2 flex-1 overflow-hidden rounded-full bg-line"
+        className="h-(--pance-progress-height) flex-1 overflow-hidden rounded-(--pance-progress-radius) bg-(--pance-progress-track)"
         role="progressbar"
         aria-valuenow={pct}
         aria-valuemin={0}
@@ -100,7 +100,7 @@ export function Progress({
       >
         <div className={`h-full rounded-full transition-all duration-500 ${TONE[severity].dot}`} style={{ width: `${pct}%` }} />
       </div>
-      {showValue && <span aria-hidden className="w-9 shrink-0 text-right font-mono text-[11px] text-ink-muted">{pct}%</span>}
+      {showValue && <span aria-hidden className="w-9 shrink-0 text-right font-mono text-11 text-ink-muted">{pct}%</span>}
     </div>
   )
 }
@@ -131,7 +131,7 @@ export function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: st
     <div
       role={item.severity === 'danger' ? 'alert' : 'status'}
       aria-atomic="true"
-      className={`flex w-80 items-start gap-3 rounded-xl border p-4 shadow-toast ${t.bg} ${t.border}`}>
+      className={`flex w-(--pance-toast-width) items-start gap-3 rounded-(--pance-toast-radius) border p-(--pance-toast-padding) shadow-toast ${t.bg} ${t.border}`}>
       <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full ${t.solid}`} aria-hidden>
         <Icon className="h-3.5 w-3.5" />
       </span>

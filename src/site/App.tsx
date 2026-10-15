@@ -124,7 +124,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
         </div>
         <div className={`min-w-0 overflow-hidden transition-all duration-300 ${collapsed ? 'w-auto opacity-100 lg:w-0 lg:opacity-0' : 'w-auto opacity-100'}`}>
           <p className="font-display text-lg font-extrabold leading-none tracking-tight text-ink">Pance</p>
-          <p className="mt-1 truncate font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">{t('shell.designSystem')}</p>
+          <p className="mt-1 truncate font-mono text-10 uppercase tracking-[0.2em] text-ink-muted">{t('shell.designSystem')}</p>
         </div>
         <button
           onClick={onCloseMobile}
@@ -140,7 +140,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
           <div key={group.titleKey ?? 'top'} className="mb-1">
             {!group.topLevel && group.titleKey && (
               <>
-                <p className={`px-3 pb-1.5 pt-4 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-ink-muted ${collapsed ? 'block lg:hidden' : 'block'}`}>{t(group.titleKey)}</p>
+                <p className={`px-3 pb-1.5 pt-4 font-mono text-10 font-medium uppercase tracking-[0.18em] text-ink-muted ${collapsed ? 'block lg:hidden' : 'block'}`}>{t(group.titleKey)}</p>
                 {collapsed && <div className="mx-3 my-3 hidden border-t border-line-soft lg:block" />}
               </>
             )}
@@ -251,7 +251,7 @@ function Shell() {
           <header className="sticky top-0 z-20 hidden h-20 items-center justify-between gap-6 border-b border-line bg-ground/80 px-8 backdrop-blur-md lg:flex">
             {isHome ? (
               <div className="flex min-w-0 items-center gap-3">
-                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-700 ring-1 ring-inset ring-brand-200">
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1.5 font-mono text-11 font-semibold uppercase tracking-[0.12em] text-brand-700 ring-1 ring-inset ring-brand-200">
                   <IconCheckCircle size={14} weight="bold" />
                   {t('shell.openSource')}
                 </span>
@@ -259,7 +259,7 @@ function Shell() {
               </div>
             ) : (
               <div className="min-w-0">
-                <p className="truncate font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted">{t('shell.breadcrumb')}</p>
+                <p className="truncate font-mono text-11 uppercase tracking-[0.16em] text-ink-muted">{t('shell.breadcrumb')}</p>
                 <h1 className="mt-0.5 truncate font-display text-2xl font-extrabold tracking-tight text-ink">{label}</h1>
               </div>
             )}

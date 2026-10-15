@@ -30,7 +30,7 @@ export function NotificationsBell() {
       <ul className="-mx-1 max-h-[min(22rem,60vh)] space-y-1 overflow-y-auto">
         {NOTES.map((n) => (
           <li key={n} className="rounded-lg px-2 py-2 hover:bg-brand-50/60">
-            <p className="font-mono text-[10px] tracking-[0.1em] text-brand-700">{t(`release.${n}.version` as Key)}</p>
+            <p className="font-mono text-10 tracking-[0.1em] text-brand-700">{t(`release.${n}.version` as Key)}</p>
             <p className="mt-0.5 text-sm font-semibold text-ink">{t(`release.${n}.title` as Key)}</p>
             <p className="mt-0.5 text-xs leading-relaxed text-ink-muted">{t(`release.${n}.body` as Key)}</p>
           </li>

@@ -108,6 +108,7 @@
   --color-line: var(--pance-color-border-default);
   --color-line-soft: var(--pance-color-border-soft);
   --color-line-strong: var(--pance-color-border-strong);
+  --color-line-control: var(--pance-color-border-control);
   --color-line-focus: var(--pance-color-border-focus);
   --color-ink-disabled: var(--pance-color-fg-disabled);
   --color-ink-inverse: var(--pance-color-fg-inverse);
@@ -224,6 +225,50 @@
   --shadow-brand: var(--pance-shadow-brand);
   --shadow-menu: var(--pance-shadow-menu);
   --shadow-toast: var(--pance-shadow-toast);
+
+  /* Tailwind scales → Pance dimension tokens, so p-4, gap-2, rounded-xl, text-sm, font-semibold, max-w-md… all resolve to tokens */
+  --spacing: var(--pance-space-0-5);
+  --radius-sm: var(--pance-radius-4);
+  --radius-md: var(--pance-radius-6);
+  --radius-lg: var(--pance-radius-8);
+  --radius-xl: var(--pance-radius-12);
+  --radius-2xl: var(--pance-radius-16);
+  --text-xs: var(--pance-font-size-12);
+  --text-sm: var(--pance-font-size-14);
+  --text-base: var(--pance-font-size-16);
+  --text-lg: var(--pance-font-size-18);
+  --text-xl: var(--pance-font-size-20);
+  --text-2xl: var(--pance-font-size-24);
+  --text-3xl: var(--pance-font-size-30);
+  --text-4xl: var(--pance-font-size-36);
+  --text-5xl: var(--pance-font-size-48);
+  --text-6xl: var(--pance-font-size-60);
+  --text-9: var(--pance-font-size-9);
+  --text-10: var(--pance-font-size-10);
+  --text-11: var(--pance-font-size-11);
+  --text-13: var(--pance-font-size-13);
+  --text-15: var(--pance-font-size-15);
+  --font-weight-normal: var(--pance-font-weight-regular);
+  --font-weight-medium: var(--pance-font-weight-medium);
+  --font-weight-semibold: var(--pance-font-weight-semibold);
+  --font-weight-bold: var(--pance-font-weight-bold);
+  --font-weight-extrabold: var(--pance-font-weight-extrabold);
+  --leading-tight: var(--pance-line-height-tight);
+  --leading-snug: var(--pance-line-height-snug);
+  --leading-normal: var(--pance-line-height-normal);
+  --leading-relaxed: var(--pance-line-height-relaxed);
+  --tracking-tight: var(--pance-letter-spacing-tight);
+  --tracking-normal: var(--pance-letter-spacing-normal);
+  --tracking-wider: var(--pance-letter-spacing-wider);
+  --tracking-widest: var(--pance-letter-spacing-widest);
+  --container-sm: var(--pance-container-sm);
+  --container-md: var(--pance-container-md);
+  --container-lg: var(--pance-container-lg);
+  --container-xl: var(--pance-container-xl);
+  --container-2xl: var(--pance-container-2xl);
+  --container-4xl: var(--pance-container-4xl);
+  --container-6xl: var(--pance-container-6xl);
+  --blur-sm: var(--pance-blur-backdrop);
 
   /* Radius utilities: rounded-control (12px), rounded-container (16px), rounded-item (8px) */
   --radius-item: var(--pance-radius-item);

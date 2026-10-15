@@ -15,9 +15,9 @@ export type TabVariant = 'underline' | 'pills' | 'boxed'
 export type TabSize = 'sm' | 'md' | 'lg'
 
 const TAB_PAD: Record<TabSize, string> = {
-  sm: 'px-3 py-1.5 text-[13px]',
-  md: 'px-4 py-2.5 text-sm',
-  lg: 'px-5 py-3 text-base',
+  sm: 'px-(--pance-tabs-size-sm-padding-x) py-(--pance-tabs-size-sm-padding-y) text-13',
+  md: 'px-(--pance-tabs-size-md-padding-x) py-(--pance-tabs-size-md-padding-y) text-sm',
+  lg: 'px-(--pance-tabs-size-lg-padding-x) py-(--pance-tabs-size-lg-padding-y) text-base',
 }
 
 const TAB_LOOK: Record<TabVariant, { list: string; tab: string; on: string; off: string; badgeOn: string; badgeOff: string }> = {
@@ -100,12 +100,12 @@ export function Tabs({
             disabled={disabled}
             onClick={() => !disabled && onChange(key)}
             onKeyDown={(e) => onKeyDown(e, i)}
-            className={`${focus} inline-flex items-center gap-1.5 font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${look.tab} ${TAB_PAD[size]} ${active ? look.on : look.off}`}
+            className={`${focus} inline-flex items-center gap-1.5 font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${look.tab} ${TAB_PAD[size]} ${active ? look.on : look.off}`}
           >
             {Icon && <Icon size={iconSz} weight={active ? 'fill' : 'regular'} aria-hidden />}
             {text}
             {badge !== undefined && (
-              <span className={`rounded-full px-1.5 py-0.5 font-mono text-[10px] font-bold ${active ? look.badgeOn : look.badgeOff}`}>{badge}</span>
+              <span className={`rounded-full px-1.5 py-0.5 font-mono text-10 font-bold ${active ? look.badgeOn : look.badgeOff}`}>{badge}</span>
             )}
             {variant === 'underline' && (
               <span aria-hidden className={`absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-primary-solid transition-all duration-300 ${active ? 'opacity-100' : 'opacity-0'}`} />
@@ -266,12 +266,12 @@ export function Steps({
                 <span className={`h-0.5 flex-1 ${s.status === 'complete' ? 'bg-(--pance-steps-color-connector-complete)' : 'bg-line'}`} />
               )}
             </div>
-            <div className="max-w-[100px] text-center">
+            <div className="max-w-(--pance-steps-label-max-width) text-center">
               <p className={`text-xs font-semibold leading-snug ${s.status === 'current' ? 'text-primary-fg' : s.status === 'complete' ? 'text-ink' : s.status === 'error' ? 'text-danger' : 'text-ink-muted'}`}>
                 {s.label}
                 {sr(s.status)}
               </p>
-              {s.description && <p className="mt-0.5 text-[10px] leading-snug text-ink-muted">{s.description}</p>}
+              {s.description && <p className="mt-0.5 text-10 leading-snug text-ink-muted">{s.description}</p>}
             </div>
           </li>
         )
@@ -281,7 +281,7 @@ export function Steps({
 }
 
 function StepDot({ status, index }: { status: StepStatus; index: number }) {
-  const base = 'grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[13px] font-bold transition-colors'
+  const base = 'grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-13 font-bold transition-colors'
   if (status === 'complete') return <span className={`${base} bg-(--pance-steps-color-complete) text-primary-on-solid`}><IconCheck className="h-4 w-4" /></span>
   if (status === 'current') return <span className={`${base} border-2 border-primary-solid bg-primary-soft text-primary-fg`}>{index}</span>
   if (status === 'error') return <span className={`${base} border-2 border-danger bg-danger-soft text-danger`}><IconAlert className="h-4 w-4" /></span>
@@ -339,7 +339,7 @@ export function NavMenu({
                 else onChange(item.key)
               }}
               title={collapsed ? item.label : undefined}
-              className={`${focus} group relative flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ${
+              className={`${focus} group relative flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${
                 active ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'
               }`}
             >
@@ -369,7 +369,7 @@ export function NavMenu({
                       disabled={child.disabled}
                       aria-current={childActive ? 'page' : undefined}
                       onClick={() => onChange(child.key)}
-                      className={`${focus} flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                      className={`${focus} flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${
                         childActive ? 'bg-primary-soft font-medium text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'
                       }`}
                     >

@@ -11,6 +11,17 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - Hard-coded shadows, `text-white` and `bg-white` in components replaced by shadow tokens and `on-solid` / inverse tokens, so dark mode reaches them.
 - `pnpm lint:tokens` (`scripts/check-token-usage.mjs`) fails CI if a component uses a palette step, hex or rgb colour.
 
+### Tokens (dimensions and contrast)
+- Tailwind scales map to Pance tokens: `--spacing` = `space.0-5` (4px), radius sm–2xl, `text-xs`…`text-6xl` plus `text-9/10/11/13/15`, font weights, leading, tracking, `max-w-sm…6xl` and `backdrop-blur-sm`.
+- Button, Input, Badge, Toggle, Checkbox, Radio, Tabs, Modal, Drawer, Popover, Toast and Progress read their component size tokens. New tokens: `steps.label-max-width`, `tag-input.input-min-width`.
+- `lint:tokens` also blocks magic pixel sizes (`w-[52px]`, `text-[13px]`) in components.
+- New `tests/contrast.mjs` (`pnpm test:contrast`, in CI): 147 token pairs checked against WCAG 2.2 in light and dark.
+- New semantic `color.border.control` (slate-500 light, slate-400 dark) for unchecked checkbox/radio boundaries and the off switch track: they were 2.56:1, below the 3:1 non-text minimum. Now 4.76:1.
+- Dark mode: solid hover/active states now darken (white text kept ≥ 4.5:1), `fg` for info/help/danger uses step 300, `fg.subtle` uses slate-400, slider fills use the intent dot colour. All 147 pairs pass in dark.
+
+### Fixed
+- Link buttons and the SplitButton arrow ignored their padding override (`px-1`, `px-2`): the size padding won in the cascade. Now the override applies, so link buttons are tighter, as designed.
+
 ### Changed
 - Secondary severity aligned to its tokens: soft badge/alert text slate-700 (was 600), soft background slate-100 (was slate-50). Contrast soft badge background slate-100 (was 200).
 

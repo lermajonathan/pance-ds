@@ -7,7 +7,7 @@ import { listKeyNav } from './a11y'
 
 /* ── Inputs ────────────────────────────────────────────────────────────── */
 const inputBase =
-  `${focus} w-full rounded-xl border bg-surface text-ink placeholder:text-ink-subtle transition-colors duration-200`
+  `${focus} w-full rounded-(--pance-input-radius) border bg-surface text-ink placeholder:text-ink-subtle transition-colors duration-200`
 const inputNormal = 'border-line hover:border-line-strong'
 const inputError =
   'border-danger bg-danger-soft/40 focus-visible:shadow-[var(--pance-focus-ring-danger)]'
@@ -34,10 +34,11 @@ export function useFieldControl(own: { id?: string; 'aria-describedby'?: string;
 }
 
 export type InputSize = 'sm' | 'md' | 'lg'
+// Dimensions come from component tokens (tokens/components.json → input.size.*).
 const INPUT_SIZE: Record<InputSize, string> = {
-  sm: 'h-8 px-3 text-[13px]',
-  md: 'h-10 px-3.5 text-sm',
-  lg: 'h-12 px-4 text-base',
+  sm: 'h-(--pance-input-size-sm-height) px-(--pance-input-size-sm-padding-x) text-(length:--pance-input-size-sm-font-size)',
+  md: 'h-(--pance-input-size-md-height) px-(--pance-input-size-md-padding-x) text-(length:--pance-input-size-md-font-size) leading-5',
+  lg: 'h-(--pance-input-size-lg-height) px-(--pance-input-size-lg-padding-x) text-(length:--pance-input-size-lg-font-size)',
 }
 
 export function Input({
@@ -64,7 +65,7 @@ export function Input({
   const isPwd = type === 'password'
   const resolvedType = isPwd ? (showPwd ? 'text' : 'password') : type
   const state = error ? inputError : success ? inputSuccess : inputNormal
-  const iconSize = inputSize === 'sm' ? 'h-4 w-4' : inputSize === 'lg' ? 'h-5 w-5' : 'h-[18px] w-[18px]'
+  const iconSize = inputSize === 'sm' ? 'size-(--pance-input-size-sm-icon)' : inputSize === 'lg' ? 'size-(--pance-input-size-lg-icon)' : 'size-(--pance-input-size-md-icon)'
   const leftPad = Icon ? (inputSize === 'sm' ? 'pl-8' : inputSize === 'lg' ? 'pl-11' : 'pl-10') : ''
   const rightPad = (isPwd || TrailingIcon) ? (inputSize === 'sm' ? 'pr-8' : inputSize === 'lg' ? 'pr-11' : 'pr-10') : ''
   const iconLeft = inputSize === 'sm' ? 'left-2.5' : inputSize === 'lg' ? 'left-4' : 'left-3.5'
@@ -146,7 +147,7 @@ export function Field({
           optional && <span key="o" className="ml-1.5 font-normal text-ink-muted">{tt('ui.optional')}</span>,
         )}
         {hasCount && (
-          <span id={countId} className={`font-mono text-[11px] ${charCount! > maxChars! ? 'text-danger' : 'text-ink-muted'}`}>
+          <span id={countId} className={`font-mono text-11 ${charCount! > maxChars! ? 'text-danger' : 'text-ink-muted'}`}>
             {charCount}/{maxChars}
           </span>
         )}
@@ -186,7 +187,7 @@ export function Textarea({
   const state = error ? inputError : success ? inputSuccess : inputNormal
   return (
     <textarea
-      className={`${inputBase} ${state} px-3.5 py-2.5 text-sm leading-relaxed resize-none min-h-[80px] ${className}`}
+      className={`${inputBase} ${state} px-3.5 py-2.5 text-sm leading-relaxed resize-none min-h-(--pance-input-textarea-min-height) ${className}`}
       {...rest}
       {...a11y}
     />
@@ -279,7 +280,7 @@ export function RangeSlider({
         aria-valuetext={valueText}
         {...a11y}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full bg-line disabled:cursor-not-allowed disabled:opacity-45 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
+        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full bg-line disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
         style={{
           background: `linear-gradient(to right, ${thumb} ${pct}%, var(--pance-color-border-default) ${pct}%)`,
           ['--thumb' as string]: thumb,
@@ -341,7 +342,7 @@ export function FileDropzone({
           {files.map((f, i) => (
             <li key={i} className="flex items-center justify-between rounded-xl border border-line bg-surface px-4 py-2.5 text-sm">
               <span className="truncate text-ink-soft">{f.name}</span>
-              <span className="ml-3 shrink-0 font-mono text-[11px] text-ink-muted">{(f.size / 1024).toFixed(1)} KB</span>
+              <span className="ml-3 shrink-0 font-mono text-11 text-ink-muted">{(f.size / 1024).toFixed(1)} KB</span>
               <button
                 type="button"
                 onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}
@@ -423,7 +424,7 @@ export function PinInput({
           onChange={(e) => update(i, e.target.value)}
           onKeyDown={(e) => onKey(i, e)}
           onPaste={onPaste}
-          className={`${focus} aspect-square w-0 min-w-0 flex-1 basis-0 max-w-[3rem] rounded-xl border text-center font-mono text-base font-semibold text-ink transition-colors sm:text-lg ${
+          className={`${focus} aspect-square w-0 min-w-0 flex-1 basis-0 max-w-(--pance-input-pin-max-size) rounded-xl border text-center font-mono text-base font-semibold text-ink transition-colors sm:text-lg ${
             error
               ? 'border-danger bg-danger-soft/40 text-danger'
               : v
@@ -595,7 +596,7 @@ export function Combobox({
                 className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${o.value === value ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft'} ${i === active ? 'ring-2 ring-inset ring-line-focus' : ''} ${o.value !== value ? 'hover:bg-ground' : ''}`}
               >
                 <span>{o.label}</span>
-                <span className="font-mono text-[11px] text-ink-muted">{o.meta}</span>
+                <span className="font-mono text-11 text-ink-muted">{o.meta}</span>
                 {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-primary-fg" aria-hidden="true" />}
               </li>
             ))
@@ -676,7 +677,7 @@ export function Select({
         {...a11y}
         onClick={() => (open ? close() : openAt(current))}
         onKeyDown={onButtonKey}
-        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between text-left disabled:cursor-not-allowed disabled:opacity-45 ${error ? 'border-danger' : 'border-line hover:border-line-strong'} ${open ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : ''}`}
+        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between text-left disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${error ? 'border-danger' : 'border-line hover:border-line-strong'} ${open ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : ''}`}
       >
         <span className="flex items-center gap-2 truncate">
           <span className="h-2 w-2 shrink-0 rounded-full bg-primary-dot" aria-hidden="true" />
@@ -773,7 +774,7 @@ export function TagInput({
     <div className="relative">
       <div
         onClick={() => inputRef.current?.focus()}
-        className={`flex min-h-[42px] cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : 'border-line hover:border-line-strong'}`}
+        className={`flex min-h-(--pance-tag-input-min-height) cursor-text flex-wrap items-center gap-1.5 rounded-xl border bg-surface px-3 py-2 transition-colors duration-200 ${focused ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : 'border-line hover:border-line-strong'}`}
       >
         <ul className="contents">
           {tags.map((tag) => (
@@ -800,7 +801,7 @@ export function TagInput({
           onFocus={() => setFocused(true)}
           onBlur={() => { setFocused(false); setActive(-1); if (input.trim()) add(input) }}
           placeholder={tags.length ? '' : placeholder}
-          className="min-w-[80px] flex-1 bg-transparent text-sm text-ink placeholder:text-ink-subtle outline-none"
+          className="min-w-(--pance-tag-input-input-min-width) flex-1 bg-transparent text-sm text-ink placeholder:text-ink-subtle outline-none"
         />
       </div>
       {open && (

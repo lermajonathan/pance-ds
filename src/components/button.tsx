@@ -73,15 +73,16 @@ const SEV: Record<Severity, Record<ButtonVariant, string> & { raised: string }> 
   },
 }
 
-const SIZE: Record<ButtonSize, { pad: string; icon: number; square: string; gap: string }> = {
-  sm: { pad: 'h-8 px-3 text-[13px]', icon: 16, square: 'h-8 w-8', gap: 'gap-1.5' },
-  md: { pad: 'h-10 px-4 text-sm', icon: 18, square: 'h-10 w-10', gap: 'gap-2' },
-  lg: { pad: 'h-12 px-6 text-base', icon: 22, square: 'h-12 w-12', gap: 'gap-2.5' },
+// Dimensions come from component tokens (tokens/components.json → button.size.*).
+const SIZE: Record<ButtonSize, { pad: string; icon: string; square: string; gap: string }> = {
+  sm: { pad: 'h-(--pance-button-size-sm-height) px-(--pance-button-size-sm-padding-x) text-(length:--pance-button-size-sm-font-size)', icon: 'size-(--pance-button-size-sm-icon)', square: 'size-(--pance-button-size-sm-height)', gap: 'gap-(--pance-button-size-sm-gap)' },
+  md: { pad: 'h-(--pance-button-size-md-height) px-(--pance-button-size-md-padding-x) text-(length:--pance-button-size-md-font-size) leading-5', icon: 'size-(--pance-button-size-md-icon)', square: 'size-(--pance-button-size-md-height)', gap: 'gap-(--pance-button-size-md-gap)' },
+  lg: { pad: 'h-(--pance-button-size-lg-height) px-(--pance-button-size-lg-padding-x) text-(length:--pance-button-size-lg-font-size)', icon: 'size-(--pance-button-size-lg-icon)', square: 'size-(--pance-button-size-lg-height)', gap: 'gap-(--pance-button-size-lg-gap)' },
 }
 const STACK: Record<ButtonSize, string> = {
-  sm: 'h-auto flex-col px-3 py-2 text-[13px]',
-  md: 'h-auto flex-col px-4 py-2.5 text-sm',
-  lg: 'h-auto flex-col px-6 py-3 text-base',
+  sm: 'h-auto flex-col px-(--pance-button-size-sm-padding-x) py-2 text-(length:--pance-button-size-sm-font-size)',
+  md: 'h-auto flex-col px-(--pance-button-size-md-padding-x) py-2.5 text-(length:--pance-button-size-md-font-size) leading-5',
+  lg: 'h-auto flex-col px-(--pance-button-size-lg-padding-x) py-3 text-(length:--pance-button-size-lg-font-size)',
 }
 
 export function Button({
@@ -117,22 +118,22 @@ export function Button({
   const stacked = iconPos === 'top' || iconPos === 'bottom'
   const Glyph = loading ? IconSpinner : Icon
 
-  const shape = rounded ? 'rounded-full' : variant === 'link' ? 'rounded-lg' : 'rounded-xl'
+  const shape = rounded ? 'rounded-(--pance-button-radius-rounded)' : variant === 'link' ? 'rounded-lg' : 'rounded-(--pance-button-radius)'
   const geometry = iconOnly
-    ? `${s.square} ${rounded ? 'rounded-full' : 'rounded-xl'}`
+    ? `${s.square} ${rounded ? 'rounded-(--pance-button-radius-rounded)' : 'rounded-(--pance-button-radius)'}`
     : stacked
       ? `${STACK[size]} ${shape}`
       : `${s.pad} ${shape}`
   const inset = variant === 'link' ? 'px-1' : ''
 
-  const glyph = Glyph ? <Glyph size={s.icon} weight="regular" aria-hidden className={loading ? 'animate-spin' : ''} /> : null
+  const glyph = Glyph ? <Glyph weight="regular" aria-hidden className={`${s.icon} shrink-0 ${loading ? 'animate-spin' : ''}`} /> : null
 
   return (
     <button
       disabled={disabled || loading}
       aria-busy={loading || undefined}
-      className={`${focus} relative inline-flex items-center justify-center font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${
-        stacked ? 'gap-1.5' : s.gap
+      className={`${focus} relative inline-flex items-center justify-center font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-(--pance-button-disabled-opacity) ${
+        stacked ? 'gap-(--pance-button-size-sm-gap)' : s.gap
       } ${SEV[severity][variant]} ${raised ? SEV[severity].raised : ''} ${geometry} ${inset} ${block ? 'w-full' : ''} ${className}`}
       {...rest}
     >
@@ -141,7 +142,7 @@ export function Button({
       {(iconPos === 'right' || iconPos === 'bottom') && glyph}
       {badge !== undefined && (
         <span
-          className={`ml-1 grid h-5 min-w-5 place-items-center rounded-full px-1 font-mono text-[10px] font-bold ${
+          className={`ml-1 grid h-5 min-w-5 place-items-center rounded-full px-1 font-mono text-10 font-bold ${
             variant === 'filled' ? 'bg-black/25 text-white' : 'bg-current/10 text-current'
           }`}
         >

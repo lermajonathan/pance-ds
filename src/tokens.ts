@@ -182,6 +182,7 @@ export const tokens = {
       "default": "#e2e8f0",
       "soft": "#eef2f6",
       "strong": "#cbd5e1",
+      "control": "#64748b",
       "focus": "#0891b2",
       "disabled": "#e2e8f0"
     },
@@ -1169,7 +1170,7 @@ export const tokens = {
     },
     "color": {
       "track-on": "#0e7490",
-      "track-off": "#94a3b8",
+      "track-off": "#64748b",
       "thumb": "#ffffff"
     },
     "disabled-opacity": 0.45,
@@ -1198,7 +1199,7 @@ export const tokens = {
     },
     "color": {
       "checked": "#0e7490",
-      "border": "#94a3b8",
+      "border": "#64748b",
       "border-hover": "#0891b2",
       "error": "#e11d48"
     },
@@ -1221,7 +1222,7 @@ export const tokens = {
     },
     "color": {
       "checked": "#0e7490",
-      "border": "#94a3b8",
+      "border": "#64748b",
       "border-hover": "#0891b2"
     },
     "card": {
@@ -1310,6 +1311,7 @@ export const tokens = {
   "steps": {
     "dot": "32px",
     "connector": "2px",
+    "label-max-width": "100px",
     "color": {
       "complete": "#0e7490",
       "connector-complete": "#0e7490",
@@ -1429,6 +1431,7 @@ export const tokens = {
   },
   "tag-input": {
     "min-height": "42px",
+    "input-min-width": "80px",
     "chip-bg": "#ecfeff",
     "chip-text": "#0e7490",
     "chip-ring": "#a5f3fc"

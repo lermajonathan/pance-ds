@@ -97,7 +97,7 @@ export function HeaderSearch({ pages, className = '' }: { pages: { key: string; 
           className={`flex w-full min-w-0 items-baseline gap-2 rounded-lg px-3 py-2 text-left text-sm ${i === active ? 'bg-brand-50 text-brand-700' : 'text-ink'}`}
         >
           <span className="min-w-0 truncate font-medium">{r.label}</span>
-          {r.context && <span className="min-w-0 shrink-0 truncate font-mono text-[11px] text-ink-muted">{r.context}</span>}
+          {r.context && <span className="min-w-0 shrink-0 truncate font-mono text-11 text-ink-muted">{r.context}</span>}
         </button>
       </li>
     )
@@ -126,11 +126,11 @@ export function HeaderSearch({ pages, className = '' }: { pages: { key: string; 
           <ul id="hs-list" role="listbox">
             {flat.length === 0 && <li className="px-3 py-3 text-sm text-ink-muted">{t('shell.search.empty', { q: q.trim() })}</li>}
             {pageResults.length > 0 && (
-              <li role="presentation" className="px-3 pb-1 pt-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">{t('shell.search.pages')}</li>
+              <li role="presentation" className="px-3 pb-1 pt-2 font-mono text-10 uppercase tracking-[0.16em] text-ink-muted">{t('shell.search.pages')}</li>
             )}
             {pageResults.map(row)}
             {sectionResults.length > 0 && (
-              <li role="presentation" className="px-3 pb-1 pt-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">{t('shell.search.sections')}</li>
+              <li role="presentation" className="px-3 pb-1 pt-2 font-mono text-10 uppercase tracking-[0.16em] text-ink-muted">{t('shell.search.sections')}</li>
             )}
             {sectionResults.map(row)}
           </ul>

@@ -100,7 +100,7 @@
         "$description": "Placeholders and non-essential text, only on bg.surface (4.76:1).",
         "$extensions": {
           "pance.modes": {
-            "dark": "{color.slate.500}"
+            "dark": "{color.slate.400}"
           }
         }
       },
@@ -169,6 +169,15 @@
           }
         }
       },
+      "control": {
+        "$value": "{color.slate.500}",
+        "$description": "Boundary of unchecked checkboxes and radios and the off switch track. ≥ 3:1 on surface and page (WCAG 1.4.11).",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.slate.400}"
+          }
+        }
+      },
       "focus": {
         "$value": "{color.aqua.600}",
         "$description": "Focus ring inner line. 3.68:1 on white (non-text ≥ 3:1).",
@@ -200,20 +209,10 @@
           }
         },
         "solid-hover": {
-          "$value": "{color.aqua.800}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.aqua.600}"
-            }
-          }
+          "$value": "{color.aqua.800}"
         },
         "solid-active": {
-          "$value": "{color.aqua.900}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.aqua.500}"
-            }
-          }
+          "$value": "{color.aqua.900}"
         },
         "on-solid": {
           "$value": "{color.white}",
@@ -293,20 +292,10 @@
           }
         },
         "solid-hover": {
-          "$value": "{color.slate.700}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.slate.500}"
-            }
-          }
+          "$value": "{color.slate.700}"
         },
         "solid-active": {
-          "$value": "{color.slate.800}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.slate.400}"
-            }
-          }
+          "$value": "{color.slate.800}"
         },
         "on-solid": {
           "$value": "{color.white}",
@@ -386,20 +375,10 @@
           }
         },
         "solid-hover": {
-          "$value": "{color.emerald.800}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.emerald.600}"
-            }
-          }
+          "$value": "{color.emerald.800}"
         },
         "solid-active": {
-          "$value": "{color.emerald.900}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.emerald.500}"
-            }
-          }
+          "$value": "{color.emerald.900}"
         },
         "on-solid": {
           "$value": "{color.white}",
@@ -479,20 +458,10 @@
           }
         },
         "solid-hover": {
-          "$value": "{color.sky.800}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.sky.600}"
-            }
-          }
+          "$value": "{color.sky.800}"
         },
         "solid-active": {
-          "$value": "{color.sky.900}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.sky.500}"
-            }
-          }
+          "$value": "{color.sky.900}"
         },
         "on-solid": {
           "$value": "{color.white}",
@@ -548,7 +517,7 @@
           "$description": "Text and icons on light surfaces. ≥ 4.5:1 on white and on its soft background.",
           "$extensions": {
             "pance.modes": {
-              "dark": "{color.sky.400}"
+              "dark": "{color.sky.300}"
             }
           }
         },
@@ -572,20 +541,10 @@
           }
         },
         "solid-hover": {
-          "$value": "{color.amber.800}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.amber.600}"
-            }
-          }
+          "$value": "{color.amber.800}"
         },
         "solid-active": {
-          "$value": "{color.amber.900}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.amber.500}"
-            }
-          }
+          "$value": "{color.amber.900}"
         },
         "on-solid": {
           "$value": "{color.white}",
@@ -665,20 +624,10 @@
           }
         },
         "solid-hover": {
-          "$value": "{color.violet.700}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.violet.500}"
-            }
-          }
+          "$value": "{color.violet.700}"
         },
         "solid-active": {
-          "$value": "{color.violet.800}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.violet.400}"
-            }
-          }
+          "$value": "{color.violet.800}"
         },
         "on-solid": {
           "$value": "{color.white}",
@@ -734,7 +683,7 @@
           "$description": "Text and icons on light surfaces. ≥ 4.5:1 on white and on its soft background.",
           "$extensions": {
             "pance.modes": {
-              "dark": "{color.violet.400}"
+              "dark": "{color.violet.300}"
             }
           }
         },
@@ -758,20 +707,10 @@
           }
         },
         "solid-hover": {
-          "$value": "{color.rose.700}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.rose.500}"
-            }
-          }
+          "$value": "{color.rose.700}"
         },
         "solid-active": {
-          "$value": "{color.rose.800}",
-          "$extensions": {
-            "pance.modes": {
-              "dark": "{color.rose.400}"
-            }
-          }
+          "$value": "{color.rose.800}"
         },
         "on-solid": {
           "$value": "{color.white}",
@@ -827,7 +766,7 @@
           "$description": "Text and icons on light surfaces. ≥ 4.5:1 on white and on its soft background.",
           "$extensions": {
             "pance.modes": {
-              "dark": "{color.rose.400}"
+              "dark": "{color.rose.300}"
             }
           }
         },

@@ -14,7 +14,8 @@
     "format": "oxfmt",
     "test:keyboard": "node tests/keyboard.mjs",
     "test:axe": "node tests/axe.mjs",
-    "lint:tokens": "node scripts/check-token-usage.mjs"
+    "lint:tokens": "node scripts/check-token-usage.mjs",
+    "test:contrast": "node tests/contrast.mjs --strict"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
