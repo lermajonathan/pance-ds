@@ -4,6 +4,8 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-15
+
 ### Added: data components (promoted from the docs site into `@pance/react`)
 - **Metric cards:** `MetricCard` (variants `default`, `compact`, `hero`, `goal`, `breakdown`, `comparison`; states `loading`, `empty`, `error`), `Delta` and `Sparkline` (line and bar). The delta is announced with direction and whether it is better or worse; the sparkline is an image with a text alternative; goal progress is a `progressbar`.
 - **`DataTable`** and **`Pagination`:** a real `<table>` with `aria-sort` headers, named row checkboxes (`aria-selected`, mixed select-all), density, search slot, loading and empty states; below `md` each row becomes a labelled card. `Pagination` is a labelled `nav` with `aria-current="page"`.
@@ -12,6 +14,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - **Tests:** 13 new contrast pairs (160 per mode), 7 new keyboard and screen-reader checks, 4 new package checks.
 - `Checkbox` accepts `ariaLabel` for checkboxes without a visible label.
 - `PanceLabels` gains 29 strings for these components.
+- **Figma:** new variables (series 1–8, no-data, sparkline, metric-card, data-table, chart tokens) and components (Metric card variants and states, Pagination, Data table row, empty and loading states, 7 charts).
 
 ### Changed
 - Metric cards no longer lift on hover (they are not interactive). Chart colours come from tokens, so the old per-series `color` props are ignored.

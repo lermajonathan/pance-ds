@@ -16,9 +16,9 @@
 
 | Collection | Modes | Count | Notes |
 |---|---|---|---|
-| Primitives | Value | 220 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
-| Semantic | Light · Dark | 138 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz, radius, icon. Dark is a draft (ships v1.1) |
-| Components | Value | 434 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
+| Primitives | Value | 224 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
+| Semantic | Light · Dark | 147 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz (series 1–8, no-data), radius, icon. Dark is a draft (ships v1.1) |
+| Components | Value | 468 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
 | Legacy · Primitives / Legacy · Semantic | — | 405 | Old collections, hidden from publishing. Safe to delete once nothing in Archive needs them |
 
 Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` (`var(--pance-color-intent-primary-solid)`).
@@ -68,7 +68,20 @@ Property names match the React props so a component reads the same in design and
 | Table row | 3 | state (default · hover · selected) |
 | Data table | 1 | toolbar, sortable header, 5 rows, pagination |
 
-Not yet in Figma (P2/P3): ButtonGroup, SplitButton, ToggleButton, CountBadge, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, TagInput, RadioCard, CheckboxGroup, Skeleton, Breadcrumb, NavMenu, Drawer, Popover, Panel, Divider, RadioGroup, and charts.
+## Components (v1.2 data visualization, added Oct 15)
+
+| Component | Variants | Properties |
+|---|---|---|
+| Metric card variants | 5 | variant (compact · hero · goal · breakdown · comparison) |
+| Metric card states | 3 | state (loading · empty · error) |
+| Pagination item / Pagination | 3 / 1 | state (default · current · disabled) |
+| Data table row | 9 | density (compact · default · comfortable) × state (default · hover · selected) |
+| Data table / Empty, Data table / Loading | 1 / 1 | static states |
+| Chart / Line, Bar grouped, Bar stacked, Ranked bar, Bar diverging, Heatmap, Donut | 7 | static references, one component each |
+
+Charts in Figma are reference drawings, not data-driven. Series fills, strokes, grid, axis labels and the surface are bound to `color/dataviz/*` and `chart/*`, so they follow Light and Dark. Each legend repeats the marker shape used in the plot (WCAG 1.4.1). New component tokens: `sparkline/*`, `metric-card/*`, `data-table/*`, `chart/*`. The existing Metric card now binds its padding, radius, fill and border to `metric-card/*`.
+
+Not yet in Figma (P2/P3): ButtonGroup, SplitButton, ToggleButton, CountBadge, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, TagInput, RadioCard, CheckboxGroup, Skeleton, Breadcrumb, NavMenu, Drawer, Popover, Panel, Divider, RadioGroup.
 
 Component dimensions in Figma are bound to the same variables as code where a token exists (avatar sizes, steps dot and connector, progress height, segmented control heights, card padding and radius).
 
