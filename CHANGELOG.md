@@ -4,6 +4,10 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-15
+
+First release on npm as `@pance/tokens` and `@pance/react`.
+
 ### Packages
 - Two npm packages built from the repo: `@pance/tokens` (CSS variables, Tailwind v4 theme, typed JS, JSON, DTCG sources) and `@pance/react` (components, icons, `styles.css` for apps without Tailwind, `tailwind.css` for Tailwind v4 apps, TypeScript types). `pnpm build:packages`, `pnpm test:packages`, and a release workflow that publishes on a GitHub release with npm trusted publishing.
 - **Breaking for direct source users:** components no longer read `useI18n`. Built-in strings come from the new `PanceProvider` / `useLabels` (English by default). The docs site passes its EN/ES dictionary to it.
