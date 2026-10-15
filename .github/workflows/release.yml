@@ -1,12 +1,8 @@
 name: Release
 
 # Publishes @pance/tokens and @pance/react to npm when a GitHub release is published.
-# Auth, in order of preference:
-#  1. npm trusted publishing (OIDC), no stored secret. Configure it on npmjs.com for each package
-#     (Settings → Trusted publishing → GitHub Actions · lermajonathan/pance-ds · release.yml).
-#     npm only allows this once a package exists, so:
-#  2. First release only: a short-lived granular token saved as the NPM_TOKEN repo secret.
-#     After the first publish, set up trusted publishing and delete the secret.
+# Auth: npm trusted publishing (OIDC), no stored secret. It is configured on npmjs.com for each package
+# (Settings → Trusted publishing → GitHub Actions · lermajonathan/pance-ds · release.yml · allow npm publish).
 
 on:
   release:
@@ -49,12 +45,8 @@ jobs:
       - run: pnpm build:packages
       - run: pnpm test:packages
       - name: Publish @pance/tokens
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: packages/tokens
         run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}
       - name: Publish @pance/react
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: packages/react
         run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}
