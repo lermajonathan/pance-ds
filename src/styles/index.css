@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   PANCE — global stylesheet
+   River-inspired: vibrant aquatic teal grounded by high-contrast slate.
+   Spacing follows a strict 8pt grid.
+
+   tokens.css  ← generated from tokens/*.json (CSS custom properties)
+   theme.css   ← generated Tailwind v4 @theme mapping
+   Run `npm run tokens` after editing anything in /tokens.
+   ═══════════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+@import './tokens.css';
+@import './theme.css';
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-ground);
+  color: var(--color-ink);
+}
+
+/* Fluid focus ring used across interactive elements */
+.pance-focus:focus-visible {
+  outline: none;
+  box-shadow: var(--pance-focus-ring);
+  border-color: var(--pance-color-focus-inner);
+}
+
+/* Range slider thumb — color driven by --thumb CSS variable set inline */
+input[type='range']::-webkit-slider-thumb {
+  background: var(--thumb, var(--color-brand-500));
+}
+input[type='range']::-moz-range-thumb {
+  background: var(--thumb, var(--color-brand-500));
+  border: none;
+  border-radius: 50%;
+  width: var(--pance-range-slider-thumb);
+  height: var(--pance-range-slider-thumb);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.2);
+}
+
+/* Scrollbars: hidden until hover */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+*:hover {
+  scrollbar-color: var(--pance-color-slate-300) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 8px;
+}
+*:hover::-webkit-scrollbar-thumb {
+  background: var(--pance-color-slate-300);
+}
+
+/* Motion */
+@keyframes pance-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pance-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.pance-rise { animation: pance-rise var(--pance-duration-slower) var(--pance-easing-out-expo) both; }
+.pance-fill { transform-origin: left; animation: pance-fill var(--pance-dur, var(--pance-duration-progress)) linear forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .pance-rise, .pance-fill { animation: none; }
+}

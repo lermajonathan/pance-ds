@@ -1,0 +1,802 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": {
+      "ground": {
+        "$value": "{color.slate.100}",
+        "$description": "App canvas / page background (`bg-ground`)."
+      },
+      "canvas": {
+        "$value": "{color.slate.50}",
+        "$description": "Recessed areas, wells, segmented tracks (`bg-canvas`)."
+      },
+      "surface": {
+        "$value": "{color.white}",
+        "$description": "Cards & panels (`bg-surface`)."
+      },
+      "inverse": {
+        "$value": "{color.slate.900}",
+        "$description": "Tooltips, contrast surfaces."
+      },
+      "river": {
+        "$value": "{color.river.900}",
+        "$description": "Dark brand surface."
+      },
+      "river-deep": {
+        "$value": "{color.river.950}",
+        "$description": "Deepest dark brand surface."
+      }
+    },
+    "text": {
+      "default": {
+        "$value": "{color.slate.900}",
+        "$description": "Primary text (`text-ink`)."
+      },
+      "soft": {
+        "$value": "{color.slate.700}",
+        "$description": "Secondary text, labels (`text-ink-soft`)."
+      },
+      "muted": {
+        "$value": "{color.slate.500}",
+        "$description": "Captions, placeholders, meta (`text-ink-muted`)."
+      },
+      "inverse": {
+        "$value": "{color.white}"
+      },
+      "link": {
+        "$value": "{color.aqua.700}"
+      },
+      "eyebrow": {
+        "$value": "{color.aqua.600}"
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "{color.slate.200}",
+        "$description": "Hairline rules, control borders (`border-line`)."
+      },
+      "soft": {
+        "$value": "{color.slate.75}",
+        "$description": "Internal dividers (`border-line-soft`)."
+      },
+      "strong": {
+        "$value": "{color.slate.300}",
+        "$description": "Control hover border."
+      },
+      "focus": {
+        "$value": "{color.aqua.500}"
+      }
+    },
+    "intent": {
+      "$type": "color",
+      "primary": {
+        "$description": "Interactive · brand",
+        "solid": {
+          "$value": "{color.aqua.600}"
+        },
+        "solid-hover": {
+          "$value": "{color.aqua.700}"
+        },
+        "solid-active": {
+          "$value": "{color.aqua.800}"
+        },
+        "soft": {
+          "$value": "{color.aqua.50}"
+        },
+        "soft-hover": {
+          "$value": "{color.aqua.100}"
+        },
+        "border": {
+          "$value": "{color.aqua.200}"
+        },
+        "outline": {
+          "$value": "{color.aqua.300}"
+        },
+        "dot": {
+          "$value": "{color.aqua.500}"
+        },
+        "text": {
+          "$value": "{color.aqua.700}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      },
+      "secondary": {
+        "$description": "Neutral action",
+        "solid": {
+          "$value": "{color.slate.600}"
+        },
+        "solid-hover": {
+          "$value": "{color.slate.700}"
+        },
+        "solid-active": {
+          "$value": "{color.slate.800}"
+        },
+        "soft": {
+          "$value": "{color.slate.100}"
+        },
+        "soft-hover": {
+          "$value": "{color.slate.200}"
+        },
+        "border": {
+          "$value": "{color.slate.200}"
+        },
+        "outline": {
+          "$value": "{color.slate.300}"
+        },
+        "dot": {
+          "$value": "{color.slate.500}"
+        },
+        "text": {
+          "$value": "{color.slate.700}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      },
+      "success": {
+        "$description": "Positive · confirmed",
+        "solid": {
+          "$value": "{color.emerald.600}"
+        },
+        "solid-hover": {
+          "$value": "{color.emerald.700}"
+        },
+        "solid-active": {
+          "$value": "{color.emerald.800}"
+        },
+        "soft": {
+          "$value": "{color.emerald.50}"
+        },
+        "soft-hover": {
+          "$value": "{color.emerald.100}"
+        },
+        "border": {
+          "$value": "{color.emerald.200}"
+        },
+        "outline": {
+          "$value": "{color.emerald.300}"
+        },
+        "dot": {
+          "$value": "{color.emerald.500}"
+        },
+        "text": {
+          "$value": "{color.emerald.700}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      },
+      "info": {
+        "$description": "Informational · neutral notice",
+        "solid": {
+          "$value": "{color.sky.600}"
+        },
+        "solid-hover": {
+          "$value": "{color.sky.700}"
+        },
+        "solid-active": {
+          "$value": "{color.sky.800}"
+        },
+        "soft": {
+          "$value": "{color.sky.50}"
+        },
+        "soft-hover": {
+          "$value": "{color.sky.100}"
+        },
+        "border": {
+          "$value": "{color.sky.200}"
+        },
+        "outline": {
+          "$value": "{color.sky.300}"
+        },
+        "dot": {
+          "$value": "{color.sky.500}"
+        },
+        "text": {
+          "$value": "{color.sky.700}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      },
+      "warning": {
+        "$description": "Caution · drifting",
+        "solid": {
+          "$value": "{color.amber.600}"
+        },
+        "solid-hover": {
+          "$value": "{color.amber.700}"
+        },
+        "solid-active": {
+          "$value": "{color.amber.800}"
+        },
+        "soft": {
+          "$value": "{color.amber.50}"
+        },
+        "soft-hover": {
+          "$value": "{color.amber.100}"
+        },
+        "border": {
+          "$value": "{color.amber.200}"
+        },
+        "outline": {
+          "$value": "{color.amber.300}"
+        },
+        "dot": {
+          "$value": "{color.amber.500}"
+        },
+        "text": {
+          "$value": "{color.amber.700}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      },
+      "help": {
+        "$description": "Guidance · documentation",
+        "solid": {
+          "$value": "{color.violet.600}"
+        },
+        "solid-hover": {
+          "$value": "{color.violet.700}"
+        },
+        "solid-active": {
+          "$value": "{color.violet.800}"
+        },
+        "soft": {
+          "$value": "{color.violet.50}"
+        },
+        "soft-hover": {
+          "$value": "{color.violet.100}"
+        },
+        "border": {
+          "$value": "{color.violet.200}"
+        },
+        "outline": {
+          "$value": "{color.violet.300}"
+        },
+        "dot": {
+          "$value": "{color.violet.500}"
+        },
+        "text": {
+          "$value": "{color.violet.700}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      },
+      "danger": {
+        "$description": "Destructive · failed",
+        "solid": {
+          "$value": "{color.rose.600}"
+        },
+        "solid-hover": {
+          "$value": "{color.rose.700}"
+        },
+        "solid-active": {
+          "$value": "{color.rose.800}"
+        },
+        "soft": {
+          "$value": "{color.rose.50}"
+        },
+        "soft-hover": {
+          "$value": "{color.rose.100}"
+        },
+        "border": {
+          "$value": "{color.rose.200}"
+        },
+        "outline": {
+          "$value": "{color.rose.300}"
+        },
+        "dot": {
+          "$value": "{color.rose.500}"
+        },
+        "text": {
+          "$value": "{color.rose.700}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      },
+      "contrast": {
+        "$description": "Maximum emphasis",
+        "solid": {
+          "$value": "{color.slate.900}"
+        },
+        "solid-hover": {
+          "$value": "{color.slate.800}"
+        },
+        "solid-active": {
+          "$value": "{color.slate.950}"
+        },
+        "soft": {
+          "$value": "{color.slate.100}"
+        },
+        "soft-hover": {
+          "$value": "{color.slate.200}"
+        },
+        "border": {
+          "$value": "{color.slate.300}"
+        },
+        "outline": {
+          "$value": "{color.slate.900}"
+        },
+        "dot": {
+          "$value": "{color.slate.900}"
+        },
+        "text": {
+          "$value": "{color.slate.900}"
+        },
+        "on-solid": {
+          "$value": "{color.white}"
+        }
+      }
+    },
+    "status": {
+      "online": {
+        "$value": "{color.emerald.500}"
+      },
+      "away": {
+        "$value": "{color.amber.400}"
+      },
+      "busy": {
+        "$value": "{color.rose.500}"
+      },
+      "offline": {
+        "$value": "{color.slate.300}"
+      }
+    },
+    "focus": {
+      "ring": {
+        "$value": "{color.aqua.100}",
+        "$description": "Outer 3px halo."
+      },
+      "inner": {
+        "$value": "{color.aqua.500}",
+        "$description": "Inner 1.5px ring."
+      }
+    },
+    "scrim": {
+      "$value": "rgba(15,23,42,0.4)",
+      "$description": "Ink at 40% — modal & drawer backdrop."
+    },
+    "skeleton": {
+      "$value": "rgba(226,232,240,0.7)",
+      "$description": "slate-200 at 70%."
+    },
+    "dataviz": {
+      "surface": {
+        "$value": "{color.white}"
+      },
+      "grid": {
+        "$value": "{color.slate.200}"
+      },
+      "axis": {
+        "$value": "{color.slate.400}"
+      },
+      "baseline": {
+        "$value": "{color.slate.300}"
+      },
+      "ink": {
+        "$value": "{color.slate.900}"
+      },
+      "ink-muted": {
+        "$value": "{color.slate.500}"
+      },
+      "positive": {
+        "$value": "{color.viz.categorical.1}"
+      },
+      "negative": {
+        "$value": "{color.viz.categorical.8}"
+      }
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "xs": {
+      "$value": "{radius.4}",
+      "$description": "Small checkbox, inline code."
+    },
+    "sm": {
+      "$value": "{radius.6}",
+      "$description": "Badges (square), tags."
+    },
+    "item": {
+      "$value": "{radius.8}",
+      "$description": "Menu items, segmented options, tooltips."
+    },
+    "md": {
+      "$value": "{radius.12}",
+      "$description": "Controls: buttons, inputs, alerts, dropdowns."
+    },
+    "lg": {
+      "$value": "{radius.16}",
+      "$description": "Containers: cards, panels, modals, drawers."
+    },
+    "full": {
+      "$value": "{radius.pill}",
+      "$description": "Pills, avatars, toggles."
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "none": {
+      "$value": [],
+      "$description": "Level 0 · Flat."
+    },
+    "xs": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.06)",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px"
+        }
+      ],
+      "$description": "Level 1 · Raised — cards at rest, row hover."
+    },
+    "sm": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.04)",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px"
+        },
+        {
+          "color": "rgba(15,23,42,0.18)",
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "-16px"
+        }
+      ],
+      "$description": "Level 2 · Card."
+    },
+    "md": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.3)",
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "40px",
+          "spread": "-16px"
+        }
+      ],
+      "$description": "Level 3 · Popover — dropdowns, popovers, date pickers."
+    },
+    "lg": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.5)",
+          "offsetX": "0px",
+          "offsetY": "24px",
+          "blur": "60px",
+          "spread": "-20px"
+        }
+      ],
+      "$description": "Level 4 · Modal — dialogs, drawers."
+    },
+    "brand": {
+      "$value": [
+        {
+          "color": "rgba(8,145,178,0.55)",
+          "offsetX": "0px",
+          "offsetY": "18px",
+          "blur": "40px",
+          "spread": "-20px"
+        }
+      ],
+      "$description": "Level 5 · Brand glow — hover on primary cards."
+    },
+    "card-rest": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.04)",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px"
+        }
+      ],
+      "$description": "What `<Card>` and `<Panel>` actually ship with."
+    },
+    "menu": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.35)",
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "40px",
+          "spread": "-16px"
+        }
+      ],
+      "$description": "Select / Combobox / SplitButton lists."
+    },
+    "toast": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.25)",
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "-8px"
+        }
+      ]
+    },
+    "hover-lift": {
+      "$value": [
+        {
+          "color": "rgba(15,23,42,0.04)",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px"
+        },
+        {
+          "color": "rgba(15,23,42,0.28)",
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "32px",
+          "spread": "-16px"
+        }
+      ],
+      "$description": "Subtle lift on hover."
+    }
+  },
+  "focus": {
+    "ring": {
+      "$value": [
+        {
+          "color": "{color.aqua.100}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "3px"
+        },
+        {
+          "color": "{color.aqua.500}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1.5px"
+        }
+      ],
+      "$type": "shadow",
+      "$description": "Applied via the `.pance-focus` class on :focus-visible."
+    },
+    "ring-danger": {
+      "$value": [
+        {
+          "color": "{color.rose.50}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "3px"
+        },
+        {
+          "color": "{color.rose.600}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1.5px"
+        }
+      ],
+      "$type": "shadow"
+    },
+    "ring-success": {
+      "$value": [
+        {
+          "color": "rgba(5,150,105,0.1)",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "3px"
+        },
+        {
+          "color": "rgba(5,150,105,0.7)",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1.5px"
+        }
+      ],
+      "$type": "shadow"
+    }
+  },
+  "typography": {
+    "display": {
+      "$value": {
+        "fontFamily": "{fontFamily.jakarta}",
+        "fontSize": "{fontSize.48}",
+        "fontWeight": "{fontWeight.extrabold}",
+        "lineHeight": "{lineHeight.none}",
+        "letterSpacing": "{letterSpacing.tight}"
+      },
+      "$type": "typography",
+      "$description": "Hero titles."
+    },
+    "h1": {
+      "$value": {
+        "fontFamily": "{fontFamily.jakarta}",
+        "fontSize": "{fontSize.30}",
+        "fontWeight": "{fontWeight.extrabold}",
+        "lineHeight": 1.2,
+        "letterSpacing": "{letterSpacing.tight}"
+      },
+      "$type": "typography",
+      "$description": "Page titles."
+    },
+    "h2": {
+      "$value": {
+        "fontFamily": "{fontFamily.jakarta}",
+        "fontSize": "{fontSize.24}",
+        "fontWeight": "{fontWeight.bold}",
+        "lineHeight": 1.333,
+        "letterSpacing": "{letterSpacing.tight}"
+      },
+      "$type": "typography"
+    },
+    "h3": {
+      "$value": {
+        "fontFamily": "{fontFamily.jakarta}",
+        "fontSize": "{fontSize.20}",
+        "fontWeight": "{fontWeight.bold}",
+        "lineHeight": 1.4,
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography",
+      "$description": "Title component H3. (Type-scale table shows 18px — see docs/audit.md.)"
+    },
+    "h4": {
+      "$value": {
+        "fontFamily": "{fontFamily.jakarta}",
+        "fontSize": "{fontSize.16}",
+        "fontWeight": "{fontWeight.bold}",
+        "lineHeight": "{lineHeight.normal}",
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography"
+    },
+    "subheading": {
+      "$value": {
+        "fontFamily": "{fontFamily.inter}",
+        "fontSize": "{fontSize.16}",
+        "fontWeight": "{fontWeight.semibold}",
+        "lineHeight": "{lineHeight.normal}",
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography"
+    },
+    "body-lg": {
+      "$value": {
+        "fontFamily": "{fontFamily.inter}",
+        "fontSize": "{fontSize.15}",
+        "fontWeight": "{fontWeight.regular}",
+        "lineHeight": "{lineHeight.relaxed}",
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography"
+    },
+    "body": {
+      "$value": {
+        "fontFamily": "{fontFamily.inter}",
+        "fontSize": "{fontSize.14}",
+        "fontWeight": "{fontWeight.regular}",
+        "lineHeight": 1.43,
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography"
+    },
+    "label": {
+      "$value": {
+        "fontFamily": "{fontFamily.inter}",
+        "fontSize": "{fontSize.14}",
+        "fontWeight": "{fontWeight.medium}",
+        "lineHeight": 1.43,
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography"
+    },
+    "caption": {
+      "$value": {
+        "fontFamily": "{fontFamily.inter}",
+        "fontSize": "{fontSize.12}",
+        "fontWeight": "{fontWeight.regular}",
+        "lineHeight": 1.333,
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography"
+    },
+    "mono-label": {
+      "$value": {
+        "fontFamily": "{fontFamily.jetbrains}",
+        "fontSize": "{fontSize.11}",
+        "fontWeight": "{fontWeight.medium}",
+        "lineHeight": "{lineHeight.normal}",
+        "letterSpacing": "{letterSpacing.label}"
+      },
+      "$type": "typography",
+      "$description": "Uppercase."
+    },
+    "eyebrow": {
+      "$value": {
+        "fontFamily": "{fontFamily.jetbrains}",
+        "fontSize": "{fontSize.11}",
+        "fontWeight": "{fontWeight.semibold}",
+        "lineHeight": "{lineHeight.normal}",
+        "letterSpacing": "{letterSpacing.eyebrow}"
+      },
+      "$type": "typography",
+      "$description": "Uppercase, colored `text.eyebrow`."
+    },
+    "data": {
+      "$value": {
+        "fontFamily": "{fontFamily.jetbrains}",
+        "fontSize": "{fontSize.13}",
+        "fontWeight": "{fontWeight.semibold}",
+        "lineHeight": "{lineHeight.normal}",
+        "letterSpacing": "{letterSpacing.normal}"
+      },
+      "$type": "typography",
+      "$description": "Numbers and codes in tables / metrics."
+    }
+  },
+  "motion": {
+    "transition": {
+      "$type": "transition",
+      "color": {
+        "$value": {
+          "duration": "{duration.base}",
+          "delay": "0ms",
+          "timingFunction": "{easing.standard}"
+        },
+        "$description": "Hover / state colour changes."
+      },
+      "control": {
+        "$value": {
+          "duration": "{duration.slow}",
+          "delay": "0ms",
+          "timingFunction": "{easing.standard}"
+        },
+        "$description": "Toggles, tab indicator."
+      },
+      "enter": {
+        "$value": {
+          "duration": "{duration.slower}",
+          "delay": "0ms",
+          "timingFunction": "{easing.out-expo}"
+        },
+        "$description": "`pance-rise` entrance."
+      }
+    }
+  },
+  "icon": {
+    "$type": "dimension",
+    "xs": {
+      "$value": "{size.14}"
+    },
+    "sm": {
+      "$value": "{size.16}"
+    },
+    "md": {
+      "$value": "{size.18}"
+    },
+    "lg": {
+      "$value": "{size.20}"
+    },
+    "xl": {
+      "$value": "{size.24}"
+    },
+    "2xl": {
+      "$value": "{size.32}"
+    },
+    "3xl": {
+      "$value": "{size.48}"
+    }
+  }
+}

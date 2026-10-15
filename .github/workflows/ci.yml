@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build tokens
+        run: pnpm tokens
+      - name: Generated token files are up to date
+        run: git diff --exit-code -- src/styles/tokens.css src/styles/theme.css src/tokens.ts tokens/dist docs/tokens.md || (echo "::error::Run 'pnpm tokens' and commit the generated files" && exit 1)
+      - run: pnpm typecheck
+      - run: pnpm build

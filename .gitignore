@@ -1,0 +1,15 @@
+node_modules/
+/dist/
+build/
+.cache/
+.env*
+.vite/
+vite.config.*.timestamp-*
+*.tsbuildinfo
+*-debug.log*
+logs/
+*.log
+.claude-replay.*
+.tmp-*
+
+# Generated token outputs ARE committed (tokens/dist, src/styles/tokens.css, theme.css, src/tokens.ts, docs/tokens.md)
