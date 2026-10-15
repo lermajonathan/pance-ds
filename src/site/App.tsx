@@ -296,6 +296,17 @@ function SiteLabels({ children }: { children: ReactNode }) {
     showPassword: t('ui.showPassword'), optional: t('ui.optional'), clickToUpload: t('ui.clickToUpload'),
     orDrag: t('ui.orDrag'), clickToEdit: t('ui.clickToEdit'), search: t('ui.search'), addTag: t('ui.addTag'),
     noResults: (query: string) => t('ui.noResults', { query }),
+    deltaUp: (value: string) => t('ui.data.deltaUp', { value }), deltaDown: (value: string) => t('ui.data.deltaDown', { value }),
+    deltaFlat: t('ui.data.deltaFlat'), deltaBetter: t('ui.data.deltaBetter'), deltaWorse: t('ui.data.deltaWorse'), trend: t('ui.data.trend'),
+    noData: t('ui.data.noData'), loading: t('ui.data.loading'), failedToLoad: t('ui.data.failedToLoad'), retry: t('ui.data.retry'),
+    vsPrevious: t('ui.data.vsPrevious'), current: t('ui.data.current'), target: t('ui.data.target'),
+    ofGoal: (percent: string) => t('ui.data.ofGoal', { percent }), low: t('ui.data.low'), high: t('ui.data.high'), total: t('ui.data.total'),
+    selectAllRows: t('ui.data.selectAllRows'), selectRow: (name: string) => t('ui.data.selectRow', { name }),
+    sortBy: (column: string) => t('ui.data.sortBy', { column }), rowsSelected: (count: number) => t('ui.data.rowsSelected', { count }),
+    noRows: t('ui.data.noRows'), clearSearch: t('ui.data.clearSearch'), pagination: t('ui.data.pagination'),
+    previousPage: t('ui.data.previousPage'), nextPage: t('ui.data.nextPage'), page: (n: number) => t('ui.data.page', { n }),
+    range: (from: number, to: number, total: number) => t('ui.data.range', { from, to, total }),
+    viewAsTable: t('ui.data.viewAsTable'), viewAsChart: t('ui.data.viewAsChart'), chartKeyboardHint: t('ui.data.chartKeyboardHint'),
   }), [t])
   return <PanceProvider labels={labels}>{children}</PanceProvider>
 }

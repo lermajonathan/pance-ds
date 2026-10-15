@@ -21,25 +21,34 @@ sh(`npm install --silent --no-audit --no-fund ${tarballs.join(' ')} react@19 rea
 fs.writeFileSync(path.join(tmp, 'render.mjs'), `
 import { createElement as h } from 'react'
 import { renderToString } from 'react-dom/server'
-import { Button, Badge, Field, Input, Modal, Tabs, PanceProvider, IconPlus } from '@pance/react'
+import { Button, Badge, Field, Input, Modal, Tabs, PanceProvider, IconPlus, MetricCard, Delta, Sparkline, DataTable, Pagination, LineChart, BarChart, DonutChart } from '@pance/react'
 const html = renderToString(h(PanceProvider, { labels: { close: 'Cerrar' } },
   h(Field, { label: 'Name', hint: 'Help', required: true }, h(Input, { placeholder: 'x' })),
   h(Button, { severity: 'primary', Icon: IconPlus }, 'Create'),
   h(Badge, { severity: 'success', dot: true }, 'Flowing'),
   h(Tabs, { tabs: ['One', 'Two'], value: 'One', onChange() {}, label: 'Sections' }),
   h(Modal, { open: true, onClose() {}, title: 'Delete stream?' }, 'Body'),
+  h(MetricCard, { label: 'Error rate', value: '0.42', unit: '%', delta: 18.6, upIsGood: false, trend: [4, 5, 6, 9] }),
+  h(DataTable, { caption: 'Streams', columns: [{ key: 'name', header: 'Name', sortable: true }, { key: 'region', header: 'Region' }], rows: [{ name: 'checkout', region: 'us-east-1' }, { name: 'auth', region: 'eu-west-2' }], rowKey: (r) => r.name, rowLabel: (r) => r.name, selectable: true }),
+  h(LineChart, { title: 'Throughput', labels: ['Jan', 'Feb', 'Mar'], series: [{ name: 'US', data: [1, 2, 3] }, { name: 'EU', data: [2, 2, 4] }] }),
+  h(BarChart, { title: 'Events', labels: ['Q1', 'Q2'], series: [{ name: 'A', data: [3, 4] }, { name: 'B', data: [1, 2] }], mode: 'stacked' }),
+  h(DonutChart, { title: 'Types', slices: [{ label: 'REST', value: 3 }, { label: 'gRPC', value: 1 }] }),
 ))
 console.log(html)
 `)
 const html = sh('node render.mjs')
 check('components render on the server', html.includes('Create') && html.includes('role="tablist"'))
 check('Field associates its label', /<label[^>]*for="([^"]+)"[\s\S]*<input[^>]*id="\1"/.test(html))
+check('MetricCard speaks its delta', html.includes('Up 18.6%') && html.includes('worse'))
+check('DataTable renders a labelled, sortable table', html.includes('aria-sort="none"') && html.includes('role="checkbox"') && html.includes('scope="row"'))
+check('Charts are focusable groups with a table alternative', html.includes('role="group"') && html.includes('View as table'))
 check('PanceProvider translates built-in strings', html.includes('aria-label="Cerrar"'))
 check('Modal is an accessible dialog', html.includes('role="dialog"') && html.includes('aria-modal="true"'))
 
 // Stylesheets
 const css = fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/styles.css'), 'utf8')
 check('styles.css has component utilities', css.includes('.bg-primary-solid') && css.includes('--pance-button-size-md-height'))
+check('styles.css has data-viz tokens and chart utilities', css.includes('--pance-color-dataviz-series-3') && css.includes('--pance-sparkline-width-md'))
 check('styles.css has tokens and dark mode', css.includes('--pance-color-intent-primary-solid') && css.includes("data-theme"))
 check('tailwind.css points Tailwind at the package', fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/tailwind.css'), 'utf8').includes('@source "./index.js"'))
 

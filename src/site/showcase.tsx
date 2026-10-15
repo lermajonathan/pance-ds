@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react'
+import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart } from '../components'
 import {
   Waveform,
   ChartLineUp,
@@ -2625,76 +2626,14 @@ export function NavigationPage() {
   )
 }
 
-export function Pagination({
-  page,
-  pages,
-  onChange,
-  total,
-  pageSize,
-  compact,
-  siblings = 1,
-}: {
-  page: number
-  pages: number
-  onChange: (p: number) => void
-  total?: number
-  pageSize?: number
-  compact?: boolean
-  siblings?: number
-}) {
+export function Pagination({ page, pages, onChange, total, pageSize, compact, siblings = 1 }: { page: number; pages: number; onChange: (p: number) => void; total?: number; pageSize?: number; compact?: boolean; siblings?: number }) {
   const { t } = useI18n()
-  const btnBase = 'pance-focus grid h-8 w-8 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-ground hover:text-ink disabled:cursor-not-allowed disabled:opacity-40'
-
-  /* build page number list with ellipsis */
-  const getRange = (): (number | '…')[] => {
-    if (pages <= 7) return Array.from({ length: pages }, (_, i) => i + 1)
-    const left = Math.max(2, page - siblings)
-    const right = Math.min(pages - 1, page + siblings)
-    const result: (number | '…')[] = [1]
-    if (left > 2) result.push('…')
-    for (let i = left; i <= right; i++) result.push(i)
-    if (right < pages - 1) result.push('…')
-    result.push(pages)
-    return result
-  }
-
-  const prev = <button key="prev" aria-label={t('navigation.pagination.prev')} onClick={() => onChange(Math.max(1, page - 1))} disabled={page === 1} className={btnBase}><IconChevron className="h-4 w-4 rotate-180" /></button>
-  const next = <button key="next" aria-label={t('navigation.pagination.next')} onClick={() => onChange(Math.min(pages, page + 1))} disabled={page === pages} className={btnBase}><IconChevron className="h-4 w-4" /></button>
-
-  if (compact) {
-    return (
-      <div className="flex items-center gap-3">
-        {prev}
-        <span className="font-mono text-sm text-ink-soft">
-          <span className="font-semibold text-ink">{page}</span> / {pages}
-        </span>
-        {next}
-      </div>
-    )
-  }
-
   return (
-    <div className="flex flex-wrap items-center gap-1">
+    <div className="flex flex-wrap items-center gap-3">
       {total !== undefined && pageSize !== undefined && (
-        <span className="mr-3 text-sm text-ink-muted">
-          {t('navigation.pagination.range', { from: (page - 1) * pageSize + 1, to: Math.min(page * pageSize, total), total })}
-        </span>
+        <span className="text-sm text-ink-muted">{t('navigation.pagination.range', { from: (page - 1) * pageSize + 1, to: Math.min(page * pageSize, total), total })}</span>
       )}
-      {prev}
-      {getRange().map((p, i) =>
-        p === '…' ? (
-          <span key={`e${i}`} className="grid h-8 w-8 place-items-center font-mono text-sm text-ink-muted">…</span>
-        ) : (
-          <button
-            key={p}
-            onClick={() => onChange(p as number)}
-            className={`pance-focus h-8 min-w-8 rounded-lg px-2 font-mono text-13 font-medium transition-colors ${p === page ? 'bg-brand-600 text-white' : 'text-ink-soft hover:bg-ground'}`}
-          >
-            {p}
-          </button>
-        ),
-      )}
-      {next}
+      <LibPagination page={page} pages={pages} onChange={onChange} compact={compact} siblings={siblings} label={`${t('navigation.pagination.title')} · ${page}/${pages}${total !== undefined ? ` · ${total}` : ''}${compact ? ' · compact' : ''}`} />
     </div>
   )
 }
@@ -3253,309 +3192,45 @@ export function OverlaysPage() {
    ═══════════════════════════════════════════════════════════════════════ */
 type Metric = { label: string; value: string; unit?: string; delta: number; spark: number[]; Icon: IconType }
 
-/* ── Sparkline — line+area ─────────────────────────────────────────────── */
-function Sparkline({ data, positive, w = 96, h = 36 }: { data: number[]; positive: boolean; w?: number; h?: number }) {
-  const uid = React.useId().replace(/:/g, '')
-  const id = `spk-${uid}`
-  const max = Math.max(...data), min = Math.min(...data)
-  const pts = data.map((v, i) => `${((i / (data.length - 1)) * w).toFixed(1)},${(h - ((v - min) / (max - min || 1)) * (h - 4) - 2).toFixed(1)}`)
-  const stroke = positive ? '#06b6d4' : '#e11d48'
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} style={{ width: w, height: h }} preserveAspectRatio="none">
-      <defs>
-        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={stroke} stopOpacity="0.25" />
-          <stop offset="100%" stopColor={stroke} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <polyline points={`0,${h} ${pts.join(' ')} ${w},${h}`} fill={`url(#${id})`} stroke="none" />
-      <polyline points={pts.join(' ')} fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
+/* The docs site dogfoods the library: these adapters keep the specimen pages short and render the real components. */
+function Sparkline({ data, positive, w = 96 }: { data: number[]; positive: boolean; w?: number; h?: number }) {
+  return <LibSparkline data={data} tone={positive ? 'positive' : 'negative'} size={w <= 60 ? 'sm' : w >= 110 ? 'lg' : 'md'} />
 }
-
-/* ── SparkBar — column sparkline ───────────────────────────────────────── */
-function SparkBar({ data, positive, w = 72, h = 28 }: { data: number[]; positive: boolean; w?: number; h?: number }) {
-  const max = Math.max(...data)
-  const color = positive ? '#06b6d4' : '#e11d48'
-  const barW = Math.max(3, (w / data.length) - 1.5)
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} style={{ width: w, height: h }} preserveAspectRatio="none">
-      {data.map((v, i) => {
-        const bh = Math.max(2, (v / max) * (h - 2))
-        const x = (i / data.length) * w + (w / data.length - barW) / 2
-        const isLast = i === data.length - 1
-        return (
-          <rect key={i} x={x} y={h - bh} width={barW} height={bh} rx={1.5}
-            fill={isLast ? color : color + '55'} />
-        )
-      })}
-    </svg>
-  )
+function SparkBar({ data, positive }: { data: number[]; positive: boolean; w?: number; h?: number }) {
+  return <LibSparkline data={data} tone={positive ? 'positive' : 'negative'} variant="bar" size="sm" />
 }
+function SparkFlat() { return <LibSparkline data={[1, 1]} tone="neutral" size="sm" /> }
+function DeltaBadge({ delta, upIsGood = true }: { delta: number; upIsGood?: boolean }) { return <Delta value={delta} upIsGood={upIsGood} /> }
 
-/* ── SparkFlat — single horizontal line ───────────────────────────────── */
-function SparkFlat({ w = 72, h = 28 }: { w?: number; h?: number }) {
-  const mid = h / 2
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} style={{ width: w, height: h }}>
-      <line x1={4} y1={mid} x2={w - 4} y2={mid} stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="3 3" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-/* ── DeltaBadge ────────────────────────────────────────────────────────── */
-function DeltaBadge({ delta, upIsGood = true }: { delta: number; upIsGood?: boolean }) {
-  if (delta === 0) return <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 font-mono text-11 font-semibold text-slate-600">—  0%</span>
-  const up = delta > 0
-  const good = upIsGood ? up : !up
-  return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-11 font-semibold ${good ? 'bg-brand-50 text-brand-700' : 'bg-danger-soft text-danger'}`}>
-      {up ? <IconArrowUp className="h-3 w-3" /> : <IconArrowDown className="h-3 w-3" />}
-      {Math.abs(delta)}%
-    </span>
-  )
-}
-
-/* ── Base MetricCard ───────────────────────────────────────────────────── */
 export function MetricCard({ m }: { m: Metric }) {
+  return <LibMetricCard label={m.label} value={m.value} unit={m.unit} Icon={m.Icon} delta={m.delta} trend={m.spark} />
+}
+function MetricCardCompact({ label, value, unit, delta, upIsGood = true, spark }: { label: string; value: string; unit?: string; delta: number; upIsGood?: boolean; spark: number[] }) {
+  return <LibMetricCard variant="compact" label={label} value={value} unit={unit} delta={delta} upIsGood={upIsGood} trend={spark} />
+}
+function MetricCardHero({ label, value, unit, delta, sub, spark, upIsGood = true, accent = 'primary' }: { label: string; value: string; unit?: string; delta: number; sub?: string; spark: number[]; upIsGood?: boolean; accent?: Severity | 'brand' }) {
+  return <LibMetricCard variant="hero" label={label} value={value} unit={unit} delta={delta} caption={sub} trend={spark} upIsGood={upIsGood} accent={accent === 'brand' ? 'primary' : accent} />
+}
+function MetricCardGoal({ label, value, unit, current, target, delta, Icon, upIsGood = true }: { label: string; value: string; unit?: string; current: number; target: number; delta: number; Icon: IconType; upIsGood?: boolean }) {
+  return <LibMetricCard variant="goal" label={label} value={value} unit={unit} Icon={Icon} delta={delta} upIsGood={upIsGood} goal={{ current, target }} />
+}
+function MetricCardBreakdown({ label, value, unit, delta, Icon, items, upIsGood = true }: { label: string; value: string; unit?: string; delta: number; Icon: IconType; items: { label: string; value: string; pct: number; color?: string }[]; upIsGood?: boolean }) {
+  return <LibMetricCard variant="breakdown" label={label} value={value} unit={unit} Icon={Icon} delta={delta} upIsGood={upIsGood} breakdown={items.map((i) => ({ label: i.label, value: i.value, share: i.pct }))} />
+}
+function MetricCardComparison({ label, current, previous, unit, delta, Icon, periodA, periodB, upIsGood = true }: { label: string; current: string; previous: string; unit?: string; delta: number; Icon: IconType; periodA?: string; periodB?: string; upIsGood?: boolean }) {
   const { t } = useI18n()
-  const positive = m.delta >= 0
-  return (
-    <article className="group relative overflow-hidden rounded-2xl border border-line bg-surface p-6 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_1px_2px_rgba(15,23,42,0.04),0_18px_40px_-20px_rgba(8,145,178,0.35)]">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-300 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><m.Icon className="h-[18px] w-[18px]" /></span>
-          <p className="text-sm font-medium text-ink-muted">{m.label}</p>
-        </div>
-        <DeltaBadge delta={m.delta} />
-      </div>
-      <div className="mt-6 flex items-end justify-between">
-        <p className="font-display text-4xl font-extrabold leading-none tracking-tight text-ink">
-          {m.value}{m.unit && <span className="ml-1 font-mono text-lg font-semibold text-ink-muted">{m.unit}</span>}
-        </p>
-        <Sparkline data={m.spark} positive={positive} />
-      </div>
-      <p className="mt-3 text-xs text-ink-muted">{t('metrics.vsPrev')}</p>
-    </article>
-  )
+  return <LibMetricCard variant="comparison" label={label} value={current} unit={unit} Icon={Icon} delta={delta} upIsGood={upIsGood} comparison={{ previous, currentLabel: periodA ?? t('metrics.thisMonth'), previousLabel: periodB ?? t('metrics.lastMonth') }} />
 }
-
-/* ── MetricCardCompact ──────────────────────────────────────────────────── */
-function MetricCardCompact({ label, value, unit, delta, upIsGood = true, spark }: {
-  label: string; value: string; unit?: string; delta: number; upIsGood?: boolean; spark: number[]
-}) {
-  return (
-    <div className="flex items-center justify-between rounded-xl border border-line bg-surface px-4 py-3">
-      <div className="min-w-0">
-        <p className="truncate text-xs text-ink-muted">{label}</p>
-        <p className="mt-0.5 text-xl font-bold leading-none tracking-tight text-ink">
-          {value}{unit && <span className="ml-0.5 text-sm font-semibold text-ink-muted">{unit}</span>}
-        </p>
-      </div>
-      <div className="flex shrink-0 items-center gap-3 pl-3">
-        <Sparkline data={spark} positive={upIsGood ? delta >= 0 : delta < 0} w={56} h={24} />
-        <DeltaBadge delta={delta} upIsGood={upIsGood} />
-      </div>
-    </div>
-  )
-}
-
-/* ── MetricCardHero ─────────────────────────────────────────────────────── */
-function MetricCardHero({ label, value, unit, delta, sub, spark, upIsGood = true, accent = 'brand' }: {
-  label: string; value: string; unit?: string; delta: number; sub?: string;
-  spark: number[]; upIsGood?: boolean; accent?: 'brand' | 'success' | 'warning' | 'danger'
-}) {
-  const accentMap = {
-    brand:   { bg: 'from-brand-50 to-surface',   via: 'via-brand-300',    icon: 'bg-brand-50 text-brand-700'   },
-    success: { bg: 'from-emerald-50 to-surface', via: 'via-emerald-300',  icon: 'bg-emerald-50 text-emerald-700' },
-    warning: { bg: 'from-amber-50 to-surface',   via: 'via-amber-300',    icon: 'bg-amber-50 text-amber-700'   },
-    danger:  { bg: 'from-rose-50 to-surface',    via: 'via-rose-300',     icon: 'bg-rose-50 text-rose-600'     },
-  }
-  const a = accentMap[accent]
-  return (
-    <article className={`relative overflow-hidden rounded-2xl border border-line bg-gradient-to-br ${a.bg} p-8`}>
-      <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${a.via} to-transparent`} />
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-ink-muted">{label}</p>
-          <p className="mt-3 text-6xl font-bold leading-none tracking-tight text-ink">
-            {value}{unit && <span className="ml-2 text-3xl font-semibold text-ink-muted">{unit}</span>}
-          </p>
-          {sub && <p className="mt-2 text-sm text-ink-muted">{sub}</p>}
-          <div className="mt-4">
-            <DeltaBadge delta={delta} upIsGood={upIsGood} />
-          </div>
-        </div>
-        <Sparkline data={spark} positive={upIsGood ? delta >= 0 : delta < 0} w={120} h={56} />
-      </div>
-    </article>
-  )
-}
-
-/* ── MetricCardGoal ─────────────────────────────────────────────────────── */
-function MetricCardGoal({ label, value, unit, current, target, delta, Icon, upIsGood = true }: {
-  label: string; value: string; unit?: string; current: number; target: number;
-  delta: number; Icon: IconType; upIsGood?: boolean
-}) {
-  const { t, lang } = useI18n()
-  const locale = lang === 'es' ? 'es-419' : 'en-US'
-  const pct = Math.min(100, (current / target) * 100)
-  const severity = pct >= 90 ? 'emerald' : pct >= 60 ? 'brand' : 'amber'
-  const fillColor = severity === 'emerald' ? '#059669' : severity === 'brand' ? '#0891b2' : '#d97706'
-  const trackColor = severity === 'emerald' ? '#d1fae5' : severity === 'brand' ? '#cffafe' : '#fde68a'
-  return (
-    <article className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]">
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-[18px] w-[18px]" /></span>
-          <p className="text-sm font-medium text-ink-muted">{label}</p>
-        </div>
-        <DeltaBadge delta={delta} upIsGood={upIsGood} />
-      </div>
-      <div className="mt-5">
-        <div className="flex items-end justify-between">
-          <p className="font-display text-4xl font-extrabold leading-none tracking-tight text-ink">
-            {value}{unit && <span className="ml-1 font-mono text-lg font-semibold text-ink-muted">{unit}</span>}
-          </p>
-          <p className="text-right text-xs text-ink-muted">
-            <span className="font-mono font-semibold text-ink">{pct.toFixed(0)}%</span> {t('metrics.ofGoal')}
-          </p>
-        </div>
-        <div className="mt-3 h-1.5 overflow-hidden rounded-full" style={{ backgroundColor: trackColor }}>
-          <div className="h-full rounded-full transition-[width] duration-700" style={{ width: `${pct}%`, backgroundColor: fillColor }} />
-        </div>
-        <div className="mt-1.5 flex items-center justify-between">
-          <p className="text-xs text-ink-muted">{t('metrics.current')} <span className="font-mono font-medium text-ink">{current.toLocaleString(locale)}</span></p>
-          <p className="text-xs text-ink-muted">{t('metrics.target')} <span className="font-mono font-medium text-ink">{target.toLocaleString(locale)}</span></p>
-        </div>
-      </div>
-    </article>
-  )
-}
-
-/* ── MetricCardBreakdown ────────────────────────────────────────────────── */
-function MetricCardBreakdown({ label, value, unit, delta, Icon, items, upIsGood = true }: {
-  label: string; value: string; unit?: string; delta: number; Icon: IconType;
-  items: { label: string; value: string; pct: number; color?: string }[]; upIsGood?: boolean
-}) {
-  const max = Math.max(...items.map(i => i.pct))
-  return (
-    <article className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]">
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-[18px] w-[18px]" /></span>
-          <p className="text-sm font-medium text-ink-muted">{label}</p>
-        </div>
-        <DeltaBadge delta={delta} upIsGood={upIsGood} />
-      </div>
-      <p className="mt-4 font-display text-4xl font-extrabold leading-none tracking-tight text-ink">
-        {value}{unit && <span className="ml-1 font-mono text-lg font-semibold text-ink-muted">{unit}</span>}
-      </p>
-      <div className="mt-4 space-y-2 border-t border-line pt-4">
-        {items.map((item, i) => (
-          <div key={item.label} className="flex items-center gap-3">
-            <div className="w-24 shrink-0">
-              <p className="truncate text-xs text-ink-muted">{item.label}</p>
-            </div>
-            <div className="relative flex-1 overflow-hidden rounded-full bg-ground" style={{ height: 6 }}>
-              <div className="absolute inset-y-0 left-0 rounded-full"
-                style={{ width: `${(item.pct / max) * 100}%`, backgroundColor: item.color ?? '#0891b2' }} />
-            </div>
-            <span className="min-w-12 shrink-0 whitespace-nowrap text-right font-mono text-xs font-medium text-ink tabular-nums">{item.value}</span>
-          </div>
-        ))}
-      </div>
-    </article>
-  )
-}
-
-/* ── MetricCardComparison ───────────────────────────────────────────────── */
-function MetricCardComparison({ label, current, previous, unit, delta, Icon, periodA, periodB, upIsGood = true }: {
-  label: string; current: string; previous: string; unit?: string; delta: number;
-  Icon: IconType; periodA?: string; periodB?: string; upIsGood?: boolean
-}) {
-  const { t } = useI18n()
-  return (
-    <article className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]">
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-[18px] w-[18px]" /></span>
-          <p className="text-sm font-medium text-ink-muted">{label}</p>
-        </div>
-        <DeltaBadge delta={delta} upIsGood={upIsGood} />
-      </div>
-      <div className="mt-5 grid grid-cols-2 divide-x divide-line">
-        <div className="pr-4">
-          <p className="text-10 font-medium uppercase tracking-[0.12em] text-ink-muted">{periodA ?? t('metrics.thisMonth')}</p>
-          <p className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-ink">
-            {current}{unit && <span className="ml-0.5 font-mono text-base font-semibold text-ink-muted">{unit}</span>}
-          </p>
-        </div>
-        <div className="pl-4">
-          <p className="text-10 font-medium uppercase tracking-[0.12em] text-ink-muted">{periodB ?? t('metrics.lastMonth')}</p>
-          <p className="mt-1 font-display text-3xl font-extrabold leading-none tracking-tight text-ink-soft">
-            {previous}{unit && <span className="ml-0.5 font-mono text-base font-semibold text-ink-muted">{unit}</span>}
-          </p>
-        </div>
-      </div>
-    </article>
-  )
-}
-
-/* ── MetricCardSkeleton ─────────────────────────────────────────────────── */
-function MetricCardSkeleton() {
-  return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-surface p-6 animate-pulse">
-      <div className="flex items-start justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-ground" />
-          <div className="h-3.5 w-24 rounded-full bg-ground" />
-        </div>
-        <div className="h-6 w-14 rounded-full bg-ground" />
-      </div>
-      <div className="mt-6">
-        <div className="h-9 w-32 rounded-lg bg-ground" />
-      </div>
-      <div className="mt-3 h-3 w-28 rounded-full bg-ground" />
-    </div>
-  )
-}
-
-/* ── MetricCardEmpty ────────────────────────────────────────────────────── */
-function MetricCardEmpty({ label, Icon }: { label: string; Icon: IconType }) {
-  const { t } = useI18n()
-  return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-line bg-surface p-8 text-center">
-      <span className="grid h-10 w-10 place-items-center rounded-xl bg-ground text-ink-muted"><Icon className="h-5 w-5" /></span>
-      <p className="text-sm font-medium text-ink-soft">{label}</p>
-      <p className="text-xs text-ink-muted">{t('metrics.noData')}</p>
-    </div>
-  )
-}
-
-/* ── MetricCardError ────────────────────────────────────────────────────── */
-function MetricCardError({ label, onRetry }: { label: string; onRetry?: () => void }) {
-  const { t } = useI18n()
-  return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-danger/30 bg-danger-soft/30 p-8 text-center">
-      <span className="grid h-10 w-10 place-items-center rounded-xl bg-danger-soft text-danger">
-        <IconAlert className="h-5 w-5" />
-      </span>
-      <p className="text-sm font-medium text-ink-soft">{label}</p>
-      <p className="text-xs text-ink-muted">{t('metrics.failed')}</p>
-      {onRetry && <button onClick={onRetry} className="mt-1 text-xs font-medium text-brand-700 hover:underline">{t('metrics.retry')}</button>}
-    </div>
-  )
-}
+function MetricCardSkeleton() { return <LibMetricCard state="loading" label="" value="" /> }
+function MetricCardEmpty({ label, Icon }: { label: string; Icon: IconType }) { return <LibMetricCard state="empty" label={label} value="" Icon={Icon} /> }
+function MetricCardError({ label, onRetry }: { label: string; onRetry?: () => void }) { return <LibMetricCard state="error" label={label} value="" onRetry={onRetry} /> }
 
 /* ── Severity variants data ─────────────────────────────────────────────── */
-const MC_SEVERITIES: { label: Key; value: string; unit: string | undefined; delta: number; accent: string; bg: string; text: string; spark: number[] }[] = [
-  { label: 'metrics.m.activeStreams',   value: '18,204', unit: undefined,  delta: 12.4,  accent: '#0891b2', bg: '#cffafe', text: '#0e7490', spark: [8,12,9,14,13,18,17,22]  },
-  { label: 'metrics.m.schemaCompliance',value: '99.8',   unit: '%',        delta: 0.2,   accent: '#059669', bg: '#d1fae5', text: '#065f46', spark: [92,94,95,96,98,98,99,100] },
-  { label: 'metrics.m.pendingBacklog',  value: '2,841',  unit: undefined,  delta: 34.1,  accent: '#d97706', bg: '#fde68a', text: '#92400e', spark: [10,12,14,18,22,28,31,34] },
-  { label: 'metrics.m.errorRate',       value: '0.42',   unit: '%',        delta: 18.6,  accent: '#e11d48', bg: '#fecdd3', text: '#9f1239', spark: [4,3,4,5,6,8,9,10]       },
+const MC_SEVERITIES: { label: Key; value: string; unit: string | undefined; delta: number; upIsGood: boolean; spark: number[] }[] = [
+  { label: 'metrics.m.activeStreams',    value: '18,204', unit: undefined, delta: 12.4, upIsGood: true,  spark: [8,12,9,14,13,18,17,22]  },
+  { label: 'metrics.m.schemaCompliance', value: '99.8',   unit: '%',       delta: 0.2,  upIsGood: true,  spark: [92,94,95,96,98,98,99,100] },
+  { label: 'metrics.m.pendingBacklog',   value: '2,841',  unit: undefined, delta: 34.1, upIsGood: false, spark: [10,12,14,18,22,28,31,34] },
+  { label: 'metrics.m.errorRate',        value: '0.42',   unit: '%',       delta: 18.6, upIsGood: false, spark: [4,3,4,5,6,8,9,10]       },
 ]
 
 /* ── MetricsPage ────────────────────────────────────────────────────────── */
@@ -3647,7 +3322,7 @@ export function MetricsPage() {
             <p className="mt-1 font-display text-3xl font-extrabold leading-none text-ink">v4.2</p>
             <div className="mt-4 flex items-end justify-between">
               <DeltaBadge delta={0} />
-              <SparkFlat w={72} h={28} />
+              <SparkFlat />
             </div>
             <p className="mt-2 font-mono text-10 text-ink-muted">{t('metrics.spark.flat')}</p>
           </div>
@@ -3692,23 +3367,7 @@ export function MetricsPage() {
       {/* ── Severity / accent ─────────────────────────────────────── */}
       <Section title={t('metrics.sev.title')} hint={t('metrics.sev.hint')}>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {MC_SEVERITIES.map(s => (
-            <article key={s.accent} className="overflow-hidden rounded-2xl border border-line bg-surface p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.1)]">
-              <div className="flex items-start justify-between">
-                <div className="h-2 w-2 rounded-full mt-1.5" style={{ backgroundColor: s.accent }} />
-                <span className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-11 font-semibold"
-                  style={{ backgroundColor: s.bg, color: s.text }}>
-                  {s.delta >= 0 ? <IconArrowUp className="h-3 w-3" /> : <IconArrowDown className="h-3 w-3" />}
-                  {Math.abs(s.delta)}%
-                </span>
-              </div>
-              <p className="mt-2 text-xs text-ink-muted">{t(s.label)}</p>
-              <p className="mt-1.5 font-display text-3xl font-extrabold leading-none tracking-tight text-ink">
-                {s.value}{s.unit && <span className="ml-0.5 font-mono text-base font-semibold text-ink-muted">{s.unit}</span>}
-              </p>
-              <Sparkline data={s.spark} positive={s.delta >= 0} w={96} h={28} />
-            </article>
-          ))}
+          {MC_SEVERITIES.map(s => <LibMetricCard key={s.label} label={t(s.label)} value={s.value} unit={s.unit} delta={s.delta} upIsGood={s.upIsGood} trend={s.spark} caption={' '} />)}
         </div>
       </Section>
 
@@ -3851,178 +3510,53 @@ const STATUS_KEY: Record<Row['status'], Key> = { Flowing: 'badges.dots.flowing',
 
 function ActionMenu({ id }: { id: string }) {
   const { t } = useI18n()
-  const [open, setOpen] = useState(false)
   return (
-    <div className="relative flex justify-end" onMouseLeave={() => setOpen(false)}>
-      <button
-        onClick={() => setOpen((o) => !o)}
-        aria-label={t('table.actionsFor', { id })}
-        className={`pance-focus grid h-8 w-8 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-ground hover:text-ink ${open ? 'bg-ground text-ink' : ''}`}
-      >
-        <IconDots className="h-4 w-4" />
-      </button>
-      {open && (
-        <div className="absolute right-0 top-9 z-30 w-44 overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
-          {[
-            { label: t('table.action.edit'), Icon: IconEdit },
-            { label: t('table.action.duplicate'), Icon: IconCopy },
-            { label: t('table.action.delete'), Icon: IconTrash, danger: true },
-          ].map(({ label, Icon: I, danger }) => (
-            <button key={label} onClick={() => setOpen(false)} className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${danger ? 'text-danger hover:bg-danger-soft' : 'text-ink-soft hover:bg-ground'}`}>
-              <I className="h-4 w-4" />
-              {label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    <DropdownMenu
+      align="end"
+      label={t('table.actionsFor', { id })}
+      trigger={<IconButton Icon={IconDots} label={t('table.actionsFor', { id })}  />}
+      items={[
+        { label: t('table.action.edit'), Icon: IconEdit },
+        { label: t('table.action.duplicate'), Icon: IconCopy },
+        { type: 'separator' },
+        { label: t('table.action.delete'), Icon: IconTrash, danger: true },
+      ]}
+    />
   )
 }
 
-/* Mobile card representation of a stream row — used below md where the full
-   table would overflow. Data-heavy tables collapse to a stacked field list. */
 function CardField({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="min-w-0">
-      <dt className="font-mono text-10 font-semibold uppercase tracking-[0.12em] text-ink-muted">{label}</dt>
+      <dt className="font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted">{label}</dt>
       <dd className="mt-0.5 truncate text-sm text-ink-soft">{children}</dd>
     </div>
   )
 }
 
-function StreamCard({ r, selectable, selected, onToggle }: { r: Row; selectable?: boolean; selected?: boolean; onToggle?: () => void }) {
+const avatarOf = (r: Row) => `https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`
+const speed = (s: string) => parseFloat(s) * (s.includes('M/s') ? 1000 : 1)
+
+function useStreamColumns(): Column<Row>[] {
   const { t } = useI18n()
-  return (
-    <div className={`rounded-xl border p-4 transition-colors ${selected ? 'border-brand-300 bg-brand-50/50' : 'border-line bg-surface'}`}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex min-w-0 items-start gap-3">
-          {selectable && onToggle && <span className="mt-0.5"><CbBox on={!!selected} onClick={onToggle} label={t('table.select', { name: r.name })} /></span>}
-          <div className="min-w-0">
-            <p className="truncate font-medium text-ink">{r.name}</p>
-            <p className="font-mono text-11 text-ink-muted">{r.id}</p>
-          </div>
-        </div>
-        <ActionMenu id={r.id} />
-      </div>
-      <div className="mt-3 flex items-center gap-2.5">
-        <Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={26} />
-        <span className="truncate text-sm text-ink-soft">{r.owner}</span>
-      </div>
-      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line-soft pt-4">
-        <CardField label={t('table.col.region')}><span className="font-mono text-13">{r.region}</span></CardField>
-        <CardField label={t('table.col.status')}><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></CardField>
-        <CardField label={t('table.col.throughput')}><span className="font-mono text-13 font-medium text-ink">{r.throughput}</span></CardField>
-        <CardField label={t('table.col.updated')}>{t(r.updated)}</CardField>
-      </dl>
-    </div>
-  )
+  return [
+    { key: 'name', header: t('table.col.name'), sortable: true, render: (r) => <div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-xs text-ink-muted">{r.id}</span></div> },
+    { key: 'owner', header: t('table.col.owner'), sortable: true, render: (r) => <div className="flex items-center gap-2.5"><Avatar name={r.owner} src={avatarOf(r)} size={28} decorative /><span>{r.owner}</span></div> },
+    { key: 'region', header: t('table.col.region'), sortable: true, render: (r) => <span className="font-mono text-13">{r.region}</span> },
+    { key: 'status', header: t('table.col.status'), sortable: true, render: (r) => <Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge> },
+    { key: 'throughput', header: t('table.col.throughput'), align: 'end', sortable: true, sortValue: (r) => speed(r.throughput), render: (r) => <span className="font-mono text-13 font-medium text-ink">{r.throughput}</span> },
+    { key: 'updated', header: t('table.col.updated'), render: (r) => t(r.updated) },
+  ]
 }
 
 export function DataTable({ compact }: { compact?: boolean } = {}) {
   const { t } = useI18n()
-  const pageSize = 5
-  const [page, setPage] = useState(1)
-  const [selected, setSelected] = useState<Set<string>>(new Set())
-  const pages = Math.ceil(ROWS.length / pageSize)
-  const view = ROWS.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-  const allOnPage = view.every((r) => selected.has(r.id))
-  const toggle = (id: string) => setSelected((prev) => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n })
-  const toggleAll = () => setSelected((prev) => { const n = new Set(prev); allOnPage ? view.forEach((r) => n.delete(r.id)) : view.forEach((r) => n.add(r.id)); return n })
-  const box = (on: boolean) => `pance-focus grid h-4 w-4 place-items-center rounded border transition-colors ${on ? 'border-brand-700 bg-brand-700 text-white' : 'border-slate-300 bg-surface hover:border-brand-400'}`
-
+  const columns = useStreamColumns()
   return (
-    <Card className="overflow-hidden">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line-soft px-6 py-5">
-        <div>
-          <h2 className="font-display text-base font-bold tracking-tight text-ink">{t('table.liveStreams')}</h2>
-          <p className="mt-0.5 text-sm text-ink-muted">{selected.size > 0 ? t('table.nSelected', { n: selected.size }) : t('table.summary', { n: ROWS.length })}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="hidden sm:block"><Input placeholder={t('table.filter')} Icon={IconSearch} className="w-56 bg-canvas py-2" /></div>
-          <Button size="sm" Icon={IconPlus}>{t('table.newStream')}</Button>
-        </div>
-      </header>
-      {/* Mobile: card list */}
-      <div className="space-y-3 p-4 md:hidden">
-        {view.map((r) => (
-          <StreamCard key={r.id} r={r} selectable selected={selected.has(r.id)} onToggle={() => toggle(r.id)} />
-        ))}
-      </div>
-      {/* md+: full table */}
-      <div className={`hidden md:block ${compact ? 'overflow-auto' : 'max-h-[420px] overflow-auto'}`}>
-        <table className="w-full border-collapse text-left text-sm">
-          <thead className="sticky top-0 z-10">
-            <tr className="bg-canvas/95 backdrop-blur-sm [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
-              <th className="w-12"><button onClick={toggleAll} aria-label={t('table.selectAll')} className={box(allOnPage)}>{allOnPage && <IconCheck className="h-3 w-3" />}</button></th>
-              <th>{t('table.col.name')}</th><th>{t('table.col.owner')}</th><th>{t('table.col.region')}</th><th>{t('table.col.status')}</th><th className="text-right">{t('table.col.throughput')}</th><th>{t('table.col.updated')}</th><th className="w-12"><span className="sr-only">{t('ui.moreActions')}</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {view.map((r) => {
-              const sel = selected.has(r.id)
-              return (
-                <tr key={r.id} className={`group border-b border-line-soft transition-colors duration-150 last:border-0 ${sel ? 'bg-brand-50/60' : 'hover:bg-canvas'}`}>
-                  <td className="px-6 py-3.5"><button onClick={() => toggle(r.id)} aria-label={t('table.select', { name: r.name })} className={box(sel)}>{sel && <IconCheck className="h-3 w-3" />}</button></td>
-                  <td className="px-6 py-3.5"><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-11 text-ink-muted">{r.id}</span></div></td>
-                  <td className="px-6 py-3.5"><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} decorative /><span className="text-ink-soft">{r.owner}</span></div></td>
-                  <td className="px-6 py-3.5 font-mono text-13 text-ink-soft">{r.region}</td>
-                  <td className="px-6 py-3.5"><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></td>
-                  <td className="px-6 py-3.5 text-right font-mono text-13 font-medium text-ink">{r.throughput}</td>
-                  <td className="px-6 py-3.5 text-ink-muted">{t(r.updated)}</td>
-                  <td className="px-6 py-3.5"><ActionMenu id={r.id} /></td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-      <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-line-soft px-6 py-4">
-        <p className="text-sm text-ink-muted">{t('table.showing')} <span className="font-medium text-ink-soft">{(page - 1) * pageSize + 1}</span>–<span className="font-medium text-ink-soft">{Math.min(page * pageSize, ROWS.length)}</span> {t('table.of')} <span className="font-medium text-ink-soft">{ROWS.length}</span></p>
-        <Pagination page={page} pages={pages} onChange={setPage} />
-      </footer>
-    </Card>
-  )
-}
-
-/* ── Extended table specimens ─────────────────────────────────────────── */
-
-type SortDir = 'asc' | 'desc' | null
-type Density = 'compact' | 'default' | 'comfortable'
-
-const DENSITY_LABEL: Record<Density, { title: Key; short: Key }> = {
-  compact: { title: 'table.density.compact', short: 'table.density.compact.short' },
-  default: { title: 'table.density.default', short: 'table.density.default.short' },
-  comfortable: { title: 'table.density.comfortable', short: 'table.density.comfortable.short' },
-}
-
-const DENSITY_PAD: Record<Density, string> = {
-  compact: 'py-2',
-  default: 'py-3.5',
-  comfortable: 'py-5',
-}
-
-const ALL_COLS = [
-  { key: 'name', label: 'table.col.name' as Key, sortable: true },
-  { key: 'owner', label: 'table.col.owner' as Key, sortable: true },
-  { key: 'region', label: 'table.col.region' as Key, sortable: true },
-  { key: 'status', label: 'table.col.status' as Key, sortable: true },
-  { key: 'throughput', label: 'table.col.throughput' as Key, sortable: false, align: 'right' as const },
-  { key: 'updated', label: 'table.col.updated' as Key, sortable: true },
-]
-
-function SortBtn({ col, sortCol, sortDir, onSort }: { col: string; sortCol: string | null; sortDir: SortDir; onSort: (c: string) => void }) {
-  const { t } = useI18n()
-  const active = sortCol === col
-  return (
-    <button
-      onClick={() => onSort(col)}
-      className={`group inline-flex items-center gap-1 font-mono text-11 font-semibold uppercase tracking-[0.12em] transition-colors hover:text-ink ${active ? 'text-brand-700' : 'text-ink-muted'}`}
-    >
-      <span>{t(ALL_COLS.find(c => c.key === col)!.label)}</span>
-      <span className={`transition-opacity ${active ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'}`}>
-        <IconChevronDown className={`h-3 w-3 transition-transform duration-200 ${active && sortDir === 'asc' ? 'rotate-180' : ''}`} />
-      </span>
-    </button>
+    <div className={compact ? '' : 'max-h-[520px]'}>
+      <LibDataTable caption={t('table.liveStreams')} columns={columns} rows={ROWS} rowKey={(r) => r.id} rowLabel={(r) => r.name} selectable pageSize={5}
+        rowActions={(r) => <ActionMenu id={r.id} />} actions={<Button size="sm" Icon={IconPlus}>{t('table.newStream')}</Button>} />
+    </div>
   )
 }
 
@@ -4040,177 +3574,27 @@ function CbBox({ on, indeterminate, onClick, label }: { on: boolean; indetermina
 
 function FullDataTable() {
   const { t } = useI18n()
-  const [page, setPage] = useState(1)
-  const pageSize = 5
-  const [selected, setSelected] = useState<Set<string>>(new Set())
-  const [sortCol, setSortCol] = useState<string | null>(null)
-  const [sortDir, setSortDir] = useState<SortDir>(null)
-  const [density, setDensity] = useState<Density>('default')
+  const columns = useStreamColumns()
   const [search, setSearch] = useState('')
-  const [hidden, setHidden] = useState<Set<string>>(new Set())
-  const [colMenu, setColMenu] = useState(false)
-  const colMenuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!colMenu) return
-    const close = (e: MouseEvent) => colMenuRef.current && !colMenuRef.current.contains(e.target as Node) && setColMenu(false)
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [colMenu])
-
-  const filtered = ROWS.filter(r =>
-    !search || r.name.includes(search) || r.owner.toLowerCase().includes(search.toLowerCase()) || r.region.includes(search)
-  )
-  const sorted = sortCol && sortDir
-    ? [...filtered].sort((a, b) => {
-        const av = String(a[sortCol as keyof Row] ?? '')
-        const bv = String(b[sortCol as keyof Row] ?? '')
-        return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av)
-      })
-    : filtered
-
-  const pages = Math.max(1, Math.ceil(sorted.length / pageSize))
-  const view = sorted.slice((page - 1) * pageSize, page * pageSize)
-  const allOnPage = view.length > 0 && view.every(r => selected.has(r.id))
-  const someOnPage = view.some(r => selected.has(r.id))
-
-  const cycleSort = (col: string) => {
-    if (sortCol !== col) { setSortCol(col); setSortDir('asc') }
-    else if (sortDir === 'asc') setSortDir('desc')
-    else { setSortCol(null); setSortDir(null) }
-  }
-
-  const toggle = (id: string) => setSelected(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n })
-  const toggleAll = () => setSelected(prev => { const n = new Set(prev); allOnPage ? view.forEach(r => n.delete(r.id)) : view.forEach(r => n.add(r.id)); return n })
-  const visibleCols = ALL_COLS.filter(c => !hidden.has(c.key))
-  const rp = DENSITY_PAD[density]
-
+  const [density, setDensity] = useState<'compact' | 'default' | 'comfortable'>('default')
+  const q = search.toLowerCase()
+  const rows = ROWS.filter((r) => !q || r.name.includes(q) || r.owner.toLowerCase().includes(q) || r.region.includes(q))
   return (
-    <Card className="overflow-hidden">
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-line-soft px-6 py-5">
-        <div>
-          <h2 className="font-display text-base font-bold tracking-tight text-ink">{t('table.liveStreams')}</h2>
-          <p className="mt-0.5 text-sm text-ink-muted">
-            {selected.size > 0 ? t('table.nOfSelected', { n: selected.size, total: ROWS.length }) : t('table.summary', { n: filtered.length })}
-          </p>
-        </div>
-
-        {selected.size > 0 ? (
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="hidden text-sm text-ink-muted sm:inline">{t('table.nSelected', { n: selected.size })} —</span>
-            <Button size="sm" severity="secondary" variant="outlined" Icon={IconDownload}>{t('table.export')}</Button>
-            <Button size="sm" severity="warning" variant="outlined">{t('table.pauseAll')}</Button>
-            <Button size="sm" severity="danger" variant="outlined" Icon={IconTrash}>{t('table.action.delete')}</Button>
-            <button aria-label={t('table.clearSelection')} onClick={() => setSelected(new Set())} className="pance-focus ml-1 rounded-lg p-1.5 text-ink-muted hover:bg-ground"><IconX className="h-4 w-4" /></button>
-          </div>
-        ) : (
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="flex rounded-lg border border-line bg-canvas p-0.5">
-              {(['compact', 'default', 'comfortable'] as const).map(d => (
-                <button key={d} onClick={() => setDensity(d)} title={t(DENSITY_LABEL[d].title)} className={`pance-focus rounded-md px-2.5 py-1 font-mono text-10 font-semibold uppercase tracking-wider transition-colors ${density === d ? 'bg-surface text-brand-700 shadow-sm ring-1 ring-line' : 'text-ink-muted hover:text-ink-soft'}`}>
-                  {t(DENSITY_LABEL[d].short)}
-                </button>
-              ))}
-            </div>
-            <div ref={colMenuRef} className="relative">
-              <button aria-label={t('table.toggleColumns')} onClick={() => setColMenu(v => !v)} className={`pance-focus grid h-9 w-9 place-items-center rounded-xl border transition-colors ${colMenu ? 'border-brand-300 bg-brand-50 text-brand-700' : 'border-line text-ink-muted hover:border-brand-200 hover:text-brand-700'}`}>
-                <IconFilter className="h-4 w-4" />
-              </button>
-              {colMenu && (
-                <div className="absolute right-0 top-11 z-40 w-48 rounded-xl border border-line bg-surface p-2 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.35)]">
-                  <p className="px-2 pb-2 pt-1 font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{t('table.toggleColumns')}</p>
-                  {ALL_COLS.map(c => (
-                    <label key={c.key} className="flex cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1.5 text-sm text-ink-soft hover:bg-ground">
-                      <CbBox
-                        on={!hidden.has(c.key)}
-                        onClick={() => setHidden(prev => { const n = new Set(prev); n.has(c.key) ? n.delete(c.key) : n.add(c.key); return n })}
-                        label={t(c.label)}
-                      />
-                      {t(c.label)}
-                    </label>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className="hidden sm:block">
-              <Input inputSize="sm" placeholder={t('table.filter')} Icon={IconSearch} value={search} onChange={e => { setSearch(e.target.value); setPage(1) }} className="w-52 bg-canvas" />
-            </div>
-            <Button size="sm" Icon={IconPlus}>{t('table.newStream')}</Button>
-          </div>
-        )}
-      </header>
-
-      {/* Mobile: card list */}
-      <div className="space-y-3 p-4 md:hidden">
-        {view.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 px-4 py-12 text-center">
-            <span className="grid h-12 w-12 place-items-center rounded-xl bg-slate-100 text-ink-muted"><IconSearch className="h-5 w-5" /></span>
-            <p className="font-semibold text-ink">{t('table.noMatch', { q: search })}</p>
-            <button onClick={() => { setSearch(''); setPage(1) }} className="pance-focus rounded-xl px-4 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">{t('table.clearFilter')}</button>
-          </div>
-        ) : view.map((r) => (
-          <StreamCard key={r.id} r={r} selectable selected={selected.has(r.id)} onToggle={() => toggle(r.id)} />
-        ))}
-      </div>
-      {/* md+: full table */}
-      <div className="hidden max-h-[460px] overflow-auto md:block">
-        <table className="w-full border-collapse text-left text-sm">
-          <thead className="sticky top-0 z-10">
-            <tr className="bg-canvas/95 backdrop-blur-sm [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3">
-              <th className="w-12 px-6 py-3">
-                <CbBox on={allOnPage} indeterminate={!allOnPage && someOnPage} onClick={toggleAll} label={t('table.selectAll')} />
-                <span className="sr-only">{t('table.selectAll')}</span>
-              </th>
-              {visibleCols.map(col => (
-                <th key={col.key} className={`px-6 py-3 ${col.align === 'right' ? 'text-right' : ''}`}>
-                  {col.sortable
-                    ? <SortBtn col={col.key} sortCol={sortCol} sortDir={sortDir} onSort={cycleSort} />
-                    : <span className="font-mono text-11 font-semibold uppercase tracking-[0.12em] text-ink-muted">{t(col.label)}</span>
-                  }
-                </th>
-              ))}
-              <th className="w-12 px-6 py-3"><span className="sr-only">{t('ui.moreActions')}</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            {view.length === 0 ? (
-              <tr>
-                <td colSpan={visibleCols.length + 2} className="px-6 py-16 text-center">
-                  <div className="mx-auto flex max-w-xs flex-col items-center gap-3">
-                    <span className="grid h-12 w-12 place-items-center rounded-xl bg-slate-100 text-ink-muted"><IconSearch className="h-5 w-5" /></span>
-                    <p className="font-semibold text-ink">{t('table.noMatch', { q: search })}</p>
-                    <p className="text-sm text-ink-muted">{t('table.tryDifferent')}</p>
-                    <button onClick={() => { setSearch(''); setPage(1) }} className="pance-focus mt-1 rounded-xl px-4 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">{t('table.clearFilter')}</button>
-                  </div>
-                </td>
-              </tr>
-            ) : view.map(r => {
-              const sel = selected.has(r.id)
-              return (
-                <tr key={r.id} className={`group border-b border-line-soft transition-colors duration-150 last:border-0 ${sel ? 'bg-brand-50/60' : 'hover:bg-canvas'}`}>
-                  <td className={`px-6 ${rp}`}><CbBox on={sel} onClick={() => toggle(r.id)} label={t('table.select', { name: r.name })} /></td>
-                  {!hidden.has('name') && <td className={`px-6 ${rp}`}><div className="flex flex-col"><span className="font-medium text-ink">{r.name}</span><span className="font-mono text-11 text-ink-muted">{r.id}</span></div></td>}
-                  {!hidden.has('owner') && <td className={`px-6 ${rp}`}><div className="flex items-center gap-2.5"><Avatar name={r.owner} src={`https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`} size={28} decorative /><span className="text-ink-soft">{r.owner}</span></div></td>}
-                  {!hidden.has('region') && <td className={`px-6 ${rp} font-mono text-13 text-ink-soft`}>{r.region}</td>}
-                  {!hidden.has('status') && <td className={`px-6 ${rp}`}><Badge severity={rowTone[r.status]} dot>{t(STATUS_KEY[r.status])}</Badge></td>}
-                  {!hidden.has('throughput') && <td className={`px-6 ${rp} text-right font-mono text-13 font-medium text-ink`}>{r.throughput}</td>}
-                  {!hidden.has('updated') && <td className={`px-6 ${rp} text-ink-muted`}>{t(r.updated)}</td>}
-                  <td className={`px-6 ${rp}`}><ActionMenu id={r.id} /></td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-line-soft px-6 py-4">
-        <p className="text-sm text-ink-muted">
-          {t('table.showing')} <span className="font-medium text-ink-soft">{Math.min((page - 1) * pageSize + 1, sorted.length)}</span>–<span className="font-medium text-ink-soft">{Math.min(page * pageSize, sorted.length)}</span> {t('table.of')} <span className="font-medium text-ink-soft">{sorted.length}</span>
-        </p>
-        <Pagination page={page} pages={pages} onChange={setPage} />
-      </footer>
-    </Card>
+    <LibDataTable caption={t('table.liveStreams')} columns={columns} rows={rows} rowKey={(r) => r.id} rowLabel={(r) => r.name} selectable pageSize={5}
+      density={density} search={search} onSearchChange={setSearch} searchPlaceholder={t('table.filter')}
+      rowActions={(r) => <ActionMenu id={r.id} />}
+      actions={<>
+        <SegmentedControl label={t('table.density.default')} value={density} onChange={(v) => setDensity(v as typeof density)}
+          options={(['compact', 'default', 'comfortable'] as const).map((d) => ({ value: d, label: t(DENSITY_LABEL[d].short) }))} />
+        <Button size="sm" Icon={IconPlus}>{t('table.newStream')}</Button>
+      </>} />
   )
+}
+
+const DENSITY_LABEL: Record<'compact' | 'default' | 'comfortable', { title: Key; short: Key }> = {
+  compact: { title: 'table.density.compact', short: 'table.density.compact.short' },
+  default: { title: 'table.density.default', short: 'table.density.default.short' },
+  comfortable: { title: 'table.density.comfortable', short: 'table.density.comfortable.short' },
 }
 
 /* ── Expandable rows ── */
@@ -5361,655 +4745,39 @@ function fv(n: number): string {
   return n.toLocaleString()
 }
 
-/* ─── VizLineChart ─────────────────────────────────────────────────────── */
-type LSeries = { name: string; color: string; data: number[] }
-function VizLineChart({ series, labels, title, sub, W = 600, H = 248 }: {
-  series: LSeries[]; labels: string[]; title: string; sub?: string; W?: number; H?: number
-}) {
-  const [hov, setHov] = useState<number | null>(null)
-  const rafRef = useRef<number | null>(null)
-  const { containerRef, afs } = useAxisFontSize(W)
-  const uid = React.useId().replace(/:/g, 'x')
-  const gW = W - VM.l - VM.r
-  const gH = H - VM.t - VM.b
-  const allV = series.flatMap(s => s.data)
-  const yMax0 = Math.max(...allV)
-  const ticks  = niceTicks(0, yMax0 * 1.1)
-  const yMax   = ticks[ticks.length - 1]
-  const yS = (v: number) => gH - (v / yMax) * gH
-  const xS = (i: number) => (i / (labels.length - 1)) * gW
-
-  return (
-    <div ref={containerRef} className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
-        <div>
-          <p className="text-sm font-semibold text-ink">{title}</p>
-          {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-        </div>
-        {series.length > 1 && (
-          <div className="flex flex-wrap gap-3">
-            {series.map(s => (
-              <div key={s.name} className="flex items-center gap-1.5">
-                <span className="inline-block h-0.5 w-4 rounded-full" style={{ backgroundColor: s.color }} />
-                <span className="text-xs text-ink-muted">{s.name}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 'auto', display: 'block' }}
-        onMouseMove={e => {
-          const svgEl = e.currentTarget as SVGSVGElement
-          const cx = e.clientX
-          if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
-          rafRef.current = requestAnimationFrame(() => {
-            const r = svgEl.getBoundingClientRect()
-            const px = ((cx - r.left) / r.width) * W - VM.l
-            setHov(Math.max(0, Math.min(labels.length - 1, Math.round((px / gW) * (labels.length - 1)))))
-          })
-        }}
-        onMouseLeave={() => { if (rafRef.current !== null) cancelAnimationFrame(rafRef.current); setHov(null) }}
-      >
-        <defs>
-          {series.map(s => (
-            <linearGradient key={s.name} id={`${uid}-lg-${s.name.replace(/\W/g,'')}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stopColor={s.color} stopOpacity="0.13" />
-              <stop offset="100%" stopColor={s.color} stopOpacity="0" />
-            </linearGradient>
-          ))}
-        </defs>
-
-        <g transform={`translate(${VM.l},${VM.t})`}>
-          {ticks.map(tick => {
-            const y = yS(tick)
-            if (y < -1 || y > gH + 1) return null
-            return (
-              <g key={tick}>
-                <line x1={0} y1={y} x2={gW} y2={y} stroke={VG} strokeWidth={1} />
-                <text x={-8} y={y} textAnchor="end" dominantBaseline="middle" fontSize={afs} fill={VA}
-                  fontFamily="inherit" style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(tick)}</text>
-              </g>
-            )
-          })}
-          <line x1={0} y1={gH} x2={gW} y2={gH} stroke={VB} strokeWidth={1} />
-
-          {labels.map((l, i) => {
-            const step = Math.max(1, Math.ceil(labels.length / 8))
-            if (i % step !== 0 && i !== labels.length - 1) return null
-            return (
-              <text key={i} x={xS(i)} y={gH + 18} textAnchor="middle" fontSize={afs} fill={VA} fontFamily="inherit">{l}</text>
-            )
-          })}
-
-          {series.map(s => {
-            const pts = s.data.map((v, i) => [xS(i), yS(v)] as [number, number])
-            const aPath = `M${pts[0][0]},${gH} ${pts.map(([x, y]) => `L${x},${y}`).join(' ')} L${pts[pts.length-1][0]},${gH} Z`
-            return <path key={s.name} d={aPath} fill={`url(#${uid}-lg-${s.name.replace(/\W/g,'')})`} />
-          })}
-
-          {series.map(s => {
-            const pts = s.data.map((v, i) => `${xS(i)},${yS(v)}`).join(' ')
-            return <polyline key={s.name} points={pts} fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-          })}
-
-          {series.map(s => {
-            const li = s.data.length - 1
-            const x = xS(li), y = yS(s.data[li])
-            return (
-              <g key={s.name}>
-                <circle cx={x} cy={y} r={6} fill={VS} />
-                <circle cx={x} cy={y} r={4} fill={s.color} />
-              </g>
-            )
-          })}
-
-          {hov !== null && (
-            <>
-              <line x1={xS(hov)} y1={0} x2={xS(hov)} y2={gH} stroke={VB} strokeWidth={1} />
-              {series.map(s => {
-                const x = xS(hov), y = yS(s.data[hov])
-                return (
-                  <g key={s.name}>
-                    <circle cx={x} cy={y} r={7} fill={VS} />
-                    <circle cx={x} cy={y} r={5} fill={s.color} />
-                  </g>
-                )
-              })}
-            </>
-          )}
-        </g>
-      </svg>
-
-      {hov !== null && (
-        <div className="mt-2 flex flex-wrap items-center gap-3 rounded-xl border border-line bg-canvas px-4 py-2.5 text-xs">
-          <span className="font-medium text-ink-muted">{labels[hov]}</span>
-          <span className="h-3 w-px bg-line" />
-          {series.map(s => (
-            <span key={s.name} className="flex items-center gap-1.5">
-              <span className="inline-block h-0.5 w-3 rounded-full" style={{ backgroundColor: s.color }} />
-              <span className="text-ink-muted">{s.name}</span>
-              <span className="font-mono font-semibold text-ink">{fv(s.data[hov])}</span>
-            </span>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-/* ─── VizBarChart (vertical columns, single or grouped) ───────────────── */
+/* ─── Charts: the docs site renders the library's accessible charts ───────────
+   Series colours now come from `color.dataviz.series.*` tokens, so the per-series `color` that older
+   specimens passed is ignored. */
+type LSeries = { name: string; color?: string; data: number[] }
 type BarDatum = { label: string; value: number; color?: string }
-function VizBarChart({ data, title, sub, W = 600, H = 220, color = VC[0] as string }: {
-  data: BarDatum[]; title: string; sub?: string; W?: number; H?: number; color?: string
-}) {
-  const [hov, setHov] = useState<number | null>(null)
-  const gW = W - VM.l - VM.r
-  const gH = H - VM.t - VM.b
-  const maxV = Math.max(...data.map(d => d.value))
-  const ticks = niceTicks(0, maxV)
-  const yMax  = ticks[ticks.length - 1]
-  const yS  = (v: number) => gH - (v / yMax) * gH
-  const slotW = gW / data.length
-  const barW  = Math.min(24, slotW * 0.55)
-  const xC    = (i: number) => slotW * (i + 0.5)
-
-  return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-3">
-        <p className="text-sm font-semibold text-ink">{title}</p>
-        {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 'auto', display: 'block' }}
-        onMouseLeave={() => setHov(null)}>
-        <g transform={`translate(${VM.l},${VM.t})`}>
-          {ticks.map(tick => {
-            const y = yS(tick)
-            if (y < -1 || y > gH + 1) return null
-            return (
-              <g key={tick}>
-                <line x1={0} y1={y} x2={gW} y2={y} stroke={VG} strokeWidth={1} />
-                <text x={-8} y={y} textAnchor="end" dominantBaseline="middle" fontSize={10} fill={VA}
-                  fontFamily="inherit" style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(tick)}</text>
-              </g>
-            )
-          })}
-          <line x1={0} y1={gH} x2={gW} y2={gH} stroke={VB} strokeWidth={1} />
-
-          {data.map((d, i) => {
-            const x = xC(i)
-            const y = yS(d.value)
-            const h = gH - y
-            const c = d.color ?? color
-            const on = hov === i
-            return (
-              <g key={d.label} onMouseEnter={() => setHov(i)} style={{ cursor: 'default' }}>
-                <rect x={x - slotW / 2} y={0} width={slotW} height={gH} fill="transparent" />
-                <rect x={x - barW / 2} y={y} width={barW} height={Math.max(h, 0)}
-                  fill={on ? c : c + 'cc'} rx={4} ry={4} />
-                {h > 6 && <rect x={x - barW / 2} y={y + 4} width={barW} height={Math.max(h - 4, 0)}
-                  fill={on ? c : c + 'cc'} />}
-                <text x={x} y={gH + 18} textAnchor="middle" fontSize={10} fill={VA} fontFamily="inherit">{d.label}</text>
-                {on && <text x={x} y={y - 6} textAnchor="middle" fontSize={10} fill={VI} fontFamily="inherit"
-                  fontWeight={600} style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(d.value)}</text>}
-              </g>
-            )
-          })}
-        </g>
-      </svg>
-    </div>
-  )
-}
-
-/* ─── VizGroupedBar ────────────────────────────────────────────────────── */
-type GroupedSeries = { name: string; color: string; data: number[] }
-function VizGroupedBar({ series, labels, title, sub, W = 600, H = 228 }: {
-  series: GroupedSeries[]; labels: string[]; title: string; sub?: string; W?: number; H?: number
-}) {
-  const [hov, setHov] = useState<[number,number] | null>(null)
-  const gW = W - VM.l - VM.r
-  const gH = H - VM.t - VM.b
-  const allV = series.flatMap(s => s.data)
-  const ticks = niceTicks(0, Math.max(...allV))
-  const yMax  = ticks[ticks.length - 1]
-  const yS  = (v: number) => gH - (v / yMax) * gH
-  const groupW = gW / labels.length
-  const barW   = Math.min(18, (groupW * 0.8) / series.length)
-  const gap    = 2
-
-  return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
-        <div>
-          <p className="text-sm font-semibold text-ink">{title}</p>
-          {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {series.map(s => (
-            <div key={s.name} className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: s.color }} />
-              <span className="text-xs text-ink-muted">{s.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 'auto', display: 'block' }}
-        onMouseLeave={() => setHov(null)}>
-        <g transform={`translate(${VM.l},${VM.t})`}>
-          {ticks.map(tick => {
-            const y = yS(tick)
-            if (y < -1 || y > gH + 1) return null
-            return (
-              <g key={tick}>
-                <line x1={0} y1={y} x2={gW} y2={y} stroke={VG} strokeWidth={1} />
-                <text x={-8} y={y} textAnchor="end" dominantBaseline="middle" fontSize={10} fill={VA}
-                  fontFamily="inherit" style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(tick)}</text>
-              </g>
-            )
-          })}
-          <line x1={0} y1={gH} x2={gW} y2={gH} stroke={VB} strokeWidth={1} />
-
-          {labels.map((label, gi) => {
-            const groupX = groupW * (gi + 0.5) - ((series.length * barW + (series.length - 1) * gap) / 2)
-            return (
-              <g key={label}>
-                {series.map((s, si) => {
-                  const x = groupX + si * (barW + gap) + barW / 2
-                  const y = yS(s.data[gi])
-                  const h = gH - y
-                  const on = hov?.[0] === gi && hov?.[1] === si
-                  return (
-                    <g key={s.name} onMouseEnter={() => setHov([gi, si])} style={{ cursor: 'default' }}>
-                      <rect x={groupX + si * (barW + gap)} y={y} width={barW} height={Math.max(h, 0)}
-                        fill={on ? s.color : s.color + 'cc'} rx={3} ry={3} />
-                      {h > 5 && <rect x={groupX + si * (barW + gap)} y={y + 3} width={barW} height={Math.max(h - 3, 0)}
-                        fill={on ? s.color : s.color + 'cc'} />}
-                      {on && <text x={x} y={y - 5} textAnchor="middle" fontSize={9} fill={VI}
-                        fontFamily="inherit" fontWeight={600} style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(s.data[gi])}</text>}
-                    </g>
-                  )
-                })}
-                <text x={groupW * (gi + 0.5)} y={gH + 18} textAnchor="middle" fontSize={10} fill={VA} fontFamily="inherit">{label}</text>
-              </g>
-            )
-          })}
-        </g>
-      </svg>
-      {hov !== null && (
-        <div className="mt-2 flex flex-wrap items-center gap-3 rounded-xl border border-line bg-canvas px-4 py-2.5 text-xs">
-          <span className="font-medium text-ink-muted">{labels[hov[0]]}</span>
-          <span className="h-3 w-px bg-line" />
-          {series.map((s, si) => (
-            <span key={s.name} className={`flex items-center gap-1.5 ${hov[1] === si ? '' : 'opacity-50'}`}>
-              <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: s.color }} />
-              <span className="text-ink-muted">{s.name}</span>
-              <span className="font-mono font-semibold text-ink">{fv(s.data[hov[0]])}</span>
-            </span>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-/* ─── VizHBarChart (horizontal ranked) ────────────────────────────────── */
-function VizHBarChart({ data, title, sub, color = VC[0] as string }: {
-  data: BarDatum[]; title: string; sub?: string; color?: string
-}) {
-  const [hov, setHov] = useState<number | null>(null)
-  const labelW = 120
-  const maxV = Math.max(...data.map(d => d.value))
-
-  return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-4">
-        <p className="text-sm font-semibold text-ink">{title}</p>
-        {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-      </div>
-      <div className="space-y-2">
-        {data.map((d, i) => {
-          const c = d.color ?? color
-          const on = hov === i
-          const pct = (d.value / maxV) * 100
-          return (
-            <div key={d.label} className="flex items-center gap-3"
-              onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}>
-              <div className="shrink-0 text-right text-xs text-ink-muted" style={{ width: labelW }}>
-                {d.label}
-              </div>
-              <div className="relative h-5 flex-1 overflow-hidden rounded-sm bg-ground">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-sm transition-[width] duration-300"
-                  style={{ width: `${pct}%`, backgroundColor: c, opacity: on ? 1 : 0.8 }}
-                />
-              </div>
-              <div className="w-14 shrink-0 text-right font-mono text-xs tabular-nums"
-                style={{ color: on ? VI : VA, fontWeight: on ? 600 : 400 }}>
-                {fv(d.value)}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
-
-/* ─── VizStackedBar ────────────────────────────────────────────────────── */
-type StackSeries = { name: string; color: string; data: number[] }
-function VizStackedBar({ series, labels, title, sub, W = 600, H = 228 }: {
-  series: StackSeries[]; labels: string[]; title: string; sub?: string; W?: number; H?: number
-}) {
-  const { t } = useI18n()
-  const [hov, setHov] = useState<number | null>(null)
-  const { containerRef, afs } = useAxisFontSize(W)
-  const gW = W - VM.l - VM.r
-  const gH = H - VM.t - VM.b
-  const totals = labels.map((_, i) => series.reduce((s, sr) => s + sr.data[i], 0))
-  const ticks  = niceTicks(0, Math.max(...totals))
-  const yMax   = ticks[ticks.length - 1]
-  const yS   = (v: number) => gH - (v / yMax) * gH
-  const slotW  = gW / labels.length
-  const barW   = Math.min(28, slotW * 0.55)
-  const xC     = (i: number) => slotW * (i + 0.5)
-  const GAP    = 2
-
-  return (
-    <div ref={containerRef} className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
-        <div>
-          <p className="text-sm font-semibold text-ink">{title}</p>
-          {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {series.map(s => (
-            <div key={s.name} className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: s.color }} />
-              <span className="text-xs text-ink-muted">{s.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 'auto', display: 'block' }}
-        onMouseLeave={() => setHov(null)}>
-        <g transform={`translate(${VM.l},${VM.t})`}>
-          {ticks.map(tick => {
-            const y = yS(tick)
-            if (y < -1 || y > gH + 1) return null
-            return (
-              <g key={tick}>
-                <line x1={0} y1={y} x2={gW} y2={y} stroke={VG} strokeWidth={1} />
-                <text x={-8} y={y} textAnchor="end" dominantBaseline="middle" fontSize={afs} fill={VA}
-                  fontFamily="inherit" style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(tick)}</text>
-              </g>
-            )
-          })}
-          <line x1={0} y1={gH} x2={gW} y2={gH} stroke={VB} strokeWidth={1} />
-
-          {labels.map((label, i) => {
-            const x = xC(i)
-            const on = hov === i
-            let cumH = 0
-            return (
-              <g key={label} onMouseEnter={() => setHov(i)} style={{ cursor: 'default' }}>
-                <rect x={x - slotW / 2} y={0} width={slotW} height={gH} fill="transparent" />
-                {series.map((s, si) => {
-                  const segH = Math.max(0, (s.data[i] / yMax) * gH - GAP)
-                  const segY = gH - cumH - segH - GAP
-                  cumH += segH + GAP
-                  if (segH <= 0) return null
-                  const isTop = si === series.length - 1
-                  return (
-                    <g key={s.name}>
-                      <rect x={x - barW / 2} y={segY} width={barW} height={segH}
-                        fill={on ? s.color : s.color + 'cc'}
-                        rx={isTop ? 3 : 0} ry={isTop ? 3 : 0} />
-                      {isTop && segH > 5 && (
-                        <rect x={x - barW / 2} y={segY + 3} width={barW} height={Math.max(segH - 3, 0)}
-                          fill={on ? s.color : s.color + 'cc'} />
-                      )}
-                    </g>
-                  )
-                })}
-                <text x={x} y={gH + 18} textAnchor="middle" fontSize={afs} fill={VA} fontFamily="inherit">{label}</text>
-              </g>
-            )
-          })}
-        </g>
-      </svg>
-      {hov !== null && (
-        <div className="mt-2 flex flex-wrap items-center gap-3 rounded-xl border border-line bg-canvas px-4 py-2.5 text-xs">
-          <span className="font-medium text-ink-muted">{labels[hov]}</span>
-          <span className="h-3 w-px bg-line" />
-          {series.map(s => (
-            <span key={s.name} className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: s.color }} />
-              <span className="text-ink-muted">{s.name}</span>
-              <span className="font-mono font-semibold text-ink">{fv(s.data[hov])}</span>
-            </span>
-          ))}
-          <span className="h-3 w-px bg-line" />
-          <span className="text-ink-muted">{t('dataviz.total')} <span className="font-mono font-semibold text-ink">{fv(series.reduce((a, s) => a + s.data[hov!], 0))}</span></span>
-        </div>
-      )}
-    </div>
-  )
-}
-
-/* ─── VizDivergingBar ──────────────────────────────────────────────────── */
+type GroupedSeries = { name: string; color?: string; data: number[] }
+type StackSeries = { name: string; color?: string; data: number[] }
 type DivDatum = { label: string; value: number }
-function VizDivergingBar({ data, title, sub, posColor = VC[0] as string, negColor = VC[7] as string }: {
-  data: DivDatum[]; title: string; sub?: string; posColor?: string; negColor?: string
-}) {
-  const { t } = useI18n()
-  const [hov, setHov] = useState<number | null>(null)
-  const maxAbs = Math.max(...data.map(d => Math.abs(d.value)))
+type DonutSlice = { label: string; value: number; color?: string }
 
-  return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-4">
-        <p className="text-sm font-semibold text-ink">{title}</p>
-        {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-        <div className="mt-2 flex items-center gap-4">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: posColor }} />
-            <span className="text-xs text-ink-muted">{t('dataviz.aboveBaseline')}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: negColor }} />
-            <span className="text-xs text-ink-muted">{t('dataviz.belowBaseline')}</span>
-          </div>
-        </div>
-      </div>
-      <div className="space-y-1.5">
-        {data.map((d, i) => {
-          const on = hov === i
-          const pct = (Math.abs(d.value) / maxAbs) * 50
-          const isPos = d.value >= 0
-          return (
-            <div key={d.label} className="flex items-center gap-2"
-              onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}>
-              <div className="w-28 shrink-0 text-right text-xs text-ink-muted">{d.label}</div>
-              <div className="relative flex h-5 flex-1 items-center">
-                <div className="absolute inset-x-0 inset-y-0 flex">
-                  <div className="flex-1 border-r border-line" />
-                  <div className="flex-1" />
-                </div>
-                <div className={`absolute h-5 rounded-sm transition-opacity ${isPos ? 'left-1/2' : 'right-1/2'}`}
-                  style={{
-                    width: `${pct}%`,
-                    backgroundColor: isPos ? posColor : negColor,
-                    opacity: on ? 1 : 0.8,
-                  }} />
-              </div>
-              <div className="w-14 shrink-0 font-mono text-xs tabular-nums"
-                style={{ color: on ? VI : VA, fontWeight: on ? 600 : 400 }}>
-                {d.value > 0 ? '+' : ''}{d.value.toLocaleString()}%
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
+function VizLineChart({ series, labels, title, sub, H }: { series: LSeries[]; labels: string[]; title: string; sub?: string; W?: number; H?: number }) {
+  return <LibLineChart title={title} subtitle={sub} labels={labels} series={series.map(({ name, data }) => ({ name, data }))} height={H} />
 }
-
-/* ─── VizHeatmap ───────────────────────────────────────────────────────── */
-function VizHeatmap({ data, rows, cols, title, sub, color = VC[0] as string }: {
-  data: number[][]; rows: string[]; cols: string[]; title: string; sub?: string; color?: string
-}) {
-  const { t } = useI18n()
-  const [hov, setHov] = useState<[number, number] | null>(null)
-  const flat = data.flat()
-  const minV = Math.min(...flat), maxV = Math.max(...flat)
-  const norm = (v: number) => (v - minV) / (maxV - minV || 1)
-
-  return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-4">
-        <p className="text-sm font-semibold text-ink">{title}</p>
-        {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-      </div>
-      <div tabIndex={0} className="pance-focus overflow-x-auto">
-        <div style={{ minWidth: cols.length * 26 + 80 }}>
-          <div className="flex pl-16 mb-1">
-            {cols.map(c => (
-              <div key={c} className="flex-1 text-center font-mono text-9 text-ink-muted">{c}</div>
-            ))}
-          </div>
-          <div className="space-y-0.5">
-            {data.map((row, ri) => (
-              <div key={rows[ri]} className="flex items-center gap-1">
-                <div className="w-14 shrink-0 text-right font-mono text-9 text-ink-muted pr-1">{rows[ri]}</div>
-                <div className="flex flex-1 gap-0.5">
-                  {row.map((val, ci) => {
-                    const n = norm(val)
-                    const on = hov?.[0] === ri && hov?.[1] === ci
-                    return (
-                      <div key={ci}
-                        className="flex-1 rounded-sm"
-                        style={{
-                          aspectRatio: '1',
-                          backgroundColor: color,
-                          opacity: 0.07 + n * 0.88,
-                          outline: on ? `2px solid ${color}` : undefined,
-                          cursor: 'default',
-                        }}
-                        onMouseEnter={() => setHov([ri, ci])}
-                        onMouseLeave={() => setHov(null)}
-                      />
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-3 flex items-center gap-2 pl-16">
-            <span className="text-9 text-ink-muted">{t('dataviz.low')}</span>
-            <div className="flex h-2 w-20 overflow-hidden rounded-sm">
-              {Array.from({ length: 10 }, (_, i) => (
-                <div key={i} className="flex-1 h-full"
-                  style={{ backgroundColor: color, opacity: 0.07 + (i / 9) * 0.88 }} />
-              ))}
-            </div>
-            <span className="text-9 text-ink-muted">{t('dataviz.high')}</span>
-          </div>
-          {hov !== null && (
-            <div className="mt-2 rounded-xl border border-line bg-canvas px-3 py-2 text-xs">
-              <span className="text-ink-muted">{rows[hov[0]]} · {cols[hov[1]]}</span>
-              <span className="ml-2 font-mono font-semibold text-ink">{data[hov[0]][hov[1]].toLocaleString()}</span>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )
+function VizBarChart({ data, title, sub }: { data: BarDatum[]; title: string; sub?: string; W?: number; H?: number; color?: string }) {
+  return <LibBarChart title={title} subtitle={sub} labels={data.map((d) => d.label)} series={[{ name: title, data: data.map((d) => d.value) }]} />
 }
-
-/* ─── VizDonut ─────────────────────────────────────────────────────────── */
-type DonutSlice = { label: string; value: number; color: string }
-function VizDonut({ slices, title, sub, size = 180 }: {
-  slices: DonutSlice[]; title: string; sub?: string; size?: number
-}) {
-  const { t } = useI18n()
-  const [hov, setHov] = useState<number | null>(null)
-  const total = slices.reduce((s, d) => s + d.value, 0)
-  const cx = size / 2, cy = size / 2
-  const R = size * 0.38, r = size * 0.23
-  let angle = -Math.PI / 2
-
-  const arcs = slices.map((sl, i) => {
-    const sweep = (sl.value / total) * 2 * Math.PI
-    const sa = angle + 0.016, ea = angle + sweep - 0.016
-    angle += sweep
-    const large = sweep - 0.032 > Math.PI ? 1 : 0
-    const x1 = cx + R * Math.cos(sa), y1 = cy + R * Math.sin(sa)
-    const x2 = cx + R * Math.cos(ea), y2 = cy + R * Math.sin(ea)
-    const ix1 = cx + r * Math.cos(sa), iy1 = cy + r * Math.sin(sa)
-    const ix2 = cx + r * Math.cos(ea), iy2 = cy + r * Math.sin(ea)
-    const d = `M${x1},${y1} A${R},${R},0,${large},1,${x2},${y2} L${ix2},${iy2} A${r},${r},0,${large},0,${ix1},${iy1} Z`
-    return { d, sl, i }
-  })
-
-  const active = hov !== null ? slices[hov] : null
-
-  return (
-    <div className="min-w-0 overflow-hidden rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-3">
-        <p className="text-sm font-semibold text-ink">{title}</p>
-        {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-      </div>
-      <div className="flex min-w-0 flex-col items-center gap-4 sm:flex-row sm:items-start">
-        <div className="relative shrink-0" style={{ width: size, height: size }}>
-          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            {arcs.map(({ d, sl, i }) => (
-              <path key={sl.label} d={d}
-                fill={sl.color}
-                opacity={hov === null || hov === i ? 1 : 0.35}
-                onMouseEnter={() => setHov(i)}
-                onMouseLeave={() => setHov(null)}
-                style={{ cursor: 'default', transition: 'opacity 0.12s' }}
-              />
-            ))}
-          </svg>
-          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-            {active ? (
-              <>
-                <p className="text-xl font-bold leading-none text-ink">{((active.value / total) * 100).toFixed(1)}%</p>
-                <p className="mt-1 max-w-[56px] text-center text-10 leading-tight text-ink-muted">{active.label}</p>
-              </>
-            ) : (
-              <>
-                <p className="text-xl font-bold leading-none text-ink">{fv(total)}</p>
-                <p className="mt-1 text-10 text-ink-muted">{t('dataviz.totalLower')}</p>
-              </>
-            )}
-          </div>
-        </div>
-        <div className="min-w-0 flex-1 space-y-1.5 self-center">
-          {slices.map((s, i) => (
-            <div key={s.label}
-              className={`flex items-center justify-between gap-3 rounded-lg px-3 py-1.5 transition-colors ${hov === i ? 'bg-ground' : ''}`}
-              onMouseEnter={() => setHov(i)}
-              onMouseLeave={() => setHov(null)}
-              style={{ cursor: 'default' }}
-            >
-              <div className="flex min-w-0 items-center gap-2">
-                <span className="h-2.5 w-2.5 shrink-0 rounded-sm" style={{ backgroundColor: s.color }} />
-                <span className="truncate text-sm text-ink-soft">{s.label}</span>
-              </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <span className="font-mono text-xs font-semibold text-ink tabular-nums">{fv(s.value)}</span>
-                <span className="w-10 text-right font-mono text-10 tabular-nums text-ink-muted">
-                  {(s.value / total * 100).toFixed(1)}%
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+function VizGroupedBar({ series, labels, title, sub }: { series: GroupedSeries[]; labels: string[]; title: string; sub?: string; W?: number; H?: number }) {
+  return <LibBarChart title={title} subtitle={sub} labels={labels} series={series.map(({ name, data }) => ({ name, data }))} mode="grouped" />
+}
+function VizHBarChart({ data, title, sub }: { data: BarDatum[]; title: string; sub?: string; color?: string }) {
+  return <RankedBarChart title={title} subtitle={sub} data={data} />
+}
+function VizStackedBar({ series, labels, title, sub }: { series: StackSeries[]; labels: string[]; title: string; sub?: string; W?: number; H?: number }) {
+  return <LibBarChart title={title} subtitle={sub} labels={labels} series={series.map(({ name, data }) => ({ name, data }))} mode="stacked" />
+}
+function VizDivergingBar({ data, title, sub }: { data: DivDatum[]; title: string; sub?: string; posColor?: string; negColor?: string }) {
+  return <DivergingBarChart title={title} subtitle={sub} data={data} />
+}
+function VizHeatmap({ data, rows, cols, title, sub }: { data: number[][]; rows: string[]; cols: string[]; title: string; sub?: string; color?: string }) {
+  return <Heatmap title={title} subtitle={sub} rows={rows} cols={cols} data={data} />
+}
+function VizDonut({ slices, title, sub, size }: { slices: DonutSlice[]; title: string; sub?: string; size?: number }) {
+  return <DonutChart title={title} subtitle={sub} slices={slices} size={size} />
 }
 
 /* ─── VizScatter ───────────────────────────────────────────────────────── */

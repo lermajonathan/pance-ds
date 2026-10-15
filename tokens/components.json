@@ -1858,5 +1858,157 @@
       "$value": "{color.intent.primary.border}",
       "$type": "color"
     }
+  },
+  "sparkline": {
+    "$description": "Inline trend line used inside metric cards and tables.",
+    "width-sm": {
+      "$value": "56px",
+      "$type": "dimension"
+    },
+    "height-sm": {
+      "$value": "24px",
+      "$type": "dimension"
+    },
+    "width-md": {
+      "$value": "96px",
+      "$type": "dimension"
+    },
+    "height-md": {
+      "$value": "36px",
+      "$type": "dimension"
+    },
+    "width-lg": {
+      "$value": "120px",
+      "$type": "dimension"
+    },
+    "height-lg": {
+      "$value": "56px",
+      "$type": "dimension"
+    },
+    "stroke-width": {
+      "$value": "2px",
+      "$type": "dimension"
+    }
+  },
+  "metric-card": {
+    "$description": "KPI card: label, value, delta and trend. Variants: default, compact, hero, goal, breakdown, comparison.",
+    "radius": {
+      "$value": "{radius.lg}",
+      "$type": "dimension"
+    },
+    "padding": {
+      "$value": "{space.3}",
+      "$type": "dimension"
+    },
+    "padding-compact": {
+      "$value": "{space.2}",
+      "$type": "dimension"
+    },
+    "padding-hero": {
+      "$value": "{space.4}",
+      "$type": "dimension"
+    },
+    "icon-box": {
+      "$value": "{size.36}",
+      "$type": "dimension"
+    },
+    "icon-size": {
+      "$value": "{size.18}",
+      "$type": "dimension"
+    },
+    "bg": {
+      "$value": "{color.bg.surface}",
+      "$type": "color"
+    },
+    "border": {
+      "$value": "{color.border.default}",
+      "$type": "color"
+    },
+    "shadow": {
+      "$value": "{shadow.card-rest}",
+      "$type": "shadow"
+    }
+  },
+  "data-table": {
+    "$description": "Sortable, selectable table that becomes a card list below the md breakpoint.",
+    "radius": {
+      "$value": "{radius.lg}",
+      "$type": "dimension"
+    },
+    "cell-padding-x": {
+      "$value": "{space.3}",
+      "$type": "dimension"
+    },
+    "cell-padding-y-compact": {
+      "$value": "{size.8}",
+      "$type": "dimension"
+    },
+    "cell-padding-y-default": {
+      "$value": "{size.14}",
+      "$type": "dimension"
+    },
+    "cell-padding-y-comfortable": {
+      "$value": "{size.20}",
+      "$type": "dimension"
+    },
+    "header-padding-y": {
+      "$value": "{size.12}",
+      "$type": "dimension"
+    },
+    "select-column-width": {
+      "$value": "{size.48}",
+      "$type": "dimension"
+    },
+    "bg": {
+      "$value": "{color.bg.surface}",
+      "$type": "color"
+    },
+    "header-bg": {
+      "$value": "{color.bg.sunken}",
+      "$type": "color"
+    },
+    "border": {
+      "$value": "{color.border.default}",
+      "$type": "color"
+    },
+    "row-border": {
+      "$value": "{color.border.soft}",
+      "$type": "color"
+    },
+    "row-hover": {
+      "$value": "{color.bg.sunken}",
+      "$type": "color"
+    },
+    "row-selected": {
+      "$value": "{color.intent.primary.soft}",
+      "$type": "color"
+    }
+  },
+  "chart": {
+    "$description": "Frame shared by every chart: surface, padding and the colour of text, grid and series.",
+    "radius": {
+      "$value": "{radius.lg}",
+      "$type": "dimension"
+    },
+    "padding": {
+      "$value": "{space.2}",
+      "$type": "dimension"
+    },
+    "bg": {
+      "$value": "{color.dataviz.surface}",
+      "$type": "color"
+    },
+    "border": {
+      "$value": "{color.border.default}",
+      "$type": "color"
+    },
+    "stroke-width": {
+      "$value": "2px",
+      "$type": "dimension"
+    },
+    "grid-width": {
+      "$value": "1px",
+      "$type": "dimension"
+    }
   }
 }

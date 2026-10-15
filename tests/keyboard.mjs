@@ -163,6 +163,69 @@ await test('SegmentedControl / RadioGroup: one stop in Tab order, arrows select'
   assert((await now.getAttribute('aria-checked')) === 'true' && (await active()).text !== start, 'arrow did not move selection')
 })
 
+await page.goto(`${BASE}/table`, { waitUntil: 'networkidle' })
+
+await test('DataTable: sortable headers expose aria-sort and cycle with the keyboard', async () => {
+  const th = page.locator('main table th[aria-sort]').first()
+  assert((await th.getAttribute('aria-sort')) === 'none', 'unsorted column should be aria-sort="none"')
+  const btn = th.locator('button')
+  await btn.focus()
+  await page.keyboard.press('Enter')
+  assert((await settle(() => th.getAttribute('aria-sort'), 'ascending')) === 'ascending', 'first activation should sort ascending')
+  await page.keyboard.press('Enter')
+  assert((await settle(() => th.getAttribute('aria-sort'), 'descending')) === 'descending', 'second activation should sort descending')
+})
+
+await test('DataTable: row checkbox is named, toggles with Space and marks the row selected', async () => {
+  const table = page.locator('main table').first()
+  const box = table.locator('tbody [role="checkbox"]').first()
+  assert(((await box.getAttribute('aria-label')) ?? '').length > 2, 'row checkbox has no accessible name')
+  await box.focus()
+  await page.keyboard.press('Space')
+  assert((await settle(() => box.getAttribute('aria-checked'), 'true')) === 'true', 'Space did not check the row')
+  assert((await box.locator('xpath=ancestor::tr').getAttribute('aria-selected')) === 'true', 'row is not aria-selected')
+  const all = table.locator('thead [role="checkbox"]').first()
+  assert((await all.getAttribute('aria-checked')) === 'mixed', 'select-all should be mixed when some rows are selected')
+})
+
+await test('Pagination: is a labelled navigation and marks the current page', async () => {
+  const nav = page.locator('main nav[aria-label]').first()
+  assert(await nav.locator('[aria-current="page"]').count() === 1, 'current page is not marked with aria-current')
+})
+
+await page.goto(`${BASE}/dataviz`, { waitUntil: 'networkidle' })
+
+await test('Chart: arrow keys move through data points and announce the value', async () => {
+  const group = page.locator('main figure [role="group"][tabindex="0"]').first()
+  await group.focus()
+  await page.keyboard.press('ArrowRight')
+  const status = group.locator('xpath=following-sibling::*[@role="status"]').first()
+  assert((await settle(async () => ((await status.textContent()) ?? '').trim().length > 0, true)) === true, 'no value announced after ArrowRight')
+  await page.keyboard.press('Escape')
+  assert((((await status.textContent()) ?? '').trim().length) === 0, 'Escape should clear the readout')
+})
+
+await test('Chart: "View as table" swaps the graphic for a real table', async () => {
+  const fig = page.locator('main figure').first()
+  await fig.getByRole('button', { name: /table|tabla/i }).click()
+  assert((await fig.locator('table th[scope="row"]').count()) > 0, 'no data table rendered')
+  assert((await fig.getByRole('button', { pressed: true }).count()) === 1, 'toggle should be aria-pressed')
+})
+
+await page.goto(`${BASE}/metrics`, { waitUntil: 'networkidle' })
+
+await test('MetricCard: delta is spoken, including whether it is better or worse', async () => {
+  const spoken = await page.locator('main article .sr-only').allTextContents()
+  assert(spoken.some((t) => /(up|sube).+(better|mejor)/i.test(t)), 'no "up … better" announcement')
+  assert(spoken.some((t) => /(up|sube).+(worse|peor)/i.test(t)), 'no "up … worse" announcement (error-rate style metric)')
+})
+
+await test('MetricCard: sparkline is an image with a text alternative; loading card is aria-busy', async () => {
+  const unnamed = await page.locator('main svg[role="img"]:not([aria-label])').count()
+  assert(unnamed === 0, `${unnamed} sparkline(s) without an accessible name`)
+  assert((await page.locator('main article[aria-busy="true"]').count()) >= 1, 'loading metric card is not aria-busy')
+})
+
 await browser.close()
 for (const r of results) console.log(r.join('  '))
 const failed = results.filter((r) => r[0] === '✗').length

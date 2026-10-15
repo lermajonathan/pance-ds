@@ -112,6 +112,14 @@ export const tokens = {
         "7": "#4a3aa7",
         "8": "#e34948"
       },
+      "categorical-light": {
+        "3": "#1aa674",
+        "4": "#c48500",
+        "5": "#e56a98"
+      },
+      "categorical-dark": {
+        "7": "#6959c5"
+      },
       "sequential": {
         "1": "#cde2fb",
         "2": "#b7d3f6",
@@ -312,7 +320,18 @@ export const tokens = {
       "ink": "#0f172a",
       "ink-muted": "#475569",
       "positive": "#0891b2",
-      "negative": "#e34948"
+      "negative": "#e34948",
+      "series": {
+        "1": "#0891b2",
+        "2": "#eb6834",
+        "3": "#1aa674",
+        "4": "#c48500",
+        "5": "#e56a98",
+        "6": "#008300",
+        "7": "#4a3aa7",
+        "8": "#e34948"
+      },
+      "no-data": "#e2e8f0"
     }
   },
   "fontFamily": {
@@ -1435,6 +1454,49 @@ export const tokens = {
     "chip-bg": "#ecfeff",
     "chip-text": "#0e7490",
     "chip-ring": "#a5f3fc"
+  },
+  "sparkline": {
+    "width-sm": "56px",
+    "height-sm": "24px",
+    "width-md": "96px",
+    "height-md": "36px",
+    "width-lg": "120px",
+    "height-lg": "56px",
+    "stroke-width": "2px"
+  },
+  "metric-card": {
+    "radius": "16px",
+    "padding": "24px",
+    "padding-compact": "16px",
+    "padding-hero": "32px",
+    "icon-box": "36px",
+    "icon-size": "18px",
+    "bg": "#ffffff",
+    "border": "#e2e8f0",
+    "shadow": "0px 1px 2px 0px rgba(15,23,42,0.04)"
+  },
+  "data-table": {
+    "radius": "16px",
+    "cell-padding-x": "24px",
+    "cell-padding-y-compact": "8px",
+    "cell-padding-y-default": "14px",
+    "cell-padding-y-comfortable": "20px",
+    "header-padding-y": "12px",
+    "select-column-width": "48px",
+    "bg": "#ffffff",
+    "header-bg": "#f8fafc",
+    "border": "#e2e8f0",
+    "row-border": "#eef2f6",
+    "row-hover": "#f8fafc",
+    "row-selected": "#ecfeff"
+  },
+  "chart": {
+    "radius": "16px",
+    "padding": "16px",
+    "bg": "#ffffff",
+    "border": "#e2e8f0",
+    "stroke-width": "2px",
+    "grid-width": "1px"
   }
 } as const
 

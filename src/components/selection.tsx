@@ -99,6 +99,7 @@ export function Checkbox({
   indeterminate,
   onChange,
   label,
+  ariaLabel,
   description,
   disabled,
   error,
@@ -108,6 +109,8 @@ export function Checkbox({
   indeterminate?: boolean
   onChange: (v: boolean) => void
   label?: string
+  /** Accessible name when there is no visible label (e.g. a table's row checkbox). */
+  ariaLabel?: string
   description?: string
   disabled?: boolean
   error?: boolean
@@ -125,6 +128,7 @@ export function Checkbox({
         type="button"
         role="checkbox"
         aria-checked={indeterminate ? 'mixed' : checked}
+        aria-label={label ? undefined : ariaLabel}
         aria-labelledby={label ? `${uid}-l` : undefined}
         aria-describedby={description ? `${uid}-d` : undefined}
         aria-invalid={error || undefined}

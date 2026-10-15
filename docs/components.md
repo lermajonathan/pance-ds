@@ -162,6 +162,28 @@ Input states: default · hover (`slate-300` border) · focus (focus ring) · err
 
 ---
 
+## Data · `data.tsx`, `table.tsx`, `charts.tsx`
+
+Built for data-heavy products. Every chart and table is keyboard-operable and has a text alternative; colour is never the only cue.
+
+### `MetricCard`
+`label`, `value` (pre-formatted string), `unit?`, `Icon?`, `delta?`, `upIsGood?`, `trend?: number[]`, `trendLabel?`, `caption?`, `variant?: 'default' | 'compact' | 'hero' | 'goal' | 'breakdown' | 'comparison'`, `state?: 'ready' | 'loading' | 'empty' | 'error'`, `onRetry?`, `accent?`, plus `goal`, `breakdown` or `comparison` for those variants.
+Set `upIsGood={false}` for error rate, churn, latency and cost, so a rise reads as worse.
+
+### `Delta` · `Sparkline`
+`Delta`: `value`, `upIsGood?`, `format?`. `Sparkline`: `data`, `tone?: 'positive' | 'negative' | 'neutral'`, `size?: 'sm' | 'md' | 'lg'`, `variant?: 'line' | 'bar'`, `label?`.
+
+### `DataTable<T>`
+`columns: Column<T>[]` (`key`, `header`, `render?`, `align?`, `sortable?`, `sortValue?`, `hideOnMobile?`), `rows`, `rowKey`, `rowLabel`, `caption`, `selectable?`, `selected?`/`onSelectedChange?`, `sort?`/`onSortChange?`, `density?`, `pageSize?`, `loading?`, `search?`/`onSearchChange?`, `actions?`, `rowActions?`, `empty?`.
+It sorts and paginates the rows you pass; for server-side data, control `sort` and pass the current page.
+
+### `Pagination`
+`page`, `pages`, `onChange`, `siblings?`, `compact?`, `label?` (give each pagination on a page a different `label`).
+
+### Charts
+`LineChart`, `BarChart` (`mode: 'grouped' | 'stacked'`), `RankedBarChart`, `DivergingBarChart`, `Heatmap`, `DonutChart`. Shared: `title`, `subtitle?`, `format?`. Cartesian charts take `labels` and `series: { name, data }[]`.
+Series colours are `color.dataviz.series.1…8` and follow dark mode. Each series also has its own marker (line charts) or fill pattern (bars), and every slice or row carries a text label.
+
 ## Built-in strings · `labels.tsx`
 
 Components have no i18n or router dependency. Their built-in strings (close, dismiss, remove, remove file, more actions, breadcrumb, show full path, show password, optional, click to upload, or drag and drop, click to edit, search, add tag, no results) default to English. Translate any of them once:

@@ -994,18 +994,94 @@
         }
       },
       "positive": {
-        "$value": "{color.viz.categorical.1}",
+        "$value": "{color.dataviz.series.1}",
         "$extensions": {
           "pance.modes": {
-            "dark": "{color.viz.categorical.1}"
+            "dark": "{color.dataviz.series.1}"
           }
         }
       },
       "negative": {
-        "$value": "{color.viz.categorical.8}",
+        "$value": "{color.dataviz.series.8}",
         "$extensions": {
           "pance.modes": {
-            "dark": "{color.viz.categorical.8}"
+            "dark": "{color.dataviz.series.8}"
+          }
+        }
+      },
+      "series": {
+        "$description": "Categorical series colours, in fixed order. Every slot is ≥ 3:1 on `dataviz.surface` in both modes (WCAG 1.4.11). Never rely on colour alone: pair with a marker shape or direct label.",
+        "1": {
+          "$value": "{color.viz.categorical.1}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical.1}"
+            }
+          }
+        },
+        "2": {
+          "$value": "{color.viz.categorical.2}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical.2}"
+            }
+          }
+        },
+        "3": {
+          "$value": "{color.viz.categorical-light.3}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical.3}"
+            }
+          }
+        },
+        "4": {
+          "$value": "{color.viz.categorical-light.4}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical.4}"
+            }
+          }
+        },
+        "5": {
+          "$value": "{color.viz.categorical-light.5}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical.5}"
+            }
+          }
+        },
+        "6": {
+          "$value": "{color.viz.categorical.6}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical.6}"
+            }
+          }
+        },
+        "7": {
+          "$value": "{color.viz.categorical.7}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical-dark.7}"
+            }
+          }
+        },
+        "8": {
+          "$value": "{color.viz.categorical.8}",
+          "$extensions": {
+            "pance.modes": {
+              "dark": "{color.viz.categorical.8}"
+            }
+          }
+        }
+      },
+      "no-data": {
+        "$value": "{color.slate.200}",
+        "$description": "Fill for cells or bars with no data. Decorative: always accompanied by a text label such as “No data”.",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.slate.700}"
           }
         }
       }

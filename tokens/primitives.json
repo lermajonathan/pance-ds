@@ -310,6 +310,24 @@
           "$value": "#e34948"
         }
       },
+      "categorical-light": {
+        "$description": "Light-mode replacements for categorical slots 3, 4 and 5, darkened until each reaches 3:1 on white (WCAG 1.4.11). Hue is unchanged.",
+        "3": {
+          "$value": "#1aa674"
+        },
+        "4": {
+          "$value": "#c48500"
+        },
+        "5": {
+          "$value": "#e56a98"
+        }
+      },
+      "categorical-dark": {
+        "$description": "Dark-mode replacement for categorical slot 7, lightened until it reaches 3:1 on slate-900.",
+        "7": {
+          "$value": "#6959c5"
+        }
+      },
       "sequential": {
         "1": {
           "$value": "#cde2fb"

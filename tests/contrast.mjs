@@ -84,6 +84,13 @@ pairs.push(
   ['toggle.color.thumb', 'toggle.color.track-on', UI, 'switch thumb on track (on)'],
   ['checkbox.color.checked', 'color.bg.surface', UI, 'checked checkbox fill'],
   ['range-slider.color.primary', 'range-slider.color.track', UI, 'slider fill vs track'],
+  // Data visualisation: text on the chart surface and every categorical slot (WCAG 1.4.3 / 1.4.11)
+  ['color.dataviz.ink', 'color.dataviz.surface', TEXT, 'chart title and values'],
+  ['color.dataviz.ink-muted', 'color.dataviz.surface', TEXT, 'chart subtitle and legend'],
+  ['color.dataviz.axis-label', 'color.dataviz.surface', TEXT, 'chart axis labels'],
+  ['color.dataviz.positive', 'color.dataviz.surface', UI, 'positive series'],
+  ['color.dataviz.negative', 'color.dataviz.surface', UI, 'negative series'],
+  ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => [`color.dataviz.series.${n}`, 'color.dataviz.surface', UI, `chart series ${n}`]),
 )
 for (const v of ['filled', 'outlined', 'text', 'link']) {
   for (const i of INTENTS) {

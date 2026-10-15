@@ -4,6 +4,19 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Added: data components (promoted from the docs site into `@pance/react`)
+- **Metric cards:** `MetricCard` (variants `default`, `compact`, `hero`, `goal`, `breakdown`, `comparison`; states `loading`, `empty`, `error`), `Delta` and `Sparkline` (line and bar). The delta is announced with direction and whether it is better or worse; the sparkline is an image with a text alternative; goal progress is a `progressbar`.
+- **`DataTable`** and **`Pagination`:** a real `<table>` with `aria-sort` headers, named row checkboxes (`aria-selected`, mixed select-all), density, search slot, loading and empty states; below `md` each row becomes a labelled card. `Pagination` is a labelled `nav` with `aria-current="page"`.
+- **Charts:** `LineChart`, `BarChart` (grouped or stacked), `RankedBarChart`, `DivergingBarChart`, `Heatmap`, `DonutChart`. Arrow-key navigation with a live readout, "View as table" for every chart, and series told apart by marker shape and fill pattern as well as colour (WCAG 1.4.1).
+- **Tokens:** `color.dataviz.series.1…8` and `color.dataviz.no-data` with dark values; categorical slots 3, 4 and 5 darkened in light mode (to 3:1 on white) and slot 7 lightened in dark mode; component tokens for `sparkline`, `metric-card`, `data-table` and `chart`.
+- **Tests:** 13 new contrast pairs (160 per mode), 7 new keyboard and screen-reader checks, 4 new package checks.
+- `Checkbox` accepts `ariaLabel` for checkboxes without a visible label.
+- `PanceLabels` gains 29 strings for these components.
+
+### Changed
+- Metric cards no longer lift on hover (they are not interactive). Chart colours come from tokens, so the old per-series `color` props are ignored.
+- Not yet in the library: expandable table rows, scatter plot and column visibility menu (still docs-site specimens).
+
 ## [1.1.0] - 2026-10-15
 
 First release on npm as `@pance/tokens` and `@pance/react`.
