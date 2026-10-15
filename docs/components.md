@@ -184,6 +184,17 @@ It sorts and paginates the rows you pass; for server-side data, control `sort` a
 `LineChart`, `BarChart` (`mode: 'grouped' | 'stacked'`), `RankedBarChart`, `DivergingBarChart`, `Heatmap`, `DonutChart`. Shared: `title`, `subtitle?`, `format?`. Cartesian charts take `labels` and `series: { name, data }[]`.
 Series colours are `color.dataviz.series.1…8` and follow dark mode. Each series also has its own marker (line charts) or fill pattern (bars), and every slice or row carries a text label.
 
+## Dates · `date.tsx`
+
+Dates are ISO strings (`"2026-10-15"`), never `Date` objects, so there are no time-zone surprises and values go straight into forms and URLs. Month and weekday names come from `Intl` using `labels.locale`; no date library is needed. Helpers: `isISODate`, `toISODate(date)`, `fromISODate(iso)`.
+
+### `Calendar` · `RangeCalendar`
+`Calendar`: `value: string | null`, `onChange(iso)`, `min?`, `max?`, `isDateDisabled?(iso)`, `defaultMonth?`, `autoFocus?`. `RangeCalendar`: `value: { start, end }`, `onChange`, `months?: 1 | 2`, plus the same limits. Pick the first day, then the last; a third click starts a new range, and while half-picked the range previews under the pointer or focus.
+
+### `DatePicker` · `DateRangePicker`
+A trigger button that opens a non-modal dialog with the calendar. Both sit inside `<Field>` (the label and the chosen value form the accessible name) and accept `placeholder?`, `disabled?`, `error?`, `min?`, `max?`, `isDateDisabled?`, `clearable?`. `DateRangePicker` also takes `presets?: { label, range: { start, end } }[]` for quick ranges such as "Last 7 days", and shows two months from the `md` breakpoint up.
+Set the language once with `PanceProvider`: `labels={{ locale: 'es-CO', firstDayOfWeek: 1, … }}`.
+
 ## Built-in strings · `labels.tsx`
 
 Components have no i18n or router dependency. Their built-in strings (close, dismiss, remove, remove file, more actions, breadcrumb, show full path, show password, optional, click to upload, or drag and drop, click to edit, search, add tag, no results) default to English. Translate any of them once:

@@ -1497,6 +1497,29 @@ export const tokens = {
     "border": "#e2e8f0",
     "stroke-width": "2px",
     "grid-width": "1px"
+  },
+  "calendar": {
+    "day-size": "40px",
+    "day-radius": "12px",
+    "gap": "2px",
+    "padding": "16px",
+    "header-gap": "8px",
+    "months-gap": "32px",
+    "bg": "#ffffff",
+    "day-text": "#0f172a",
+    "day-text-disabled": "#94a3b8",
+    "day-bg-hover": "#f8fafc",
+    "today-border": "#0e7490",
+    "selected-bg": "#0e7490",
+    "selected-text": "#ffffff",
+    "range-bg": "#ecfeff",
+    "range-text": "#0e7490",
+    "weekday-text": "#475569"
+  },
+  "date-picker": {
+    "panel-radius": "16px",
+    "panel-padding": "16px",
+    "panel-shadow": "0px 16px 40px -16px rgba(15,23,42,0.3)"
   }
 } as const
 

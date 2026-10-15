@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart } from '../components'
+import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, DatePicker, DateRangePicker, Calendar, toISODate, type DateRange } from '../components'
 import {
   Waveform,
   ChartLineUp,
@@ -938,6 +938,9 @@ export function FormsPage() {
   const [streamName, setStreamName] = useState('checkout-events')
   const [price, setPrice] = useState('49')
   const [pwd, setPwd] = useState('')
+  const [deliver, setDeliver] = useState<string | null>('2026-10-15')
+  const [period, setPeriod] = useState<DateRange>({ start: '2026-10-05', end: '2026-10-12' })
+  const [inline, setInline] = useState<string | null>(null)
   const pwdStrength = pwd.length === 0 ? 0 : pwd.length < 6 ? 20 : pwd.length < 10 ? 55 : pwd.length < 14 ? 75 : 100
   const pwdSev: 'danger' | 'warning' | 'success' | 'primary' = pwdStrength < 25 ? 'danger' : pwdStrength < 60 ? 'warning' : pwdStrength < 80 ? 'primary' : 'success'
   const pwdLabel = pwdStrength < 25 ? t('forms.pwd.weak') : pwdStrength < 60 ? t('forms.pwd.fair') : pwdStrength < 80 ? t('forms.pwd.good') : t('forms.pwd.strong')
@@ -1033,6 +1036,35 @@ export function FormsPage() {
           <Field label={t('forms.states.trailing')}>
             <Input defaultValue="2026-08-13" TrailingIcon={IconCalendar} />
           </Field>
+        </Card>
+      </Section>
+
+      {/* ── Date pickers ── */}
+      <Section title={t('forms.date.title')} hint={t('forms.date.hint')}>
+        <Card className="grid gap-6 p-6 md:grid-cols-2">
+          <div className="space-y-4">
+            <Field label={t('forms.date.single')} hint={t('forms.date.singleHint')}>
+              <DatePicker value={deliver} onChange={setDeliver} placeholder={t('forms.date.singlePh')} />
+            </Field>
+            <Field label={t('forms.date.range')}>
+              <DateRangePicker
+                value={period}
+                onChange={setPeriod}
+                placeholder={t('forms.date.rangePh')}
+                presets={[
+                  { label: t('forms.date.last7'), range: { start: toISODate(new Date(Date.now() - 6 * 864e5)), end: toISODate(new Date()) } },
+                  { label: t('forms.date.last30'), range: { start: toISODate(new Date(Date.now() - 29 * 864e5)), end: toISODate(new Date()) } },
+                  { label: t('forms.date.thisMonth'), range: { start: toISODate(new Date(new Date().getFullYear(), new Date().getMonth(), 1)), end: toISODate(new Date()) } },
+                ]}
+              />
+            </Field>
+          </div>
+          <div>
+            <p className="mb-2 font-medium text-sm text-ink">{t('forms.date.calendar')} · <span className="font-normal text-ink-muted">{t('forms.date.future')}</span></p>
+            <div className="inline-block rounded-xl border border-line">
+              <Calendar value={inline} onChange={setInline} min={toISODate(new Date())} />
+            </div>
+          </div>
         </Card>
       </Section>
 

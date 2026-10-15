@@ -226,6 +226,70 @@ await test('MetricCard: sparkline is an image with a text alternative; loading c
   assert((await page.locator('main article[aria-busy="true"]').count()) >= 1, 'loading metric card is not aria-busy')
 })
 
+
+/* ── Date pickers ── */
+await page.goto(`${BASE}/forms`, { waitUntil: 'networkidle' })
+const dateTrigger = () => page.getByRole('button', { name: /^Delivery date/ })
+const dayLabel = async () => page.evaluate(() => document.activeElement?.getAttribute('aria-label'))
+
+await test('DatePicker: Enter opens a dialog with focus on the selected day, Escape returns focus', async () => {
+  await dateTrigger().scrollIntoViewIfNeeded()
+  await dateTrigger().focus()
+  await page.keyboard.press('Enter')
+  await page.locator('[role="dialog"] [role="grid"]').first().waitFor()
+  assert((await dayLabel())?.includes('October 15, 2026'), `focus not on the selected day: ${await dayLabel()}`)
+  assert((await dateTrigger().getAttribute('aria-expanded')) === 'true', 'aria-expanded not true')
+  await page.keyboard.press('Escape')
+  assert((await settle(() => page.locator('[role="dialog"] [role="grid"]').count(), 0)) === 0, 'calendar still open')
+  assert(await dateTrigger().evaluate((el) => el === document.activeElement), 'focus did not return to the trigger')
+})
+
+await test('Calendar: arrows, Home/End, PageDown move focus; Enter selects, closes and names the value', async () => {
+  await dateTrigger().focus()
+  await page.keyboard.press('Enter')
+  await page.locator('[role="grid"]').first().waitFor()
+  await page.keyboard.press('ArrowRight'); assert((await dayLabel())?.includes('October 16'), `ArrowRight → ${await dayLabel()}`)
+  await page.keyboard.press('ArrowDown'); assert((await dayLabel())?.includes('October 23'), `ArrowDown → ${await dayLabel()}`)
+  await page.keyboard.press('Home'); assert((await dayLabel())?.includes('Sunday, October 18'), `Home → ${await dayLabel()}`)
+  await page.keyboard.press('End'); assert((await dayLabel())?.includes('Saturday, October 24'), `End → ${await dayLabel()}`)
+  await page.keyboard.press('PageDown'); assert((await dayLabel())?.includes('November 24'), `PageDown → ${await dayLabel()}`)
+  assert((await page.locator('[role="dialog"] [role="grid"] [tabindex="0"]').count()) === 1, 'roving tabindex must leave exactly one tab stop')
+  await page.keyboard.press('Enter')
+  assert((await settle(() => page.locator('[role="dialog"] [role="grid"]').count(), 0)) === 0, 'calendar did not close after selecting')
+  assert(await page.getByRole('button', { name: /^Delivery date.*Nov 24, 2026/ }).count(), 'accessible name must carry the label and the chosen value')
+  assert(await dateTrigger().evaluate((el) => el === document.activeElement), 'focus did not return to the trigger')
+})
+
+await test('Calendar: today is aria-current, weekday headers are abbreviations, disabled days refuse selection', async () => {
+  const inline = page.locator('section', { hasText: 'Inline calendar' }).locator('[role="grid"]').first()
+  assert((await inline.locator('th[abbr]').count()) === 7, 'expected 7 weekday headers with abbr')
+  const cur = inline.locator('[aria-current="date"]')
+  assert((await cur.count()) === 1, 'expected one aria-current="date"')
+  const disabled = inline.locator('button[aria-disabled="true"]').first()
+  assert(await disabled.count(), 'expected past days to be aria-disabled')
+  await disabled.click({ force: true })
+  assert((await inline.locator('td[aria-selected="true"]').count()) === 0, 'a disabled day became selected')
+})
+
+await test('DateRangePicker: two picks make a range, band cells are aria-selected, start/end are announced', async () => {
+  const trig = page.getByRole('button', { name: /^Report period/ })
+  await trig.focus()
+  await page.keyboard.press('Enter')
+  const grid = page.locator('[role="dialog"] [role="grid"]').first()
+  await grid.waitFor()
+  await page.getByRole('button', { name: /Clear/ }).click()
+  await trig.focus(); await page.keyboard.press('Enter'); await grid.waitFor()
+  await page.locator('[role="dialog"] button[data-date$="-06"]').first().click()
+  await page.locator('[role="dialog"] button[data-date$="-09"]').first().click()
+  assert((await settle(() => page.locator('[role="dialog"] [role="grid"]').count(), 0)) === 0, 'range picker did not close after the second pick')
+  assert(await page.getByRole('button', { name: /^Report period.* to / }).count(), 'accessible name must carry the label and the range')
+  await trig.focus(); await page.keyboard.press('Enter'); await grid.waitFor()
+  assert((await page.locator('[role="dialog"] td[aria-selected="true"]').count()) === 4, 'expected 4 selected cells for a 4-day range')
+  assert((await page.locator('[role="dialog"] button[aria-label$="start of range"]').count()) === 1, 'start of range not announced')
+  assert((await page.locator('[role="dialog"] button[aria-label$="end of range"]').count()) === 1, 'end of range not announced')
+  await page.keyboard.press('Escape')
+})
+
 await browser.close()
 for (const r of results) console.log(r.join('  '))
 const failed = results.filter((r) => r[0] === '✗').length

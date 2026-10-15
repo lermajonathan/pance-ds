@@ -28,6 +28,27 @@ for (const vp of [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobile
   }
   await page.close()
 }
+
+// Floating panels are only in the DOM while open, so audit them in that state.
+for (const vp of [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobile', width: 390, height: 844 }]) {
+  const page = await browser.newPage({ viewport: vp })
+  await page.goto(`${BASE}/forms`, { waitUntil: 'networkidle' })
+  await page.addScriptTag({ content: axeSrc })
+  for (const name of [/^Delivery date/, /^Report period/]) {
+    await page.getByRole('button', { name }).first().click()
+    await page.locator('[role="dialog"] [role="grid"]').first().waitFor()
+    const violations = await page.evaluate(async () =>
+      (await window.axe.run(document.querySelector('[role="dialog"]'), { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'] }, resultTypes: ['violations'] })).violations
+        .map((v) => ({ id: v.id, help: v.help, nodes: v.nodes.map((n) => n.target.join(' ')) })))
+    for (const v of violations) {
+      agg[v.id] ??= { help: v.help, nodes: 0, where: [] }
+      agg[v.id].nodes += v.nodes.length
+      if (agg[v.id].where.length < 5) agg[v.id].where.push(`${vp.name}:forms(open ${name.source}) ${v.nodes[0]}`)
+    }
+    await page.keyboard.press('Escape')
+  }
+  await page.close()
+}
 await browser.close()
 
 let failed = false

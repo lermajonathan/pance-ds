@@ -19,6 +19,7 @@ import {
   Broadcast,
   CalendarBlank,
   CaretDown,
+  CaretLeft,
   CaretRight,
   ChartLineUp,
   Check,
@@ -103,6 +104,7 @@ export const IconHome = House
 export const IconChart = ChartLineUp
 export const IconChevron = CaretRight
 export const IconChevronDown = CaretDown
+export const IconChevronLeft = CaretLeft
 export const IconDots = DotsThreeVertical
 export const IconExternal = ArrowSquareOut
 

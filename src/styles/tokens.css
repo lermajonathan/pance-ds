@@ -978,6 +978,25 @@
   --pance-chart-border: var(--pance-color-border-default);
   --pance-chart-stroke-width: 2px;
   --pance-chart-grid-width: 1px;
+  --pance-calendar-day-size: var(--pance-size-40);
+  --pance-calendar-day-radius: var(--pance-radius-md);
+  --pance-calendar-gap: var(--pance-size-2);
+  --pance-calendar-padding: var(--pance-space-2);
+  --pance-calendar-header-gap: var(--pance-space-1);
+  --pance-calendar-months-gap: var(--pance-space-4);
+  --pance-calendar-bg: var(--pance-color-bg-surface);
+  --pance-calendar-day-text: var(--pance-color-fg-default);
+  --pance-calendar-day-text-disabled: var(--pance-color-fg-disabled);
+  --pance-calendar-day-bg-hover: var(--pance-color-bg-sunken);
+  --pance-calendar-today-border: var(--pance-color-intent-primary-fg);
+  --pance-calendar-selected-bg: var(--pance-color-intent-primary-solid);
+  --pance-calendar-selected-text: var(--pance-color-intent-primary-on-solid);
+  --pance-calendar-range-bg: var(--pance-color-intent-primary-soft);
+  --pance-calendar-range-text: var(--pance-color-intent-primary-fg);
+  --pance-calendar-weekday-text: var(--pance-color-fg-muted);
+  --pance-date-picker-panel-radius: var(--pance-radius-lg);
+  --pance-date-picker-panel-padding: var(--pance-space-2);
+  --pance-date-picker-panel-shadow: var(--pance-shadow-md);
 }
 
 /* ── dark (draft, opt-in with data-theme="dark" — ships in v1.1) ──────── */

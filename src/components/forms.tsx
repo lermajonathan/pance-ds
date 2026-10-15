@@ -6,10 +6,10 @@ import { focus } from './shared'
 import { listKeyNav } from './a11y'
 
 /* ── Inputs ────────────────────────────────────────────────────────────── */
-const inputBase =
+export const inputBase =
   `${focus} w-full rounded-(--pance-input-radius) border bg-surface text-ink placeholder:text-ink-subtle transition-colors duration-200`
-const inputNormal = 'border-line hover:border-line-strong'
-const inputError =
+export const inputNormal = 'border-line hover:border-line-strong'
+export const inputError =
   'border-danger bg-danger-soft/40 focus-visible:shadow-[var(--pance-focus-ring-danger)]'
 const inputSuccess =
   'border-success-border-strong bg-success-soft/30 focus-visible:shadow-[var(--pance-focus-ring-success)]'

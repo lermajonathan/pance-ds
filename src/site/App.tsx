@@ -307,6 +307,10 @@ function SiteLabels({ children }: { children: ReactNode }) {
     previousPage: t('ui.data.previousPage'), nextPage: t('ui.data.nextPage'), page: (n: number) => t('ui.data.page', { n }),
     range: (from: number, to: number, total: number) => t('ui.data.range', { from, to, total }),
     viewAsTable: t('ui.data.viewAsTable'), viewAsChart: t('ui.data.viewAsChart'), chartKeyboardHint: t('ui.data.chartKeyboardHint'),
+    locale: t('ui.date.locale'), firstDayOfWeek: Number(t('ui.date.firstDay')), previousMonth: t('ui.date.previousMonth'),
+    nextMonth: t('ui.date.nextMonth'), chooseDate: t('ui.date.chooseDate'), chooseDateRange: t('ui.date.chooseRange'),
+    today: t('ui.date.today'), clearDate: t('ui.date.clear'), rangeStart: t('ui.date.rangeStart'), rangeEnd: t('ui.date.rangeEnd'),
+    calendarKeyboardHint: t('ui.date.keyboardHint'), rangeValue: (from: string, to: string) => t('ui.date.rangeValue', { from, to }),
   }), [t])
   return <PanceProvider labels={labels}>{children}</PanceProvider>
 }

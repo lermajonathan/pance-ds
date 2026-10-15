@@ -91,6 +91,14 @@ pairs.push(
   ['color.dataviz.positive', 'color.dataviz.surface', UI, 'positive series'],
   ['color.dataviz.negative', 'color.dataviz.surface', UI, 'negative series'],
   ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => [`color.dataviz.series.${n}`, 'color.dataviz.surface', UI, `chart series ${n}`]),
+  // Calendar (DatePicker, DateRangePicker)
+  ['calendar.day-text', 'calendar.bg', TEXT, 'calendar day number'],
+  ['calendar.day-text', 'calendar.day-bg-hover', TEXT, 'calendar day number on hover'],
+  ['calendar.weekday-text', 'calendar.bg', TEXT, 'calendar weekday header'],
+  ['calendar.selected-text', 'calendar.selected-bg', TEXT, 'selected day number'],
+  ['calendar.range-text', 'calendar.range-bg', TEXT, 'day number inside a range'],
+  ['calendar.selected-bg', 'calendar.bg', UI, 'selected day marker vs calendar'],
+  ['calendar.today-border', 'calendar.bg', UI, "today's ring vs calendar"],
 )
 for (const v of ['filled', 'outlined', 'text', 'link']) {
   for (const i of INTENTS) {

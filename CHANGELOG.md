@@ -4,6 +4,12 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Added: dates
+- **`Calendar`, `RangeCalendar`, `DatePicker`, `DateRangePicker`.** ISO-string values, `min`/`max`/`isDateDisabled`, quick-range presets, two-month view on wide screens. Built on the WAI-ARIA date picker grid: one tab stop, arrows by day and week, Home/End by week, Page Up/Down by month (Shift for year), a full spoken date on every day, `aria-current="date"` for today, selected and range cells marked with `aria-selected`, and start and end of a range announced. Selected days are told apart by fill and today by a ring, not by colour alone.
+- **Tokens:** `calendar.*` and `date-picker.*`; 7 new contrast pairs (167 per mode). The today ring uses `color.intent.primary.fg` because `border-strong` measured 1.81:1 on white.
+- **Labels:** `locale`, `firstDayOfWeek` and 11 strings in `PanceLabels` (month names and weekdays come from `Intl`).
+- **Tests:** 4 new keyboard checks (22 in total), axe runs with both pickers open, 3 new package checks.
+
 ## [1.2.0] - 2026-10-15
 
 ### Added: data components (promoted from the docs site into `@pance/react`)

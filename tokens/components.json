@@ -2010,5 +2010,87 @@
       "$value": "1px",
       "$type": "dimension"
     }
+  },
+  "calendar": {
+    "$description": "Month grid for DatePicker and DateRangePicker. Day cells are 40px, above the 24px minimum of WCAG 2.2 target size.",
+    "day-size": {
+      "$value": "{size.40}",
+      "$type": "dimension"
+    },
+    "day-radius": {
+      "$value": "{radius.md}",
+      "$type": "dimension"
+    },
+    "gap": {
+      "$value": "{size.2}",
+      "$type": "dimension"
+    },
+    "padding": {
+      "$value": "{space.2}",
+      "$type": "dimension"
+    },
+    "header-gap": {
+      "$value": "{space.1}",
+      "$type": "dimension"
+    },
+    "months-gap": {
+      "$value": "{space.4}",
+      "$type": "dimension"
+    },
+    "bg": {
+      "$value": "{color.bg.surface}",
+      "$type": "color"
+    },
+    "day-text": {
+      "$value": "{color.fg.default}",
+      "$type": "color"
+    },
+    "day-text-disabled": {
+      "$value": "{color.fg.disabled}",
+      "$type": "color"
+    },
+    "day-bg-hover": {
+      "$value": "{color.bg.sunken}",
+      "$type": "color"
+    },
+    "today-border": {
+      "$value": "{color.intent.primary.fg}",
+      "$type": "color"
+    },
+    "selected-bg": {
+      "$value": "{color.intent.primary.solid}",
+      "$type": "color"
+    },
+    "selected-text": {
+      "$value": "{color.intent.primary.on-solid}",
+      "$type": "color"
+    },
+    "range-bg": {
+      "$value": "{color.intent.primary.soft}",
+      "$type": "color"
+    },
+    "range-text": {
+      "$value": "{color.intent.primary.fg}",
+      "$type": "color"
+    },
+    "weekday-text": {
+      "$value": "{color.fg.muted}",
+      "$type": "color"
+    }
+  },
+  "date-picker": {
+    "$description": "Trigger button and floating panel of DatePicker and DateRangePicker.",
+    "panel-radius": {
+      "$value": "{radius.lg}",
+      "$type": "dimension"
+    },
+    "panel-padding": {
+      "$value": "{space.2}",
+      "$type": "dimension"
+    },
+    "panel-shadow": {
+      "$value": "{shadow.md}",
+      "$type": "shadow"
+    }
   }
 }

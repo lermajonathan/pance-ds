@@ -62,6 +62,22 @@ export type PanceLabels = {
   viewAsTable: string
   viewAsChart: string
   chartKeyboardHint: string
+  /* Dates */
+  /** BCP 47 tag used to format month and weekday names (Intl). */
+  locale: string
+  /** 0 = Sunday … 6 = Saturday. */
+  firstDayOfWeek: number
+  previousMonth: string
+  nextMonth: string
+  chooseDate: string
+  chooseDateRange: string
+  today: string
+  clearDate: string
+  rangeStart: string
+  rangeEnd: string
+  calendarKeyboardHint: string
+  /** Spoken value of a range picker, e.g. "Oct 1 to Oct 15". */
+  rangeValue: (from: string, to: string) => string
 }
 
 export const defaultLabels: PanceLabels = {
@@ -111,6 +127,18 @@ export const defaultLabels: PanceLabels = {
   viewAsTable: 'View as table',
   viewAsChart: 'View as chart',
   chartKeyboardHint: 'Use the arrow keys to move between data points.',
+  locale: 'en-US',
+  firstDayOfWeek: 0,
+  previousMonth: 'Previous month',
+  nextMonth: 'Next month',
+  chooseDate: 'Choose date',
+  chooseDateRange: 'Choose date range',
+  today: 'Today',
+  clearDate: 'Clear',
+  rangeStart: 'start of range',
+  rangeEnd: 'end of range',
+  calendarKeyboardHint: 'Use the arrow keys to move between days, Page Up and Page Down to change month.',
+  rangeValue: (from, to) => `${from} to ${to}`,
 }
 
 const LabelsContext = createContext<PanceLabels>(defaultLabels)
