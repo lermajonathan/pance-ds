@@ -93,9 +93,21 @@ Quick alternative for all three: add `@source inline("border-{sky,amber,violet,r
 
 ## Roadmap
 
-1. Fix the three class-generation bugs (§2) and the contrast failures (§3.1–3.3).
-2. Make components read semantic tokens. Either expose them as Tailwind utilities (`bg-intent-primary-solid`, `text-text-muted`…) or use `var(--pance-…)` in class strings, so semantic edits propagate.
-3. Pass built-in strings as props with English defaults, removing the i18n/router dependency, then publish `src/components` as an npm package (`@pance/react`) and tokens as `@pance/tokens`.
-4. Promote the patterns (metric cards, data table, charts) into the library.
-5. Add a dark semantic layer on top of the same primitives.
-6. Add Storybook or Ladle plus visual regression (the Playwright diff used during extraction can be reused).
+Done:
+
+1. ✅ Class-generation bugs (§2) and contrast failures (§3.1–3.3).
+2. ✅ Components read semantic tokens; dimensions come from tokens (`lint:tokens` in CI).
+3. ✅ Built-in strings as props with English defaults; `@pance/react` and `@pance/tokens` published (1.1.0, 1.2.0).
+4. ✅ Patterns promoted into the library: `MetricCard`, `DataTable` (expandable rows, column toggle), all charts incl. `ScatterChart` and `Meter`, `ConfirmDialog`, `NotificationCenter`, `Toast` actions, dates, theme, feedback and links. Nothing in the docs site is a library component in disguise.
+5. ✅ Dark semantic layer (every contrast pair passes in both modes).
+6. ✅ Visual regression in CI (base commit vs this commit on the same runner, no committed screenshots).
+7. ✅ Documentation: one generated page per component (`docs/components/`, 71 pages, CI-checked), `CONTRIBUTING.md`, [deprecation policy](deprecation.md).
+8. ✅ Figma library mirrors the repo: all library components, 6 patterns, Light/Dark variables ([figma.md](figma.md), [figma-code-map.md](figma-code-map.md)).
+
+Next:
+
+- **One mature release, 1.3.0**, covering everything on `main` since 1.2.0 (dates, theme, feedback, links, actions, forms, table features, charts, flows, docs). Decision: no interim releases; the design system is announced only once it is complete.
+- Screen-reader passes (NVDA, VoiceOver) on the dialog, combobox, data table and date picker.
+- Figma: focus, hover and disabled variants for the last batch of components; dark values for component tokens (the Components collection has one mode).
+- Code Connect when the Figma file moves to an Organization plan.
+- Storybook or Ladle if contributors need an isolated playground.
