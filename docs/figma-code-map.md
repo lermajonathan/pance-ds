@@ -49,6 +49,7 @@ Import everything from `@pance/react`. Each component lives on its own Figma pag
 | Menu, Menu item | `DropdownMenu` | items → `items` |
 | Tabs, Tab | `Tabs` | active tab → `value` |
 | Accordion item | `Accordion` | open state is interaction only |
+| Accordion | `Accordion` | the bordered, rounded container around the items |
 | Breadcrumb | `Breadcrumb` | items → `items`, collapsed → `maxItems` |
 | Nav menu item | `NavMenu` | active → `aria-current` via `active` |
 | Steps, Step, Step connector | `Steps` | current step → `current` |

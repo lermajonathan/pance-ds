@@ -69,6 +69,7 @@ Property names match the React props so a component reads the same in design and
 | Modal | 3 | size · title · description · show icon · show body · show footer |
 | Card | 3 | elevation |
 | Accordion item | 4 | open · state · title · description |
+| Accordion | 1 | rounded, bordered group of three items (radius from `accordion.radius`, last divider removed) |
 
 ## Components (v1 data set, added Oct 15)
 
