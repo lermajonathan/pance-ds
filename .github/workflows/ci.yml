@@ -25,6 +25,8 @@ jobs:
       - name: Components only use tokens
         run: pnpm lint:tokens
       - run: pnpm typecheck
+      - name: Component docs are up to date and their examples type-check
+        run: pnpm docs:check && pnpm test:docs
       - run: pnpm build
       - name: Build and smoke-test the npm packages
         run: pnpm build:packages && pnpm test:packages

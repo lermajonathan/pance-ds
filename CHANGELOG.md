@@ -4,6 +4,10 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Documentation
+
+- One page per component in `docs/components/` (71 pages plus an index): when to use it and when not to, props, accessibility, content guidance, related components, example. Props are generated from the TypeScript source with `pnpm docs`; CI fails if a page is stale, a component has no guidance, or an example no longer type-checks (`pnpm docs:check`, `pnpm test:docs`).
+
 ### Added: table features, charts and flows (promoted from the docs site)
 - **`DataTable`:** `renderExpanded` (expandable rows with `aria-expanded` / `aria-controls`, also on the mobile cards) and `columnToggle` (a Columns popover with one checkbox per column).
 - **`ScatterChart`** (arrow-key navigation, readout, table view) and **`Meter`** (`role="meter"`, status written as text). Tokens `meter.*` with dark values; 6 new contrast pairs (178 per mode).

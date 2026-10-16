@@ -18,3 +18,4 @@ logs/
 packages/*/dist/
 packages/*/LICENSE
 *.tgz
+.docs-check/
