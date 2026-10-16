@@ -9,7 +9,7 @@
 | Cover | File cover built from live component instances |
 | Foundations | Color ramps, intents, typography, spacing, radius and elevation specimens, all bound to variables and styles |
 | Components | 67 icons + 34 components (29 component sets, 840 variants), one section per component |
-| Patterns | Compositions built only from instances: "Create a stream" form and "Streams dashboard" (metric cards + data table) |
+| Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard" (metric cards + data table), "Filtered results" (breadcrumb, date picker, combobox, tag input, empty table), "Settings" (panels with radio group, switches, theme toggle, checkbox group) and "Destructive confirm" (modal over scrim) |
 | Archive | The previous file content (site captures, August docs, legacy Button), untouched |
 
 ## Variables
@@ -138,7 +138,7 @@ These compose the existing Button and Icon components, so a change to Button flo
 | Checkbox group | 1 | legend plus three options |
 | Nav menu item | 3 | state (default · hover · active) |
 
-Every library component now has a Figma counterpart. Patterns (compositions of components) are tracked separately.
+Every library component now has a Figma counterpart. Patterns are listed in the Pages table.
 
 Component dimensions in Figma are bound to the same variables as code where a token exists (avatar sizes, steps dot and connector, progress height, segmented control heights, card padding and radius).
 
