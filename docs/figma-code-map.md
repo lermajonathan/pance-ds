@@ -52,7 +52,7 @@ Import everything from `@pance/react`.
 | Breadcrumb | `Breadcrumb` | items → `items`, collapsed → `maxItems` |
 | Nav menu item | `NavMenu` | active → `aria-current` via `active` |
 | Steps, Step, Step connector | `Steps` | current step → `current` |
-| Pagination, Pagination item | `Pagination` | page, pageCount |
+| Pagination, Pagination item | `Pagination` | page, pages |
 | Card | `Card` | elevation |
 | Panel | `Panel` | title, description, icon, collapsible |
 | Divider | `Divider` | kind → `soft`, `label` |
