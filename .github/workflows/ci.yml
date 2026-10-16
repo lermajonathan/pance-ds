@@ -38,3 +38,60 @@ jobs:
           npx --yes wait-on@8.0.3 http://localhost:4173/en
           pnpm test:keyboard http://localhost:4173/en
           pnpm test:axe http://localhost:4173/en
+
+  # Visual regression without committed screenshots: build the previous commit (or the PR base),
+  # screenshot it, build this commit and compare. Both run on the same machine, so fonts and
+  # rendering match. Put [visual-change] in the commit message or PR title for intended changes.
+  visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Find the base commit
+        id: base
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+        run: |
+          BASE="${PR_BASE:-$PUSH_BEFORE}"
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+            echo "No base commit; skipping."; echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=$BASE" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install Chromium
+        if: steps.base.outputs.skip != 'true'
+        run: pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium
+      - name: Screenshot the base commit
+        if: steps.base.outputs.skip != 'true'
+        run: |
+          git worktree add ../base "${{ steps.base.outputs.sha }}"
+          (cd ../base && pnpm install --frozen-lockfile && pnpm build)
+          (cd ../base && pnpm preview --port 4174 --strictPort &)
+          npx --yes wait-on@8.0.3 http://localhost:4174/en
+          node tests/visual.mjs http://localhost:4174/en --update --baseline="$RUNNER_TEMP/baseline"
+          pkill -f "vite preview" || true
+      - name: Compare this commit
+        if: steps.base.outputs.skip != 'true'
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          if printf '%s\n%s' "$TITLE" "$MESSAGE" | grep -qi '\[visual-change\]'; then ALLOW=1; else ALLOW=0; fi
+          pnpm build
+          pnpm preview --port 4173 --strictPort &
+          npx --yes wait-on@8.0.3 http://localhost:4173/en
+          if ! node tests/visual.mjs http://localhost:4173/en --baseline="$RUNNER_TEMP/baseline"; then
+            if [ "$ALLOW" = "1" ]; then echo "Visual changes allowed by [visual-change]."; else exit 1; fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-diff
+          path: tests/visual/__diff__

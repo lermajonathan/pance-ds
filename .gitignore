@@ -19,3 +19,5 @@ packages/*/dist/
 packages/*/LICENSE
 *.tgz
 .docs-check/
+tests/visual/__diff__/
+tests/visual/baseline/

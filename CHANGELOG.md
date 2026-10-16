@@ -8,6 +8,9 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 - One page per component in `docs/components/` (71 pages plus an index): when to use it and when not to, props, accessibility, content guidance, related components, example. Props are generated from the TypeScript source with `pnpm docs`; CI fails if a page is stale, a component has no guidance, or an example no longer type-checks (`pnpm docs:check`, `pnpm test:docs`).
 
+- `CONTRIBUTING.md` (how to add a component, required checks, release steps) and a [deprecation policy](docs/deprecation.md) (what is public API, what is breaking, two minor releases and 90 days before removal).
+- Visual regression in CI without committed screenshots: it builds the previous commit, screenshots 50 views (every docs page in light and dark, key pages on mobile), builds the new commit and compares. Intended changes are marked with `[visual-change]` in the commit message or PR title.
+
 ### Added: table features, charts and flows (promoted from the docs site)
 - **`DataTable`:** `renderExpanded` (expandable rows with `aria-expanded` / `aria-controls`, also on the mobile cards) and `columnToggle` (a Columns popover with one checkbox per column).
 - **`ScatterChart`** (arrow-key navigation, readout, table view) and **`Meter`** (`role="meter"`, status written as text). Tokens `meter.*` with dark values; 6 new contrast pairs (178 per mode).

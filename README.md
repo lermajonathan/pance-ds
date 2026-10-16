@@ -132,10 +132,13 @@ Every component shares one model: **severity** (what it means) is independent fr
     ├── tokens.md            ← generated reference
     ├── components.md        ← shared model, keyboard contract, strings
     ├── components/          ← one generated page per component (pnpm docs)
+    ├── deprecation.md       ← what is public API and how it is removed
     └── audit.md             ← inconsistencies found during extraction + roadmap
 ```
 
 ## Contributing
+
+Full guide: [CONTRIBUTING.md](CONTRIBUTING.md). Removal of public API follows the [deprecation policy](docs/deprecation.md).
 
 1. Change values in `tokens/*.json` and keep aliases (`{color.aqua.600}`) rather than duplicating hex.
 2. Run `pnpm build` to regenerate CSS, TS, JSON and docs, then commit the generated files with your change.
