@@ -122,7 +122,23 @@ New component tokens: `spinner/*` and `empty-state/*`.
 
 These compose the existing Button and Icon components, so a change to Button flows through.
 
-Not yet in Figma (P2/P3): InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, TagInput, RadioCard, CheckboxGroup, NavMenu, RadioGroup.
+## Components (v1.4 forms and selection, added Oct 15)
+
+| Component | Variants | Properties |
+|---|---|---|
+| Input group | 1 | prefix, value, trailing icon in one border |
+| Range slider | 1 | `range-slider/*` tokens |
+| File dropzone | 2 | state (idle · active) |
+| Pin input | 1 | six cells, focus ring on the current one |
+| Inline edit | 2 | state (display · editing) |
+| Combobox | 2 | state (closed · open) with listbox |
+| Tag input | 1 | `tag-input/*` chips |
+| Radio group | 1 | uses `radio/color/*` |
+| Radio card | 2 | checked (false · true), `radio/card/*` |
+| Checkbox group | 1 | legend plus three options |
+| Nav menu item | 3 | state (default · hover · active) |
+
+Every library component now has a Figma counterpart. Patterns (compositions of components) are tracked separately.
 
 Component dimensions in Figma are bound to the same variables as code where a token exists (avatar sizes, steps dot and connector, progress height, segmented control heights, card padding and radius).
 
