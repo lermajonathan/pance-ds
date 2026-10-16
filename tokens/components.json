@@ -2158,5 +2158,46 @@
       "$value": "{color.fg.muted}",
       "$type": "color"
     }
+  },
+  "meter": {
+    "$description": "Single measurement against a known maximum (role=meter). Severity changes the colour and the spoken status.",
+    "height": {
+      "$value": "{size.10}",
+      "$type": "dimension"
+    },
+    "radius": {
+      "$value": "{radius.full}",
+      "$type": "dimension"
+    },
+    "color": {
+      "$type": "color",
+      "track": {
+        "$value": "{color.border.default}"
+      },
+      "default": {
+        "$value": "{color.intent.primary.solid}",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.intent.primary.dot}"
+          }
+        }
+      },
+      "warning": {
+        "$value": "{color.intent.warning.solid}",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.intent.warning.dot}"
+          }
+        }
+      },
+      "danger": {
+        "$value": "{color.intent.danger.solid}",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.intent.danger.dot}"
+          }
+        }
+      }
+    }
   }
 }

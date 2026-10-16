@@ -1012,6 +1012,12 @@
   --pance-empty-state-icon-color: var(--pance-color-intent-primary-fg);
   --pance-empty-state-title-text: var(--pance-color-fg-default);
   --pance-empty-state-description-text: var(--pance-color-fg-muted);
+  --pance-meter-height: var(--pance-size-10);
+  --pance-meter-radius: var(--pance-radius-full);
+  --pance-meter-color-track: var(--pance-color-border-default);
+  --pance-meter-color-default: var(--pance-color-intent-primary-solid);
+  --pance-meter-color-warning: var(--pance-color-intent-warning-solid);
+  --pance-meter-color-danger: var(--pance-color-intent-danger-solid);
 }
 
 /* ── dark (draft, opt-in with data-theme="dark" — ships in v1.1) ──────── */
@@ -1140,4 +1146,7 @@
   --pance-range-slider-color-success: var(--pance-color-intent-success-dot);
   --pance-range-slider-color-warning: var(--pance-color-intent-warning-dot);
   --pance-range-slider-color-danger: var(--pance-color-intent-danger-dot);
+  --pance-meter-color-default: var(--pance-color-intent-primary-dot);
+  --pance-meter-color-warning: var(--pance-color-intent-warning-dot);
+  --pance-meter-color-danger: var(--pance-color-intent-danger-dot);
 }

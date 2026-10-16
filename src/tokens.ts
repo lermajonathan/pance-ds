@@ -1539,6 +1539,16 @@ export const tokens = {
     "icon-color": "#0e7490",
     "title-text": "#0f172a",
     "description-text": "#475569"
+  },
+  "meter": {
+    "height": "10px",
+    "radius": "9999px",
+    "color": {
+      "track": "#e2e8f0",
+      "default": "#0e7490",
+      "warning": "#b45309",
+      "danger": "#e11d48"
+    }
   }
 } as const
 

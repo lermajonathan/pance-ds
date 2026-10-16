@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, DatePicker, DateRangePicker, Calendar, toISODate, type DateRange, Spinner, EmptyState, Link as LibLink } from '../components'
+import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, ScatterChart, Meter, NotificationCenter, ConfirmDialog, type NotificationItem, DatePicker, DateRangePicker, Calendar, toISODate, type DateRange, Spinner, EmptyState, Link as LibLink } from '../components'
 import {
   Waveform,
   ChartLineUp,
@@ -2759,107 +2759,29 @@ function SoftDeleteDemo() {
   )
 }
 
-type Notif = { id: string; title: Key; body: Key; time: Key; read: boolean; severity: 'primary' | 'success' | 'warning' | 'danger' }
-const NOTIFS_INIT: Notif[] = [
-  { id: 'n1', title: 'overlays.notif.n1.title', body: 'overlays.notif.n1.body', time: 'overlays.notif.n1.time', read: false, severity: 'success' },
-  { id: 'n2', title: 'overlays.notif.n2.title', body: 'overlays.notif.n2.body', time: 'overlays.notif.n2.time', read: false, severity: 'warning' },
-  { id: 'n3', title: 'overlays.notif.n3.title', body: 'overlays.notif.n3.body', time: 'overlays.notif.n3.time', read: false, severity: 'danger' },
-  { id: 'n4', title: 'overlays.notif.n4.title', body: 'overlays.notif.n4.body', time: 'overlays.notif.n4.time', read: true, severity: 'primary' },
-  { id: 'n5', title: 'overlays.notif.n5.title', body: 'overlays.notif.n5.body', time: 'overlays.notif.n5.time', read: true, severity: 'success' },
-]
-const NOTIF_ICON: Record<Notif['severity'], typeof IconCheckCircle> = {
-  success: IconCheckCircle, primary: IconInfo, warning: IconAlert, danger: IconAlert,
-}
-const NOTIF_COLOR: Record<Notif['severity'], string> = {
-  success: 'text-emerald-700 bg-emerald-50', primary: 'text-brand-700 bg-brand-50',
-  warning: 'text-amber-700 bg-amber-50', danger: 'text-rose-600 bg-rose-50',
-}
+const NOTIFS_INIT = [
+  { id: 'n1', n: 1, read: false, severity: 'success' },
+  { id: 'n2', n: 2, read: false, severity: 'warning' },
+  { id: 'n3', n: 3, read: false, severity: 'danger' },
+  { id: 'n4', n: 4, read: true, severity: 'primary' },
+  { id: 'n5', n: 5, read: true, severity: 'success' },
+] as const
 
-function NotificationCenter() {
+function NotificationCenterDemo() {
   const { t } = useI18n()
-  const [open, setOpen] = useState(false)
-  const [notifs, setNotifs] = useState(NOTIFS_INIT)
-  const ref = useRef<HTMLDivElement>(null)
-  const unread = notifs.filter((n) => !n.read).length
-
-  useEffect(() => {
-    if (!open) return
-    const close = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false)
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [open])
-
-  const markAll = () => setNotifs((n) => n.map((x) => ({ ...x, read: true })))
-  const markOne = (id: string) => setNotifs((n) => n.map((x) => x.id === id ? { ...x, read: true } : x))
-  const dismiss = (id: string) => setNotifs((n) => n.filter((x) => x.id !== id))
-
+  const [state, setState] = useState(() => NOTIFS_INIT.map((x) => ({ id: x.id, read: x.read })))
+  const items: NotificationItem[] = state.map((x) => {
+    const base = NOTIFS_INIT.find((n) => n.id === x.id)!
+    return { id: x.id, read: x.read, severity: base.severity, title: t(`overlays.notif.n${base.n}.title` as Key), body: t(`overlays.notif.n${base.n}.body` as Key), time: t(`overlays.notif.n${base.n}.time` as Key) }
+  })
   return (
-    <div ref={ref} className="relative inline-flex">
-      <button
-        aria-label={unread > 0 ? `${t('overlays.notif.title')} ${unread}` : t('overlays.notif.title')}
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        onClick={() => setOpen((o) => !o)}
-        className={`pance-focus relative grid h-9 w-9 place-items-center rounded-xl border transition-colors ${open ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line bg-surface text-ink-muted hover:bg-ground hover:text-ink'}`}
-      >
-        <IconBellRinging className="h-4 w-4" />
-        {unread > 0 && (
-          <span aria-hidden className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-9 font-bold text-white">
-            {unread}
-          </span>
-        )}
-      </button>
-
-      {open && (
-        <div className="absolute left-0 top-full z-40 mt-2 w-80 max-w-[calc(100vw-3rem)] overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)]">
-          {/* Header */}
-          <div className="flex items-center justify-between border-b border-line-soft px-4 py-3">
-            <div className="flex items-center gap-2">
-              <p className="text-sm font-semibold text-ink">{t('overlays.notif.title')}</p>
-              {unread > 0 && <CountBadge count={unread} severity="danger" />}
-            </div>
-            {unread > 0 && (
-              <button onClick={markAll} className="text-xs font-medium text-brand-700 hover:text-brand-700">{t('overlays.notif.markAll')}</button>
-            )}
-          </div>
-
-          {/* List */}
-          <div className="max-h-80 divide-y divide-line-soft overflow-y-auto">
-            {notifs.length === 0 ? (
-              <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
-                <IconBell className="h-8 w-8 text-ink-muted/40" />
-                <p className="text-sm text-ink-muted">{t('overlays.notif.empty')}</p>
-              </div>
-            ) : notifs.map((n) => {
-              const Icon = NOTIF_ICON[n.severity]
-              return (
-                <div key={n.id} className={`group flex items-start gap-3 px-4 py-3 transition-colors hover:bg-canvas ${!n.read ? 'bg-brand-50/30' : ''}`}>
-                  <span className={`mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full ${NOTIF_COLOR[n.severity]}`}>
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                  <div className="min-w-0 flex-1" onClick={() => markOne(n.id)}>
-                    <div className="flex items-center gap-1.5">
-                      <p className={`text-xs font-semibold leading-snug ${!n.read ? 'text-ink' : 'text-ink-soft'}`}>{t(n.title)}</p>
-                      {!n.read && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />}
-                    </div>
-                    <p className="mt-0.5 text-xs leading-relaxed text-ink-muted">{t(n.body)}</p>
-                    <p className="mt-1 font-mono text-10 text-ink-muted">{t(n.time)}</p>
-                  </div>
-                  <button aria-label={t('overlays.notif.dismiss')} onClick={() => dismiss(n.id)} className="pance-focus mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded text-ink-muted opacity-0 transition-opacity hover:text-ink focus-visible:opacity-100 group-hover:opacity-100">
-                    <IconX className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Footer */}
-          <div className="border-t border-line-soft px-4 py-3">
-            <button className="w-full text-center text-xs font-medium text-brand-700 hover:text-brand-700">{t('overlays.notif.viewAll')}</button>
-          </div>
-        </div>
-      )}
-    </div>
+    <NotificationCenter
+      items={items}
+      onRead={(id) => setState((s) => s.map((x) => (x.id === id ? { ...x, read: true } : x)))}
+      onReadAll={() => setState((s) => s.map((x) => ({ ...x, read: true })))}
+      onDismiss={(id) => setState((s) => s.filter((x) => x.id !== id))}
+      footer={<button type="button" className="pance-focus w-full rounded text-center text-xs font-medium text-ink-link hover:underline">{t('overlays.notif.viewAll')}</button>}
+    />
   )
 }
 
@@ -2879,8 +2801,8 @@ export function OverlaysPage() {
 
   /* Toast state */
   const [toasts, setToasts] = useState<ToastItem[]>([])
-  const addToast = (severity: ToastItem['severity'], title: string, description?: string) =>
-    setToasts((t) => [...t, { id: String(++_toastId), severity, title, description }])
+  const addToast = (severity: ToastItem['severity'], title: string, description?: string, action?: ToastItem['action']) =>
+    setToasts((t) => [...t, { id: String(++_toastId), severity, title, description, action }])
   const dismissToast = (id: string) => setToasts((t) => t.filter((x) => x.id !== id))
 
   /* Dropdown items */
@@ -3023,7 +2945,7 @@ export function OverlaysPage() {
       {/* 6. Notification center */}
       <Section title={t('overlays.notif.section')} hint={t('overlays.notif.hint')}>
         <Demo>
-          <NotificationCenter />
+          <NotificationCenterDemo />
         </Demo>
         <p className="mt-2 text-xs text-ink-muted">{t('overlays.notif.help')}</p>
       </Section>
@@ -3096,22 +3018,21 @@ export function OverlaysPage() {
           <Button size="sm" severity="warning" variant="outlined" onClick={() => addToast('warning', t('overlays.toast.drift.title'), t('overlays.toast.drift.body'))}>Warning</Button>
           <Button size="sm" severity="danger" variant="outlined" onClick={() => addToast('danger', t('overlays.toast.disc.title'), t('overlays.toast.disc.body'))}>Danger</Button>
           <Button size="sm" severity="primary" variant="outlined" onClick={() => addToast('primary', t('overlays.toast.region.title'), t('overlays.toast.region.body'))}>Brand</Button>
+          <Button size="sm" severity="secondary" variant="outlined" onClick={() => addToast('info', t('overlays.destructive.moved'), undefined, { label: t('ui.undo'), onClick: () => addToast('success', t('overlays.destructive.restored')) })}>{t('ui.undo')}</Button>
         </Demo>
         <p className="mt-2 text-xs text-ink-muted">{t('overlays.toast.help')}</p>
       </Section>
 
       {/* — Modals rendered in portal — */}
-      <Modal
+      <ConfirmDialog
         open={modalDelete}
         onClose={() => setModalDelete(false)}
+        onConfirm={() => setModalDelete(false)}
         title={t('overlays.modal.deleteTitle')}
         description={t('overlays.modal.deleteDesc')}
-        icon={IconTrash}
-        iconSeverity="danger"
-        footer={<>
-          <Button variant="outlined" severity="secondary" onClick={() => setModalDelete(false)}>{t('overlays.cancel')}</Button>
-          <Button severity="danger" onClick={() => setModalDelete(false)}>{t('overlays.deleteStream')}</Button>
-        </>}
+        confirmLabel={t('overlays.deleteStream')}
+        cancelLabel={t('overlays.cancel')}
+        requireText="checkout-events"
       />
 
       <Modal
@@ -3628,7 +3549,7 @@ function FullDataTable() {
   const q = search.toLowerCase()
   const rows = ROWS.filter((r) => !q || r.name.includes(q) || r.owner.toLowerCase().includes(q) || r.region.includes(q))
   return (
-    <LibDataTable caption={t('table.liveStreams')} columns={columns} rows={rows} rowKey={(r) => r.id} rowLabel={(r) => r.name} selectable pageSize={5}
+    <LibDataTable caption={t('table.liveStreams')} columns={columns} rows={rows} rowKey={(r) => r.id} rowLabel={(r) => r.name} selectable pageSize={5} columnToggle
       density={density} search={search} onSearchChange={setSearch} searchPlaceholder={t('table.filter')}
       rowActions={(r) => <ActionMenu id={r.id} />}
       actions={<>
@@ -3658,97 +3579,30 @@ const EVENTS: EventRow[] = [
 function ExpandableTable() {
   const { t, lang } = useI18n()
   const num = (n: number) => n.toLocaleString(lang === 'es' ? 'es-419' : 'en-US')
+  const columns: Column<EventRow>[] = [
+    { key: 'event', header: t('table.ev.event'), render: (ev) => <span className="font-mono text-13 font-medium text-ink">{ev.event}</span> },
+    { key: 'source', header: t('table.ev.source') },
+    { key: 'ts', header: t('table.ev.time'), render: (ev) => <span className="font-mono text-13">{ev.ts}</span> },
+    { key: 'count', header: t('table.ev.count'), align: 'end', sortable: true, render: (ev) => <span className="font-mono text-13 font-medium text-ink">{num(ev.count)}</span> },
+  ]
   const detailOf = (ev: EventRow) => [
     { field: t('table.ev.schema'), value: ev.schema },
     { field: t('table.ev.payload'), value: ev.payload },
     { field: t('table.ev.key'), value: ev.key },
     { field: t('table.ev.retention'), value: t('table.ev.days', { n: ev.days }) },
   ]
-  const [expanded, setExpanded] = useState<Set<string>>(new Set())
-  const toggle = (id: string) => setExpanded(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n })
   return (
-    <Card className="overflow-hidden">
-      <header className="border-b border-line-soft px-6 py-5">
-        <h2 className="font-display text-base font-bold tracking-tight text-ink">{t('table.expand.header')}</h2>
-        <p className="mt-0.5 text-sm text-ink-muted">{t('table.expand.sub')}</p>
-      </header>
-      {/* Mobile: expandable cards */}
-      <div className="space-y-3 p-4 md:hidden">
-        {EVENTS.map(ev => {
-          const open = expanded.has(ev.id)
-          return (
-            <div key={ev.id} className={`rounded-xl border transition-colors ${open ? 'border-brand-300 bg-brand-50/40' : 'border-line bg-surface'}`}>
-              <button onClick={() => toggle(ev.id)} className="flex w-full items-center justify-between gap-3 p-4 text-left">
-                <div className="min-w-0">
-                  <p className="truncate font-mono text-13 font-medium text-ink">{ev.event}</p>
-                  <p className="mt-0.5 text-sm text-ink-muted">{ev.source} · {ev.ts}</p>
-                </div>
-                <div className="flex shrink-0 items-center gap-2">
-                  <span className="font-mono text-13 font-medium text-ink">{num(ev.count)}</span>
-                  <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-700' : ''}`} />
-                </div>
-              </button>
-              {open && (
-                <div className="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-line-soft px-4 pb-4 pt-3">
-                  {detailOf(ev).map(d => (
-                    <div key={d.field}>
-                      <p className="font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{d.field}</p>
-                      <p className="mt-0.5 text-sm font-medium text-ink">{d.value}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
+    <LibDataTable caption={t('table.expand.header')} columns={columns} rows={EVENTS} rowKey={(ev) => ev.id} rowLabel={(ev) => ev.event}
+      renderExpanded={(ev) => (
+        <dl className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-4">
+          {detailOf(ev).map((d) => (
+            <div key={d.field}>
+              <dt className="font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{d.field}</dt>
+              <dd className="mt-0.5 text-sm font-medium text-ink">{d.value}</dd>
             </div>
-          )
-        })}
-      </div>
-      {/* md+: table */}
-      <table className="hidden w-full border-collapse text-left text-sm md:table">
-        <thead>
-          <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
-            <td className="w-10 border-b border-line" /><th>{t('table.ev.event')}</th><th>{t('table.ev.source')}</th><th>{t('table.ev.time')}</th><th className="text-right">{t('table.ev.count')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {EVENTS.map(ev => {
-            const open = expanded.has(ev.id)
-            return (
-              <React.Fragment key={ev.id}>
-                <tr
-                  onClick={() => toggle(ev.id)}
-                  className={`cursor-pointer border-b border-line-soft transition-colors duration-150 last:border-0 ${open ? 'bg-brand-50/40' : 'hover:bg-canvas'}`}
-                >
-                  <td className="px-6 py-3.5">
-                    <IconChevronDown className={`h-4 w-4 text-ink-muted transition-transform duration-200 ${open ? 'rotate-180 text-brand-700' : ''}`} />
-                  </td>
-                  <td className="px-6 py-3.5">
-                    <span className="font-mono text-13 font-medium text-ink">{ev.event}</span>
-                  </td>
-                  <td className="px-6 py-3.5 text-ink-muted">{ev.source}</td>
-                  <td className="px-6 py-3.5 font-mono text-13 text-ink-muted">{ev.ts}</td>
-                  <td className="px-6 py-3.5 text-right font-mono text-13 font-medium text-ink">{num(ev.count)}</td>
-                </tr>
-                {open && (
-                  <tr key={`${ev.id}-detail`} className="border-b border-line-soft bg-brand-50/20 last:border-0">
-                    <td />
-                    <td colSpan={4} className="px-6 pb-5 pt-3">
-                      <div className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-4">
-                        {detailOf(ev).map(d => (
-                          <div key={d.field}>
-                            <p className="font-mono text-10 font-semibold uppercase tracking-wider text-ink-muted">{d.field}</p>
-                            <p className="mt-0.5 text-sm font-medium text-ink">{d.value}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </React.Fragment>
-            )
-          })}
-        </tbody>
-      </table>
-    </Card>
+          ))}
+        </dl>
+      )} />
   )
 }
 
@@ -4828,111 +4682,6 @@ function VizDonut({ slices, title, sub, size }: { slices: DonutSlice[]; title: s
   return <DonutChart title={title} subtitle={sub} slices={slices} size={size} />
 }
 
-/* ─── VizScatter ───────────────────────────────────────────────────────── */
-type ScatterPt = { x: number; y: number; label: string; r?: number; color?: string }
-function VizScatter({ data, title, sub, xLabel, yLabel, W = 600, H = 260 }: {
-  data: ScatterPt[]; title: string; sub?: string; xLabel: string; yLabel: string; W?: number; H?: number
-}) {
-  const [hov, setHov] = useState<number | null>(null)
-  const { containerRef, afs } = useAxisFontSize(W)
-  const gW = W - VM.l - VM.r
-  const gH = H - VM.t - VM.b
-  const xT = niceTicks(Math.min(...data.map(d => d.x)) * 0.9, Math.max(...data.map(d => d.x)) * 1.1)
-  const yT = niceTicks(0, Math.max(...data.map(d => d.y)) * 1.12)
-  const xMin = xT[0], xMax = xT[xT.length - 1]
-  const yMax = yT[yT.length - 1]
-  const xS = (v: number) => ((v - xMin) / (xMax - xMin)) * gW
-  const yS = (v: number) => gH - (v / yMax) * gH
-
-  return (
-    <div ref={containerRef} className="rounded-2xl border border-line bg-surface p-4">
-      <div className="mb-3">
-        <p className="text-sm font-semibold text-ink">{title}</p>
-        {sub && <p className="mt-0.5 text-xs text-ink-muted">{sub}</p>}
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 'auto', display: 'block' }}
-        onMouseLeave={() => setHov(null)}>
-        <g transform={`translate(${VM.l},${VM.t})`}>
-          {yT.map(tick => {
-            const y = yS(tick)
-            if (y < -1 || y > gH + 1) return null
-            return (
-              <g key={tick}>
-                <line x1={0} y1={y} x2={gW} y2={y} stroke={VG} strokeWidth={1} />
-                <text x={-8} y={y} textAnchor="end" dominantBaseline="middle" fontSize={afs} fill={VA}
-                  fontFamily="inherit" style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(tick)}</text>
-              </g>
-            )
-          })}
-          {xT.map(tick => {
-            const x = xS(tick)
-            if (x < -1 || x > gW + 1) return null
-            return (
-              <g key={tick}>
-                <line x1={x} y1={0} x2={x} y2={gH} stroke={VG} strokeWidth={1} />
-                <text x={x} y={gH + 18} textAnchor="middle" fontSize={afs} fill={VA}
-                  fontFamily="inherit" style={{ fontVariantNumeric: 'tabular-nums' }}>{fv(tick)}</text>
-              </g>
-            )
-          })}
-          <line x1={0} y1={gH} x2={gW} y2={gH} stroke={VB} strokeWidth={1} />
-          <line x1={0} y1={0} x2={0}  y2={gH} stroke={VB} strokeWidth={1} />
-          <text x={gW / 2} y={gH + 36} textAnchor="middle" fontSize={afs} fill={VI2} fontFamily="inherit">{xLabel}</text>
-          <text x={-gH / 2} y={-42} textAnchor="middle" fontSize={afs} fill={VI2} fontFamily="inherit"
-            transform="rotate(-90)">{yLabel}</text>
-
-          {data.map((pt, i) => {
-            const x = xS(pt.x), y = yS(pt.y)
-            const on = hov === i
-            const c = pt.color ?? VC[0]
-            const dotR = pt.r ? Math.max(4, Math.min(12, pt.r)) : 5
-            return (
-              <g key={pt.label} onMouseEnter={() => setHov(i)} style={{ cursor: 'default' }}>
-                <circle cx={x} cy={y} r={12} fill="transparent" />
-                <circle cx={x} cy={y} r={dotR + 2} fill={VS} />
-                <circle cx={x} cy={y} r={dotR} fill={c} opacity={on ? 1 : 0.8} />
-                {on && (
-                  <text x={x + dotR + 4} y={y - 2} fontSize={afs} fill={VI} fontFamily="inherit" fontWeight={600}>{pt.label}</text>
-                )}
-              </g>
-            )
-          })}
-        </g>
-      </svg>
-      {hov !== null && (
-        <div className="mt-2 flex flex-wrap items-center gap-3 rounded-xl border border-line bg-canvas px-4 py-2.5 text-xs">
-          <span className="font-semibold text-ink">{data[hov].label}</span>
-          <span className="h-3 w-px bg-line" />
-          <span className="text-ink-muted">{xLabel} <span className="font-mono font-semibold text-ink">{fv(data[hov].x)}</span></span>
-          <span className="text-ink-muted">{yLabel} <span className="font-mono font-semibold text-ink">{fv(data[hov].y)}</span></span>
-        </div>
-      )}
-    </div>
-  )
-}
-
-/* ─── VizMeter (single ratio vs limit) ────────────────────────────────── */
-function VizMeter({ label, value, max, unit = '', severity = 'default' }: {
-  label: string; value: number; max: number; unit?: string; severity?: 'default' | 'warning' | 'danger'
-}) {
-  const pct = Math.min(100, (value / max) * 100)
-  const trackBg = severity === 'danger' ? '#fecdd3' : severity === 'warning' ? '#fde68a' : '#cffafe'
-  const fillBg  = severity === 'danger' ? '#e11d48' : severity === 'warning' ? '#f59e0b' : VC[0]
-  return (
-    <div className="rounded-xl border border-line bg-surface p-4">
-      <div className="mb-2 flex items-baseline justify-between gap-2">
-        <span className="text-sm text-ink-muted">{label}</span>
-        <span className="shrink-0 whitespace-nowrap font-mono text-sm font-semibold text-ink tabular-nums">{value.toLocaleString()}{unit} <span className="text-xs text-ink-muted">/ {max.toLocaleString()}{unit}</span></span>
-      </div>
-      <div className="relative h-2.5 overflow-hidden rounded-full" style={{ backgroundColor: trackBg }}>
-        <div className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-500"
-          style={{ width: `${pct}%`, backgroundColor: fillBg }} />
-      </div>
-      <p className="mt-1.5 text-right font-mono text-11 tabular-nums text-ink-muted">{pct.toFixed(1)}%</p>
-    </div>
-  )
-}
-
 /* ─── VizSparkline (inline trend) ─────────────────────────────────────── */
 function VizSparkline({ data, color = VC[0] as string, width = 80, height = 28 }: {
   data: number[]; color?: string; width?: number; height?: number
@@ -5079,7 +4828,7 @@ export function DataVizPage() {
   ]
 
   /* ── Scatter: latency (ms) vs throughput (K/s) ───────────────── */
-  const scatterData: ScatterPt[] = [
+  const scatterData = [
     { x: 412, y: 36, label: 'checkout-events',  r: 8 },
     { x: 388, y: 41, label: 'auth-signals',      r: 7 },
     { x: 320, y: 29, label: 'telemetry-fleet',   r: 6 },
@@ -5216,19 +4965,19 @@ export function DataVizPage() {
 
       {/* ── Scatter plot ──────────────────────────────────────────── */}
       <Section title={t('dataviz.scatter.title')} hint={t('dataviz.scatter.hint')}>
-        <VizScatter data={scatterData} title={t('dataviz.scatter.chartTitle')} sub={t('dataviz.scatter.chartSub')}
+        <ScatterChart points={scatterData} title={t('dataviz.scatter.chartTitle')} subtitle={t('dataviz.scatter.chartSub')}
           xLabel={t('dataviz.scatter.x')} yLabel={t('dataviz.scatter.y')} />
       </Section>
 
       {/* ── Meters / progress ─────────────────────────────────────── */}
       <Section title={t('dataviz.meter.title')} hint={t('dataviz.meter.hint')}>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <VizMeter label={t('dataviz.meter.cpu')} value={62}  max={100} unit="%" />
-          <VizMeter label={t('dataviz.meter.registry')} value={78}  max={100} unit="%" severity="warning" />
-          <VizMeter label={t('dataviz.meter.rebalance')} value={91}  max={100} unit="%" severity="danger" />
-          <VizMeter label={t('dataviz.meter.daily')} value={4200} max={10000} unit=" K" />
-          <VizMeter label={t('dataviz.meter.connections')} value={344}  max={500}   unit="" />
-          <VizMeter label={t('dataviz.meter.storage')} value={2.1}  max={3}     unit=" TB" severity="warning" />
+          <Meter label={t('dataviz.meter.cpu')} value={62}  max={100} unit="%" />
+          <Meter label={t('dataviz.meter.registry')} value={78}  max={100} unit="%" severity="warning" />
+          <Meter label={t('dataviz.meter.rebalance')} value={91}  max={100} unit="%" severity="danger" />
+          <Meter label={t('dataviz.meter.daily')} value={4200} max={10000} unit=" K" />
+          <Meter label={t('dataviz.meter.connections')} value={344}  max={500}   unit="" />
+          <Meter label={t('dataviz.meter.storage')} value={2.1}  max={3}     unit=" TB" severity="warning" />
         </div>
       </Section>
 
@@ -5758,9 +5507,9 @@ function DeptPanel({ dept, onDetail, onClose }: { dept: AQDept; onDetail: () => 
       <div className="space-y-2">
         <p className="text-xs font-semibold text-ink">{t('aq.panel.buildings')}</p>
         <div className="space-y-1.5">
-          <VizMeter label={t('aq.panel.collapsed')} value={dept.buildingsCollapsed} max={dept.buildingsCollapsed + dept.buildingsAtRisk} unit="" severity="danger" />
-          <VizMeter label={t('aq.panel.atRisk')} value={dept.buildingsAtRisk} max={dept.buildingsCollapsed + dept.buildingsAtRisk + 10000} unit="" severity="warning" />
-          <VizMeter label={t('aq.panel.hospCapShort')} value={dept.hospitalCapacity} max={100} unit="%" severity={dept.hospitalCapacity >= 95 ? 'danger' : dept.hospitalCapacity >= 80 ? 'warning' : 'default'} />
+          <Meter label={t('aq.panel.collapsed')} value={dept.buildingsCollapsed} max={dept.buildingsCollapsed + dept.buildingsAtRisk} unit="" severity="danger" />
+          <Meter label={t('aq.panel.atRisk')} value={dept.buildingsAtRisk} max={dept.buildingsCollapsed + dept.buildingsAtRisk + 10000} unit="" severity="warning" />
+          <Meter label={t('aq.panel.hospCapShort')} value={dept.hospitalCapacity} max={100} unit="%" severity={dept.hospitalCapacity >= 95 ? 'danger' : dept.hospitalCapacity >= 80 ? 'warning' : 'default'} />
         </div>
       </div>
 
@@ -5815,9 +5564,9 @@ function DeptModal({ dept, onClose }: { dept: AQDept; onClose: () => void }) {
           <div>
             <p className="mb-2 text-sm font-semibold text-ink">{t('aq.modal.buildings')}</p>
             <div className="space-y-1.5">
-              <VizMeter label={t('aq.panel.collapsed')} value={dept.buildingsCollapsed} max={dept.buildingsCollapsed + dept.buildingsAtRisk + 5000} unit="" severity="danger" />
-              <VizMeter label={t('aq.panel.atRisk')} value={dept.buildingsAtRisk} max={dept.buildingsCollapsed + dept.buildingsAtRisk + 5000} unit="" severity="warning" />
-              <VizMeter label={t('aq.modal.hospitals')} value={dept.hospitalCapacity}   max={100} unit="%" severity={dept.hospitalCapacity >= 95 ? 'danger' : dept.hospitalCapacity >= 80 ? 'warning' : 'default'} />
+              <Meter label={t('aq.panel.collapsed')} value={dept.buildingsCollapsed} max={dept.buildingsCollapsed + dept.buildingsAtRisk + 5000} unit="" severity="danger" />
+              <Meter label={t('aq.panel.atRisk')} value={dept.buildingsAtRisk} max={dept.buildingsCollapsed + dept.buildingsAtRisk + 5000} unit="" severity="warning" />
+              <Meter label={t('aq.modal.hospitals')} value={dept.hospitalCapacity}   max={100} unit="%" severity={dept.hospitalCapacity >= 95 ? 'danger' : dept.hospitalCapacity >= 80 ? 'warning' : 'default'} />
             </div>
           </div>
           <VizDonut slices={demoSlices} title={t('aq.modal.ageTitle')} size={160} />

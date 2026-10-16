@@ -4,6 +4,14 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Added: table features, charts and flows (promoted from the docs site)
+- **`DataTable`:** `renderExpanded` (expandable rows with `aria-expanded` / `aria-controls`, also on the mobile cards) and `columnToggle` (a Columns popover with one checkbox per column).
+- **`ScatterChart`** (arrow-key navigation, readout, table view) and **`Meter`** (`role="meter"`, status written as text). Tokens `meter.*` with dark values; 6 new contrast pairs (178 per mode).
+- **`ConfirmDialog`** (type-to-confirm), **`NotificationCenter`** (bell with unread count, per-item Mark as read and Dismiss) and **`Toast` `action`** (Undo).
+- **Labels:** `columns`, `expandColumn`, `expandRow`, `collapseRow`, `meterStatusWarning`, `meterStatusDanger`, `cancel`, `typeToConfirm`, `notifications`, `notificationsUnread`, `markAllRead`, `markRead`, `dismissNotification`, `noNotifications`, `unread`, `undo`.
+- **Tests:** 7 new keyboard checks (32 in total), 6 new package checks (33).
+- Nothing left in the docs site is a library component in disguise. `VizStatTile` is `MetricCard variant="compact"`.
+
 ### Added: theme, feedback and links
 - **Dark mode you can switch on:** `ThemeProvider`, `useTheme`, `ThemeToggle` (Light / Dark / System) and `themeInitScript` for a flash-free first paint. The choice is remembered and follows the system setting. The docs site now has the toggle in its header.
 - **`Spinner`** (status role, stops under reduced motion), **`EmptyState`** (real heading, one action) and **`Link`** (always underlined, safe external links that announce the new tab, `render` for router links).

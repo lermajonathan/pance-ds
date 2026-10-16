@@ -21,7 +21,7 @@ sh(`npm install --silent --no-audit --no-fund ${tarballs.join(' ')} react@19 rea
 fs.writeFileSync(path.join(tmp, 'render.mjs'), `
 import { createElement as h } from 'react'
 import { renderToString } from 'react-dom/server'
-import { Button, Badge, Field, Input, Modal, Tabs, PanceProvider, IconPlus, MetricCard, Delta, Sparkline, DataTable, Pagination, LineChart, BarChart, DonutChart, DatePicker, Calendar, RangeCalendar, Spinner, EmptyState, Link, ThemeToggle, ThemeProvider, themeInitScript } from '@pance/react'
+import { Button, Badge, Field, Input, Modal, Tabs, PanceProvider, IconPlus, MetricCard, Delta, Sparkline, DataTable, Pagination, LineChart, BarChart, DonutChart, DatePicker, Calendar, RangeCalendar, ScatterChart, Meter, NotificationCenter, ConfirmDialog, Spinner, EmptyState, Link, ThemeToggle, ThemeProvider, themeInitScript } from '@pance/react'
 const html = renderToString(h(PanceProvider, { labels: { close: 'Cerrar' } },
   h(Field, { label: 'Name', hint: 'Help', required: true }, h(Input, { placeholder: 'x' })),
   h(Button, { severity: 'primary', Icon: IconPlus }, 'Create'),
@@ -39,6 +39,11 @@ const html = renderToString(h(PanceProvider, { labels: { close: 'Cerrar' } },
   h(EmptyState, { Icon: IconPlus, title: 'Nothing yet', description: 'Create one.', action: h(Button, null, 'New') }),
   h(Link, { href: 'https://example.com', external: true }, 'Docs'),
   h(ThemeProvider, null, h(ThemeToggle)),
+  h(ScatterChart, { title: 'Latency vs throughput', xLabel: 'Throughput', yLabel: 'Latency', points: [{ label: 'a', x: 1, y: 2 }, { label: 'b', x: 3, y: 1 }] }),
+  h(Meter, { label: 'Storage', value: 91, max: 100, unit: '%', severity: 'danger' }),
+  h(NotificationCenter, { items: [{ id: '1', title: 'Deploy done', read: false, severity: 'success' }], onRead() {} }),
+  h(ConfirmDialog, { open: true, onClose() {}, onConfirm() {}, title: 'Delete?', confirmLabel: 'Delete', requireText: 'checkout' }),
+  h(DataTable, { caption: 'Events', columns: [{ key: 'name', header: 'Name' }, { key: 'region', header: 'Region' }], rows: [{ name: 'x', region: 'y' }], rowKey: (r) => r.name, rowLabel: (r) => r.name, renderExpanded: () => 'Detail', columnToggle: true }),
   h(RangeCalendar, { value: { start: '2026-10-05', end: '2026-10-08' }, onChange() {}, months: 2 }),
 ))
 console.log(html)
@@ -57,6 +62,11 @@ check('EmptyState renders a heading', html.includes('<h3') && html.includes('Not
 check('external Link is safe and announced', html.includes('rel="noopener noreferrer"') && html.includes('opens in a new tab'))
 check('ThemeToggle renders a radio group', html.includes('aria-label="Theme"') && html.includes('Dark') && html.includes('System'))
 check('themeInitScript is exported', /themeInitScript/.test(fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/index.js'), 'utf8')))
+check('ScatterChart is a focusable group with a table alternative', html.includes('Latency vs throughput') && html.includes('View as table'))
+check('Meter exposes role=meter with status text', html.includes('role="meter"') && html.includes('aria-valuetext="91% / 100%, Critical"'))
+check('NotificationCenter bell announces unread count', html.includes('Notifications, 1 unread'))
+check('ConfirmDialog asks for the phrase', html.includes('Type checkout to confirm') && html.includes('disabled'))
+check('DataTable has expand and Columns controls', html.includes('Show details for x') && html.includes('>Columns<'))
 check('PanceProvider translates built-in strings', html.includes('aria-label="Cerrar"'))
 check('Modal is an accessible dialog', html.includes('role="dialog"') && html.includes('aria-modal="true"'))
 
@@ -65,6 +75,7 @@ const css = fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/style
 check('styles.css has component utilities', css.includes('.bg-primary-solid') && css.includes('--pance-button-size-md-height'))
 check('styles.css has data-viz tokens and chart utilities', css.includes('--pance-color-dataviz-series-3') && css.includes('--pance-sparkline-width-md'))
 check('styles.css has spinner and empty-state tokens', css.includes('--pance-spinner-size-md') && css.includes('--pance-empty-state-icon-box'))
+check('styles.css has meter tokens', css.includes('--pance-meter-height') && css.includes('--pance-meter-color-danger'))
 check('styles.css has calendar tokens', css.includes('--pance-calendar-day-size') && css.includes('--pance-calendar-selected-bg'))
 check('styles.css has tokens and dark mode', css.includes('--pance-color-intent-primary-solid') && css.includes("data-theme"))
 check('tailwind.css points Tailwind at the package', fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/tailwind.css'), 'utf8').includes('@source "./index.js"'))

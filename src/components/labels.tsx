@@ -51,6 +51,10 @@ export type PanceLabels = {
   sortBy: (column: string) => string
   rowsSelected: (count: number) => string
   noRows: string
+  columns: string
+  expandColumn: string
+  expandRow: (name: string) => string
+  collapseRow: (name: string) => string
   clearSearch: string
   pagination: string
   previousPage: string
@@ -62,6 +66,19 @@ export type PanceLabels = {
   viewAsTable: string
   viewAsChart: string
   chartKeyboardHint: string
+  meterStatusWarning: string
+  /* Dialogs and notifications */
+  cancel: string
+  typeToConfirm: (text: string) => string
+  notifications: string
+  notificationsUnread: (count: number) => string
+  markAllRead: string
+  markRead: (title: string) => string
+  dismissNotification: (title: string) => string
+  noNotifications: string
+  unread: string
+  undo: string
+  meterStatusDanger: string
   /* Dates */
   /** BCP 47 tag used to format month and weekday names (Intl). */
   locale: string
@@ -124,6 +141,10 @@ export const defaultLabels: PanceLabels = {
   sortBy: (c) => `Sort by ${c}`,
   rowsSelected: (n) => `${n} selected`,
   noRows: 'No results',
+  columns: 'Columns',
+  expandColumn: 'Expand row',
+  expandRow: (n) => `Show details for ${n}`,
+  collapseRow: (n) => `Hide details for ${n}`,
   clearSearch: 'Clear search',
   pagination: 'Pagination',
   previousPage: 'Previous page',
@@ -133,6 +154,18 @@ export const defaultLabels: PanceLabels = {
   viewAsTable: 'View as table',
   viewAsChart: 'View as chart',
   chartKeyboardHint: 'Use the arrow keys to move between data points.',
+  meterStatusWarning: 'Warning',
+  cancel: 'Cancel',
+  typeToConfirm: (t) => `Type ${t} to confirm`,
+  notifications: 'Notifications',
+  notificationsUnread: (n) => `Notifications, ${n} unread`,
+  markAllRead: 'Mark all as read',
+  markRead: (t) => `Mark "${t}" as read`,
+  dismissNotification: (t) => `Dismiss "${t}"`,
+  noNotifications: 'You are all caught up',
+  unread: 'Unread',
+  undo: 'Undo',
+  meterStatusDanger: 'Critical',
   locale: 'en-US',
   firstDayOfWeek: 0,
   previousMonth: 'Previous month',

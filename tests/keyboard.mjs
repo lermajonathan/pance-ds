@@ -323,6 +323,110 @@ await test('Link: external links open safely and say so', async () => {
   void l
 })
 
+await page.goto(`${BASE}/table`, { waitUntil: 'networkidle' })
+
+await test('DataTable: expand button toggles aria-expanded, controls the detail row and is named by the row', async () => {
+  const btn = page.locator('main table tbody button[aria-expanded]').first()
+  assert(((await btn.getAttribute('aria-label')) ?? '').length > 4, 'expand button has no accessible name')
+  assert((await btn.getAttribute('aria-expanded')) === 'false', 'row should start collapsed')
+  await btn.focus()
+  await page.keyboard.press('Enter')
+  assert((await settle(() => btn.getAttribute('aria-expanded'), 'true')) === 'true', 'Enter did not expand')
+  const id = await btn.getAttribute('aria-controls')
+  assert(id && (await page.locator(`[id="${id}"]`).count()) === 1, 'aria-controls does not point at the detail row')
+  await page.keyboard.press('Space')
+  assert((await settle(() => btn.getAttribute('aria-expanded'), 'false')) === 'false', 'Space did not collapse')
+})
+
+await test('DataTable: Columns popover hides and shows a column; the first column stays', async () => {
+  const table = page.locator('main section', { has: page.getByRole('button', { name: /^columns$|^columnas$/i }) }).first()
+  const trigger = table.getByRole('button', { name: /^columns$|^columnas$/i })
+  const headers = () => table.locator('table thead th').count()
+  const before = await headers()
+  await trigger.focus()
+  await page.keyboard.press('Enter')
+  const dlg = page.locator('[role="dialog"]').first()
+  await dlg.waitFor()
+  const boxes = dlg.locator('[role="checkbox"]')
+  const n = await boxes.count()
+  assert(n === before - (await table.locator('thead [role="checkbox"]').count()) - 1, `expected one checkbox per hideable column, got ${n}`)
+  await boxes.first().focus()
+  await page.keyboard.press('Space')
+  assert((await settle(headers, before - 1)) === before - 1, 'column was not hidden')
+  await page.keyboard.press('Space')
+  assert((await settle(headers, before)) === before, 'column was not restored')
+  await page.keyboard.press('Escape')
+  assert(await trigger.evaluate((el) => el === document.activeElement), 'focus did not return to the Columns button')
+})
+
+await page.goto(`${BASE}/dataviz`, { waitUntil: 'networkidle' })
+
+await test('ScatterChart: arrows move between points and read out both values with the point name', async () => {
+  const fig = page.locator('main figure', { hasText: /latency vs|latencia vs|latencia frente/i }).first()
+  const group = fig.locator('[role="group"][tabindex="0"]').first()
+  await group.focus()
+  await page.keyboard.press('End')
+  const status = fig.locator('[role="status"]').first()
+  const text = async () => ((await status.textContent()) ?? '').trim()
+  assert((await settle(async () => (await text()).length > 8, true)) === true, 'no readout after End')
+  const first = await text()
+  await page.keyboard.press('ArrowLeft')
+  assert((await settle(async () => (await text()) !== first, true)) === true, 'ArrowLeft did not change the readout')
+})
+
+await test('Meter: role="meter" exposes value, range and a status that is not only colour', async () => {
+  const meters = page.locator('main [role="meter"]')
+  assert((await meters.count()) >= 6, 'meters not found')
+  const danger = meters.filter({ has: page.locator('xpath=.') }).nth(2)
+  const now = await danger.getAttribute('aria-valuenow'), max = await danger.getAttribute('aria-valuemax')
+  assert(now !== null && max !== null && Number(max) > Number(now) - 1, 'meter lacks aria-valuenow/aria-valuemax')
+  assert(/crit|crític/i.test((await danger.getAttribute('aria-valuetext')) ?? ''), 'danger meter should say so in aria-valuetext')
+})
+
+await page.goto(`${BASE}/overlays`, { waitUntil: 'networkidle' })
+
+await test('ConfirmDialog: the confirm button stays disabled until the phrase is typed', async () => {
+  await page.locator('main button', { hasText: /delete|eliminar/i }).first().click()
+  const dlg = page.locator('[role="dialog"][aria-modal="true"]').first()
+  await dlg.waitFor()
+  const confirm = dlg.getByRole('button', { name: /delete stream|eliminar stream/i })
+  assert(await confirm.isDisabled(), 'confirm should start disabled')
+  const input = dlg.getByRole('textbox')
+  assert(((await input.getAttribute('aria-labelledby')) ?? (await dlg.locator('label').count())) !== 0, 'phrase input has no label')
+  await input.fill('checkout-event')
+  assert(await confirm.isDisabled(), 'a partial phrase must not enable confirm')
+  await input.fill('checkout-events')
+  assert(await confirm.isEnabled(), 'the exact phrase should enable confirm')
+  await page.keyboard.press('Escape')
+  assert((await settle(() => page.locator('[role="dialog"][aria-modal="true"]').count(), 0)) === 0, 'dialog did not close')
+})
+
+await test('NotificationCenter: bell names the unread count, mark-as-read and dismiss are named buttons, Escape returns focus', async () => {
+  const bell = page.locator('main button[aria-label*="unread" i], main button[aria-label*="sin leer" i]').first()
+  const label = (await bell.getAttribute('aria-label')) ?? ''
+  assert(/\d/.test(label), `bell label should include the unread count, got "${label}"`)
+  await bell.focus()
+  await page.keyboard.press('Enter')
+  const dlg = page.locator('[role="dialog"]').first()
+  await dlg.waitFor()
+  const mark = dlg.getByRole('button', { name: /mark "[^"]+" as read|marcar «[^»]+» como leída/i }).first()
+  assert((await mark.count()) === 1, 'no named mark-as-read button')
+  const before = await dlg.getByRole('button', { name: /mark "[^"]+" as read|marcar «[^»]+» como leída/i }).count()
+  await mark.click()
+  assert((await settle(() => dlg.getByRole('button', { name: /mark "[^"]+" as read|marcar «[^»]+» como leída/i }).count(), before - 1)) === before - 1, 'marking one as read did not remove its button')
+  await page.keyboard.press('Escape')
+  assert((await settle(() => page.locator('[role="dialog"]:not([aria-modal])').count(), 0)) === 0, 'panel did not close')
+})
+
+await test('Toast: the Undo action is a button that dismisses the toast and runs', async () => {
+  await page.locator('main button', { hasText: /^undo$|^deshacer$/i }).first().click()
+  const toast = page.locator('[role="status"]', { hasText: /moved to trash|movido a la papelera/i }).first()
+  await toast.waitFor()
+  await toast.getByRole('button', { name: /^undo$|^deshacer$/i }).click()
+  assert((await page.locator('[role="status"]', { hasText: /restored|restaurado/i }).count()) >= 1, 'undo did not run')
+  assert((await settle(() => page.locator('[role="status"]', { hasText: /moved to trash|movido a la papelera/i }).count(), 0)) === 0, 'toast was not dismissed')
+})
+
 await browser.close()
 for (const r of results) console.log(r.join('  '))
 const failed = results.filter((r) => r[0] === '✗').length

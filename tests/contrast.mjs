@@ -97,6 +97,9 @@ pairs.push(
   ['empty-state.title-text', 'color.bg.surface', TEXT, 'empty state title'],
   ['empty-state.description-text', 'color.bg.surface', TEXT, 'empty state description'],
   ['empty-state.icon-color', 'empty-state.icon-bg', UI, 'empty state icon on its chip'],
+  // Meter
+  ...['default', 'warning', 'danger'].map((k) => [`meter.color.${k}`, 'meter.color.track', UI, `meter ${k} fill vs track`]),
+  ...['default', 'warning', 'danger'].map((k) => [`meter.color.${k}`, 'color.bg.surface', UI, `meter ${k} fill vs surface`]),
   // Calendar (DatePicker, DateRangePicker)
   ['calendar.day-text', 'calendar.bg', TEXT, 'calendar day number'],
   ['calendar.day-text', 'calendar.day-bg-hover', TEXT, 'calendar day number on hover'],

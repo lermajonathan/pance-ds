@@ -164,7 +164,11 @@ export function EmptyState({
 
 /* ── Toast ─────────────────────────────────────────────────────────────── */
 export type ToastSeverity = 'success' | 'info' | 'warning' | 'danger' | 'primary'
-export type ToastItem = { id: string; severity: ToastSeverity; title: string; description?: string }
+export type ToastItem = {
+  id: string; severity: ToastSeverity; title: string; description?: string
+  /** One follow-up action, for example Undo. Pressing it also dismisses the toast. */
+  action?: { label: string; onClick: () => void }
+}
 
 const TOAST_ICON: Record<ToastSeverity, IconType> = {
   success: IconCheck,
@@ -189,6 +193,9 @@ export function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: st
       <div className="flex-1 min-w-0">
         <p className={`text-sm font-semibold ${t.fg}`}>{item.title}</p>
         {item.description && <p className="mt-0.5 text-xs text-ink-muted">{item.description}</p>}
+        {item.action && (
+          <button type="button" onClick={() => { item.action!.onClick(); onDismiss(item.id) }} className="pance-focus mt-1.5 rounded text-xs font-semibold text-ink-link underline underline-offset-2 hover:no-underline">{item.action.label}</button>
+        )}
       </div>
       <button onClick={() => onDismiss(item.id)} aria-label={tt.dismiss} className="pance-focus -m-1 rounded-lg p-1 text-ink-muted hover:text-ink">
         <IconX className="h-4 w-4" />

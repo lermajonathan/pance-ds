@@ -1,4 +1,4 @@
-/* Pance · Charts — LineChart, BarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart
+/* Pance · Charts — LineChart, BarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, ScatterChart, Meter
    Every chart:
    - draws with `color.dataviz.*` tokens, so it follows light and dark mode;
    - never relies on colour alone: series get a marker shape and (in bars) a fill pattern, and the legend repeats them;
@@ -419,5 +419,82 @@ export function DonutChart({ title, subtitle, slices, format = compact, size = 1
         </ul>
       </div>
     </Frame>
+  )
+}
+
+/* ── ScatterChart ───────────────────────────────────────────────────────── */
+export type ScatterPoint = { label: string; x: number; y: number }
+
+export function ScatterChart({ title, subtitle, points, xLabel, yLabel, formatX = compact, formatY = compact, height = 280 }: {
+  title: string; subtitle?: string; points: ScatterPoint[]; xLabel: string; yLabel: string; formatX?: ChartFormat; formatY?: ChartFormat; height?: number
+}) {
+  const [ref, width] = useWidth<HTMLDivElement>()
+  const { active, setActive, onKeyDown } = useActive(points.length)
+  const plotW = Math.max(100, width - M.l - M.r), plotH = height - M.t - M.b - 14
+  const xMax = Math.max(...points.map((p) => p.x), 1), yMax = Math.max(...points.map((p) => p.y), 1)
+  const xTicks = niceTicks(xMax), yTicks = niceTicks(yMax)
+  const xTop = xTicks[xTicks.length - 1], yTop = yTicks[yTicks.length - 1]
+  const px = (v: number) => (v / xTop) * plotW, py = (v: number) => plotH - (v / yTop) * plotH
+  return (
+    <Frame
+      title={title} subtitle={subtitle} summary={`${points.length}. ${xLabel}, ${yLabel}.`}
+      table={{ head: ['', xLabel, yLabel], rows: points.map((p) => [p.label, formatX(p.x), formatY(p.y)]) }}
+      onKeyDown={onKeyDown} onBlur={() => setActive(null)}
+      status={active !== null && <Readout heading={points[active].label} items={[{ i: 0, name: xLabel, value: formatX(points[active].x) }, { i: 1, name: yLabel, value: formatY(points[active].y) }]} />}
+    >
+      <div ref={ref}>
+        <svg width={width} height={height} aria-hidden role="presentation">
+          <g transform={`translate(${M.l},${M.t})`}>
+            {yTicks.map((t) => (
+              <g key={`y${t}`}>
+                <line x1={0} x2={plotW} y1={py(t)} y2={py(t)} className="stroke-(--pance-color-dataviz-grid)" strokeWidth={1} />
+                <text x={-8} y={py(t)} textAnchor="end" dominantBaseline="middle" className={`${TEXT} tabular-nums`}>{formatY(t)}</text>
+              </g>
+            ))}
+            {xTicks.map((t) => <text key={`x${t}`} x={px(t)} y={plotH + 18} textAnchor="middle" className={`${TEXT} tabular-nums`}>{formatX(t)}</text>)}
+            <line x1={0} x2={plotW} y1={plotH} y2={plotH} className="stroke-(--pance-color-dataviz-baseline)" strokeWidth={1} />
+            <text x={plotW / 2} y={plotH + 36} textAnchor="middle" className={TEXT}>{xLabel}</text>
+            <text transform={`translate(${-M.l + 12},${plotH / 2}) rotate(-90)`} textAnchor="middle" className={TEXT}>{yLabel}</text>
+            {points.map((p, i) => (
+              <g key={p.label} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)}>
+                {active === i && <circle cx={px(p.x)} cy={py(p.y)} r={11} className={`${SERIES_STROKE[0]} fill-none`} strokeWidth={2} />}
+                <Marker shape="circle" x={px(p.x)} y={py(p.y)} size={active === i ? 6 : 5} i={0} />
+                <circle cx={px(p.x)} cy={py(p.y)} r={12} fill="transparent" />
+              </g>
+            ))}
+          </g>
+        </svg>
+      </div>
+    </Frame>
+  )
+}
+
+/* ── Meter ──────────────────────────────────────────────────────────────── */
+export type MeterSeverity = 'default' | 'warning' | 'danger'
+const METER_FILL: Record<MeterSeverity, string> = { default: 'bg-(--pance-meter-color-default)', warning: 'bg-(--pance-meter-color-warning)', danger: 'bg-(--pance-meter-color-danger)' }
+
+/** One measurement against a known maximum, for example storage used or quota left. Uses role="meter"; the status is also written as text so colour is never the only cue. */
+export function Meter({ label, value, max = 100, unit = '', severity = 'default', format }: {
+  label: string; value: number; max?: number; unit?: string; severity?: MeterSeverity; format?: (n: number) => string
+}) {
+  const l = useLabels()
+  const fmt = format ?? ((n: number) => n.toLocaleString())
+  const pct = Math.max(0, Math.min(100, (value / max) * 100))
+  const status = severity === 'danger' ? l.meterStatusDanger : severity === 'warning' ? l.meterStatusWarning : null
+  return (
+    <div className="rounded-xl border border-line bg-surface p-4">
+      <div className="mb-2 flex items-baseline justify-between gap-2">
+        <span className="text-sm text-ink-muted">{label}</span>
+        <span className="shrink-0 whitespace-nowrap font-mono text-sm font-semibold tabular-nums text-ink">{fmt(value)}{unit} <span className="text-xs text-ink-muted">/ {fmt(max)}{unit}</span></span>
+      </div>
+      <div role="meter" aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={value} aria-valuetext={`${fmt(value)}${unit} / ${fmt(max)}${unit}${status ? `, ${status}` : ''}`}
+        className="relative h-(--pance-meter-height) overflow-hidden rounded-(--pance-meter-radius) bg-(--pance-meter-color-track)">
+        <div className={`absolute inset-y-0 left-0 rounded-(--pance-meter-radius) transition-[width] duration-500 motion-reduce:transition-none ${METER_FILL[severity]}`} style={{ width: `${pct}%` }} />
+      </div>
+      <p className="mt-1.5 flex items-center justify-end gap-2 font-mono text-xs tabular-nums text-ink-muted">
+        {status && <span className="font-sans font-semibold text-ink">{status}</span>}
+        <span>{pct.toFixed(1)}%</span>
+      </p>
+    </div>
   )
 }

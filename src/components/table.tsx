@@ -1,11 +1,13 @@
 /* Pance · Table — DataTable, Pagination */
-import { useMemo, useState, type ReactNode } from 'react'
+import { Fragment, useId, useMemo, useState, type ReactNode } from 'react'
 import { useLabels } from './labels'
-import { IconChevron, IconChevronDown, IconSearch } from '../icons'
+import { IconChevron, IconChevronDown, IconColumns, IconSearch } from '../icons'
 import { focus } from './shared'
 import { Checkbox } from './selection'
 import { Skeleton } from './feedback'
 import { Input } from './forms'
+import { Button } from './button'
+import { Popover } from './overlays'
 
 /* ── Pagination ─────────────────────────────────────────────────────────── */
 export function Pagination({
@@ -74,7 +76,7 @@ const PAD_Y: Record<Density, string> = {
 export function DataTable<T>({
   columns, rows, rowKey, rowLabel, caption,
   sort: sortProp, onSortChange, selectable, selected: selectedProp, onSelectedChange,
-  density = 'default', pageSize, loading, search, onSearchChange, searchPlaceholder, actions, rowActions, empty,
+  density = 'default', pageSize, loading, search, onSearchChange, searchPlaceholder, actions, rowActions, empty, renderExpanded, columnToggle,
 }: {
   columns: Column<T>[]
   rows: T[]
@@ -103,11 +105,22 @@ export function DataTable<T>({
   rowActions?: (row: T) => ReactNode
   /** Replaces the default "No results" state. */
   empty?: ReactNode
+  /** Adds an expand button to each row; its content renders in a full-width row below. */
+  renderExpanded?: (row: T) => ReactNode
+  /** Adds a "Columns" menu to hide and show columns. The first column is the row header and always stays. */
+  columnToggle?: boolean
 }) {
   const l = useLabels()
   const [innerSort, setInnerSort] = useState<SortState>(null)
   const [innerSel, setInnerSel] = useState<Set<string>>(new Set())
   const [page, setPage] = useState(1)
+  const [hidden, setHidden] = useState<Set<string>>(new Set())
+  const [expanded, setExpanded] = useState<Set<string>>(new Set())
+  const baseId = useId()
+  const detailId = (id: string) => `${baseId}-detail-${id}`
+  const toggleExpanded = (id: string) => setExpanded((p) => { const n = new Set(p); n.has(id) ? n.delete(id) : n.add(id); return n })
+  const visible = columns.filter((c, i) => i === 0 || !hidden.has(c.key))
+  const lead = (selectable ? 1 : 0) + (renderExpanded ? 1 : 0)
   const sort = sortProp !== undefined ? sortProp : innerSort
   const selected = selectedProp ?? innerSel
   const setSel = (s: Set<string>) => (onSelectedChange ? onSelectedChange(s) : setInnerSel(s))
@@ -151,6 +164,15 @@ export function DataTable<T>({
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {onSearchChange && <Input inputSize="sm" Icon={IconSearch} aria-label={searchPlaceholder ?? l.search} placeholder={searchPlaceholder ?? l.search} value={search ?? ''} onChange={(e) => { onSearchChange(e.target.value); setPage(1) }} className="w-52" />}
+          {columnToggle && columns.length > 1 && (
+            <Popover align="end" title={l.columns} trigger={<Button size="sm" variant="outlined" severity="secondary" Icon={IconColumns}>{l.columns}</Button>}>
+              <ul className="space-y-2">
+                {columns.slice(1).map((c) => (
+                  <li key={c.key}><Checkbox size="sm" label={c.header} checked={!hidden.has(c.key)} onChange={(on) => setHidden((p) => { const n = new Set(p); on ? n.delete(c.key) : n.add(c.key); return n })} /></li>
+                ))}
+              </ul>
+            </Popover>
+          )}
           {actions}
         </div>
       </header>
@@ -161,7 +183,8 @@ export function DataTable<T>({
           <thead className="sticky top-0 z-10">
             <tr className="[&>*]:border-b [&>*]:border-(--pance-data-table-border) [&>*]:bg-(--pance-data-table-header-bg)">
               {selectable && <th scope="col" className={`w-(--pance-data-table-select-column-width) ${px} py-(--pance-data-table-header-padding-y)`}><Checkbox checked={allOn} indeterminate={!allOn && someOn} onChange={toggleAll} ariaLabel={l.selectAllRows} /></th>}
-              {columns.map((c) => {
+              {renderExpanded && <td className={`w-(--pance-data-table-select-column-width) ${px}`}><span className="sr-only">{l.expandColumn}</span></td>}
+              {visible.map((c) => {
                 const active = sort?.key === c.key
                 return (
                   <th key={c.key} scope="col" aria-sort={c.sortable ? (active ? (sort!.dir === 'asc' ? 'ascending' : 'descending') : 'none') : undefined}
@@ -181,22 +204,36 @@ export function DataTable<T>({
           <tbody>
             {loading ? Array.from({ length: pageSize ?? 5 }, (_, i) => (
               <tr key={i} className="border-b border-(--pance-data-table-row-border) last:border-0">
-                {[...(selectable ? [''] : []), ...columns.map((c) => c.key), ...(rowActions ? [''] : [])].map((k, j) => <td key={j} className={`${px} ${pad}`}><Skeleton className="h-4 w-full max-w-32" /></td>)}
+                {[...(selectable ? [''] : []), ...(renderExpanded ? [''] : []), ...visible.map((c) => c.key), ...(rowActions ? [''] : [])].map((k, j) => <td key={j} className={`${px} ${pad}`}><Skeleton className="h-4 w-full max-w-32" /></td>)}
               </tr>
             )) : view.length === 0 ? (
-              <tr><td colSpan={columns.length + (selectable ? 1 : 0) + (rowActions ? 1 : 0)}>{emptyState}</td></tr>
+              <tr><td colSpan={visible.length + lead + (rowActions ? 1 : 0)}>{emptyState}</td></tr>
             ) : view.map((r) => {
-              const id = rowKey(r), on = selected.has(id)
+              const id = rowKey(r), on = selected.has(id), open = expanded.has(id)
               return (
-                <tr key={id} aria-selected={selectable ? on : undefined} className={`border-b border-(--pance-data-table-row-border) transition-colors last:border-0 ${on ? 'bg-(--pance-data-table-row-selected)' : 'hover:bg-(--pance-data-table-row-hover)'}`}>
-                  {selectable && <td className={`${px} ${pad}`}><Checkbox checked={on} onChange={() => toggle(id)} ariaLabel={l.selectRow(rowLabel(r))} /></td>}
-                  {columns.map((c, i) => {
-                    const content = c.render ? c.render(r) : String((r as Record<string, unknown>)[c.key] ?? '')
-                    const cls = `${px} ${pad} ${c.align === 'end' ? 'text-right' : ''}`
-                    return i === 0 ? <th key={c.key} scope="row" className={`${cls} font-medium text-ink`}>{content}</th> : <td key={c.key} className={`${cls} text-ink-soft`}>{content}</td>
-                  })}
-                  {rowActions && <td className={`${px} ${pad} text-right`}>{rowActions(r)}</td>}
-                </tr>
+                <Fragment key={id}>
+                  <tr aria-selected={selectable ? on : undefined} className={`border-b border-(--pance-data-table-row-border) transition-colors last:border-0 ${on ? 'bg-(--pance-data-table-row-selected)' : 'hover:bg-(--pance-data-table-row-hover)'}`}>
+                    {selectable && <td className={`${px} ${pad}`}><Checkbox checked={on} onChange={() => toggle(id)} ariaLabel={l.selectRow(rowLabel(r))} /></td>}
+                    {renderExpanded && (
+                      <td className={`${px} ${pad}`}>
+                        <button type="button" aria-expanded={open} aria-controls={open ? detailId(id) : undefined} aria-label={open ? l.collapseRow(rowLabel(r)) : l.expandRow(rowLabel(r))} onClick={() => toggleExpanded(id)} className={`${focus} grid size-6 place-items-center rounded text-ink-muted hover:bg-ground hover:text-ink`}>
+                          <IconChevronDown aria-hidden className={`size-4 transition-transform motion-reduce:transition-none ${open ? 'rotate-180' : ''}`} />
+                        </button>
+                      </td>
+                    )}
+                    {visible.map((c, i) => {
+                      const content = c.render ? c.render(r) : String((r as Record<string, unknown>)[c.key] ?? '')
+                      const cls = `${px} ${pad} ${c.align === 'end' ? 'text-right' : ''}`
+                      return i === 0 ? <th key={c.key} scope="row" className={`${cls} font-medium text-ink`}>{content}</th> : <td key={c.key} className={`${cls} text-ink-soft`}>{content}</td>
+                    })}
+                    {rowActions && <td className={`${px} ${pad} text-right`}>{rowActions(r)}</td>}
+                  </tr>
+                  {renderExpanded && open && (
+                    <tr id={detailId(id)} className="border-b border-(--pance-data-table-row-border) bg-(--pance-data-table-header-bg) last:border-0">
+                      <td colSpan={visible.length + lead + (rowActions ? 1 : 0)} className={`${px} py-4 whitespace-normal`}>{renderExpanded(r)}</td>
+                    </tr>
+                  )}
+                </Fragment>
               )
             })}
           </tbody>
@@ -206,8 +243,8 @@ export function DataTable<T>({
       {/* below md: one labelled card per row */}
       <ul className="space-y-3 p-4 md:hidden" aria-label={caption} aria-busy={loading || undefined}>
         {loading ? Array.from({ length: 3 }, (_, i) => <li key={i}><Skeleton className="h-28 w-full" /></li>) : view.length === 0 ? <li>{emptyState}</li> : view.map((r) => {
-          const id = rowKey(r), on = selected.has(id)
-          const [first, ...rest] = columns
+          const id = rowKey(r), on = selected.has(id), open = expanded.has(id)
+          const [first, ...rest] = visible
           return (
             <li key={id} className={`rounded-xl border p-4 ${on ? 'border-primary-border bg-(--pance-data-table-row-selected)' : 'border-line bg-surface'}`}>
               <div className="flex items-start justify-between gap-3">
@@ -225,6 +262,15 @@ export function DataTable<T>({
                   </div>
                 ))}
               </dl>
+              {renderExpanded && (
+                <>
+                  <button type="button" aria-expanded={open} aria-controls={open ? detailId(id) : undefined} onClick={() => toggleExpanded(id)} className={`${focus} mt-3 inline-flex items-center gap-1 rounded text-sm font-medium text-ink-link`}>
+                    {open ? l.collapseRow(rowLabel(r)) : l.expandRow(rowLabel(r))}
+                    <IconChevronDown aria-hidden className={`size-4 transition-transform motion-reduce:transition-none ${open ? 'rotate-180' : ''}`} />
+                  </button>
+                  {open && <div id={detailId(id)} className="mt-3 border-t border-line-soft pt-3 text-sm">{renderExpanded(r)}</div>}
+                </>
+              )}
             </li>
           )
         })}

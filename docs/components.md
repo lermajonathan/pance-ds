@@ -129,7 +129,7 @@ Input states: default · hover (`slate-300` border) · focus (focus ring) · err
 | `Alert` | `severity = 'primary'`, `variant: 'soft'\|'solid'\|'outlined'`, `title`, `children`, `Icon`, `actions`, `onClose` | Each severity has a default glyph, so meaning never relies on color alone. `role="alert"` for danger/warning, `role="status"` otherwise |
 | `Progress` | `value` (0–100), `severity`, `showValue`, `label`, `valueText` | `role="progressbar"`; pass `label` |
 | `Skeleton` | `className` | Pulse placeholder (`aria-hidden`, no motion with reduced-motion). Set `aria-busy` on the loading container |
-| `Toast` | `item: { id, severity, title, description? }`, `onDismiss` | severity: `success · info · warning · danger · primary`. `role="status"` (`alert` for danger) |
+| `Toast` | `item: { id, severity, title, description?, action?: { label, onClick } }`, `onDismiss` | severity: `success · info · warning · danger · primary`. `role="status"` (`alert` for danger). `action` adds one follow-up button such as Undo; pressing it also dismisses |
 | `ToastStack` | `toasts`, `onDismiss`, `label = 'Notifications'` | Fixed bottom-right labelled landmark |
 
 ## Navigation · `navigation.tsx`
@@ -150,6 +150,12 @@ Input states: default · hover (`slate-300` border) · focus (focus ring) · err
 | `Drawer` | `open`, `onClose`, `title`, `description`, `side: 'right'\|'left'\|'bottom'`, `footer` | 448px wide; bottom sheet max 85dvh. Same dialog behaviour as Modal |
 | `Popover` | `trigger`, `title`, `description`, `align: 'start'\|'end'\|'center'` | 288px. Non-modal dialog: trigger gets `aria-expanded`, focus moves in, Escape or outside click closes |
 | `DropdownMenu` | `trigger`, `items: DropdownItem[]`, `align`, `label` | Item types: `item` (Icon, shortcut, danger, disabled) · `separator` · `label`. WAI-ARIA menu button |
+
+### `ConfirmDialog` · `dialogs.tsx`
+A `Modal` for decisions that are hard to undo: `open`, `onClose`, `onConfirm`, `title`, `description?`, `confirmLabel` (an action: "Delete stream"), `cancelLabel?`, `severity = 'danger'`, `icon?`, `requireText?`, `loading?`. With `requireText` the person types the phrase (usually the item's name) before the confirm button enables. Same focus behaviour as `Modal`.
+
+### `NotificationCenter` · `notifications.tsx`
+A bell with an unread count that opens a non-modal dialog: `items: { id, title, body?, time?, read, severity? }[]`, `onRead`, `onReadAll?`, `onDismiss?`, `footer?`. Controlled, so the app owns the list. The bell's name includes the count ("Notifications, 3 unread"), unread items say so in text, and each item has named "Mark as read" and "Dismiss" buttons. Focus stays inside the panel when an item is removed.
 
 ## Layout & containers · `layout.tsx`
 
@@ -174,7 +180,8 @@ Set `upIsGood={false}` for error rate, churn, latency and cost, so a rise reads 
 `Delta`: `value`, `upIsGood?`, `format?`. `Sparkline`: `data`, `tone?: 'positive' | 'negative' | 'neutral'`, `size?: 'sm' | 'md' | 'lg'`, `variant?: 'line' | 'bar'`, `label?`.
 
 ### `DataTable<T>`
-`columns: Column<T>[]` (`key`, `header`, `render?`, `align?`, `sortable?`, `sortValue?`, `hideOnMobile?`), `rows`, `rowKey`, `rowLabel`, `caption`, `selectable?`, `selected?`/`onSelectedChange?`, `sort?`/`onSortChange?`, `density?`, `pageSize?`, `loading?`, `search?`/`onSearchChange?`, `actions?`, `rowActions?`, `empty?`.
+`columns: Column<T>[]` (`key`, `header`, `render?`, `align?`, `sortable?`, `sortValue?`, `hideOnMobile?`), `rows`, `rowKey`, `rowLabel`, `caption`, `selectable?`, `selected?`/`onSelectedChange?`, `sort?`/`onSortChange?`, `density?`, `pageSize?`, `loading?`, `search?`/`onSearchChange?`, `actions?`, `rowActions?`, `empty?`, `renderExpanded?`, `columnToggle?`.
+`renderExpanded(row)` adds an expand button to every row (`aria-expanded`, `aria-controls`, named by `rowLabel`) and shows its content in a full-width row below; on small screens it is a "Show details" button on the card. `columnToggle` adds a **Columns** popover with one checkbox per column; the first column is the row header and always stays.
 It sorts and paginates the rows you pass; for server-side data, control `sort` and pass the current page.
 
 ### `Pagination`
@@ -183,6 +190,10 @@ It sorts and paginates the rows you pass; for server-side data, control `sort` a
 ### Charts
 `LineChart`, `BarChart` (`mode: 'grouped' | 'stacked'`), `RankedBarChart`, `DivergingBarChart`, `Heatmap`, `DonutChart`. Shared: `title`, `subtitle?`, `format?`. Cartesian charts take `labels` and `series: { name, data }[]`.
 Series colours are `color.dataviz.series.1…8` and follow dark mode. Each series also has its own marker (line charts) or fill pattern (bars), and every slice or row carries a text label.
+
+`ScatterChart`: `title`, `subtitle?`, `points: { label, x, y }[]`, `xLabel`, `yLabel`, `formatX?`, `formatY?`. Arrow keys move between points and read out the name with both values; hover targets are 24px. Like every chart it has "View as table".
+
+`Meter`: `label`, `value`, `max = 100`, `unit?`, `severity: 'default' | 'warning' | 'danger'`, `format?`. `role="meter"` with `aria-valuetext`; warning and danger also print "Warning" or "Critical", so colour is never the only cue. Tokens: `meter.*`. For progress that only ever goes up, use `Progress`.
 
 ## Dates · `date.tsx`
 
@@ -239,6 +250,8 @@ Every interactive component follows the matching [WAI-ARIA Authoring Practices](
 | Disclosure | `Accordion`, `Panel`, `NavMenu` groups | Enter/Space expand and collapse |
 | Tooltip | `Tooltip` | Appears on focus · Escape hides it |
 | Theme toggle | `ThemeToggle` | One Tab stop · ←→ move and select |
+| Notification panel | `NotificationCenter` | Enter/Space on the bell opens and moves focus in · Tab reaches each item's Mark as read and Dismiss · Escape closes and refocuses the bell |
+| Expandable row | `DataTable` with `renderExpanded` | Enter/Space on the row's button toggles `aria-expanded` |
 | Date picker grid | `Calendar`, `RangeCalendar`, `DatePicker`, `DateRangePicker` | One Tab stop · ←→ day · ↑↓ week · Home End week start and end · Page Up/Down month (Shift: year) · Enter/Space select · Escape closes and refocuses the trigger |
 
 Helpers in `src/components/a11y.ts` (`useDialogFocus`, `listKeyNav`, `mergeTriggerProps`) implement these behaviours once, so new components can reuse them.
@@ -247,15 +260,15 @@ Helpers in `src/components/a11y.ts` (`useDialogFocus`, `listKeyNav`, `mergeTrigg
 
 ## Patterns (in the documentation site)
 
-These are built from the components above and live in `src/site/showcase.tsx`. They're good candidates to move into the library:
+These are built from the components above and live in `src/site/showcase.tsx`. Everything that was a reusable component has moved into the library; what remains here is composition.
 
 | Pattern | Pieces |
 |---|---|
-| **Metric cards** | `MetricCard`, `MetricCardCompact`, `MetricCardHero`, `MetricCardGoal`, `MetricCardBreakdown`, `MetricCardComparison`, plus skeleton / empty / error states, `Sparkline`, `SparkBar`, `DeltaBadge` |
-| **Data table** | `DataTable`, `FullDataTable` (sort, density, column visibility, selection), `ExpandableTable`, `SkeletonTable`, `EmptyTable`, `Pagination`, `StreamCard` (mobile card view) |
-| **Data visualization** | `VizLineChart`, `VizBarChart`, `VizGroupedBar`, `VizHBarChart`, `VizStackedBar`, `VizDivergingBar`, `VizHeatmap`, `VizDonut`, `VizScatter`, `VizMeter`, `VizSparkline`, `VizStatTile`, all dependency-free SVG on the `color.viz.*` palettes |
-| **Notifications** | `NotificationCenter`, `NotificationsBell` |
-| **Destructive flows** | `DestructiveRow`, `SoftDeleteDemo` (type-to-confirm, undo) |
+| **Metric cards** | `MetricCard` variants and states, `Sparkline`, `Delta`. The old `VizStatTile` is `MetricCard variant="compact"` |
+| **Data table** | `DataTable` covers sort, density, search, selection, column visibility, expandable rows, loading and empty states, pagination and the mobile card view |
+| **Data visualization** | All charts, `ScatterChart` and `Meter` are in the library |
+| **Notifications** | `NotificationCenter` in the library; the docs site's release-notes bell (`NotificationsBell`) is site-specific |
+| **Destructive flows** | `ConfirmDialog` (type to confirm) and `Toast` with `action` (undo) are in the library. The inline-confirm row and the trash list remain demos in `OverlaysPage` |
 
 ## Examples
 

@@ -325,7 +325,7 @@ function SiteLabels({ children }: { children: ReactNode }) {
     ofGoal: (percent: string) => t('ui.data.ofGoal', { percent }), low: t('ui.data.low'), high: t('ui.data.high'), total: t('ui.data.total'),
     selectAllRows: t('ui.data.selectAllRows'), selectRow: (name: string) => t('ui.data.selectRow', { name }),
     sortBy: (column: string) => t('ui.data.sortBy', { column }), rowsSelected: (count: number) => t('ui.data.rowsSelected', { count }),
-    noRows: t('ui.data.noRows'), clearSearch: t('ui.data.clearSearch'), pagination: t('ui.data.pagination'),
+    noRows: t('ui.data.noRows'), clearSearch: t('ui.data.clearSearch'), columns: t('ui.data.columns'), meterStatusWarning: t('ui.data.meterWarning'), cancel: t('ui.dialog.cancel'), typeToConfirm: (text) => t('ui.dialog.typeToConfirm', { text }), notifications: t('ui.notif.title'), notificationsUnread: (count) => t('ui.notif.unread', { count }), markAllRead: t('ui.notif.markAll'), markRead: (title) => t('ui.notif.markRead', { title }), dismissNotification: (title) => t('ui.notif.dismiss', { title }), noNotifications: t('ui.notif.empty'), unread: t('ui.notif.unreadWord'), undo: t('ui.undo'), meterStatusDanger: t('ui.data.meterDanger'), expandColumn: t('ui.data.expandColumn'), expandRow: (name) => t('ui.data.expandRow', { name }), collapseRow: (name) => t('ui.data.collapseRow', { name }), pagination: t('ui.data.pagination'),
     previousPage: t('ui.data.previousPage'), nextPage: t('ui.data.nextPage'), page: (n: number) => t('ui.data.page', { n }),
     range: (from: number, to: number, total: number) => t('ui.data.range', { from, to, total }),
     viewAsTable: t('ui.data.viewAsTable'), viewAsChart: t('ui.data.viewAsChart'), chartKeyboardHint: t('ui.data.chartKeyboardHint'),
