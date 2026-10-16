@@ -155,9 +155,31 @@ New component tokens: `meter/*`. Dark values for `meter/color/*` live in the rep
 | Checkbox group | 1 | legend plus three options |
 | Nav menu item | 3 | state (default · hover · active) |
 
-Every library component now has a Figma counterpart. Patterns are listed in the Pages table.
+Every library component now has a Figma counterpart, with interaction states (see below). Patterns are listed in the Pages table.
 
 Component dimensions in Figma are bound to the same variables as code where a token exists (avatar sizes, steps dot and connector, progress height, segmented control heights, card padding and radius).
+
+## Interaction states (added Oct 15)
+
+The components added after the first library pass now have the same hover, focus and disabled states as Button and Input. Focus uses the `focus/ring` effect style plus a `color/border/focus` stroke, disabled is `opacity/disabled` (0.45), and hover darkens the border (control borders) or tints the fill.
+
+| Component | Property | New values |
+|---|---|---|
+| Link | `kind` (default, subtle, external) and `state` | default · hover (thicker underline, or link colour for subtle) · focus |
+| Toggle button | `pressed` (off, on) and `state` | default · hover · focus · disabled (the inner Button instance switches state) |
+| File dropzone | `drag` (idle, active) and `state` | default · hover · focus · disabled (idle only) |
+| Inline edit | `mode` (display, editing) and `state` | default · hover · focus (display only) |
+| Combobox | `list` (closed, open) and `state` | default · hover · focus · disabled (closed only) |
+| Radio card | `checked` and `state` | default · hover · focus · disabled |
+| Notification bell | `unread` and `state` | default · hover · focus |
+| Input group, Tag input | `state` (now variant sets) | default · hover · focus · disabled |
+| Range slider | `state` (now a variant set) | default · focus (the thumb) · disabled |
+| Pin input | `state` (now a variant set) | default · disabled |
+| Date picker | `state` | added hover and focus |
+| Nav menu item | `state` | added focus and disabled |
+| Calendar day | `state` | added focus |
+
+Where a component already used `state` for something else, that property was renamed (`kind`, `pressed`, `drag`, `mode`, `list`) so `state` always means the interaction state. Instances keep working. Breadcrumb, Split button and Theme toggle inherit their states from Link and Button.
 
 ## Keeping Figma in sync
 

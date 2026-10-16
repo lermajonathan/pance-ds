@@ -17,7 +17,7 @@ Import everything from `@pance/react`.
 | Field | `Field` | label, hint, required → `required`, error message → `error`, status |
 | Input group | `InputGroup` | prefix / trailing icon → `prefix`, `suffix` |
 | Select | `Select` | value, state (disabled → `disabled`, error via `Field`) |
-| Combobox | `Combobox` | open state is interaction only |
+| Combobox | `Combobox` | list (closed, open) and state are interaction only |
 | Tag input | `TagInput` | chips → `value` |
 | Checkbox | `Checkbox` | checked, indeterminate, size |
 | Checkbox group | `CheckboxGroup` | legend → `legend` |
@@ -27,9 +27,9 @@ Import everything from `@pance/react`.
 | Toggle | `Toggle` | on → `checked`, size |
 | SwitchRow | `SwitchRow` | label, description, on, disabled |
 | Range slider | `RangeSlider` | value, label |
-| File dropzone | `FileDropzone` | active is drag state |
+| File dropzone | `FileDropzone` | drag (idle, active) is drag state; state is interaction only |
 | Pin input | `PinInput` | length → `length` |
-| Inline edit | `InlineEdit` | display / editing is internal state |
+| Inline edit | `InlineEdit` | mode (display, editing) is internal state; state is interaction only |
 | Date picker | `DatePicker` | state (disabled, error via `Field`) |
 | Date picker panel, Calendar | `Calendar` | one month |
 | Calendar / Range | `RangeCalendar` | range |
@@ -38,8 +38,8 @@ Import everything from `@pance/react`.
 | Theme toggle | `ThemeToggle` | inside `ThemeProvider` |
 | Button group | `ButtonGroup` | children |
 | Split button | `SplitButton` | label, items → `items` |
-| Toggle button | `ToggleButton` | on → `on` |
-| Link | `Link` | variant (default, subtle), external → `external` |
+| Toggle button | `ToggleButton` | pressed → `on`; state is interaction only (`disabled` for disabled) |
+| Link | `Link` | kind (default, subtle, external) → `variant`, `external`; state is interaction only |
 | Alert | `Alert` | severity, variant, title, body → children, dismissible → `onClose` |
 | Toast | `Toast` | severity |
 | Tooltip | `Tooltip` | content |
