@@ -2092,5 +2092,71 @@
       "$value": "{shadow.md}",
       "$type": "shadow"
     }
+  },
+  "spinner": {
+    "$description": "Indeterminate progress indicator. The arc must reach 3:1 against the surface (WCAG 1.4.11).",
+    "size-sm": {
+      "$value": "{size.16}",
+      "$type": "dimension"
+    },
+    "size-md": {
+      "$value": "{size.24}",
+      "$type": "dimension"
+    },
+    "size-lg": {
+      "$value": "{size.40}",
+      "$type": "dimension"
+    },
+    "stroke-width": {
+      "$value": "{size.2}",
+      "$type": "dimension"
+    },
+    "arc": {
+      "$value": "{color.intent.primary.solid}",
+      "$type": "color"
+    },
+    "track": {
+      "$value": "{color.border.default}",
+      "$type": "color"
+    }
+  },
+  "empty-state": {
+    "$description": "Placeholder for a region with nothing to show yet: icon, title, short reason and one action.",
+    "padding": {
+      "$value": "{space.6}",
+      "$type": "dimension"
+    },
+    "gap": {
+      "$value": "{space.1}",
+      "$type": "dimension"
+    },
+    "max-width": {
+      "$value": "360px",
+      "$type": "dimension"
+    },
+    "icon-box": {
+      "$value": "{size.52}",
+      "$type": "dimension"
+    },
+    "icon-size": {
+      "$value": "{size.24}",
+      "$type": "dimension"
+    },
+    "icon-bg": {
+      "$value": "{color.intent.primary.soft}",
+      "$type": "color"
+    },
+    "icon-color": {
+      "$value": "{color.intent.primary.fg}",
+      "$type": "color"
+    },
+    "title-text": {
+      "$value": "{color.fg.default}",
+      "$type": "color"
+    },
+    "description-text": {
+      "$value": "{color.fg.muted}",
+      "$type": "color"
+    }
   }
 }

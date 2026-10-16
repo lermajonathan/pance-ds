@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, DatePicker, DateRangePicker, Calendar, toISODate, type DateRange } from '../components'
+import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, DatePicker, DateRangePicker, Calendar, toISODate, type DateRange, Spinner, EmptyState, Link as LibLink } from '../components'
 import {
   Waveform,
   ChartLineUp,
@@ -2221,6 +2221,22 @@ export function FeedbackPage() {
         </Card>
       </Section>
 
+      <Section title={t('feedback.spinner.title')} hint={t('feedback.spinner.hint')}>
+        <Card className="flex flex-wrap items-center gap-8 p-6">
+          <Spinner size="sm" />
+          <Spinner size="md" />
+          <Spinner size="lg" label={t('feedback.spinner.label')} />
+          <p className="text-sm text-ink-muted">{t('feedback.spinner.note')}</p>
+        </Card>
+      </Section>
+
+      <Section title={t('feedback.empty.title')} hint={t('feedback.empty.hint')}>
+        <Card className="grid gap-6 p-6 md:grid-cols-2">
+          <EmptyState Icon={IconSearch} title={t('feedback.empty.searchTitle')} description={t('feedback.empty.searchBody')} action={<Button variant="outlined" severity="secondary">{t('feedback.empty.searchAction')}</Button>} />
+          <EmptyState Icon={IconChart} title={t('feedback.empty.dataTitle')} description={t('feedback.empty.dataBody')} action={<Button severity="primary">{t('feedback.empty.dataAction')}</Button>} />
+        </Card>
+      </Section>
+
       <Section title={t('feedback.skeleton.title')}>
         <Card className="flex items-center gap-4 p-6">
           <Skeleton className="h-12 w-12 rounded-full" />
@@ -2617,9 +2633,9 @@ export function NavigationPage() {
             <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.inline')}</p>
             <p className="max-w-xl text-sm leading-relaxed text-ink-soft">
               {t('navigation.link.p1')}{' '}
-              <a href="#" className="pance-focus rounded font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-700 hover:decoration-brand-500">{t('navigation.link.keyGuide')}</a>
+              <LibLink href="#">{t('navigation.link.keyGuide')}</LibLink>
               {' '}{t('navigation.link.p2')}{' '}
-              <a href="#" className="pance-focus rounded font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-700 hover:decoration-brand-500">{t('navigation.link.limits')}</a>
+              <LibLink href="#" external>{t('navigation.link.limits')}</LibLink>
               {' '}{t('navigation.link.p3')}
             </p>
           </div>

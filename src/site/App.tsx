@@ -23,9 +23,11 @@ import {
   IconWave,
   IconChart,
   IconMapPin,
+  IconMoon,
+  IconSun,
   type IconType as IconComp,
 } from '../icons'
-import { Badge, Button, PanceProvider, type PanceLabels } from '../components'
+import { Badge, Button, PanceProvider, ThemeToggle, useTheme, type PanceLabels } from '../components'
 import {
   BadgesPage,
   ButtonsPage,
@@ -245,6 +247,7 @@ function Shell() {
               <IconWave size={16} weight="bold" />
             </div>
             <span className="min-w-0 truncate font-display text-base font-extrabold tracking-tight text-ink">{isHome ? 'Pance' : label}</span>
+            <MobileThemeButton />
             <LanguageSwitch variant="icon" />
           </header>
 
@@ -264,6 +267,8 @@ function Shell() {
               </div>
             )}
             <div className="flex shrink-0 items-center gap-3">
+              <ThemeToggle className="hidden xl:inline-flex" />
+              <span className="hidden lg:inline-flex xl:hidden"><MobileThemeButton /></span>
               <LanguageSwitch variant="header" />
               <HeaderSearch pages={ALL} className="hidden w-64 md:block" />
               <NotificationsBell />
@@ -278,6 +283,23 @@ function Shell() {
         </div>
       </div>
     </NavContext.Provider>
+  )
+}
+
+/* Compact light/dark switch for the mobile header (the full Light / Dark / System toggle lives in the desktop header). */
+function MobileThemeButton() {
+  const { t } = useI18n()
+  const { resolved, setMode } = useTheme()
+  const next = resolved === 'dark' ? 'light' : 'dark'
+  return (
+    <button
+      type="button"
+      onClick={() => setMode(next)}
+      aria-label={`${t('ui.theme')}: ${t(next === 'dark' ? 'ui.theme.dark' : 'ui.theme.light')}`}
+      className="pance-focus grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink-soft"
+    >
+      {resolved === 'dark' ? <IconSun size={20} /> : <IconMoon size={20} />}
+    </button>
   )
 }
 
@@ -311,6 +333,7 @@ function SiteLabels({ children }: { children: ReactNode }) {
     nextMonth: t('ui.date.nextMonth'), chooseDate: t('ui.date.chooseDate'), chooseDateRange: t('ui.date.chooseRange'),
     today: t('ui.date.today'), clearDate: t('ui.date.clear'), rangeStart: t('ui.date.rangeStart'), rangeEnd: t('ui.date.rangeEnd'),
     calendarKeyboardHint: t('ui.date.keyboardHint'), rangeValue: (from: string, to: string) => t('ui.date.rangeValue', { from, to }),
+    opensInNewTab: t('ui.opensInNewTab'), theme: t('ui.theme'), themeLight: t('ui.theme.light'), themeDark: t('ui.theme.dark'), themeSystem: t('ui.theme.system'),
   }), [t])
   return <PanceProvider labels={labels}>{children}</PanceProvider>
 }

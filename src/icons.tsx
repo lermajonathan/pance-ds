@@ -54,6 +54,8 @@ import {
   Lock,
   MagnifyingGlass,
   Moon,
+  Sun,
+  Desktop,
   Palette,
   PencilSimple,
   Percent,
@@ -147,6 +149,8 @@ export const IconLock = Lock
 export const IconStar = Star
 export const IconHeart = Heart
 export const IconMoon = Moon
+export const IconSun = Sun
+export const IconDesktop = Desktop
 export const IconEye = Eye
 export const IconEyeOff = EyeSlash
 export const IconAt = At

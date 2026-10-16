@@ -91,6 +91,12 @@ pairs.push(
   ['color.dataviz.positive', 'color.dataviz.surface', UI, 'positive series'],
   ['color.dataviz.negative', 'color.dataviz.surface', UI, 'negative series'],
   ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => [`color.dataviz.series.${n}`, 'color.dataviz.surface', UI, `chart series ${n}`]),
+  // Spinner and EmptyState
+  ['spinner.arc', 'color.bg.surface', UI, 'spinner arc vs surface'],
+  ['spinner.arc', 'color.bg.page', UI, 'spinner arc vs page'],
+  ['empty-state.title-text', 'color.bg.surface', TEXT, 'empty state title'],
+  ['empty-state.description-text', 'color.bg.surface', TEXT, 'empty state description'],
+  ['empty-state.icon-color', 'empty-state.icon-bg', UI, 'empty state icon on its chip'],
   // Calendar (DatePicker, DateRangePicker)
   ['calendar.day-text', 'calendar.bg', TEXT, 'calendar day number'],
   ['calendar.day-text', 'calendar.day-bg-hover', TEXT, 'calendar day number on hover'],

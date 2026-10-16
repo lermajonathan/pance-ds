@@ -1,7 +1,7 @@
 /* Pance · Navigation — Tabs, Breadcrumb, Steps, NavMenu */
 import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { useLabels } from './labels'
-import { IconAlert, IconCheck, IconChevronDown, type IconType } from '../icons'
+import { IconAlert, IconCheck, IconChevronDown, IconExternal, type IconType } from '../icons'
 import { focus, type Severity } from './shared'
 import { Badge } from './badge'
 import { listKeyNav } from './a11y'
@@ -387,5 +387,37 @@ export function NavMenu({
         )
       })}
     </nav>
+  )
+}
+
+/* ── Link ──────────────────────────────────────────────────────────────
+   An anchor styled as a link. It is always underlined, so it is not told apart by colour alone
+   (WCAG 1.4.1). `external` opens a new tab with rel="noopener noreferrer", shows an icon and
+   announces "opens in a new tab". Use `render` to hand the styles to your router's link. */
+export function Link({
+  variant = 'default', external, children, className = '', render, ...rest
+}: {
+  variant?: 'default' | 'subtle'
+  external?: boolean
+  render?: (props: { className: string; children: ReactNode }) => ReactNode
+} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children'> & { children: ReactNode }) {
+  const tt = useLabels()
+  const cls = `${focus} rounded-sm underline decoration-1 underline-offset-4 ${variant === 'subtle' ? 'text-ink hover:text-link' : 'text-link hover:decoration-2'} ${className}`
+  const content = (
+    <>
+      {children}
+      {external && (
+        <>
+          <IconExternal aria-hidden className="ml-1 inline size-[1em] align-[-0.1em]" />
+          <span className="sr-only"> ({tt.opensInNewTab})</span>
+        </>
+      )}
+    </>
+  )
+  if (render) return <>{render({ className: cls, children: content })}</>
+  return (
+    <a className={cls} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} {...rest}>
+      {content}
+    </a>
   )
 }

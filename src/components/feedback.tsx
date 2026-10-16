@@ -1,4 +1,4 @@
-/* Pance · Feedback — Alert, Progress, Skeleton, Toast, ToastStack */
+/* Pance · Feedback — Alert, Progress, Skeleton, Spinner, EmptyState, Toast, ToastStack */
 import { type ReactNode } from 'react'
 import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconCheckCircle, IconInfo, IconQuestion, IconSparkle, IconX, type IconType } from '../icons'
@@ -109,6 +109,57 @@ export function Progress({
 /** Decorative placeholder. Mark the container that is loading with `aria-busy="true"`. */
 export function Skeleton({ className = '' }: { className?: string }) {
   return <div aria-hidden className={`animate-pulse rounded-lg bg-line/70 motion-reduce:animate-none ${className}`} />
+}
+
+/* ── Spinner ───────────────────────────────────────────────────────────── */
+export type SpinnerSize = 'sm' | 'md' | 'lg'
+const SPINNER_SIZE: Record<SpinnerSize, string> = {
+  sm: 'size-(--pance-spinner-size-sm)',
+  md: 'size-(--pance-spinner-size-md)',
+  lg: 'size-(--pance-spinner-size-lg)',
+}
+/** Indeterminate progress. It is a `role="status"` with a text name, so assistive tech announces it;
+ *  pass `label` for something more specific than "Loading". Under `prefers-reduced-motion` the arc
+ *  stops turning and stays a static partial ring, still readable as "in progress". */
+export function Spinner({ size = 'md', label, className = '' }: { size?: SpinnerSize; label?: string; className?: string }) {
+  const tt = useLabels()
+  return (
+    <span role="status" className={`inline-flex ${className}`}>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden className={`${SPINNER_SIZE[size]} motion-safe:animate-spin`}>
+        <circle cx="12" cy="12" r="9" className="stroke-(--pance-spinner-track)" strokeWidth="var(--pance-spinner-stroke-width)" />
+        <path d="M12 3a9 9 0 0 1 9 9" className="stroke-(--pance-spinner-arc)" strokeWidth="var(--pance-spinner-stroke-width)" strokeLinecap="round" />
+      </svg>
+      <span className="sr-only">{label ?? tt.loading}</span>
+    </span>
+  )
+}
+
+/* ── EmptyState ────────────────────────────────────────────────────────── */
+/** A region with nothing to show: say what is missing and offer the next step.
+ *  `headingLevel` keeps the document outline correct wherever it is placed. */
+export function EmptyState({
+  Icon, title, description, action, headingLevel = 3, className = '',
+}: {
+  Icon?: IconType
+  title: string
+  description?: ReactNode
+  action?: ReactNode
+  headingLevel?: 2 | 3 | 4 | 5 | 6
+  className?: string
+}) {
+  const H = `h${headingLevel}` as 'h3'
+  return (
+    <div className={`mx-auto flex max-w-(--pance-empty-state-max-width) flex-col items-center p-(--pance-empty-state-padding) text-center ${className}`}>
+      {Icon && (
+        <span aria-hidden className="mb-3 grid size-(--pance-empty-state-icon-box) place-items-center rounded-full bg-(--pance-empty-state-icon-bg) text-(--pance-empty-state-icon-color)">
+          <Icon className="size-(--pance-empty-state-icon-size)" />
+        </span>
+      )}
+      <H className="font-semibold text-base text-(--pance-empty-state-title-text)">{title}</H>
+      {description && <p className="mt-(--pance-empty-state-gap) text-sm text-(--pance-empty-state-description-text)">{description}</p>}
+      {action && <div className="mt-4">{action}</div>}
+    </div>
+  )
 }
 
 /* ── Toast ─────────────────────────────────────────────────────────────── */

@@ -78,6 +78,12 @@ export type PanceLabels = {
   calendarKeyboardHint: string
   /** Spoken value of a range picker, e.g. "Oct 1 to Oct 15". */
   rangeValue: (from: string, to: string) => string
+  /* Links and theme */
+  opensInNewTab: string
+  theme: string
+  themeLight: string
+  themeDark: string
+  themeSystem: string
 }
 
 export const defaultLabels: PanceLabels = {
@@ -139,6 +145,11 @@ export const defaultLabels: PanceLabels = {
   rangeEnd: 'end of range',
   calendarKeyboardHint: 'Use the arrow keys to move between days, Page Up and Page Down to change month.',
   rangeValue: (from, to) => `${from} to ${to}`,
+  opensInNewTab: 'opens in a new tab',
+  theme: 'Theme',
+  themeLight: 'Light',
+  themeDark: 'Dark',
+  themeSystem: 'System',
 }
 
 const LabelsContext = createContext<PanceLabels>(defaultLabels)

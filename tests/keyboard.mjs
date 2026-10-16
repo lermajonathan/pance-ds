@@ -290,6 +290,39 @@ await test('DateRangePicker: two picks make a range, band cells are aria-selecte
   await page.keyboard.press('Escape')
 })
 
+/* ── Theme, Spinner, EmptyState, Link ── */
+await page.goto(`${BASE}/feedback`, { waitUntil: 'networkidle' })
+await page.evaluate(() => localStorage.removeItem('pance-theme'))
+await page.reload({ waitUntil: 'networkidle' })
+
+await test('ThemeToggle: radio group, arrows select, <html data-theme> follows and the choice survives a reload', async () => {
+  const group = page.getByRole('radiogroup', { name: 'Theme' })
+  assert((await group.getByRole('radio').count()) === 3, 'expected Light, Dark and System')
+  await group.getByRole('radio', { name: 'Light' }).click()
+  assert((await page.locator('html').getAttribute('data-theme')) === 'light', 'light not applied')
+  await page.keyboard.press('ArrowRight')
+  assert((await settle(() => page.locator('html').getAttribute('data-theme'), 'dark')) === 'dark', 'ArrowRight did not switch to dark')
+  assert((await group.getByRole('radio', { name: 'Dark' }).getAttribute('aria-checked')) === 'true', 'Dark not checked')
+  await page.reload({ waitUntil: 'networkidle' })
+  assert((await page.locator('html').getAttribute('data-theme')) === 'dark', 'dark did not survive the reload')
+  await page.getByRole('radiogroup', { name: 'Theme' }).getByRole('radio', { name: 'Light' }).click()
+})
+
+await test('Spinner is a named status; EmptyState uses a real heading', async () => {
+  const sp = page.getByRole('status').filter({ hasText: 'Syncing streams' })
+  assert(await sp.count(), 'spinner status with its label not found')
+  assert(await page.getByRole('heading', { name: 'No streams match your search' }).count(), 'empty state heading missing')
+})
+
+await page.goto(`${BASE}/navigation`, { waitUntil: 'networkidle' })
+await test('Link: external links open safely and say so', async () => {
+  const l = page.locator('a[target="_blank"]', { hasText: 'operational limits' }).first()
+  const any = await page.locator('a[target="_blank"][rel~="noopener"]').count()
+  assert(any > 0, 'no external link with rel=noopener found')
+  assert(/opens in a new tab/.test((await page.locator('a[target="_blank"] .sr-only').first().textContent()) ?? ''), 'external link does not announce the new tab')
+  void l
+})
+
 await browser.close()
 for (const r of results) console.log(r.join('  '))
 const failed = results.filter((r) => r[0] === '✗').length

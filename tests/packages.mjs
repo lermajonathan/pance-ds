@@ -21,7 +21,7 @@ sh(`npm install --silent --no-audit --no-fund ${tarballs.join(' ')} react@19 rea
 fs.writeFileSync(path.join(tmp, 'render.mjs'), `
 import { createElement as h } from 'react'
 import { renderToString } from 'react-dom/server'
-import { Button, Badge, Field, Input, Modal, Tabs, PanceProvider, IconPlus, MetricCard, Delta, Sparkline, DataTable, Pagination, LineChart, BarChart, DonutChart, DatePicker, Calendar, RangeCalendar } from '@pance/react'
+import { Button, Badge, Field, Input, Modal, Tabs, PanceProvider, IconPlus, MetricCard, Delta, Sparkline, DataTable, Pagination, LineChart, BarChart, DonutChart, DatePicker, Calendar, RangeCalendar, Spinner, EmptyState, Link, ThemeToggle, ThemeProvider, themeInitScript } from '@pance/react'
 const html = renderToString(h(PanceProvider, { labels: { close: 'Cerrar' } },
   h(Field, { label: 'Name', hint: 'Help', required: true }, h(Input, { placeholder: 'x' })),
   h(Button, { severity: 'primary', Icon: IconPlus }, 'Create'),
@@ -35,6 +35,10 @@ const html = renderToString(h(PanceProvider, { labels: { close: 'Cerrar' } },
   h(DonutChart, { title: 'Types', slices: [{ label: 'REST', value: 3 }, { label: 'gRPC', value: 1 }] }),
   h(DatePicker, { value: '2026-10-15', onChange() {}, label: 'Due' }),
   h(PanceProvider, { labels: { locale: 'es-CO', firstDayOfWeek: 1 } }, h(Calendar, { value: '2026-10-15', onChange() {} })),
+  h(Spinner, { size: 'sm' }),
+  h(EmptyState, { Icon: IconPlus, title: 'Nothing yet', description: 'Create one.', action: h(Button, null, 'New') }),
+  h(Link, { href: 'https://example.com', external: true }, 'Docs'),
+  h(ThemeProvider, null, h(ThemeToggle)),
   h(RangeCalendar, { value: { start: '2026-10-05', end: '2026-10-08' }, onChange() {}, months: 2 }),
 ))
 console.log(html)
@@ -48,6 +52,11 @@ check('Charts are focusable groups with a table alternative', html.includes('rol
 check('DatePicker is a dialog button named by its label and value', html.includes('aria-haspopup="dialog"') && html.includes('Due: Oct 15, 2026'))
 check('Calendar is a labelled grid with localised month names', html.includes('role="grid"') && html.includes('octubre de 2026') && html.includes('abbr="lunes"'))
 check('RangeCalendar announces both ends of the range', html.includes('start of range') && html.includes('end of range') && html.includes('October 2026') && html.includes('November 2026'))
+check('Spinner is a labelled status', html.includes('role="status"') && html.includes('>Loading<'))
+check('EmptyState renders a heading', html.includes('<h3') && html.includes('Nothing yet'))
+check('external Link is safe and announced', html.includes('rel="noopener noreferrer"') && html.includes('opens in a new tab'))
+check('ThemeToggle renders a radio group', html.includes('aria-label="Theme"') && html.includes('Dark') && html.includes('System'))
+check('themeInitScript is exported', /themeInitScript/.test(fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/index.js'), 'utf8')))
 check('PanceProvider translates built-in strings', html.includes('aria-label="Cerrar"'))
 check('Modal is an accessible dialog', html.includes('role="dialog"') && html.includes('aria-modal="true"'))
 
@@ -55,6 +64,7 @@ check('Modal is an accessible dialog', html.includes('role="dialog"') && html.in
 const css = fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/styles.css'), 'utf8')
 check('styles.css has component utilities', css.includes('.bg-primary-solid') && css.includes('--pance-button-size-md-height'))
 check('styles.css has data-viz tokens and chart utilities', css.includes('--pance-color-dataviz-series-3') && css.includes('--pance-sparkline-width-md'))
+check('styles.css has spinner and empty-state tokens', css.includes('--pance-spinner-size-md') && css.includes('--pance-empty-state-icon-box'))
 check('styles.css has calendar tokens', css.includes('--pance-calendar-day-size') && css.includes('--pance-calendar-selected-bg'))
 check('styles.css has tokens and dark mode', css.includes('--pance-color-intent-primary-solid') && css.includes("data-theme"))
 check('tailwind.css points Tailwind at the package', fs.readFileSync(path.join(tmp, 'node_modules/@pance/react/dist/tailwind.css'), 'utf8').includes('@source "./index.js"'))

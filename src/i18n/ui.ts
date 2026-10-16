@@ -61,6 +61,11 @@ export const ui = define(
     'ui.date.rangeEnd': 'end of range',
     'ui.date.keyboardHint': 'Use the arrow keys to move between days, Page Up and Page Down to change month.',
     'ui.date.rangeValue': '{from} to {to}',
+    'ui.opensInNewTab': 'opens in a new tab',
+    'ui.theme': 'Theme',
+    'ui.theme.light': 'Light',
+    'ui.theme.dark': 'Dark',
+    'ui.theme.system': 'System',
   },
   {
     'ui.search': 'Buscar…',
@@ -122,5 +127,10 @@ export const ui = define(
     'ui.date.rangeEnd': 'fin del periodo',
     'ui.date.keyboardHint': 'Usa las flechas para moverte entre días, y RePág y AvPág para cambiar de mes.',
     'ui.date.rangeValue': '{from} a {to}',
+    'ui.opensInNewTab': 'se abre en una pestaña nueva',
+    'ui.theme': 'Tema',
+    'ui.theme.light': 'Claro',
+    'ui.theme.dark': 'Oscuro',
+    'ui.theme.system': 'Sistema',
   },
 )

@@ -997,6 +997,21 @@
   --pance-date-picker-panel-radius: var(--pance-radius-lg);
   --pance-date-picker-panel-padding: var(--pance-space-2);
   --pance-date-picker-panel-shadow: var(--pance-shadow-md);
+  --pance-spinner-size-sm: var(--pance-size-16);
+  --pance-spinner-size-md: var(--pance-size-24);
+  --pance-spinner-size-lg: var(--pance-size-40);
+  --pance-spinner-stroke-width: var(--pance-size-2);
+  --pance-spinner-arc: var(--pance-color-intent-primary-solid);
+  --pance-spinner-track: var(--pance-color-border-default);
+  --pance-empty-state-padding: var(--pance-space-6);
+  --pance-empty-state-gap: var(--pance-space-1);
+  --pance-empty-state-max-width: 360px;
+  --pance-empty-state-icon-box: var(--pance-size-52);
+  --pance-empty-state-icon-size: var(--pance-size-24);
+  --pance-empty-state-icon-bg: var(--pance-color-intent-primary-soft);
+  --pance-empty-state-icon-color: var(--pance-color-intent-primary-fg);
+  --pance-empty-state-title-text: var(--pance-color-fg-default);
+  --pance-empty-state-description-text: var(--pance-color-fg-muted);
 }
 
 /* ── dark (draft, opt-in with data-theme="dark" — ships in v1.1) ──────── */

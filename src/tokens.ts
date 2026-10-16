@@ -1520,6 +1520,25 @@ export const tokens = {
     "panel-radius": "16px",
     "panel-padding": "16px",
     "panel-shadow": "0px 16px 40px -16px rgba(15,23,42,0.3)"
+  },
+  "spinner": {
+    "size-sm": "16px",
+    "size-md": "24px",
+    "size-lg": "40px",
+    "stroke-width": "2px",
+    "arc": "#0e7490",
+    "track": "#e2e8f0"
+  },
+  "empty-state": {
+    "padding": "48px",
+    "gap": "8px",
+    "max-width": "360px",
+    "icon-box": "52px",
+    "icon-size": "24px",
+    "icon-bg": "#ecfeff",
+    "icon-color": "#0e7490",
+    "title-text": "#0f172a",
+    "description-text": "#475569"
   }
 } as const
 

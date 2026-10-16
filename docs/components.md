@@ -195,6 +195,21 @@ Dates are ISO strings (`"2026-10-15"`), never `Date` objects, so there are no ti
 A trigger button that opens a non-modal dialog with the calendar. Both sit inside `<Field>` (the label and the chosen value form the accessible name) and accept `placeholder?`, `disabled?`, `error?`, `min?`, `max?`, `isDateDisabled?`, `clearable?`. `DateRangePicker` also takes `presets?: { label, range: { start, end } }[]` for quick ranges such as "Last 7 days", and shows two months from the `md` breakpoint up.
 Set the language once with `PanceProvider`: `labels={{ locale: 'es-CO', firstDayOfWeek: 1, … }}`.
 
+## Theme · `theme.tsx`
+
+Dark mode is the `[data-theme="dark"]` block of the token CSS (every contrast pair is checked in both modes). `ThemeProvider` decides which value `<html data-theme>` takes: the person's choice or, for "system", `prefers-color-scheme`. The choice is kept in `localStorage` and the app works if storage is blocked.
+
+- `ThemeProvider` (`defaultMode?`, `storageKey?`) · `useTheme()` → `{ mode, resolved, setMode }`.
+- `ThemeToggle`: Light / Dark / System as a radio group (arrows move and select). Strings come from `labels.theme*`.
+- `themeInitScript(storageKey?)`: a string to inline in `<head>` so the first paint already has the right theme (no flash).
+
+## Feedback additions · `feedback.tsx`, `navigation.tsx`
+
+- **`Spinner`** (`size`, `label?`): a `role="status"` with a text name (default "Loading"). The arc stops turning under `prefers-reduced-motion`. For waits longer than a few seconds, use `Progress` with a value.
+- **`EmptyState`** (`Icon?`, `title`, `description?`, `action?`, `headingLevel?`): says what is missing and offers one next step. The title is a real heading; set `headingLevel` to keep the outline right.
+- **`Link`** (`variant: 'default' | 'subtle'`, `external?`, `render?`): always underlined, so it is not told apart by colour alone. `external` adds `target="_blank"`, `rel="noopener noreferrer"`, an icon and a spoken "opens in a new tab". Use `render` to hand the styles to your router's link.
+- There is no separate `Tag`: `Badge` already takes `onRemove` for removable tags.
+
 ## Built-in strings · `labels.tsx`
 
 Components have no i18n or router dependency. Their built-in strings (close, dismiss, remove, remove file, more actions, breadcrumb, show full path, show password, optional, click to upload, or drag and drop, click to edit, search, add tag, no results) default to English. Translate any of them once:
@@ -223,6 +238,7 @@ Every interactive component follows the matching [WAI-ARIA Authoring Practices](
 | Switch / checkbox | `Toggle`, `SwitchRow`, `Checkbox` | Space toggles |
 | Disclosure | `Accordion`, `Panel`, `NavMenu` groups | Enter/Space expand and collapse |
 | Tooltip | `Tooltip` | Appears on focus · Escape hides it |
+| Theme toggle | `ThemeToggle` | One Tab stop · ←→ move and select |
 | Date picker grid | `Calendar`, `RangeCalendar`, `DatePicker`, `DateRangePicker` | One Tab stop · ←→ day · ↑↓ week · Home End week start and end · Page Up/Down month (Shift: year) · Enter/Space select · Escape closes and refocuses the trigger |
 
 Helpers in `src/components/a11y.ts` (`useDialogFocus`, `listKeyNav`, `mergeTriggerProps`) implement these behaviours once, so new components can reuse them.

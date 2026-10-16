@@ -4,6 +4,14 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Added: theme, feedback and links
+- **Dark mode you can switch on:** `ThemeProvider`, `useTheme`, `ThemeToggle` (Light / Dark / System) and `themeInitScript` for a flash-free first paint. The choice is remembered and follows the system setting. The docs site now has the toggle in its header.
+- **`Spinner`** (status role, stops under reduced motion), **`EmptyState`** (real heading, one action) and **`Link`** (always underlined, safe external links that announce the new tab, `render` for router links).
+- **Tokens:** `spinner.*` and `empty-state.*`; 5 new contrast pairs (172 per mode).
+- **Labels:** `opensInNewTab`, `theme`, `themeLight`, `themeDark`, `themeSystem`; icons `IconSun`, `IconDesktop`.
+- **Tests:** 3 new keyboard checks (25 in total) and 5 package checks (27).
+- No `Tag` component: `Badge` already has `onRemove`.
+
 ### Added: dates
 - **`Calendar`, `RangeCalendar`, `DatePicker`, `DateRangePicker`.** ISO-string values, `min`/`max`/`isDateDisabled`, quick-range presets, two-month view on wide screens. Built on the WAI-ARIA date picker grid: one tab stop, arrows by day and week, Home/End by week, Page Up/Down by month (Shift for year), a full spoken date on every day, `aria-current="date"` for today, selected and range cells marked with `aria-selected`, and start and end of a range announced. Selected days are told apart by fill and today by a ring, not by colour alone.
 - **Tokens:** `calendar.*` and `date-picker.*`; 7 new contrast pairs (167 per mode). The today ring uses `color.intent.primary.fg` because `border-strong` measured 1.81:1 on white.
