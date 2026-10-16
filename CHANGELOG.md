@@ -4,6 +4,12 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Documentation
+- **Design decision records (DDR-DS):** `docs/decisions/` holds 18 records (tokens, source of truth, brand, release and deprecation policy, Figma structure, and the proposed `Button` trailing icon). Append-only; Figma shows one card per record.
+
+### Figma
+- The single Components canvas is now one page per component (66), each with a header (status, first version, docs link), Examples, every variant and a Tokens table generated from the repo. New pages: Getting started and DDR-DS. Page groups are separated and sorted A–Z. The templates live on the Doc templates page.
+
 ## [1.3.0] - 2026-10-15
 
 The first release meant to be adopted: everything that was a library component hiding in the docs site is now in `@pance/react`, every component has a page of documentation and a Figma counterpart with interaction states, and the checks that protect it (contrast in light and dark, keyboard, axe, packages, docs examples, visual regression) run in CI.

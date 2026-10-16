@@ -4,7 +4,7 @@ Code Connect needs an Organization or Enterprise Figma plan, and this file lives
 
 When the file moves to an Organization plan, this table is the input for the `*.figma.tsx` Code Connect files.
 
-Import everything from `@pance/react`.
+Import everything from `@pance/react`. Each component lives on its own Figma page (named after it, with its docs file in the header); small helper parts such as `Step connector` or `Calendar day` are on the page of the component they belong to.
 
 | Figma component | React export | Figma property → prop |
 |---|---|---|

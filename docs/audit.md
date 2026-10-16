@@ -103,9 +103,11 @@ Done:
 6. ✅ Visual regression in CI (base commit vs this commit on the same runner, no committed screenshots).
 7. ✅ Documentation: one generated page per component (`docs/components/`, 71 pages, CI-checked), `CONTRIBUTING.md`, [deprecation policy](deprecation.md).
 8. ✅ Figma library mirrors the repo: all library components, 6 patterns, Light/Dark variables ([figma.md](figma.md), [figma-code-map.md](figma-code-map.md)).
+9. ✅ Figma documentation structure: one page per component (header, examples, variants, tokens), a Getting started page and a DDR-DS register of design decisions ([decisions/](decisions/README.md)).
 
 Next:
 
+- **Button with leading and trailing icons.** `Button` takes one `Icon` (`iconPos`: left, right, top, bottom). Add `TrailingIcon` so a button can show both (for example "Download ▾"). Additive, ships in the next minor (1.4.0) together with the matching Figma properties (`show leading icon` / `show trailing icon`). Record it as a DDR-DS.
 - ✅ **1.3.0**: one mature release covering everything since 1.2.0 (dates, theme, feedback, links, actions, forms, table features, charts, flows, docs). Decision: no interim releases; the design system is announced only once it is complete.
 - Screen-reader passes (NVDA, VoiceOver) on the dialog, combobox, data table and date picker.
 - Figma: dark values for component tokens (the Components collection has one mode).

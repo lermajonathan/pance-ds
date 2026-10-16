@@ -13,7 +13,7 @@ This repository contains:
 | 🧩 | **React components**: 71 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
 | 🔣 | **Iconography**: 67 semantic aliases over Phosphor Icons | [`src/icons.tsx`](src/icons.tsx) |
 | 📖 | **Documentation site**: the bilingual explorer published at the URL above | [`src/site/`](src/site) |
-| 📚 | **Reference docs**: token reference, one page per component, audit notes | [`docs/`](docs) · [components](docs/components/README.md) |
+| 📚 | **Reference docs**: token reference, one page per component, decision records, audit notes | [`docs/`](docs) · [components](docs/components/README.md) |
 
 ---
 
@@ -132,6 +132,7 @@ Every component shares one model: **severity** (what it means) is independent fr
     ├── tokens.md            ← generated reference
     ├── components.md        ← shared model, keyboard contract, strings
     ├── components/          ← one generated page per component (pnpm docs)
+    ├── decisions/           ← design decision records (DDR-DS), append-only
     ├── deprecation.md       ← what is public API and how it is removed
     └── audit.md             ← inconsistencies found during extraction + roadmap
 ```

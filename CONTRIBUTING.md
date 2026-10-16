@@ -33,8 +33,9 @@ Generated files (`src/styles/tokens.css`, `src/tokens.ts`, `tokens/dist/`, `docs
 6. **Tests.** Add a behaviour check to `tests/keyboard.mjs` for anything interactive, and to `tests/packages.mjs` if it must work from the published package.
 7. **Docs.** Add an entry in `scripts/docs/` (summary, when to use / not to use, accessibility, content, related, example), then run `pnpm docs`. Props appear automatically; write a JSDoc comment on a prop to give it a description.
 8. **Show it** in the docs site (`src/site/`), in light and dark.
-9. **Figma.** Add the component to the Figma file, bound to the same variables, and record it in [docs/figma.md](docs/figma.md) and [docs/figma-code-map.md](docs/figma-code-map.md).
-10. **Changelog.** Add a line under `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md).
+9. **Figma.** Give the component its own page in the Figma file (copy the header, banner and token row from the **Doc templates** page), bound to the same variables, and record it in [docs/figma.md](docs/figma.md) and [docs/figma-code-map.md](docs/figma-code-map.md).
+10. **Decision.** If the change alters a token, a component API or a policy, add a [DDR-DS record](docs/decisions/README.md) (status `Proposed` until it ships).
+11. **Changelog.** Add a line under `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md).
 
 ## Checks that must pass
 

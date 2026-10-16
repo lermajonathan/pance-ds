@@ -4,13 +4,26 @@
 
 ## Pages
 
-| Page | What's there |
+Pages are grouped by separator pages (`──  COMPONENTS  ──`) and sorted A–Z inside each group.
+
+| Page or group | What's there |
 |---|---|
 | Cover | File cover built from live component instances |
-| Foundations | Color ramps, intents, typography, spacing, radius and elevation specimens, all bound to variables and styles |
-| Components | 69 icons + 87 components (53 component sets, 952 variants), one section per component |
-| Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard" (metric cards + data table), "Filtered results" (breadcrumb, date picker, combobox, tag input, empty table), "Settings" (panels with radio group, switches, theme toggle, checkbox group) and "Destructive confirm" (modal over scrim) |
-| Archive | The previous file content (site captures, August docs, legacy Button), untouched |
+| Getting started | What Pance is, how the file is organised, how to read a component page, conventions, how a change reaches Figma |
+| Foundations · Icons | Color ramps, intents, typography, spacing, radius and elevation specimens, bound to variables and styles; the 69 icon components |
+| Components | **One page per component** (66 pages, 87 components, 952 variants) |
+| Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard", "Filtered results", "Settings" and "Destructive confirm" |
+| Decisions | **DDR-DS**: the register of design decisions, one card per record. The master text is [`docs/decisions/`](decisions/README.md) |
+| Internal | **Doc templates** (status chip, header, section banner and token row used by every component page) and Archive (the previous file content, untouched) |
+
+### Anatomy of a component page
+
+1. **Header:** name, status (Stable, Beta or Deprecated), the version it first shipped in, the docs file in this repo and the number of variants in Figma.
+2. **Examples:** typical uses built from live instances.
+3. **Components:** the masters, every variant.
+4. **Tokens:** the component tokens from `tokens/components.json`, resolved for light mode (token, type, value, reference). Colors are bound to the matching variable when one exists.
+
+Component pages are generated from the repo data (descriptions from `docs/components/`, tokens from `tokens/`), so the Tokens table is regenerated, not typed. Status is Beta for the data, chart and date components added in 1.2.0 and 1.3.0 and Stable for the rest.
 
 ## Variables
 
