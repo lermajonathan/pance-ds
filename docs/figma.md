@@ -18,7 +18,7 @@
 |---|---|---|---|
 | Primitives | Value | 224 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
 | Semantic | Light · Dark | 147 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz (series 1–8, no-data), radius, icon. Dark is a draft (ships v1.1) |
-| Components | Value | 501 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
+| Components | Value | 507 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
 | Legacy · Primitives / Legacy · Semantic | — | 405 | Old collections, hidden from publishing. Safe to delete once nothing in Archive needs them |
 
 Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` (`var(--pance-color-intent-primary-solid)`).
@@ -121,6 +121,23 @@ New component tokens: `spinner/*` and `empty-state/*`.
 | Drawer | 1 | `drawer/*` tokens, `shadow/lg` |
 
 These compose the existing Button and Icon components, so a change to Button flows through.
+
+## Components (v1.4 data and flows, added Oct 15)
+
+Section "Data and flow additions".
+
+| Component | Variants | Properties |
+|---|---|---|
+| Meter | 3 | severity (default · warning · danger); status text for warning and danger |
+| Chart / Scatter | 1 | uses `chart/*` and `color/dataviz/*` |
+| Notification bell | 2 | unread (false · true), count badge |
+| Notification panel | 1 | header, three items with Mark as read and Dismiss |
+| Confirm dialog | 2 | state (empty · phrase-matches), built from Modal |
+| Toast / With action | 1 | Undo action |
+| Data table row / Expanded | 1 | expand cell + detail row |
+| Columns popover | 1 | one checkbox per column |
+
+New component tokens: `meter/*`. Dark values for `meter/color/*` live in the repo (`pance.modes`); the Components collection has one mode, so Figma shows the light value.
 
 ## Components (v1.4 forms and selection, added Oct 15)
 

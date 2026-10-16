@@ -59,6 +59,13 @@ Import everything from `@pance/react`.
 | Avatar, Avatar group | `Avatar`, `AvatarGroup` | size, status, initials |
 | Progress | `Progress` | value |
 | Spinner | `Spinner` | size |
+| Meter | `Meter` | severity → `severity` |
+| Chart / Scatter | `ScatterChart` | points → `points` |
+| Notification bell, Notification panel | `NotificationCenter` | unread is derived from `items` |
+| Confirm dialog | `ConfirmDialog` | phrase → `requireText` |
+| Toast / With action | `Toast` | action → `item.action` |
+| Data table row / Expanded | `DataTable` | `renderExpanded` |
+| Columns popover | `DataTable` | `columnToggle` |
 | Skeleton | `Skeleton` | size by className |
 | Empty state | `EmptyState` | title, description, action |
 | Metric card (+ variants, states) | `MetricCard` and siblings | variant → component name |

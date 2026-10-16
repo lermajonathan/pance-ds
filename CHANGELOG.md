@@ -40,7 +40,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ### Changed
 - Metric cards no longer lift on hover (they are not interactive). Chart colours come from tokens, so the old per-series `color` props are ignored.
-- Not yet in the library: expandable table rows, scatter plot and column visibility menu (still docs-site specimens).
+- Expandable table rows, scatter plot and column visibility menu stayed docs-site specimens in this release; they are in the library from the next one.
 
 ## [1.1.0] - 2026-10-15
 
