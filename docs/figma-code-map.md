@@ -40,7 +40,7 @@ Import everything from `@pance/react`.
 | Split button | `SplitButton` | label, items → `items` |
 | Toggle button | `ToggleButton` | on → `on` |
 | Link | `Link` | variant (default, subtle), external → `external` |
-| Alert | `Alert` | severity, variant, title, body → children, dismissible → `onDismiss` |
+| Alert | `Alert` | severity, variant, title, body → children, dismissible → `onClose` |
 | Toast | `Toast` | severity |
 | Tooltip | `Tooltip` | content |
 | Modal | `Modal` | size, title, description |
