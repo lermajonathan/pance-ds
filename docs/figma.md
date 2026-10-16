@@ -18,7 +18,7 @@
 |---|---|---|---|
 | Primitives | Value | 224 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
 | Semantic | Light · Dark | 147 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz (series 1–8, no-data), radius, icon. Dark is a draft (ships v1.1) |
-| Components | Value | 486 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
+| Components | Value | 501 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
 | Legacy · Primitives / Legacy · Semantic | — | 405 | Old collections, hidden from publishing. Safe to delete once nothing in Archive needs them |
 
 Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` (`var(--pance-color-intent-primary-solid)`).
@@ -93,6 +93,17 @@ Charts in Figma are reference drawings, not data-driven. Series fills, strokes, 
 | Date range panel | 1 | presets + two months + Clear (one month below `md`) |
 
 New component tokens: `calendar/*` and `date-picker/*`. The today ring uses `color/intent/primary/fg` (3:1 on white); `border-strong` measured 1.81:1.
+
+## Components (v1.4 feedback and theme, added Oct 15)
+
+| Component | Variants | Properties |
+|---|---|---|
+| Spinner | 3 | size (sm · md · lg); track plus a quarter arc, both stroked from `spinner/*` |
+| Empty state | 1 | icon chip, title, description, one action |
+| Link | 3 | variant (default · subtle · external); always underlined |
+| Theme toggle | 1 | Light / Dark / System segmented radio group, with new Sun and Desktop icons |
+
+New component tokens: `spinner/*` and `empty-state/*`.
 
 Not yet in Figma (P2/P3): ButtonGroup, SplitButton, ToggleButton, CountBadge, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, TagInput, RadioCard, CheckboxGroup, Skeleton, Breadcrumb, NavMenu, Drawer, Popover, Panel, Divider, RadioGroup.
 
