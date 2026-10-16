@@ -105,7 +105,24 @@ New component tokens: `calendar/*` and `date-picker/*`. The today ring uses `col
 
 New component tokens: `spinner/*` and `empty-state/*`.
 
-Not yet in Figma (P2/P3): ButtonGroup, SplitButton, ToggleButton, CountBadge, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, TagInput, RadioCard, CheckboxGroup, Skeleton, Breadcrumb, NavMenu, Drawer, Popover, Panel, Divider, RadioGroup.
+## Components (v1.4 actions and layout, added Oct 15)
+
+| Component | Variants | Properties |
+|---|---|---|
+| Skeleton | 1 | `skeleton/bg`, `skeleton/radius` |
+| Divider | 3 | kind (default · soft · labeled) |
+| Count badge | 6 | severity (danger · primary · success · warning · info · contrast) |
+| Breadcrumb | 2 | kind (default · collapsed) |
+| Button group | 1 | three Button instances, inner corners square |
+| Split button | 1 | Button + chevron Button |
+| Toggle button | 2 | state (off · on) |
+| Panel | 1 | header with icon, title, description, collapse; body |
+| Popover | 1 | `popover/*` tokens |
+| Drawer | 1 | `drawer/*` tokens, `shadow/lg` |
+
+These compose the existing Button and Icon components, so a change to Button flows through.
+
+Not yet in Figma (P2/P3): InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, TagInput, RadioCard, CheckboxGroup, NavMenu, RadioGroup.
 
 Component dimensions in Figma are bound to the same variables as code where a token exists (avatar sizes, steps dot and connector, progress height, segmented control heights, card padding and radius).
 
