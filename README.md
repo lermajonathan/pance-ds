@@ -3,14 +3,14 @@
 A production-ready design system built for products where complex data and human impact meet. Pance is inspired by a river: a vibrant aquatic teal for every interactive moment, grounded by a high-contrast slate neutral and a strict 8pt grid.
 
 **Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español  
-**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 792 variables, 34 components (840 variants) and 67 icons, mirrored from this repo ([details](docs/figma.md))
+**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 878 variables, 87 components (952 variants) and 69 icons, mirrored from this repo ([details](docs/figma.md))
 
 This repository contains:
 
 | | What | Where |
 |---|---|---|
 | 🎨 | **Design tokens**: 855 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
-| 🧩 | **React components**: 45 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
+| 🧩 | **React components**: 71 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
 | 🔣 | **Iconography**: 67 semantic aliases over Phosphor Icons | [`src/icons.tsx`](src/icons.tsx) |
 | 📖 | **Documentation site**: the bilingual explorer published at the URL above | [`src/site/`](src/site) |
 | 📚 | **Reference docs**: token reference, one page per component, audit notes | [`docs/`](docs) · [components](docs/components/README.md) |
@@ -151,7 +151,7 @@ Target: **WCAG 2.2 AA**.
 - **Contrast:** semantic text tokens reach 4.5:1 on the backgrounds they're meant for (each ratio is in the token description); solid fills with white text use step 700; control fills and the focus ring reach 3:1.
 - **Keyboard and ARIA:** interactive components follow the WAI-ARIA Authoring Practices (dialog, menu button, combobox, tabs, radio group, tooltip, disclosure). See the [keyboard contract](docs/components.md#keyboard-and-screen-reader-contract).
 - **Forms:** `Field` connects its label, hint, error and required state to the control automatically.
-- **Evidence:** `pnpm test:keyboard` (11 behaviour checks) and `pnpm test:axe` (axe-core on 20 pages at desktop and mobile) run in CI. axe went from 975 violations to 36; the remaining 36 are disabled-state text, which WCAG exempts, and colour swatch labels. Details in [docs/audit.md](docs/audit.md).
+- **Evidence:** `pnpm test:keyboard` (32 behaviour checks) and `pnpm test:axe` (axe-core on 20 pages at desktop and mobile) run in CI. axe went from 975 violations to 36; the remaining 36 are disabled-state text, which WCAG exempts, and colour swatch labels. Details in [docs/audit.md](docs/audit.md).
 
 Automated checks don't replace testing with a screen reader; NVDA and VoiceOver passes are on the roadmap.
 

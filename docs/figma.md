@@ -8,7 +8,7 @@
 |---|---|
 | Cover | File cover built from live component instances |
 | Foundations | Color ramps, intents, typography, spacing, radius and elevation specimens, all bound to variables and styles |
-| Components | 67 icons + 34 components (29 component sets, 840 variants), one section per component |
+| Components | 69 icons + 87 components (53 component sets, 952 variants), one section per component |
 | Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard" (metric cards + data table), "Filtered results" (breadcrumb, date picker, combobox, tag input, empty table), "Settings" (panels with radio group, switches, theme toggle, checkbox group) and "Destructive confirm" (modal over scrim) |
 | Archive | The previous file content (site captures, August docs, legacy Button), untouched |
 

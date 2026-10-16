@@ -14,7 +14,7 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | §4.2 H3 size | ✅ Decided: 20px (`typography/h3`), 18px is `typography/h3-compact` for modal/drawer titles |
 | §4.5 Warning solid | ✅ amber-700 everywhere |
 | §5.1 Disabled opacity | ✅ 0.45 everywhere |
-| Figma library | ✅ Rebuilt from tokens: 792 variables, 14 text + 13 effect styles, 67 icons, 34 components incl. Avatar, Progress, Steps, Segmented control, Metric card and Data table; Field and Input gaps from the dogfooding form fixed ([docs/figma.md](figma.md)) |
+| Figma library | ✅ Rebuilt from tokens: 878 variables, 14 text + 13 effect styles, 69 icons, 87 components (952 variants) incl. Avatar, Progress, Steps, Segmented control, Metric card and Data table; Field and Input gaps from the dogfooding form fixed ([docs/figma.md](figma.md)) |
 | §3.5–3.10 ARIA patterns, keyboard, Field association | ✅ Fixed: dialog, menu button, select-only and autocomplete combobox, tabs, radio group, tooltip, disclosure; Field wires `id`, `aria-describedby`, `aria-invalid`, `aria-required`. 11 keyboard tests in `tests/keyboard.mjs` |
 | axe-core, 20 pages × 2 viewports | ✅ 975 → 36 violations (all of them the contrast exceptions above). Runs in CI via `tests/axe.mjs` |
 | §6 Components reading semantic tokens | ✅ Done: every component reads semantic utilities or component tokens; 32 component tokens re-aliased from primitives to semantic (code and Figma); `pnpm lint:tokens` in CI blocks hard-coded colours. Visual diff against the previous build: 0 px changed on 18 of 19 pages |
@@ -22,7 +22,7 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | Dimensions from tokens | ✅ Tailwind spacing, radius, type, weight, leading, tracking and container scales resolve to Pance tokens; Button, Input, Badge, Toggle, Checkbox, Radio, Tabs, Modal, Drawer, Popover, Toast and Progress read their size tokens; `lint:tokens` also blocks magic pixel sizes |
 | Token contrast test | ✅ `tests/contrast.mjs`: 147 pairs (text 4.5:1, controls and focus 3:1) in light and dark. Found and fixed: unchecked checkbox/radio and switch-off boundaries at 2.56:1 (new `color.border.control`, slate-500, 4.76:1) and 27 dark-mode pairs (hover/active states, soft hovers, subtle text, slider) |
 | §6 i18n/router decoupling | ✅ Components use `PanceProvider` labels (English default); the docs site feeds its EN/ES dictionary into it. The library has no router or i18n import |
-| npm packages | ✅ Ready: `@pance/tokens` and `@pance/react` (ESM, types, precompiled `styles.css` and a Tailwind entry). `pnpm test:packages` installs both in a fresh project and checks rendering, labels, stylesheets, token exports and types. Published on npm: 1.1.0 and 1.2.0 (data components, October 2026); 1.3 (dates) and 1.4 (theme, feedback) are on main and not yet released; releases use npm trusted publishing, with no stored token |
+| npm packages | ✅ Ready: `@pance/tokens` and `@pance/react` (ESM, types, precompiled `styles.css` and a Tailwind entry). `pnpm test:packages` installs both in a fresh project and checks rendering, labels, stylesheets, token exports and types. Published on npm: 1.1.0, 1.2.0 and 1.3.0 (October 2026, the mature release with dates, theme, feedback, forms, table features, charts, flows and the component docs); releases use npm trusted publishing, with no stored token |
 
 ## 1 · Changes made during extraction
 
@@ -106,8 +106,8 @@ Done:
 
 Next:
 
-- **One mature release, 1.3.0**, covering everything on `main` since 1.2.0 (dates, theme, feedback, links, actions, forms, table features, charts, flows, docs). Decision: no interim releases; the design system is announced only once it is complete.
+- ✅ **1.3.0**: one mature release covering everything since 1.2.0 (dates, theme, feedback, links, actions, forms, table features, charts, flows, docs). Decision: no interim releases; the design system is announced only once it is complete.
 - Screen-reader passes (NVDA, VoiceOver) on the dialog, combobox, data table and date picker.
-- Figma: focus, hover and disabled variants for the last batch of components; dark values for component tokens (the Components collection has one mode).
+- Figma: dark values for component tokens (the Components collection has one mode).
 - Code Connect when the Figma file moves to an Organization plan.
 - Storybook or Ladle if contributors need an isolated playground.

@@ -4,7 +4,15 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
-### Documentation
+## [1.3.0] - 2026-10-15
+
+The first release meant to be adopted: everything that was a library component hiding in the docs site is now in `@pance/react`, every component has a page of documentation and a Figma counterpart with interaction states, and the checks that protect it (contrast in light and dark, keyboard, axe, packages, docs examples, visual regression) run in CI.
+
+### Figma
+
+- Interaction states (hover, focus, disabled) for Link, Toggle button, File dropzone, Inline edit, Combobox, Radio card, Notification bell, Input group, Tag input, Range slider, Pin input, Date picker, Nav menu item and Calendar day. Where `state` meant something else it was renamed (`kind`, `pressed`, `drag`, `mode`, `list`). The library now has 87 components (952 variants), 878 variables and 69 icons; see [docs/figma.md](docs/figma.md).
+
+### Documentation and tooling
 
 - One page per component in `docs/components/` (71 pages plus an index): when to use it and when not to, props, accessibility, content guidance, related components, example. Props are generated from the TypeScript source with `pnpm docs`; CI fails if a page is stale, a component has no guidance, or an example no longer type-checks (`pnpm docs:check`, `pnpm test:docs`).
 
