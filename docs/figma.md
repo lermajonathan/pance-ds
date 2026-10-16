@@ -19,11 +19,16 @@ Pages are grouped by separator pages (`──  COMPONENTS  ──`) and sorted A
 ### Anatomy of a component page
 
 1. **Header:** name, status (Stable, Beta or Deprecated), the version it first shipped in, the docs file in this repo and the number of variants in Figma.
-2. **Examples:** typical uses built from live instances.
-3. **Components:** the masters, every variant.
-4. **Tokens:** the component tokens from `tokens/components.json`, resolved for light mode (token, type, value, reference). Colors are bound to the matching variable when one exists.
+2. **Overview:** when to use the component and when another one fits better.
+3. **Examples:** every variant axis and option (and each on/off property) as live instances, so a page shows everything the component can look like.
+4. **Usage:** the import and a typical snippet.
+5. **API:** the props table (type, default, notes).
+6. **Accessibility:** keyboard, roles and content guidance.
+7. **Components:** the masters, every variant.
+8. **Tokens:** the component tokens from `tokens/components.json`, resolved for light mode (token, type, value, reference). Colors are bound to the matching variable when one exists.
+9. **Related:** components that usually sit next to this one.
 
-Component pages are generated from the repo data (descriptions from `docs/components/`, tokens from `tokens/`), so the Tokens table is regenerated, not typed. Status is Beta for the data, chart and date components added in 1.2.0 and 1.3.0 and Stable for the rest.
+Component pages are generated from the repo data (guidance, props and snippets from `docs/components/`, tokens from `tokens/`), so those sections are regenerated, not typed. Status is Beta for the data, chart and date components added in 1.2.0 and 1.3.0 and Stable for the rest.
 
 ## Variables
 

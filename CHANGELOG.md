@@ -8,7 +8,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - **Design decision records (DDR-DS):** `docs/decisions/` holds 18 records (tokens, source of truth, brand, release and deprecation policy, Figma structure, and the proposed `Button` trailing icon). Append-only; Figma shows one card per record.
 
 ### Figma
-- The single Components canvas is now one page per component (66), each with a header (status, first version, docs link), Examples, every variant and a Tokens table generated from the repo. New pages: Getting started and DDR-DS. Page groups are separated and sorted A–Z. The templates live on the Doc templates page.
+- The single Components canvas is now one page per component (66), each with a header (status, first version, docs link), Overview, Examples for every variant axis and option, Usage, API, Accessibility, every variant and a Tokens table, and Related, all generated from the repo docs and tokens. New pages: Getting started and DDR-DS. Page groups are separated and sorted A–Z. The templates live on the Doc templates page.
 
 ## [1.3.0] - 2026-10-15
 
