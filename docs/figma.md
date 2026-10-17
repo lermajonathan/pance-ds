@@ -37,9 +37,10 @@ Component pages are generated from the repo data (guidance, props and snippets f
 | Primitives | Value | 224 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
 | Semantic | Light · Dark | 147 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz (series 1–8, no-data), radius, icon. Dark is a draft (ships v1.1) |
 | Components | Value | 507 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
-| Legacy · Primitives / Legacy · Semantic | — | 405 | Old collections, hidden from publishing. Safe to delete once nothing in Archive needs them |
 
 Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` (`var(--pance-color-intent-primary-solid)`).
+
+**Binding coverage.** In the component masters, colors and strokes are bound to variables (99%), and so are font sizes, spacing and radii wherever a matching variable exists. The remaining unbound values are intentional: the internal geometry of charts (1–3 px bar and marker radii) and 3 px optical alignments have no token because they are not system decisions. Do not tokenize them.
 
 **Styles:** 14 text styles (`typography/*`, font size and family bound to variables) and 13 effect styles (`shadow/*`, `focus/ring*`).
 
