@@ -28,6 +28,7 @@ Source: [`src/components/date.tsx`](../../src/components/date.tsx) · Figma: `Ca
 | `months` | `2 \| 1` |  |  |
 | `defaultMonth` | `string` |  |  |
 | `autoFocus` | `boolean` |  |  |
+| `bordered` | `boolean` |  | Draws the outer border, radius and surface. Off by default so the calendar can sit inside a popover or card. |
 | `className` | `string` |  |  |
 
 ## Accessibility

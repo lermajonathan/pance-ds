@@ -175,12 +175,14 @@ type EngineProps = {
   autoFocus?: boolean
   /** Month to show first when nothing is selected. */
   defaultMonth?: string
+  /** Draws the outer border, radius and surface. Off by default so the calendar can sit inside a popover or card. */
+  bordered?: boolean
   className?: string
 }
 
 const todayISO = () => toISODate(new Date())
 
-function CalendarEngine({ mode, value, range, onPick, min, max, isDateDisabled, months = 1, autoFocus, defaultMonth, className = '' }: EngineProps) {
+function CalendarEngine({ mode, value, range, onPick, min, max, isDateDisabled, months = 1, autoFocus, defaultMonth, bordered = false, className = '' }: EngineProps) {
   const tt = useLabels()
   const today = useMemo(todayISO, [])
   const seed = (mode === 'single' ? value : range.start) ?? defaultMonth ?? clamp(today, min, max)
@@ -225,7 +227,7 @@ function CalendarEngine({ mode, value, range, onPick, min, max, isDateDisabled, 
   const open = mode === 'range' && !!range.start && !range.end
 
   return (
-    <div ref={root} className={`bg-(--pance-calendar-bg) p-(--pance-calendar-padding) ${className}`} onMouseLeave={() => setPreview(null)} aria-describedby={hintId}>
+    <div ref={root} className={`bg-(--pance-calendar-bg) p-(--pance-calendar-padding) ${bordered ? 'rounded-2xl border border-line' : ''} ${className}`} onMouseLeave={() => setPreview(null)} aria-describedby={hintId}>
       <p id={hintId} className="sr-only">{tt.calendarKeyboardHint}</p>
       <div className="flex gap-(--pance-calendar-months-gap)">
         {visible.map((m, i) => (
@@ -264,6 +266,8 @@ export type CalendarProps = {
   isDateDisabled?: (date: string) => boolean
   defaultMonth?: string
   autoFocus?: boolean
+  /** Draws the outer border, radius and surface. Off by default so the calendar can sit inside a popover or card. */
+  bordered?: boolean
   className?: string
 }
 export function Calendar({ value, onChange, ...rest }: CalendarProps) {
@@ -280,6 +284,8 @@ export type RangeCalendarProps = {
   months?: 1 | 2
   defaultMonth?: string
   autoFocus?: boolean
+  /** Draws the outer border, radius and surface. Off by default so the calendar can sit inside a popover or card. */
+  bordered?: boolean
   className?: string
 }
 /** Pick the first day, then the last. A third click starts a new range. */

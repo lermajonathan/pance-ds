@@ -31,8 +31,8 @@ Import everything from `@pance/react`. Each component lives on its own Figma pag
 | Pin input | `PinInput` | length → `length` |
 | Inline edit | `InlineEdit` | mode (display, editing) is internal state; state is interaction only |
 | Date picker | `DatePicker` | state (disabled, error via `Field`) |
-| Date picker panel, Calendar | `Calendar` | one month |
-| Calendar / Range | `RangeCalendar` | range |
+| Date picker panel, Calendar | `Calendar` | one month (Calendar is drawn with `bordered`) |
+| Calendar / Range | `RangeCalendar` | range (drawn with `bordered`) |
 | Date range panel | `DateRangePicker` | presets → `presets` |
 | Segmented control, Segment | `SegmentedControl` | size |
 | Theme toggle | `ThemeToggle` | inside `ThemeProvider` |
