@@ -1,17 +1,25 @@
 # Pance Design System
 
-A production-ready design system built for products where complex data and human impact meet. Pance is inspired by a river: a vibrant aquatic teal for every interactive moment, grounded by a high-contrast slate neutral and a strict 8pt grid.
+[![npm @pance/react](https://img.shields.io/npm/v/@pance/react?label=%40pance%2Freact&color=0e7490)](https://www.npmjs.com/package/@pance/react)
+[![npm @pance/tokens](https://img.shields.io/npm/v/@pance/tokens?label=%40pance%2Ftokens&color=0e7490)](https://www.npmjs.com/package/@pance/tokens)
+[![CI](https://github.com/lermajonathan/pance-ds/actions/workflows/ci.yml/badge.svg)](https://github.com/lermajonathan/pance-ds/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-0e7490.svg)](LICENSE)
+[![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-0e7490.svg)](#accessibility)
+
+A production-ready design system for products where complex data and human impact meet. Pance is inspired by a river: a vibrant aquatic teal for every interactive moment, grounded by a high-contrast slate neutral and a strict 8pt grid.
+
+**Why Pance:** one source of truth (W3C design tokens) drives the React library, the documentation site and the Figma file, so design and code cannot drift apart. Every component is keyboard-operable, checked against WCAG 2.2 AA, and ships with an English and Spanish documentation site.
 
 **Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español  
-**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 878 variables, 87 components (952 variants) and 69 icons, mirrored from this repo ([details](docs/figma.md))
+**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 878 variables, 88 components (987 variants) and 70 icons, mirrored from this repo ([details](docs/figma.md))
 
 This repository contains:
 
 | | What | Where |
 |---|---|---|
-| 🎨 | **Design tokens**: 855 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
+| 🎨 | **Design tokens**: 943 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
 | 🧩 | **React components**: 71 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
-| 🔣 | **Iconography**: 67 semantic aliases over Phosphor Icons | [`src/icons.tsx`](src/icons.tsx) |
+| 🔣 | **Iconography**: 70 semantic aliases over Phosphor Icons | [`src/icons.tsx`](src/icons.tsx) |
 | 📖 | **Documentation site**: the bilingual explorer published at the URL above | [`src/site/`](src/site) |
 | 📚 | **Reference docs**: token reference, one page per component, decision records, audit notes | [`docs/`](docs) · [components](docs/components/README.md) |
 
