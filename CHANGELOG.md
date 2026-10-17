@@ -11,6 +11,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - **Design decision records (DDR-DS):** `docs/decisions/` holds 18 records (tokens, source of truth, brand, release and deprecation policy, Figma structure, and the proposed `Button` trailing icon). Append-only; Figma shows one card per record.
 
 ### Figma
+- Patterns grew from 5 to 11: Sign in, Onboarding, Notifications and toasts, Team members, Traffic report, and Loading, empty and error. All are built only from component instances.
 - The Cover, Getting started and Icons pages now state that the 70 icons are a selection from Phosphor's 1,000+. New `Icon/ChevronLeft` (the library had 69 of the 70 icons in code). The Cover now shows the current version and counts.
 - The two Legacy variable collections were deleted (nothing referenced them). Spacing, radii and font sizes on the component masters are now bound to variables; only chart geometry and 3 px optical values stay fixed, by design.
 - Calendar and Calendar / Range now show the outer border (the `bordered` prop). Split button and Skeleton pages gained examples for every severity, variant, size and state, and Skeleton shows real contexts (text, profile, card, list, table, form). Tooltip arrows are attached to the bubble and point the right way.
