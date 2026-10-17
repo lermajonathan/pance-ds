@@ -11,7 +11,7 @@ A production-ready design system for products where complex data and human impac
 **Why Pance:** one source of truth (W3C design tokens) drives the React library, the documentation site and the Figma file, so design and code cannot drift apart. Every component is keyboard-operable, checked against WCAG 2.2 AA, and ships with an English and Spanish documentation site.
 
 **Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español  
-**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 878 variables, 88 components (987 variants) and 70 icons, mirrored from this repo ([details](docs/figma.md))
+**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 878 variables, 88 components (987 variants) and 70 icons (a selection from Phosphor's 1,000+), mirrored from this repo ([details](docs/figma.md))
 
 This repository contains:
 
@@ -19,7 +19,7 @@ This repository contains:
 |---|---|---|
 | 🎨 | **Design tokens**: 943 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
 | 🧩 | **React components**: 71 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
-| 🔣 | **Iconography**: 70 semantic aliases over Phosphor Icons | [`src/icons.tsx`](src/icons.tsx) |
+| 🔣 | **Iconography**: 70 semantic aliases over [Phosphor Icons](https://phosphoricons.com) (1,000+ icons; any of them works with Pance) | [`src/icons.tsx`](src/icons.tsx) |
 | 📖 | **Documentation site**: the bilingual explorer published at the URL above | [`src/site/`](src/site) |
 | 📚 | **Reference docs**: token reference, one page per component, decision records, audit notes | [`docs/`](docs) · [components](docs/components/README.md) |
 

@@ -17,7 +17,7 @@ Pance is a design system for products where complex data and human impact meet. 
 **What's inside**
 - **878 variables** in three tiers (Primitives, Semantic with Light and Dark modes, Components). Components alias Semantic, never hex.
 - **88 components, 987 variants**, one page per component. Each page has Overview, live Examples for every variant axis, Usage, API, Accessibility, every variant, a Tokens table and Related components.
-- **70 icons** (Phosphor Icons) with semantic names, grouped in a gallery.
+- **70 icons** with semantic names, grouped in a gallery. They are a selection from Phosphor Icons, which has more than 1,000; any Phosphor icon works with Pance.
 - **Foundations:** color ramps, intents, typography, spacing, radius and elevation, bound to variables and styles.
 - **Patterns:** forms, dashboards, filtered results, settings and destructive confirmation, built only from instances.
 - **Decision records (DDR-DS):** the reasoning behind the system, one card per decision.
@@ -28,6 +28,7 @@ Pance is a design system for products where complex data and human impact meet. 
 - English and Spanish documentation.
 
 **Links**
+- Icons: https://phosphoricons.com (MIT)
 - Code and tokens: https://github.com/lermajonathan/pance-ds
 - Documentation site: https://pance-ds.jonathanlerma.com
 - npm: `@pance/react`, `@pance/tokens`
