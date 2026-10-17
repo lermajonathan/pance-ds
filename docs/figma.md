@@ -12,7 +12,7 @@ Pages are grouped by separator pages (`──  COMPONENTS  ──`) and sorted A
 | Getting started | What Pance is, how the file is organised, how to read a component page, conventions, how a change reaches Figma |
 | Foundations · Icons | Color ramps, intents, typography, spacing, radius and elevation specimens, bound to variables and styles; the 70 icon components (a selection from Phosphor Icons, which has 1,000+; any Phosphor icon works with Pance) |
 | Components | **One page per component** (66 pages, 88 components, 987 variants) |
-| Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard", "Filtered results", "Settings", "Destructive confirm", "Sign in", "Onboarding", "Notifications and toasts", "Team members", "Traffic report" and "Loading, empty and error" (11 patterns) |
+| Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard", "Filtered results", "Settings", "Destructive confirm", "Sign in", "Onboarding", "Notifications and toasts", "Team members", "Traffic report", "Loading, empty and error", "Checkout", "Profile" and "Search results" (14 patterns) |
 | Decisions | **DDR-DS**: the register of design decisions, one card per record. The master text is [`docs/decisions/`](decisions/README.md) |
 | Internal | **Doc templates** (status chip, header, section banner and token row used by every component page) and Archive (the previous file content, untouched) |
 
