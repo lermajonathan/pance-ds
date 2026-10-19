@@ -9,7 +9,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.aqua`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.aqua.50` | #ecfeff | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
 | `color.aqua.100` | #cffafe | ![](https://placehold.co/14x14/cffafe/cffafe.png) #cffafe |  |  |
@@ -25,7 +25,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.slate`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.slate.50` | #f8fafc | ![](https://placehold.co/14x14/f8fafc/f8fafc.png) #f8fafc |  |  |
 | `color.slate.75` | #eef2f6 | ![](https://placehold.co/14x14/eef2f6/eef2f6.png) #eef2f6 |  | Off-ramp step between 50 and 100, used only for soft hairlines (`line-soft`). |
@@ -42,7 +42,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.emerald`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.emerald.50` | #ecfdf5 | ![](https://placehold.co/14x14/ecfdf5/ecfdf5.png) #ecfdf5 |  |  |
 | `color.emerald.100` | #d1fae5 | ![](https://placehold.co/14x14/d1fae5/d1fae5.png) #d1fae5 |  |  |
@@ -58,7 +58,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.sky`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.sky.50` | #f0f9ff | ![](https://placehold.co/14x14/f0f9ff/f0f9ff.png) #f0f9ff |  |  |
 | `color.sky.100` | #e0f2fe | ![](https://placehold.co/14x14/e0f2fe/e0f2fe.png) #e0f2fe |  |  |
@@ -74,7 +74,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.amber`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.amber.50` | #fffbeb | ![](https://placehold.co/14x14/fffbeb/fffbeb.png) #fffbeb |  |  |
 | `color.amber.100` | #fef3c7 | ![](https://placehold.co/14x14/fef3c7/fef3c7.png) #fef3c7 |  |  |
@@ -90,7 +90,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.violet`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.violet.50` | #f5f3ff | ![](https://placehold.co/14x14/f5f3ff/f5f3ff.png) #f5f3ff |  |  |
 | `color.violet.100` | #ede9fe | ![](https://placehold.co/14x14/ede9fe/ede9fe.png) #ede9fe |  |  |
@@ -106,7 +106,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.rose`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.rose.50` | #fff1f2 | ![](https://placehold.co/14x14/fff1f2/fff1f2.png) #fff1f2 |  |  |
 | `color.rose.100` | #ffe4e6 | ![](https://placehold.co/14x14/ffe4e6/ffe4e6.png) #ffe4e6 |  |  |
@@ -122,21 +122,21 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `color.river`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.river.900` | #08202e | ![](https://placehold.co/14x14/08202e/08202e.png) #08202e |  |  |
 | `color.river.950` | #041520 | ![](https://placehold.co/14x14/041520/041520.png) #041520 |  |  |
 
 ### `color`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.white` | #ffffff | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff |  |  |
 | `color.black` | #000000 | ![](https://placehold.co/14x14/000000/000000.png) #000000 |  |  |
 
 ### `color.viz`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.viz.categorical.1` | #0891b2 | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 |  |  |
 | `color.viz.categorical.2` | #eb6834 | ![](https://placehold.co/14x14/eb6834/eb6834.png) #eb6834 |  |  |
@@ -185,7 +185,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `fontFamily`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `fontFamily.jakarta` | ["Plus Jakarta Sans","ui-sans-serif","system-ui","sans-serif"] | 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif |  | Display / headings. Weights 400–800. |
 | `fontFamily.inter` | ["Inter","ui-sans-serif","system-ui","sans-serif"] | Inter, ui-sans-serif, system-ui, sans-serif |  | Body / UI text. Weights 400, 450, 500, 600. |
@@ -193,7 +193,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `fontWeight`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `fontWeight.regular` | 400 | 400 |  |  |
 | `fontWeight.book` | 450 | 450 |  |  |
@@ -204,7 +204,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `fontSize`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `fontSize.9` | 9px | 9px |  |  |
 | `fontSize.10` | 10px | 10px |  |  |
@@ -224,7 +224,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `lineHeight`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `lineHeight.none` | 1 | 1 |  |  |
 | `lineHeight.tight` | 1.25 | 1.25 |  |  |
@@ -234,7 +234,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `letterSpacing`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `letterSpacing.tight` | -0.025em | -0.025em |  | Headings (`tracking-tight`). |
 | `letterSpacing.normal` | 0em | 0em |  |  |
@@ -245,7 +245,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `space`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `space.0` | 0px | 0px |  |  |
 | `space.1` | 8px | 8px |  |  |
@@ -266,7 +266,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `radius`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `radius.4` | 4px | 4px |  |  |
 | `radius.6` | 6px | 6px |  |  |
@@ -277,7 +277,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `size`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `size.2` | 2px | 2px |  |  |
 | `size.4` | 4px | 4px |  |  |
@@ -302,7 +302,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `duration`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `duration.fast` | 150ms | 150ms |  |  |
 | `duration.base` | 200ms | 200ms |  |  |
@@ -312,7 +312,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `easing`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `easing.standard` | [0.4,0,0.2,1] | cubic-bezier(0.4, 0, 0.2, 1) |  | Tailwind default `ease` for transitions. |
 | `easing.out-expo` | [0.22,1,0.36,1] | cubic-bezier(0.22, 1, 0.36, 1) |  | Entrance (`pance-rise`). |
@@ -320,7 +320,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `opacity`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `opacity.disabled` | 0.45 | 0.45 |  | Single disabled opacity for every control. |
 | `opacity.backdrop` | 0.4 | 0.4 |  | Modal / drawer scrim over ink. |
@@ -328,13 +328,13 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `blur`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `blur.backdrop` | 8px | 8px |  | `backdrop-blur-sm`. |
 
 ### `breakpoint`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `breakpoint.xs` | 0px | 0px |  | Mobile-first base (< 640px). |
 | `breakpoint.sm` | 640px | 640px |  |  |
@@ -345,7 +345,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `container`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `container.sm` | 384px | 384px |  |  |
 | `container.md` | 448px | 448px |  |  |
@@ -357,7 +357,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `grid`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `grid.columns.xs` | 4 | 4 |  |  |
 | `grid.columns.sm` | 4 | 4 |  |  |
@@ -368,7 +368,7 @@ Raw values. Never referenced directly by product code — only by semantic and c
 
 ### `zIndex`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `zIndex.raised` | 10 | 10 |  |  |
 | `zIndex.dropdown` | 30 | 30 |  |  |
@@ -381,7 +381,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `color.bg`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.bg.page` | {color.slate.100} | ![](https://placehold.co/14x14/f1f5f9/f1f5f9.png) #f1f5f9 | ![](https://placehold.co/14x14/020617/020617.png) #020617 | App background (`bg-ground`). |
 | `color.bg.surface` | {color.white} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff | ![](https://placehold.co/14x14/0f172a/0f172a.png) #0f172a | Cards, panels, inputs (`bg-surface`). |
@@ -393,7 +393,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `color.fg`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.fg.default` | {color.slate.900} | ![](https://placehold.co/14x14/0f172a/0f172a.png) #0f172a | ![](https://placehold.co/14x14/f8fafc/f8fafc.png) #f8fafc | Primary text (`text-ink`). 17.9:1 on white. |
 | `color.fg.soft` | {color.slate.700} | ![](https://placehold.co/14x14/334155/334155.png) #334155 | ![](https://placehold.co/14x14/cbd5e1/cbd5e1.png) #cbd5e1 | Secondary text, labels (`text-ink-soft`). 10.4:1 on white. |
@@ -406,7 +406,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `color.border`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.border.default` | {color.slate.200} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 | ![](https://placehold.co/14x14/334155/334155.png) #334155 | Hairline rules, control borders (`border-line`). |
 | `color.border.soft` | {color.slate.75} | ![](https://placehold.co/14x14/eef2f6/eef2f6.png) #eef2f6 | ![](https://placehold.co/14x14/1e293b/1e293b.png) #1e293b | Internal dividers (`border-line-soft`). |
@@ -417,7 +417,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `color.intent`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.intent.primary.solid` | {color.aqua.700} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |
 | `color.intent.primary.solid-hover` | {color.aqua.800} | ![](https://placehold.co/14x14/155e75/155e75.png) #155e75 |  |  |
@@ -510,7 +510,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `color.status`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.status.online` | {color.emerald.500} | ![](https://placehold.co/14x14/10b981/10b981.png) #10b981 | ![](https://placehold.co/14x14/34d399/34d399.png) #34d399 |  |
 | `color.status.away` | {color.amber.400} | ![](https://placehold.co/14x14/fbbf24/fbbf24.png) #fbbf24 | ![](https://placehold.co/14x14/fbbf24/fbbf24.png) #fbbf24 |  |
@@ -519,20 +519,20 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `color.focus`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.focus.ring` | {color.aqua.100} | ![](https://placehold.co/14x14/cffafe/cffafe.png) #cffafe | ![](https://placehold.co/14x14/164e63/164e63.png) #164e63 | Outer 4px halo. |
 | `color.focus.inner` | {color.aqua.600} | ![](https://placehold.co/14x14/0891b2/0891b2.png) #0891b2 | ![](https://placehold.co/14x14/22d3ee/22d3ee.png) #22d3ee | Inner 2px ring. 3.68:1 on white. |
 
 ### `color`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.skeleton` | rgba(226,232,240,0.7) | rgba(226,232,240,0.7) | rgba(51,65,85,0.7) | slate-200 at 70%. |
 
 ### `color.dataviz`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `color.dataviz.surface` | {color.white} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff | ![](https://placehold.co/14x14/0f172a/0f172a.png) #0f172a |  |
 | `color.dataviz.grid` | {color.slate.200} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 | ![](https://placehold.co/14x14/334155/334155.png) #334155 |  |
@@ -555,7 +555,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `radius`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `radius.xs` | {radius.4} | 4px |  | Small checkbox, inline code. |
 | `radius.sm` | {radius.6} | 6px |  | Badges (square), tags. |
@@ -566,7 +566,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `shadow`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `shadow.none` | [] | none |  | Level 0 · Flat. |
 | `shadow.xs` | _composite_ | 0px 1px 2px 0px rgba(15,23,42,0.06) |  | Level 1 · Raised — cards at rest, row hover. |
@@ -581,7 +581,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `focus`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `focus.ring` | _composite_ | 0px 0px 0px 4px #cffafe, 0px 0px 0px 2px #0891b2 |  | Applied via the `.pance-focus` class on :focus-visible. 2px inner line at 3.68:1 + 4px halo. |
 | `focus.ring-danger` | _composite_ | 0px 0px 0px 3px #fff1f2, 0px 0px 0px 1.5px #e11d48 |  |  |
@@ -589,7 +589,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `typography`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `typography.display` | _composite_ | fontFamily: Plus Jakarta Sans,ui-sans-serif,system-ui,sans-serif<br>fontSize: 48px<br>fontWeight: 800<br>lineHeight: 1<br>letterSpacing: -0.025em |  | Hero titles. |
 | `typography.h1` | _composite_ | fontFamily: Plus Jakarta Sans,ui-sans-serif,system-ui,sans-serif<br>fontSize: 30px<br>fontWeight: 800<br>lineHeight: 1.2<br>letterSpacing: -0.025em |  | Page titles. |
@@ -608,7 +608,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `motion`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `motion.transition.color` | _composite_ | 200ms 0.4,0,0.2,1 0ms |  | Hover / state colour changes. |
 | `motion.transition.control` | _composite_ | 300ms 0.4,0,0.2,1 0ms |  | Toggles, tab indicator. |
@@ -616,7 +616,7 @@ Purpose-based aliases (surface, text, intent, elevation, typography roles). Use 
 
 ### `icon`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `icon.xs` | {size.14} | 14px |  |  |
 | `icon.sm` | {size.16} | 16px |  |  |
@@ -632,7 +632,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `button`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `button.radius` | {radius.md} | 12px |  |  |
 | `button.radius-rounded` | {radius.full} | 9999px |  |  |
@@ -641,7 +641,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `button.size`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `button.size.sm.height` | {size.32} | 32px |  |  |
 | `button.size.sm.padding-x` | {space.1-5} | 12px |  |  |
@@ -661,7 +661,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `button.color`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `button.color.primary.filled.bg` | {color.intent.primary.solid} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
 | `button.color.primary.filled.bg-hover` | {color.intent.primary.solid-hover} | ![](https://placehold.co/14x14/155e75/155e75.png) #155e75 |  |  |
@@ -785,7 +785,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `button.raised`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `button.raised.primary` | _composite_ | 0px 6px 16px -6px rgba(8,145,178,0.7) |  |  |
 | `button.raised.secondary` | _composite_ | 0px 6px 16px -6px rgba(71,85,105,0.55) |  |  |
@@ -798,7 +798,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `badge`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `badge.ring-width` | 1px | 1px |  |  |
 | `badge.radius` | {radius.full} | 9999px |  |  |
@@ -806,7 +806,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `badge.size`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `badge.size.sm.padding-x` | {space.0-75} | 6px |  |  |
 | `badge.size.sm.padding-y` | {space.0-25} | 2px |  |  |
@@ -829,7 +829,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `badge.color`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `badge.color.primary.soft.bg` | {color.intent.primary.soft} | ![](https://placehold.co/14x14/ecfeff/ecfeff.png) #ecfeff |  |  |
 | `badge.color.primary.soft.text` | {color.intent.primary.fg} | ![](https://placehold.co/14x14/0e7490/0e7490.png) #0e7490 |  |  |
@@ -906,7 +906,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `badge.count`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `badge.count.min-width` | 18px | 18px |  |  |
 | `badge.count.font-size` | {fontSize.10} | 10px |  |  |
@@ -914,7 +914,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `input`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `input.radius` | {radius.md} | 12px |  |  |
 | `input.size.sm.height` | {size.32} | 32px |  |  |
@@ -946,7 +946,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `field`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `field.gap` | {space.0-75} | 6px |  |  |
 | `field.label` | {typography.label} | fontFamily: Inter,ui-sans-serif,system-ui,sans-serif<br>fontSize: 14px<br>fontWeight: 500<br>lineHeight: 1.43<br>letterSpacing: 0em |  |  |
@@ -955,7 +955,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `toggle`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `toggle.size.sm.track-width` | {size.36} | 36px |  |  |
 | `toggle.size.sm.track-height` | {size.20} | 20px |  |  |
@@ -974,7 +974,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `checkbox`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `checkbox.size.sm.box` | {size.16} | 16px |  |  |
 | `checkbox.size.sm.radius` | {radius.xs} | 4px |  |  |
@@ -996,7 +996,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `radio`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `radio.size.sm.control` | {size.16} | 16px |  |  |
 | `radio.size.sm.dot` | {size.6} | 6px |  |  |
@@ -1013,7 +1013,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `segmented-control`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `segmented-control.track-padding` | {space.0-5} | 4px |  |  |
 | `segmented-control.radius` | {radius.md} | 12px |  |  |
@@ -1028,7 +1028,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `range-slider`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `range-slider.track-height` | {size.6} | 6px |  |  |
 | `range-slider.thumb` | {size.20} | 20px |  |  |
@@ -1041,7 +1041,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `avatar`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `avatar.size.default` | {size.36} | 36px |  |  |
 | `avatar.size.group` | {size.32} | 32px |  |  |
@@ -1059,7 +1059,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `tabs`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `tabs.size.sm.padding-x` | {space.1-5} | 12px |  |  |
 | `tabs.size.sm.padding-y` | {space.0-75} | 6px |  |  |
@@ -1082,7 +1082,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `steps`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `steps.dot` | {size.32} | 32px |  |  |
 | `steps.connector` | {size.2} | 2px |  |  |
@@ -1096,7 +1096,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `nav-menu`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `nav-menu.item-padding-x` | {space.1-5} | 12px |  |  |
 | `nav-menu.item-padding-y` | {space.1-25} | 10px |  |  |
@@ -1109,7 +1109,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `card`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `card.radius` | {radius.lg} | 16px |  |  |
 | `card.padding` | {space.3} | 24px |  |  |
@@ -1119,7 +1119,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `panel`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `panel.header-padding-x` | {space.2-5} | 20px |  |  |
 | `panel.header-padding-y` | {space.2} | 16px |  |  |
@@ -1128,7 +1128,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `accordion`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `accordion.radius` | {radius.lg} | 16px |  |  |
 | `accordion.padding-x` | {space.2-5} | 20px |  |  |
@@ -1136,7 +1136,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `alert`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `alert.padding` | {space.2} | 16px |  |  |
 | `alert.radius` | {radius.md} | 12px |  |  |
@@ -1144,7 +1144,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `progress`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `progress.height` | {size.8} | 8px |  |  |
 | `progress.track` | {color.border.default} | ![](https://placehold.co/14x14/e2e8f0/e2e8f0.png) #e2e8f0 |  |  |
@@ -1152,14 +1152,14 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `skeleton`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `skeleton.bg` | {color.skeleton} | rgba(226,232,240,0.7) |  |  |
 | `skeleton.radius` | {radius.item} | 8px |  |  |
 
 ### `tooltip`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `tooltip.bg` | {color.bg.inverse} | ![](https://placehold.co/14x14/0f172a/0f172a.png) #0f172a |  |  |
 | `tooltip.text` | {color.fg.inverse} | ![](https://placehold.co/14x14/ffffff/ffffff.png) #ffffff |  |  |
@@ -1172,7 +1172,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `popover`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `popover.width` | 288px | 288px |  |  |
 | `popover.padding` | {space.2} | 16px |  |  |
@@ -1181,7 +1181,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `dropdown-menu`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `dropdown-menu.min-width` | 180px | 180px |  |  |
 | `dropdown-menu.padding` | {space.0-75} | 6px |  |  |
@@ -1193,7 +1193,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `modal`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `modal.width.sm` | {container.sm} | 384px |  |  |
 | `modal.width.md` | {container.md} | 448px |  |  |
@@ -1209,7 +1209,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `drawer`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `drawer.width` | {container.md} | 448px |  |  |
 | `drawer.max-height-bottom` | 85dvh | 85dvh |  |  |
@@ -1218,7 +1218,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `toast`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `toast.width` | 320px | 320px |  |  |
 | `toast.padding` | {space.2} | 16px |  |  |
@@ -1228,7 +1228,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `file-dropzone`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `file-dropzone.border-width` | 2px | 2px |  |  |
 | `file-dropzone.padding-x` | {space.3} | 24px |  |  |
@@ -1240,7 +1240,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `tag-input`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `tag-input.min-height` | 42px | 42px |  |  |
 | `tag-input.input-min-width` | 80px | 80px |  | Minimum width of the text field that follows the chips |
@@ -1250,7 +1250,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `sparkline`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `sparkline.width-sm` | 56px | 56px |  |  |
 | `sparkline.height-sm` | 24px | 24px |  |  |
@@ -1262,7 +1262,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `metric-card`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `metric-card.radius` | {radius.lg} | 16px |  |  |
 | `metric-card.padding` | {space.3} | 24px |  |  |
@@ -1276,7 +1276,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `data-table`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `data-table.radius` | {radius.lg} | 16px |  |  |
 | `data-table.cell-padding-x` | {space.3} | 24px |  |  |
@@ -1294,7 +1294,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `chart`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `chart.radius` | {radius.lg} | 16px |  |  |
 | `chart.padding` | {space.2} | 16px |  |  |
@@ -1305,7 +1305,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `calendar`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `calendar.day-size` | {size.40} | 40px |  |  |
 | `calendar.day-radius` | {radius.md} | 12px |  |  |
@@ -1326,7 +1326,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `date-picker`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `date-picker.panel-radius` | {radius.lg} | 16px |  |  |
 | `date-picker.panel-padding` | {space.2} | 16px |  |  |
@@ -1334,7 +1334,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `spinner`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `spinner.size-sm` | {size.16} | 16px |  |  |
 | `spinner.size-md` | {size.24} | 24px |  |  |
@@ -1345,7 +1345,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `empty-state`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `empty-state.padding` | {space.6} | 48px |  |  |
 | `empty-state.gap` | {space.1} | 8px |  |  |
@@ -1359,7 +1359,7 @@ Per-component decisions, aliased to semantic or primitive tokens.
 
 ### `meter`
 
-| Token | Value | Resolved | Dark (draft) | Notes |
+| Token | Value | Resolved | Dark | Notes |
 |---|---|---|---|---|
 | `meter.height` | {size.10} | 10px |  |  |
 | `meter.radius` | {radius.full} | 9999px |  |  |

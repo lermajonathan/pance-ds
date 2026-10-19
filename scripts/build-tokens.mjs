@@ -234,7 +234,7 @@ for (const tier of TIERS) {
     groups.get(g).push(tok)
   }
   for (const [g, list] of groups) {
-    md += `### \`${g}\`\n\n| Token | Value | Resolved | Dark (draft) | Notes |\n|---|---|---|---|---|\n`
+    md += `### \`${g}\`\n\n| Token | Value | Resolved | Dark | Notes |\n|---|---|---|---|---|\n`
     for (const tok of list) {
       const key = tok.path.join('.')
       const raw = typeof tok.value === 'string' ? tok.value : JSON.stringify(tok.value).length > 80 ? '_composite_' : JSON.stringify(tok.value)

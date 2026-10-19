@@ -53,7 +53,7 @@ tokens/primitives.json   Raw values: 7 color ramps (50→950), type families, si
         ▼
 tokens/semantic.json     Purpose: bg / fg / border, 8 intents (primary · secondary · success ·
         │                info · warning · help · danger · contrast), elevation 0–5, focus ring,
-        ▼                typography roles, motion. Light + draft dark ($extensions)
+        ▼                typography roles, motion. Light + dark ($extensions)
 tokens/components.json   Decisions per component: button size × severity × variant, input sizes,
                          toggle tracks, modal widths, tooltip, toast…
 ```

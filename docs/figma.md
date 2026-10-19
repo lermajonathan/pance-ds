@@ -35,7 +35,7 @@ Component pages are generated from the repo data (guidance, props and snippets f
 | Collection | Modes | Count | Notes |
 |---|---|---|---|
 | Primitives | Value | 224 | Ramps, type, space, radius, size, opacity, breakpoints. Colors are hidden from pickers (`scopes: []`) |
-| Semantic | Light · Dark | 147 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz (series 1–8, no-data), radius, icon. Dark is a draft (ships v1.1) |
+| Semantic | Light · Dark | 147 | `color/bg/*`, `color/fg/*`, `color/border/*`, `color/intent/{8}/*`, focus, status, dataviz (series 1–8, no-data), radius, icon. Dark values are complete and checked: 178 token pairs pass WCAG 2.2 AA in light and dark |
 | Components | Value | 507 | Button, Badge, Input, Toggle, Checkbox… alias Semantic, never hex |
 
 Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` (`var(--pance-color-intent-primary-solid)`).
