@@ -4,6 +4,9 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Security
+- Development dependencies updated: Vite 8.3, PostCSS 8.5.31 and their transitive `nanoid` and `source-map-js`, clearing 13 advisories (9 high, 4 moderate) reported by `pnpm audit`. They affect only the dev server and the docs build; the published packages never included them. React 19.3 and React Router 8.5 for the docs site.
+
 ### Figma
 - Published on [Figma Community](https://www.figma.com/community/file/1694091498392766646), free. The README, `docs/figma.md` and the package README link to the listing.
 - New Cover with an animated shader background, a visually rebuilt Getting started (hero, quick start, key numbers, token tiers, file map, Light and Dark, patterns, change flow), and a `Community previews` page with eight gallery frames and a short Motion intro.
