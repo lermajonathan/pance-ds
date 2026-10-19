@@ -1,6 +1,6 @@
 # Figma library
 
-**File:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS). The repo is the source of truth; Figma mirrors it.
+**File:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS). **Community listing:** [Pance Design System](https://www.figma.com/community/file/1694091498392766646) (free, duplicate it to use it). The repo is the source of truth; Figma mirrors it.
 
 ## Pages
 

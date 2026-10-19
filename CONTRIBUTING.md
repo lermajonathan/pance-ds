@@ -19,7 +19,7 @@ Node 22 and pnpm 10. Playwright's Chromium is needed for the browser tests (`pnp
 | Components | `src/components/*.tsx` | Style only with semantic utilities and component tokens (`bg-(--pance-…)`). `pnpm lint:tokens` rejects hex values, palette steps and magic dimensions. |
 | Strings | `src/components/labels.tsx` | Components have no hard-coded user-facing text. Add a label (with an English default) and map it in the docs site. |
 | Component docs | `scripts/docs/*.mjs` | Guidance is hand-written; props are generated from the source. |
-| Figma | [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS) | Mirrors the repo, never leads it. See [docs/figma.md](docs/figma.md). |
+| Figma | [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS) ([Community listing](https://www.figma.com/community/file/1694091498392766646)) | Mirrors the repo, never leads it. See [docs/figma.md](docs/figma.md). |
 
 Generated files (`src/styles/tokens.css`, `src/tokens.ts`, `tokens/dist/`, `docs/tokens.md`, `docs/components/`) are committed. CI fails when they are stale.
 

@@ -65,6 +65,6 @@ import { PanceProvider } from '@pance/react'
 
 - Documentation and live demos: https://pance-ds.jonathanlerma.com
 - Component API: https://github.com/lermajonathan/pance-ds/blob/main/docs/components.md
-- Figma library: https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS
+- Figma library (free on Figma Community): https://www.figma.com/community/file/1694091498392766646
 
 MIT © Jonathan Lerma

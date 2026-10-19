@@ -4,6 +4,7 @@
 [![npm @pance/tokens](https://img.shields.io/npm/v/@pance/tokens?label=%40pance%2Ftokens&color=0e7490)](https://www.npmjs.com/package/@pance/tokens)
 [![CI](https://github.com/lermajonathan/pance-ds/actions/workflows/ci.yml/badge.svg)](https://github.com/lermajonathan/pance-ds/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0e7490.svg)](LICENSE)
+[![Figma Community](https://img.shields.io/badge/Figma-Community-0e7490.svg)](https://www.figma.com/community/file/1694091498392766646)
 [![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-0e7490.svg)](#accessibility)
 
 A production-ready design system for products where complex data and human impact meet. Pance is inspired by a river: a vibrant aquatic teal for every interactive moment, grounded by a high-contrast slate neutral and a strict 8pt grid.
@@ -11,7 +12,7 @@ A production-ready design system for products where complex data and human impac
 **Why Pance:** one source of truth (W3C design tokens) drives the React library, the documentation site and the Figma file, so design and code cannot drift apart. Every component is keyboard-operable, checked against WCAG 2.2 AA, and ships with an English and Spanish documentation site.
 
 **Live documentation:** [pance-ds.jonathanlerma.com](https://pance-ds.jonathanlerma.com/en) · English / Español  
-**Figma library:** [Pance DS](https://www.figma.com/design/oU5j1pVQQZWGgZvTuW3IP1/Pance-DS): 878 variables, 88 components (987 variants) and 70 icons (a selection from Phosphor's 1,000+), mirrored from this repo ([details](docs/figma.md))
+**Figma library:** [Pance DS on Figma Community](https://www.figma.com/community/file/1694091498392766646) (free: duplicate it into your drafts): 878 variables, 88 components (987 variants) and 70 icons (a selection from Phosphor's 1,000+), mirrored from this repo ([details](docs/figma.md))
 
 This repository contains:
 

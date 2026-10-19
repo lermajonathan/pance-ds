@@ -2,6 +2,8 @@
 
 Text for publishing the file on Figma Community. Keep the numbers in sync with [figma.md](figma.md) and the README.
 
+**Status:** published and approved on 2026-10-19: https://www.figma.com/community/file/1694091498392766646
+
 ## Name
 
 Pance Design System
@@ -66,7 +68,7 @@ Design systems.
 
 Issues and questions: https://github.com/lermajonathan/pance-ds/issues
 
-## Before publishing
+## Before publishing a new version
 
 1. Run `pnpm docs:check` and confirm the counts above still match.
 2. In Figma, publish the library first, then Share → Publish to Community, and choose "Free".

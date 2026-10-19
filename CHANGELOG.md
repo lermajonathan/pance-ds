@@ -4,6 +4,9 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Figma
+- Published on [Figma Community](https://www.figma.com/community/file/1694091498392766646), free. The README, `docs/figma.md` and the package README link to the listing.
+
 ### Documentation
 - Open-source governance: `GOVERNANCE.md` (the maintainer approves everything built or merged), `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue and pull request templates, `CODEOWNERS`, and `docs/github-setup.md` with the repository settings to apply.
 
