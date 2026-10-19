@@ -60,7 +60,7 @@ Design systems.
 
 ## What's new (changelog for the listing)
 
-1.4.0: second icon on Button, bordered calendars, 14 patterns, full dark mode, descriptions on every component and on every Semantic and Components variable, new Cover and Getting started, Community previews.
+1.4.0: second icon on Button, bordered calendars, 14 patterns, full dark mode, descriptions on every component and on every Semantic and Components variable, new Cover, a visual Getting started page, Community previews.
 
 ## Support
 

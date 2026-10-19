@@ -9,7 +9,7 @@ Pages are grouped by separator pages (`──  COMPONENTS  ──`) and sorted A
 | Page or group | What's there |
 |---|---|
 | Cover | File cover with a live shader background ("Pance Streamlines") over component instances |
-| Getting started | What Pance is, how the file is organised, how to read a component page, conventions, how a change reaches Figma |
+| Getting started | A visual start page: hero, a three-step quick start with live components, key numbers, the three token tiers, a map of the file, Light and Dark side by side, pattern thumbnails, how a change reaches Figma, and links |
 | Foundations · Icons | Color ramps, intents, typography, spacing, radius and elevation specimens, bound to variables and styles; the 70 icon components (a selection from Phosphor Icons, which has 1,000+; any Phosphor icon works with Pance) |
 | Components | **One page per component** (66 pages, 88 components, 987 variants) |
 | Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard", "Filtered results", "Settings", "Destructive confirm", "Sign in", "Onboarding", "Notifications and toasts", "Team members", "Traffic report", "Loading, empty and error", "Checkout", "Profile" and "Search results" (14 patterns) |

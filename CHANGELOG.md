@@ -5,7 +5,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 ## [Unreleased]
 
 ### Figma
-- New Cover with an animated shader background, rebuilt Getting started, and a `Community previews` page with eight gallery frames and a short Motion intro.
+- New Cover with an animated shader background, a visually rebuilt Getting started (hero, quick start, key numbers, token tiers, file map, Light and Dark, patterns, change flow), and a `Community previews` page with eight gallery frames and a short Motion intro.
 - Descriptions on every component and on every Semantic and Components variable (Primitives are self-describing).
 
 ## [1.4.0] - 2026-10-19
