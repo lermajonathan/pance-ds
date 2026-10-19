@@ -58,7 +58,7 @@ Import everything from `@pance/react`. Each component lives on its own Figma pag
 | Panel | `Panel` | title, description, icon, collapsible |
 | Divider | `Divider` | kind → `soft`, `label` |
 | Avatar, Avatar group | `Avatar`, `AvatarGroup` | size, status, initials |
-| Progress | `Progress` | value |
+| Progress | `Progress` | value (0–100 % in steps of 10) → `value`, value label → shown when `showValue` |
 | Spinner | `Spinner` | size |
 | Meter | `Meter` | severity → `severity` |
 | Chart / Scatter | `ScatterChart` | points → `points` |

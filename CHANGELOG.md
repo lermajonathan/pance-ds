@@ -8,6 +8,8 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - Published on [Figma Community](https://www.figma.com/community/file/1694091498392766646), free. The README, `docs/figma.md` and the package README link to the listing.
 - New Cover with an animated shader background, a visually rebuilt Getting started (hero, quick start, key numbers, token tiers, file map, Light and Dark, patterns, change flow), and a `Community previews` page with eight gallery frames and a short Motion intro.
 - Descriptions on every component and on every Semantic and Components variable (Primitives are self-describing).
+- `Progress` gains a `value` variant (0–100 % in steps of 10) whose fill scales with the bar, so instances show their real value; the text property is now `value label`. The library has 1,027 variants (was 987).
+- Patterns: Traffic report's line chart no longer overflows its card and the By region bars match their percentages; Settings no longer repeats the Autoscaling row.
 
 ### Documentation
 - Open-source governance: `GOVERNANCE.md` (the maintainer approves everything built or merged), `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue and pull request templates, `CODEOWNERS`, and `docs/github-setup.md` with the repository settings to apply.
