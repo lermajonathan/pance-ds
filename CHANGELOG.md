@@ -4,6 +4,10 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Figma
+- New Cover with an animated shader background, rebuilt Getting started, and a `Community previews` page with eight gallery frames and a short Motion intro.
+- Descriptions on every component and on every Semantic and Components variable (Primitives are self-describing).
+
 ## [1.4.0] - 2026-10-19
 
 A small, additive release: a second icon on `Button`, a border option for the calendars, and the complete Figma library (one page per component, 14 patterns, full dark mode, token-bound masters). No breaking changes.

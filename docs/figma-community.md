@@ -37,14 +37,38 @@ Designed and built by Jonathan Lerma. MIT licensed; Phosphor Icons (MIT), Plus J
 
 ## Tags
 
-design system, components, tokens, variables, accessibility, dashboard, data visualization, react, tailwind, ui kit
+Up to 5 tags, each up to 25 characters, and none should repeat the category.
 
-## Cover
+`design tokens`, `react`, `dashboard`, `accessibility`, `data visualization`
 
-The file's `Cover` page (1920 × 1080). Publish it as the thumbnail and export it at 2x.
+## Category
+
+Design systems.
+
+## Cover and previews
+
+- **Cover:** the file's `Cover` page (1920 × 1080). Right-click the Cover frame, choose "Set as thumbnail". It uses a fill shader ("Pance Streamlines") that lives in the author's account library, so the thumbnail is a static render.
+- **Preview images:** the `Community previews` page has eight 1920 × 1080 frames (components, tokens, buttons, light and dark, data visualization, patterns, accessibility, component page). Export them as PNG at 1x and upload them as the listing's gallery, in that order.
+- **Intro animation:** `Motion — Intro` on the same page is a 4-second Figma Motion clip. Community listings do not take video for files, so export it as MP4 for social posts.
+
+## Setup and usage (listing "How to use" text)
+
+1. Duplicate the file into your drafts.
+2. Publish it as a team library (Assets → Publish).
+3. In your project, enable the library and apply the Semantic variable collection; switch between Light and Dark with the collection mode.
+4. Start from a pattern on the `Patterns` page, or drag components from the Assets panel.
+
+## What's new (changelog for the listing)
+
+1.4.0: second icon on Button, bordered calendars, 14 patterns, full dark mode, descriptions on every component and on every Semantic and Components variable, new Cover and Getting started, Community previews.
+
+## Support
+
+Issues and questions: https://github.com/lermajonathan/pance-ds/issues
 
 ## Before publishing
 
 1. Run `pnpm docs:check` and confirm the counts above still match.
 2. In Figma, publish the library first, then Share → Publish to Community, and choose "Free".
-3. Add the license text (MIT) to the listing's "Terms" field.
+3. Confirm the license options offered in the publish dialog and choose the one that matches MIT as closely as possible. Link the full MIT text in the description (already above). Do not rely on a "Terms" field.
+4. Create or confirm the Community profile (name, avatar) before publishing.
