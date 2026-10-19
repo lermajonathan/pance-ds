@@ -15,7 +15,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - **Design decision records (DDR-DS):** `docs/decisions/` holds 18 records (tokens, source of truth, brand, release and deprecation policy, Figma structure, and the proposed `Button` trailing icon). Append-only; Figma shows one card per record.
 
 ### Figma
-- `Button` gains `show trailing icon` and `trailing icon` on all 480 variants; the existing `show icon` and `icon` are now `show leading icon` and `leading icon`. Existing instances keep their overrides. The Button page has a new example group and API row.
+- `Button` gains `show trailing icon` and `trailing icon` on all 480 variants; the existing `show icon` and `icon` are now `show leading icon` and `leading icon`. Existing instances keep their overrides. The Button page has a new example group, an API row and a matrix of every severity and variant with both icons on.
 - Dark mode confirmed usable: every Semantic variable has a Dark value, and all 519 text and background pairs on the component masters resolve above 4.5:1 in Dark (the only exception is a disabled arrow). Fixed hard-coded white fills in the Date range panel's second month. Docs no longer call dark a draft.
 - Patterns grew from 5 to 14: Checkout, Profile, Search results, Sign in, Onboarding, Notifications and toasts, Team members, Traffic report, and Loading, empty and error. All are built only from component instances.
 - The Cover, Getting started and Icons pages now state that the 70 icons are a selection from Phosphor's 1,000+. New `Icon/ChevronLeft` (the library had 69 of the 70 icons in code). The Cover now shows the current version and counts.
