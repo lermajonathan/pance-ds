@@ -50,7 +50,7 @@ Property names match the React props so a component reads the same in design and
 
 | Component | Variants | Properties |
 |---|---|---|
-| Button | 480 | severity · variant · size · state · label · show icon · icon |
+| Button | 480 | severity · variant · size · state · label · show leading icon · leading icon · show trailing icon · trailing icon |
 | IconButton | 4 | state · icon |
 | Badge | 72 | severity · variant · size · label · dot · removable |
 | Input | 21 | size · state · placeholder (default/hover/disabled) · value (focus/filled/error/success) · leading icon · leading glyph · trailing icon |

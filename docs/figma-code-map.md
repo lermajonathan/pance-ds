@@ -8,7 +8,7 @@ Import everything from `@pance/react`. Each component lives on its own Figma pag
 
 | Figma component | React export | Figma property → prop |
 |---|---|---|
-| Button | `Button` | severity → `severity`, variant → `variant`, size → `size`, state → (interaction only; `disabled` for disabled), label → children, show icon / icon → `Icon` |
+| Button | `Button` | severity → `severity`, variant → `variant`, size → `size`, state → (interaction only; `disabled` for disabled), label → children, show leading icon / leading icon → `Icon`, show trailing icon / trailing icon → `TrailingIcon` |
 | IconButton | `IconButton` | same as Button; requires `aria-label` |
 | Badge | `Badge` | severity, variant, size, label → children, dot → `dot`, removable → `onRemove` |
 | Count badge | `CountBadge` | severity → `severity`; number → `count`; cap → `max` |
