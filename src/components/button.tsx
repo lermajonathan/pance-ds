@@ -90,6 +90,7 @@ export function Button({
   variant = 'filled',
   size = 'md',
   Icon,
+  TrailingIcon,
   iconPos = 'left',
   rounded,
   raised,
@@ -105,6 +106,8 @@ export function Button({
   variant?: ButtonVariant
   size?: ButtonSize
   Icon?: IconType
+  /** A second icon after the label, so one button can show both (for example Download with a chevron). Ignored when `iconPos` is `top` or `bottom`. */
+  TrailingIcon?: IconType
   iconPos?: IconPos
   rounded?: boolean
   raised?: boolean
@@ -126,6 +129,8 @@ export function Button({
       : `${s.pad} ${shape}`
   const inset = variant === 'link' ? 'px-1' : ''
 
+  const Trail = !stacked && children ? TrailingIcon : undefined
+  const trailing = Trail ? <Trail weight="regular" aria-hidden className={`${s.icon} shrink-0`} /> : null
   const glyph = Glyph ? <Glyph weight="regular" aria-hidden className={`${s.icon} shrink-0 ${loading ? 'animate-spin' : ''}`} /> : null
 
   return (
@@ -140,6 +145,7 @@ export function Button({
       {(iconPos === 'left' || iconPos === 'top') && glyph}
       {children}
       {(iconPos === 'right' || iconPos === 'bottom') && glyph}
+      {trailing}
       {badge !== undefined && (
         <span
           className={`ml-1 grid h-5 min-w-5 place-items-center rounded-full px-1 font-mono text-10 font-bold ${

@@ -28,6 +28,7 @@ Source: [`src/components/button.tsx`](../../src/components/button.tsx) · Figma:
 | `variant` | `ButtonVariant` | `'filled'` |  |
 | `size` | `ButtonSize` | `'md'` |  |
 | `Icon` | `Icon` |  |  |
+| `TrailingIcon` | `Icon` |  | A second icon after the label, so one button can show both (for example Download with a chevron). Ignored when `iconPos` is `top` or `bottom`. |
 | `iconPos` | `IconPos` | `'left'` |  |
 | `rounded` | `boolean` |  |  |
 | `raised` | `boolean` |  |  |
@@ -59,5 +60,6 @@ Also accepts all native `<button>` attributes (`type`, `disabled`, `onClick`, `a
 
 ```tsx
 <Button Icon={IconCheck} onClick={save}>Save changes</Button>
+<Button Icon={IconDownload} TrailingIcon={IconChevronDown}>Download</Button>
 <Button severity="danger" variant="outlined" loading={deleting}>Delete stream</Button>
 ```

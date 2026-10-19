@@ -11,6 +11,7 @@ export const actions = {
     tokens: 'button',
     figma: '`Button` (severity, variant, size, state)',
     example: `<Button Icon={IconCheck} onClick={save}>Save changes</Button>
+<Button Icon={IconDownload} TrailingIcon={IconChevronDown}>Download</Button>
 <Button severity="danger" variant="outlined" loading={deleting}>Delete stream</Button>`,
   },
   IconButton: {

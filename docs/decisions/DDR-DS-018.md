@@ -1,6 +1,6 @@
 # DDR-DS-018: Button can show a leading and a trailing icon
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-16
 - **Owner:** Design (Jonathan Lerma)
 
@@ -10,4 +10,4 @@
 
 ## Consequences
 
-Additive change for 1.4.0. Figma gets `show leading icon` and `show trailing icon` on the 480 Button variants. Becomes Accepted when it ships.
+Additive change for 1.4.0. Figma gets `show leading icon` and `show trailing icon` on the 480 Button variants. Ships in 1.4.0.

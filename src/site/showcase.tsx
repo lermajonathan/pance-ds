@@ -817,6 +817,7 @@ export function ButtonsPage() {
         <Demo>
           <Button Icon={IconDownload} iconPos="left">{t('buttons.icon.export')}</Button>
           <Button Icon={IconArrowRight} iconPos="right">{t('buttons.icon.continue')}</Button>
+          <Button Icon={IconDownload} TrailingIcon={IconChevronDown}>{t('buttons.icon.download')}</Button>
           <Button Icon={IconStream} iconPos="top" variant="outlined">{t('buttons.icon.streams')}</Button>
           <Button Icon={IconChart} iconPos="bottom" variant="outlined">{t('buttons.icon.metrics')}</Button>
           <Button Icon={IconHeart} aria-label={t('buttons.icon.like')} />

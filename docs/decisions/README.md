@@ -34,4 +34,4 @@ Owned by Design (Jonathan Lerma). The DDR-DS series records decisions about the 
 | [DDR-DS-015](DDR-DS-015.md) | The Figma Code Connect map is kept by hand | 2026-10-15 | Accepted |
 | [DDR-DS-016](DDR-DS-016.md) | One Figma page per component | 2026-10-16 | Accepted |
 | [DDR-DS-017](DDR-DS-017.md) | Decisions are recorded as DDR-DS | 2026-10-16 | Accepted |
-| [DDR-DS-018](DDR-DS-018.md) | Button can show a leading and a trailing icon | 2026-10-16 | Proposed |
+| [DDR-DS-018](DDR-DS-018.md) | Button can show a leading and a trailing icon | 2026-10-16 | Accepted |
