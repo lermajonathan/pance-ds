@@ -164,9 +164,13 @@ Target: **WCAG 2.2 AA**.
 
 Automated checks don't replace testing with a screen reader; NVDA and VoiceOver passes are on the roadmap.
 
+## Contributing
+
+Pance is open source with one maintainer. You can use it freely and propose changes; the maintainer approves everything that is built or merged. Start with [GOVERNANCE.md](GOVERNANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## License
 
-[MIT](LICENSE) © Jonathan Lerma. Typefaces are under the SIL Open Font License; icons by Phosphor (MIT).
+[MIT](LICENSE) © Jonathan Lerma. The name and cover artwork of Pance are not licensed (see [GOVERNANCE.md](GOVERNANCE.md#name-and-brand)). Typefaces are under the SIL Open Font License; icons by Phosphor (MIT).
 
 ## Credits
 

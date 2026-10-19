@@ -1,6 +1,6 @@
 # Contributing to Pance
 
-Thanks for helping. Pance is a design system for products that are heavy on data and forms, so the bar is: accessible (WCAG 2.2 AA), token-driven, and documented. This guide covers how to set up, what a change must include, and how it gets released.
+Thanks for helping. **Proposals are welcome, but the maintainer approves everything that gets built, merged or released.** Please read [GOVERNANCE.md](GOVERNANCE.md) first and open a proposal (not a pull request) for anything beyond a typo or a small docs fix. Pance is a design system for products that are heavy on data and forms, so the bar is: accessible (WCAG 2.2 AA), token-driven, and documented. This guide covers how to set up, what a change must include, and how it gets released.
 
 ## Set up
 
@@ -71,4 +71,4 @@ Pance follows [Semantic Versioning](https://semver.org); the policy for removing
 
 ## Reporting problems
 
-Open an issue with the component, what you did, what you expected and what happened. For accessibility problems, include the assistive technology and browser. Please do not report security issues publicly; email the maintainer instead.
+Open an issue with the component, what you did, what you expected and what happened. For accessibility problems, include the assistive technology and browser. Please do not report security issues publicly; follow [SECURITY.md](SECURITY.md). Questions and ideas go to [Discussions](https://github.com/lermajonathan/pance-ds/discussions). By taking part you agree to the [code of conduct](CODE_OF_CONDUCT.md).

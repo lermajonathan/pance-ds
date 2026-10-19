@@ -1,0 +1,36 @@
+name: Bug report
+description: Something in Pance does not work as documented.
+labels: ["bug", "needs-triage"]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component or token
+      placeholder: Button, color/fg/muted, ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "@pance/react version"
+      placeholder: 1.4.0
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: A minimal snippet or a CodeSandbox/StackBlitz link helps most.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behaviour
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Browser, OS and assistive technology
+      description: For accessibility problems, name the screen reader or switch device.

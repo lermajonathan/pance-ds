@@ -1,0 +1,33 @@
+name: Proposal (change, feature or new component)
+description: Suggest something to add, change or remove. Nothing is implemented until the maintainer approves it.
+labels: ["proposal", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Pance is open to proposals, but **the maintainer decides what is built and what is not**.
+        Please open a proposal and wait for the `approved` label before writing a pull request. See [GOVERNANCE.md](https://github.com/lermajonathan/pance-ds/blob/main/GOVERNANCE.md).
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What can you not do today, and in what kind of product?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: API, tokens or behaviour. Sketches and Figma links are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Including whether an existing component could cover it.
+  - type: dropdown
+    id: help
+    attributes:
+      label: Would you like to implement it if approved?
+      options: ["Yes", "No", "Maybe, with guidance"]

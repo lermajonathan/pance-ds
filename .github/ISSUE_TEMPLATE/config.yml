@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea (Discussions)
+    url: https://github.com/lermajonathan/pance-ds/discussions
+    about: Ask how to use Pance, or float an idea before it becomes a proposal.
+  - name: Report a security problem
+    url: https://github.com/lermajonathan/pance-ds/security/advisories/new
+    about: Please report vulnerabilities privately, not as a public issue.
