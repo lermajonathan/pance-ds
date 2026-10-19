@@ -22,7 +22,7 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | Dimensions from tokens | ✅ Tailwind spacing, radius, type, weight, leading, tracking and container scales resolve to Pance tokens; Button, Input, Badge, Toggle, Checkbox, Radio, Tabs, Modal, Drawer, Popover, Toast and Progress read their size tokens; `lint:tokens` also blocks magic pixel sizes |
 | Token contrast test | ✅ `tests/contrast.mjs`: 147 pairs (text 4.5:1, controls and focus 3:1) in light and dark. Found and fixed: unchecked checkbox/radio and switch-off boundaries at 2.56:1 (new `color.border.control`, slate-500, 4.76:1) and 27 dark-mode pairs (hover/active states, soft hovers, subtle text, slider) |
 | §6 i18n/router decoupling | ✅ Components use `PanceProvider` labels (English default); the docs site feeds its EN/ES dictionary into it. The library has no router or i18n import |
-| npm packages | ✅ Ready: `@pance/tokens` and `@pance/react` (ESM, types, precompiled `styles.css` and a Tailwind entry). `pnpm test:packages` installs both in a fresh project and checks rendering, labels, stylesheets, token exports and types. Published on npm: 1.1.0, 1.2.0 and 1.3.0 (October 2026, the mature release with dates, theme, feedback, forms, table features, charts, flows and the component docs); releases use npm trusted publishing, with no stored token |
+| npm packages | ✅ Ready: `@pance/tokens` and `@pance/react` (ESM, types, precompiled `styles.css` and a Tailwind entry). `pnpm test:packages` installs both in a fresh project and checks rendering, labels, stylesheets, token exports and types. Published on npm: 1.1.0, 1.2.0, 1.3.0 and 1.4.0 (October 2026, the mature release with dates, theme, feedback, forms, table features, charts, flows and the component docs); releases use npm trusted publishing, with no stored token |
 
 ## 1 · Changes made during extraction
 
@@ -109,6 +109,7 @@ Next:
 
 - **Button with leading and trailing icons.** `Button` takes one `Icon` (`iconPos`: left, right, top, bottom). Add `TrailingIcon` so a button can show both (for example "Download ▾"). Additive, ships in the next minor (1.4.0) together with the matching Figma properties (`show leading icon` / `show trailing icon`). Record it as a DDR-DS.
 - ✅ **1.3.0**: one mature release covering everything since 1.2.0 (dates, theme, feedback, links, actions, forms, table features, charts, flows, docs). Decision: no interim releases; the design system is announced only once it is complete.
+- ✅ **1.4.0**: additive. `Button` `TrailingIcon` (DDR-DS-018), `bordered` on the calendars, and the finished Figma library.
 - Screen-reader passes (NVDA, VoiceOver) on the dialog, combobox, data table and date picker.
 - Figma: dark values for component tokens (the Components collection has one mode).
 - Code Connect when the Figma file moves to an Organization plan.

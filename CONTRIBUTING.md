@@ -67,7 +67,7 @@ CI runs all of these.
 Pance follows [Semantic Versioning](https://semver.org); the policy for removing things is in [docs/deprecation.md](docs/deprecation.md).
 
 - `@pance/react` and `@pance/tokens` share one version number.
-- To release: move the `[Unreleased]` entries under a new version heading in the changelog, bump both `package.json` files, merge, and create a GitHub release whose tag matches (`v1.3.0`). The release workflow publishes both packages to npm with provenance; no token is stored in the repository.
+- To release: move the `[Unreleased]` entries under a new version heading in the changelog, bump both `package.json` files, merge, and create a GitHub release whose tag matches (`v1.4.0`). The release workflow publishes both packages to npm with provenance; no token is stored in the repository.
 
 ## Reporting problems
 

@@ -4,6 +4,10 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-19
+
+A small, additive release: a second icon on `Button`, a border option for the calendars, and the complete Figma library (one page per component, 14 patterns, full dark mode, token-bound masters). No breaking changes.
+
 ### Added
 - **`TrailingIcon` on `Button`** (DDR-DS-018): one button can show an icon before and after the label, for example Download with a chevron. `Icon` and `iconPos` work as before.
 - **`bordered` on `Calendar` and `RangeCalendar`:** draws the outer border and radius (off by default, so it still sits inside popovers and cards).
@@ -12,7 +16,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - CI and release workflows are pinned to `ubuntu-24.04`: `ubuntu-latest` moved to Ubuntu 26 on Oct 19, 2026 and Playwright's Chromium install failed there.
 
 ### Documentation
-- **Design decision records (DDR-DS):** `docs/decisions/` holds 18 records (tokens, source of truth, brand, release and deprecation policy, Figma structure, and the proposed `Button` trailing icon). Append-only; Figma shows one card per record.
+- **Design decision records (DDR-DS):** `docs/decisions/` holds 18 records (tokens, source of truth, brand, release and deprecation policy, Figma structure, and the `Button` trailing icon). Append-only; Figma shows one card per record.
 
 ### Figma
 - `Button` gains `show trailing icon` and `trailing icon` on all 480 variants; the existing `show icon` and `icon` are now `show leading icon` and `leading icon`. Existing instances keep their overrides. The Button page has a new example group, an API row and a matrix of every severity and variant with both icons on.
