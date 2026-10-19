@@ -8,6 +8,9 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - **`TrailingIcon` on `Button`** (DDR-DS-018): one button can show an icon before and after the label, for example Download with a chevron. `Icon` and `iconPos` work as before.
 - **`bordered` on `Calendar` and `RangeCalendar`:** draws the outer border and radius (off by default, so it still sits inside popovers and cards).
 
+### Fixed
+- CI and release workflows are pinned to `ubuntu-24.04`: `ubuntu-latest` moved to Ubuntu 26 on Oct 19, 2026 and Playwright's Chromium install failed there.
+
 ### Documentation
 - **Design decision records (DDR-DS):** `docs/decisions/` holds 18 records (tokens, source of truth, brand, release and deprecation policy, Figma structure, and the proposed `Button` trailing icon). Append-only; Figma shows one card per record.
 

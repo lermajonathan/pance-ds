@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -43,7 +43,7 @@ jobs:
   # screenshot it, build this commit and compare. Both run on the same machine, so fonts and
   # rendering match. Put [visual-change] in the commit message or PR title for intended changes.
   visual:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
