@@ -436,6 +436,30 @@ await test('Toast: the Undo action is a button that dismisses the toast and runs
   assert((await settle(() => page.locator('[role="status"]', { hasText: /moved to trash|movido a la papelera/i }).count(), 0)) === 0, 'toast was not dismissed')
 })
 
+await test('Avatar: a photo that fails to load falls back to the initials', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+  const p = await ctx.newPage()
+  await p.route(/\/img\/av-/, (r) => r.fulfill({ status: 404, body: '' }))
+  await p.goto(`${BASE}/badges`, { waitUntil: 'networkidle' })
+  const broken = await p.locator('main img[src*="/img/av-"]').count()
+  const initials = await p.locator('main [role="img"]', { hasText: /^[A-Z]{1,2}$/ }).count()
+  await ctx.close()
+  assert(broken === 0, `${broken} broken avatar images are still shown`)
+  assert(initials > 0, 'no initials rendered in place of the photos')
+})
+
+await test('Popover: a panel that would overflow shifts back inside the viewport', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
+  const p = await ctx.newPage()
+  await p.goto(`${BASE}/overlays`, { waitUntil: 'networkidle' })
+  const bell = p.locator('main button[aria-haspopup="dialog"][aria-label*="otific"]').first()
+  await bell.scrollIntoViewIfNeeded()
+  await bell.click()
+  const box = await p.locator('main [role="dialog"]').first().boundingBox()
+  await ctx.close()
+  assert(box && box.x >= 0 && box.x + box.width <= 390, `panel spans ${box?.x}..${(box?.x ?? 0) + (box?.width ?? 0)} in a 390 px viewport`)
+})
+
 await browser.close()
 for (const r of results) console.log(r.join('  '))
 const failed = results.filter((r) => r[0] === '✗').length

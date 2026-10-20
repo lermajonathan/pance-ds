@@ -2,7 +2,7 @@
 import { useId, useRef, type KeyboardEvent, type Ref } from 'react'
 import { IconCheck, type IconType } from '../icons'
 import { focus } from './shared'
-import { listKeyNav } from './a11y'
+import { hitArea, listKeyNav } from './a11y'
 
 /* ── Selection controls ────────────────────────────────────────────────── */
 /* ── Toggle / Switch ───────────────────────────────────────────────────── */
@@ -48,7 +48,7 @@ export function Toggle({
       aria-describedby={describedBy}
       disabled={disabled}
       onClick={() => onChange(!on)}
-      className={`${focus} relative shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${TOGGLE_TRACK[size]} ${on ? 'bg-(--pance-toggle-color-track-on)' : 'bg-(--pance-toggle-color-track-off)'}`}
+      className={`${focus} ${hitArea} shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${TOGGLE_TRACK[size]} ${on ? 'bg-(--pance-toggle-color-track-on)' : 'bg-(--pance-toggle-color-track-off)'}`}
     >
       <span
         aria-hidden="true"
@@ -134,7 +134,7 @@ export function Checkbox({
         aria-invalid={error || undefined}
         disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
-        className={`${focus} relative mt-0.5 grid shrink-0 place-items-center border transition-colors before:absolute before:-inset-1 before:content-[''] ${s.box} ${boxState}`}
+        className={`${focus} ${hitArea} mt-0.5 grid shrink-0 place-items-center border transition-colors ${s.box} ${boxState}`}
       >
         {/* The mark ignores the pointer: a click on it would otherwise also reach the
             wrapping <label>, which re-clicks the button and undoes the toggle. */}
@@ -204,7 +204,7 @@ export function Radio({
         onKeyDown={onKeyDown}
         disabled={disabled}
         onClick={() => !disabled && onChange()}
-        className={`${focus} mt-0.5 grid shrink-0 place-items-center rounded-full border transition-colors ${s.dot} ${ringState}`}
+        className={`${focus} ${hitArea} mt-0.5 grid shrink-0 place-items-center rounded-full border transition-colors ${s.dot} ${ringState}`}
       >
         <span
           aria-hidden

@@ -15,7 +15,11 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - Patterns: Traffic report's line chart no longer overflows its card and the By region bars match their percentages; Settings no longer repeats the Autoscaling row.
 
 ### Fixed
-- **`Checkbox`, `Radio` and `Switch`:** a click on the check mark, the radio dot or the switch thumb was counted twice (once by the control, once by its wrapping `<label>`), so a checked box could only be cleared from its edge. The marks now ignore the pointer, and the checkbox hit area grows to 28 px without changing how it looks. Regression test in `tests/keyboard.mjs`.
+- **`Checkbox`, `Radio` and `Switch`:** a click on the check mark, the radio dot or the switch thumb was counted twice (once by the control, once by its wrapping `<label>`), so a checked box could only be cleared from its edge. The marks now ignore the pointer. Regression test in `tests/keyboard.mjs`.
+- **`Avatar`:** a photo that fails to load shows the initials instead of a broken image with the name cut off.
+- **`Popover`, `DropdownMenu`, `NotificationCenter`, `DatePicker` and `DateRangePicker`:** the panel stays on screen. It shifts sideways when it would overflow the viewport or a container that clips (the notification panel was cut off on the docs page), and opens upwards when there is no room below but there is above. Focus moving into the panel no longer scrolls the page before the panel is placed.
+- **Pointer targets of at least 24 × 24 px (WCAG 2.5.8)** for `Checkbox` (sm and md), `Radio`, `Switch` (sm), the `Badge` and `TagInput` remove buttons, the `Breadcrumb` ellipsis, `MetricCard` Retry, the chart "View as table" toggle, `NotificationCenter` "Mark all as read" and `DataTable`'s mobile "Show details". An internal `hitArea` class grows the target with an invisible layer, so nothing looks different.
+- **`Badge`:** the remove button shows the focus ring (it had none) and is named after the badge text, as the docs already said.
 - **`Calendar` inside `DatePicker`, `DateRangePicker` or any rounded container:** its background now follows the container's radius instead of showing square corners.
 - **`DataTable`:** a `max-height` set on a wrapper now scrolls the rows under a sticky header (it was ignored), keeping the toolbar and pagination in view. While it scrolls, the row area is a named, focusable region so keyboard users can reach every row. Its pagination is named after the table, so two tables on one page no longer share a landmark name.
 

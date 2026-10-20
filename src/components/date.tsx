@@ -10,6 +10,7 @@ import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'rea
 import { useLabels } from './labels'
 import { IconCalendar, IconChevron, IconChevronLeft } from '../icons'
 import { focus } from './shared'
+import { useKeepInView } from './a11y'
 import { inputBase, inputError, inputNormal, useFieldControl, useFieldLabelId } from './forms'
 
 /* ── ISO date helpers (UTC arithmetic: no DST or local-zone drift) ─────── */
@@ -201,7 +202,7 @@ function CalendarEngine({ mode, value, range, onPick, min, max, isDateDisabled, 
   useEffect(() => {
     if (!wantFocus.current) return
     wantFocus.current = false
-    root.current?.querySelector<HTMLElement>(`[data-date="${focusISO}"]`)?.focus()
+    root.current?.querySelector<HTMLElement>(`[data-date="${focusISO}"]`)?.focus({ preventScroll: true })
   })
 
   const go = (next: string) => {
@@ -328,6 +329,13 @@ function Picker({ text, empty, panel, trigger, name }: {
   const [open, setOpen] = useState(false)
   const wrap = useRef<HTMLDivElement>(null)
   const btn = useRef<HTMLButtonElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const fit = useKeepInView(panelRef, open)
+  useEffect(() => {
+    if (!open) return
+    const raf = requestAnimationFrame(() => panelRef.current?.scrollIntoView({ block: 'nearest' }))
+    return () => cancelAnimationFrame(raf)
+  }, [open])
   const panelId = useId()
   const valueId = useId()
   const a11y = useFieldControl({ error: trigger.error })
@@ -367,10 +375,12 @@ function Picker({ text, empty, panel, trigger, name }: {
       </button>
       {open && (
         <div
+          ref={panelRef}
           id={panelId}
           role="dialog"
           aria-label={name}
-          className="absolute left-0 z-40 mt-2 max-w-[calc(100vw-2rem)] rounded-(--pance-date-picker-panel-radius) border border-line bg-surface shadow-popover"
+          style={fit.dx ? { transform: `translateX(${fit.dx}px)` } : undefined}
+          className={`absolute left-0 z-40 max-w-[calc(100vw-1rem)] rounded-(--pance-date-picker-panel-radius) border border-line bg-surface shadow-popover ${fit.up ? 'bottom-full mb-2' : 'top-full mt-2'}`}
         >
           {panel(close)}
         </div>

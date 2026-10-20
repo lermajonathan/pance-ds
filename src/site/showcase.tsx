@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, ScatterChart, Meter, NotificationCenter, ConfirmDialog, type NotificationItem, DatePicker, DateRangePicker, Calendar, toISODate, type DateRange, Spinner, EmptyState, Link as LibLink } from '../components'
+import { hitArea } from '../components/a11y'
 import {
   Waveform,
   ChartLineUp,
@@ -2669,13 +2670,13 @@ export function NavigationPage() {
           <div className="space-y-3">
             <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.standalone')}</p>
             <div className="flex flex-wrap gap-6">
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-primary-fg transition-colors hover:text-primary-fg">
+              <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1.5 rounded text-sm font-medium text-primary-fg transition-colors hover:text-primary-fg`}>
                 <IconArrowRight className="h-4 w-4" /> {t('navigation.link.docs')}
               </a>
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-primary-fg transition-colors hover:text-primary-fg">
+              <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1.5 rounded text-sm font-medium text-primary-fg transition-colors hover:text-primary-fg`}>
                 <IconExternal className="h-4 w-4" /> {t('navigation.link.newTab')}
               </a>
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-danger transition-colors hover:text-danger-fg">
+              <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1.5 rounded text-sm font-medium text-danger transition-colors hover:text-danger-fg`}>
                 <IconTrash className="h-4 w-4" /> {t('navigation.link.delete')}
               </a>
               <span className="inline-flex cursor-not-allowed items-center gap-1.5 text-sm font-medium text-ink-muted opacity-50">
@@ -2803,7 +2804,6 @@ function NotificationCenterDemo() {
   })
   return (
     <NotificationCenter
-      align="start"
       items={items}
       onRead={(id) => setState((s) => s.map((x) => (x.id === id ? { ...x, read: true } : x)))}
       onReadAll={() => setState((s) => s.map((x) => ({ ...x, read: true })))}
@@ -4205,7 +4205,7 @@ export function CardsPage() {
                     <Avatar name="Ines Halvorsen" src={photo('photo-1438761681033-6461ffad8d80')} size={22} decorative />
                     <span className="text-xs text-ink-muted">Ines Halvorsen</span>
                   </div>
-                  <a href="#" className="pance-focus inline-flex items-center gap-1 text-xs font-medium text-primary-fg hover:text-primary-fg">
+                  <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1 text-xs font-medium text-primary-fg hover:text-primary-fg`}>
                     {t('cards.media.read')} <IconArrowRight className="h-3 w-3" />
                   </a>
                 </div>

@@ -4,7 +4,7 @@ import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconChevronDown, IconExternal, type IconType } from '../icons'
 import { focus, type Severity } from './shared'
 import { Badge } from './badge'
-import { listKeyNav } from './a11y'
+import { hitArea, listKeyNav } from './a11y'
 
 /* ── Tabs ──────────────────────────────────────────────────────────────
    WAI-ARIA tabs pattern with automatic activation: arrows move and select,
@@ -159,7 +159,7 @@ export function Breadcrumb({
               <button
                 type="button"
                 onClick={() => setExpanded(true)}
-                className={`${focus} rounded px-1 font-mono text-xs text-ink-muted hover:bg-ground hover:text-ink`}
+                className={`${focus} ${hitArea} rounded px-1 font-mono text-xs text-ink-muted hover:bg-ground hover:text-ink`}
                 aria-label={tt.showFullPath}
               >
                 …

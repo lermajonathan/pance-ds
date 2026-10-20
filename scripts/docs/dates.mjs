@@ -28,7 +28,7 @@ export const dates = {
     summary: 'A button that opens a calendar and shows the chosen date.',
     use: ['Date fields in forms.'],
     avoid: ['Dates the person knows by heart: a typed field may be faster.'],
-    a11y: ['Use inside `Field`: label and value form the accessible name. Non-modal dialog; Escape closes and refocuses the trigger.', iso],
+    a11y: ['Use inside `Field`: label and value form the accessible name. Non-modal dialog; Escape closes and refocuses the trigger. The panel shifts or opens upwards to stay on screen.', iso],
     related: ['Calendar', 'DateRangePicker', 'Field'],
     tokens: 'date-picker',
     figma: '`Date picker`',

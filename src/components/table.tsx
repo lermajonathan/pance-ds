@@ -3,6 +3,7 @@ import { Fragment, useEffect, useId, useMemo, useRef, useState, type ReactNode }
 import { useLabels } from './labels'
 import { IconChevron, IconChevronDown, IconColumns, IconSearch } from '../icons'
 import { focus } from './shared'
+import { hitArea } from './a11y'
 import { Checkbox } from './selection'
 import { Skeleton } from './feedback'
 import { Input } from './forms'
@@ -285,7 +286,7 @@ export function DataTable<T>({
               </dl>
               {renderExpanded && (
                 <>
-                  <button type="button" aria-expanded={open} aria-controls={open ? detailId(id) : undefined} onClick={() => toggleExpanded(id)} className={`${focus} mt-3 inline-flex items-center gap-1 rounded text-sm font-medium text-ink-link`}>
+                  <button type="button" aria-expanded={open} aria-controls={open ? detailId(id) : undefined} onClick={() => toggleExpanded(id)} className={`${focus} ${hitArea} mt-3 inline-flex items-center gap-1 rounded text-sm font-medium text-ink-link`}>
                     {open ? l.collapseRow(rowLabel(r)) : l.expandRow(rowLabel(r))}
                     <IconChevronDown aria-hidden className={`size-4 transition-transform motion-reduce:transition-none ${open ? 'rotate-180' : ''}`} />
                   </button>

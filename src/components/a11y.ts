@@ -1,8 +1,13 @@
 /* Pance · accessibility primitives shared by every interactive component.
    - useDialogFocus: WAI-ARIA dialog behaviour (initial focus, Tab trap, Escape, focus return, scroll lock)
    - listKeyNav: arrow / Home / End navigation for listbox, menu, tablist and radiogroup patterns
-   - mergeTriggerProps: adds ARIA + handlers to a caller-supplied trigger element */
-import { cloneElement, isValidElement, useEffect, type ReactNode, type RefObject } from 'react'
+   - mergeTriggerProps: adds ARIA + handlers to a caller-supplied trigger element
+   - useKeepInView: keeps a floating panel inside the viewport and any clipping ancestor */
+import { cloneElement, isValidElement, useEffect, useLayoutEffect, useState, type ReactNode, type RefObject } from 'react'
+
+/** Grows a small control's pointer target to at least 24 × 24 px (WCAG 2.5.8)
+ *  with an invisible centred ::before, so the visual size stays the same. */
+export const hitArea = "relative before:absolute before:left-1/2 before:top-1/2 before:size-full before:min-h-6 before:min-w-6 before:-translate-x-1/2 before:-translate-y-1/2 before:content-['']"
 
 const FOCUSABLE =
   'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]'
@@ -98,4 +103,45 @@ export function mergeTriggerProps(
       props.onKeyDown?.(e)
     },
   })
+}
+
+/* Floating panels (Popover, DropdownMenu, date pickers) open below their trigger,
+   aligned to one edge. When that would cut them off, shift them sideways so they
+   stay inside the viewport and any ancestor that clips overflow, and open them
+   upwards when there is no room below but there is above. Returns `dx` (px, apply
+   as a translateX) and `up` (place the panel above the trigger). */
+const GUTTER = 8
+export function useKeepInView(panel: RefObject<HTMLElement | null>, open: boolean) {
+  const [pos, setPos] = useState({ dx: 0, up: false })
+  useLayoutEffect(() => {
+    if (!open) { setPos({ dx: 0, up: false }); return }
+    const el = panel.current
+    const anchor = el?.parentElement
+    if (!el || !anchor) return
+    const measure = () => {
+      const prev = el.style.transform
+      el.style.transform = 'none'
+      const r = el.getBoundingClientRect()
+      el.style.transform = prev
+      let left = GUTTER, right = window.innerWidth - GUTTER
+      for (let a: HTMLElement | null = anchor; a && a !== document.body; a = a.parentElement) {
+        if (getComputedStyle(a).overflowX !== 'visible') {
+          const ar = a.getBoundingClientRect()
+          left = Math.max(left, ar.left + GUTTER / 2)
+          right = Math.min(right, ar.right - GUTTER / 2)
+        }
+      }
+      let dx = 0
+      if (r.right > right) dx = right - r.right
+      if (r.left + dx < left) dx = left - r.left
+      const a = anchor.getBoundingClientRect()
+      const below = window.innerHeight - a.bottom
+      const up = r.height + GUTTER > below && a.top > r.height + GUTTER * 2 && a.top > below
+      setPos((p) => (p.dx === dx && p.up === up ? p : { dx, up }))
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [open, panel])
+  return pos
 }
