@@ -188,6 +188,15 @@ await test('DataTable: row checkbox is named, toggles with Space and marks the r
   assert((await all.getAttribute('aria-checked')) === 'mixed', 'select-all should be mixed when some rows are selected')
 })
 
+await test('Checkbox: a pointer click anywhere on the box toggles it on and off', async () => {
+  const box = page.locator('main table').first().locator('tbody [role="checkbox"]').nth(1)
+  const b = await box.boundingBox()
+  for (const expected of ['true', 'false', 'true', 'false']) {
+    await page.mouse.click(b.x + b.width / 2, b.y + b.height / 2)
+    assert((await settle(() => box.getAttribute('aria-checked'), expected)) === expected, `center click should leave the box ${expected}`)
+  }
+})
+
 await test('Pagination: is a labelled navigation and marks the current page', async () => {
   const nav = page.locator('main nav[aria-label]').first()
   assert(await nav.locator('[aria-current="page"]').count() === 1, 'current page is not marked with aria-current')

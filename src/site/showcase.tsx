@@ -128,19 +128,14 @@ import {
   type IconType,
 } from '../icons'
 import { CO_DEPT_GEO } from './colombia-geo'
+import { photo, scene } from './media'
+import { TeamTable, InvoicesTable, LogTable } from './table-examples'
 import ConsoleExample from './console-example'
 import { useI18n, type Key } from '../i18n'
 
 /* ═══════════════════════════════════════════════════════════════════════
    Documentation layout primitives
    ═══════════════════════════════════════════════════════════════════════ */
-/* Demo photos (Unsplash License) are self-hosted under public/img so the
-   docs never depend on a third-party CDN. `photo` = square avatar crop,
-   `scene` = 3:2 landscape. */
-const IMG_BASE = `${import.meta.env.BASE_URL}img/`
-const photo = (id: string) => `${IMG_BASE}av-${id.replace('photo-', '')}.webp`
-const scene = (id: string) => `${IMG_BASE}ph-${id.replace('photo-', '')}.webp`
-
 export function Page({ eyebrow, title, lead, children }: { eyebrow: string; title: string; lead: string; children: ReactNode }) {
   return (
     <div className="space-y-10">
@@ -2834,6 +2829,7 @@ export function OverlaysPage() {
 
   /* Toast state */
   const [toasts, setToasts] = useState<ToastItem[]>([])
+  const [scaleConfirm, setScaleConfirm] = useState<'simple' | null>(null)
   const addToast = (severity: ToastItem['severity'], title: string, description?: string, action?: ToastItem['action']) =>
     setToasts((t) => [...t, { id: String(++_toastId), severity, title, description, action }])
   const dismissToast = (id: string) => setToasts((t) => t.filter((x) => x.id !== id))
@@ -2990,11 +2986,11 @@ export function OverlaysPage() {
           <Card className="p-5">
             <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('overlays.destructive.scale')}</p>
             <div className="flex flex-wrap items-center gap-3">
-              <Button severity="danger" variant="text" Icon={IconTrash}>{t('overlays.delete')}</Button>
-              <Button severity="danger" variant="outlined" Icon={IconTrash}>{t('overlays.deleteStream')}</Button>
-              <Button severity="danger" Icon={IconTrash}>{t('overlays.deleteStream')}</Button>
+              <Button severity="danger" variant="text" Icon={IconTrash} onClick={() => addToast('info', t('overlays.destructive.moved'), undefined, { label: t('ui.undo'), onClick: () => addToast('success', t('overlays.destructive.restored')) })}>{t('overlays.delete')}</Button>
+              <Button severity="danger" variant="outlined" Icon={IconTrash} onClick={() => setScaleConfirm('simple')}>{t('overlays.deleteStream')}</Button>
+              <Button severity="danger" Icon={IconTrash} onClick={() => setModalDelete(true)}>{t('overlays.deleteStream')}</Button>
               <span className="mx-1 h-6 w-px bg-line" />
-              <Tooltip label={t('overlays.destructive.deleteItem')} placement="top"><IconButton Icon={IconTrash} label={t('overlays.delete')} /></Tooltip>
+              <Tooltip label={t('overlays.destructive.deleteItem')} placement="top"><IconButton Icon={IconTrash} label={t('overlays.delete')} onClick={() => setScaleConfirm('simple')} /></Tooltip>
             </div>
             <p className="mt-3 text-xs text-ink-muted">{t('overlays.destructive.scaleNote')}</p>
           </Card>
@@ -3058,9 +3054,18 @@ export function OverlaysPage() {
 
       {/* — Modals rendered in portal — */}
       <ConfirmDialog
+        open={scaleConfirm === 'simple'}
+        onClose={() => setScaleConfirm(null)}
+        onConfirm={() => { setScaleConfirm(null); addToast('success', t('overlays.destructive.deleted')) }}
+        title={t('overlays.destructive.confirmQ')}
+        description={t('overlays.destructive.simpleDesc')}
+        confirmLabel={t('overlays.deleteStream')}
+        cancelLabel={t('overlays.cancel')}
+      />
+      <ConfirmDialog
         open={modalDelete}
         onClose={() => setModalDelete(false)}
-        onConfirm={() => setModalDelete(false)}
+        onConfirm={() => { setModalDelete(false); addToast('success', t('overlays.destructive.deleted')) }}
         title={t('overlays.modal.deleteTitle')}
         description={t('overlays.modal.deleteDesc')}
         confirmLabel={t('overlays.deleteStream')}
@@ -3810,6 +3815,19 @@ export function TablePage() {
       {/* ── 1. Full-featured table ── */}
       <Section title={t('table.full.title')} hint={t('table.full.hint')}>
         <FullDataTable />
+      </Section>
+
+      {/* ── Common arrangements ── */}
+      <Section title={t('table.team.title')} hint={t('table.team.hint')}>
+        <TeamTable />
+      </Section>
+
+      <Section title={t('table.inv.title')} hint={t('table.inv.hint')}>
+        <InvoicesTable />
+      </Section>
+
+      <Section title={t('table.log.title')} hint={t('table.log.hint')}>
+        <LogTable />
       </Section>
 
       {/* ── 2. Expandable rows ── */}

@@ -52,7 +52,7 @@ export function Toggle({
     >
       <span
         aria-hidden="true"
-        className={`absolute top-1/2 -translate-y-1/2 rounded-full bg-(--pance-toggle-color-thumb) shadow-sm transition-all duration-300 ${t.size} ${on ? t.on : t.off}`}
+        className={`pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-full bg-(--pance-toggle-color-thumb) shadow-sm transition-all duration-300 ${t.size} ${on ? t.on : t.off}`}
       />
     </button>
   )
@@ -134,12 +134,14 @@ export function Checkbox({
         aria-invalid={error || undefined}
         disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
-        className={`${focus} mt-0.5 grid shrink-0 place-items-center border transition-colors ${s.box} ${boxState}`}
+        className={`${focus} relative mt-0.5 grid shrink-0 place-items-center border transition-colors before:absolute before:-inset-1 before:content-[''] ${s.box} ${boxState}`}
       >
+        {/* The mark ignores the pointer: a click on it would otherwise also reach the
+            wrapping <label>, which re-clicks the button and undoes the toggle. */}
         {indeterminate
-          ? <span className="block h-0.5 w-[55%] rounded-full bg-current" />
+          ? <span aria-hidden className="pointer-events-none block h-0.5 w-[55%] rounded-full bg-current" />
           : checked
-          ? <IconCheck className={s.icon} />
+          ? <IconCheck aria-hidden className={`pointer-events-none ${s.icon}`} />
           : null}
       </button>
       {(label || description) && (
@@ -205,7 +207,8 @@ export function Radio({
         className={`${focus} mt-0.5 grid shrink-0 place-items-center rounded-full border transition-colors ${s.dot} ${ringState}`}
       >
         <span
-          className={`rounded-full transition-transform duration-200 ${s.inner} ${checked ? (error ? 'bg-danger scale-100' : 'bg-(--pance-radio-color-checked) scale-100') : 'scale-0 bg-(--pance-radio-color-checked)'}`}
+          aria-hidden
+          className={`pointer-events-none rounded-full transition-transform duration-200 ${s.inner} ${checked ? (error ? 'bg-danger scale-100' : 'bg-(--pance-radio-color-checked) scale-100') : 'scale-0 bg-(--pance-radio-color-checked)'}`}
         />
       </button>
       {(label || description) && (

@@ -156,8 +156,8 @@ export function DataTable<T>({
   )
 
   return (
-    <section className="overflow-hidden rounded-(--pance-data-table-radius) border border-(--pance-data-table-border) bg-(--pance-data-table-bg) shadow-card-rest">
-      <header className={`flex flex-wrap items-center justify-between gap-3 border-b border-line-soft ${px} py-4`}>
+    <section className="flex max-h-[inherit] flex-col overflow-hidden rounded-(--pance-data-table-radius) border border-(--pance-data-table-border) bg-(--pance-data-table-bg) shadow-card-rest">
+      <header className={`flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-line-soft ${px} py-4`}>
         <div>
           <h3 className="font-display text-base font-bold tracking-tight text-ink">{caption}</h3>
           <p aria-live="polite" className="mt-0.5 text-sm text-ink-muted">{selected.size > 0 ? l.rowsSelected(selected.size) : l.range(sorted.length ? (current - 1) * (pageSize ?? sorted.length) + 1 : 0, pageSize ? Math.min(current * pageSize, sorted.length) : sorted.length, sorted.length)}</p>
@@ -178,7 +178,7 @@ export function DataTable<T>({
       </header>
 
       {/* md and up: real table */}
-      <div className="hidden max-h-[inherit] overflow-auto md:block">
+      <div className="hidden min-h-0 overflow-auto md:block">
         <table aria-label={caption} aria-busy={loading || undefined} className="w-full border-collapse whitespace-nowrap text-left text-sm">
           <thead className="sticky top-0 z-10">
             <tr className="[&>*]:border-b [&>*]:border-(--pance-data-table-border) [&>*]:bg-(--pance-data-table-header-bg)">
@@ -241,7 +241,7 @@ export function DataTable<T>({
       </div>
 
       {/* below md: one labelled card per row */}
-      <ul className="space-y-3 p-4 md:hidden" aria-label={caption} aria-busy={loading || undefined}>
+      <ul className="min-h-0 space-y-3 overflow-auto p-4 md:hidden" aria-label={caption} aria-busy={loading || undefined}>
         {loading ? Array.from({ length: 3 }, (_, i) => <li key={i}><Skeleton className="h-28 w-full" /></li>) : view.length === 0 ? <li>{emptyState}</li> : view.map((r) => {
           const id = rowKey(r), on = selected.has(id), open = expanded.has(id)
           const [first, ...rest] = visible
@@ -277,7 +277,7 @@ export function DataTable<T>({
       </ul>
 
       {pageSize && pages > 1 && (
-        <footer className={`flex flex-wrap items-center justify-between gap-3 border-t border-line-soft ${px} py-3`}>
+        <footer className={`flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-line-soft ${px} py-3`}>
           <p className="text-sm text-ink-muted">{l.range((current - 1) * pageSize + 1, Math.min(current * pageSize, sorted.length), sorted.length)}</p>
           <Pagination page={current} pages={pages} onChange={setPage} />
         </footer>

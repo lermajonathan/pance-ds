@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { Badge, Button } from '../components'
+import { Code as CodeIcon } from '@phosphor-icons/react'
+import type { IconType } from '../icons'
 import ConsoleExample from './console-example'
 import { CoverageSection, PillarsSection } from './home-sections'
 import { GetStartedSection, HeroLinks } from './get-started'
@@ -96,7 +98,12 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
   )
 }
 
-const CHIPS: Key[] = ['home.chip.components', 'home.chip.severity', 'home.chip.wcag', 'home.chip.tailwind']
+const CHIPS: { key: Key; severity: 'primary' | 'help' | 'success' | 'info'; Icon: IconType }[] = [
+  { key: 'home.chip.components', severity: 'primary', Icon: IconComponents },
+  { key: 'home.chip.severity', severity: 'help', Icon: IconPalette },
+  { key: 'home.chip.wcag', severity: 'success', Icon: IconShield },
+  { key: 'home.chip.tailwind', severity: 'info', Icon: CodeIcon },
+]
 
 /* ══════════════════════════════════════════════════════════════════════════
    HomePage
@@ -154,8 +161,8 @@ export function HomePage() {
 
           {/* Floating badges */}
           <div className="absolute right-0 top-8 hidden flex-col gap-2 lg:flex">
-            {CHIPS.map(k => (
-              <span key={k} className="rounded-full border border-slate-600/60 bg-slate-800/60 px-3 py-1 text-right text-xs font-medium text-slate-300 backdrop-blur-sm">{t(k)}</span>
+            {CHIPS.map(({ key, severity, Icon }) => (
+              <span key={key} className="flex justify-end"><Badge size="md" severity={severity} Icon={Icon}>{t(key)}</Badge></span>
             ))}
           </div>
         </div>

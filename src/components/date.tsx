@@ -227,7 +227,7 @@ function CalendarEngine({ mode, value, range, onPick, min, max, isDateDisabled, 
   const open = mode === 'range' && !!range.start && !range.end
 
   return (
-    <div ref={root} className={`bg-(--pance-calendar-bg) p-(--pance-calendar-padding) ${bordered ? 'rounded-2xl border border-line' : ''} ${className}`} onMouseLeave={() => setPreview(null)} aria-describedby={hintId}>
+    <div ref={root} className={`bg-(--pance-calendar-bg) p-(--pance-calendar-padding) ${bordered ? 'rounded-2xl border border-line' : 'rounded-[inherit]'} ${className}`} onMouseLeave={() => setPreview(null)} aria-describedby={hintId}>
       <p id={hintId} className="sr-only">{tt.calendarKeyboardHint}</p>
       <div className="flex gap-(--pance-calendar-months-gap)">
         {visible.map((m, i) => (

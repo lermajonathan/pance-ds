@@ -14,9 +14,15 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - `Progress` gains a `value` variant (0–100 % in steps of 10) whose fill scales with the bar, so instances show their real value; the text property is now `value label`. The library has 1,027 variants (was 987).
 - Patterns: Traffic report's line chart no longer overflows its card and the By region bars match their percentages; Settings no longer repeats the Autoscaling row.
 
+### Fixed
+- **`Checkbox`, `Radio` and `Switch`:** a click on the check mark, the radio dot or the switch thumb was counted twice (once by the control, once by its wrapping `<label>`), so a checked box could only be cleared from its edge. The marks now ignore the pointer, and the checkbox hit area grows to 28 px without changing how it looks. Regression test in `tests/keyboard.mjs`.
+- **`Calendar` inside `DatePicker`, `DateRangePicker` or any rounded container:** its background now follows the container's radius instead of showing square corners.
+- **`DataTable`:** a `max-height` set on a wrapper now scrolls the rows under a sticky header (it was ignored), keeping the toolbar and pagination in view.
+
 ### Documentation
 - **Docs site brought up to date:** the version comes from `@pance/react` at build time (header badge, hero), real counts (88 components, 943 tokens), a Get started section (install, styles, first component) with links to GitHub, npm, Figma Community and the changelog, a GitHub link in the header, and release notes for 1.1 to 1.4 in English and Spanish.
 - **GitHub Pages:** `.github/workflows/pages.yml` builds the site on every push to `main` and publishes it to pance-ds.jonathanlerma.com. `scripts/pages-routes.mjs` writes one page per route (deep links return 200), a 404 fallback and the CNAME. `VITE_HASH_ROUTER=1` builds a preview that works from any static path.
+- Docs site: demo photos are self-hosted (`public/img`), the notification center demo no longer clips, Iconography links to the full Phosphor library, hero chips use `Badge`, destructive buttons on Overlays open the matching confirmation (toast with Undo, simple confirm, type-to-confirm), and Data table adds three common layouts: members (avatars, roles, status filter, bulk actions), invoices (currency, dates, summary strip) and a scrolling log (sticky header, level filter).
 - Open-source governance: `GOVERNANCE.md` (the maintainer approves everything built or merged), `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue and pull request templates, `CODEOWNERS`, and `docs/github-setup.md` with the repository settings to apply.
 
 ## [1.4.0] - 2026-10-19
