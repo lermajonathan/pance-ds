@@ -686,6 +686,12 @@ export const tokens = {
     "2xl": "32px",
     "3xl": "48px"
   },
+  "gradient": {
+    "brand": "linear-gradient(135deg, #06b6d4 0%, #0e7490 100%)",
+    "hero": "radial-gradient(circle at 74% 28%, color-mix(in srgb, #67e8f9 42%, transparent) 0%, transparent 56%), radial-gradient(circle at 12% 92%, color-mix(in srgb, #bae6fd 55%, transparent) 0%, transparent 52%), linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%)",
+    "surface-soft": "linear-gradient(135deg, #ecfeff 0%, #ffffff 100%)",
+    "fade": "linear-gradient(to top, #f8fafc 0%, color-mix(in srgb, #f8fafc 80%, transparent) 50%, transparent 100%)"
+  },
   "button": {
     "radius": "12px",
     "radius-rounded": "9999px",

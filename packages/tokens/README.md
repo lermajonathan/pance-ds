@@ -1,6 +1,6 @@
 # @pance/tokens
 
-Design tokens for **[Pance](https://pance-ds.jonathanlerma.com)**: 943 tokens in three tiers (primitives → semantic → components), in the W3C DTCG format, with light and dark values. Every text and control pair is checked against WCAG 2.2 AA.
+Design tokens for **[Pance](https://pance-ds.jonathanlerma.com)**: 947 tokens in three tiers (primitives → semantic → components), in the W3C DTCG format, with light and dark values. Every text and control pair is checked against WCAG 2.2 AA.
 
 ```bash
 npm install @pance/tokens

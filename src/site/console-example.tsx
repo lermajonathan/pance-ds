@@ -200,7 +200,7 @@ export default function ConsoleExample() {
         {/* Top bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line bg-surface px-6 py-4">
           <div className="flex min-w-0 items-center gap-3">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 font-display text-base font-extrabold text-white">T</span>
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-brand font-display text-base font-extrabold text-white">T</span>
             <div className="min-w-0">
               <p className="truncate font-display text-15 font-bold leading-tight text-ink">Tienda La Esquina de Doña Marta</p>
               <p className="flex items-center gap-1 truncate text-xs text-ink-muted"><IconMapPin size={12} /> Manrique Central · Medellín, Antioquia</p>

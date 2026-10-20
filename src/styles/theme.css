@@ -215,6 +215,12 @@
   --color-contrast-fg: var(--pance-color-intent-contrast-fg);
   --color-contrast-dot: var(--pance-color-intent-contrast-dot);
 
+  /* Gradient utilities: bg-gradient-brand, bg-gradient-hero, bg-gradient-surface-soft, bg-gradient-fade */
+  --background-image-gradient-brand: var(--pance-gradient-brand);
+  --background-image-gradient-hero: var(--pance-gradient-hero);
+  --background-image-gradient-surface-soft: var(--pance-gradient-surface-soft);
+  --background-image-gradient-fade: var(--pance-gradient-fade);
+
   /* Elevation utilities: shadow-raised, shadow-card, shadow-popover, shadow-modal, shadow-brand… */
   --shadow-card-rest: var(--pance-shadow-card-rest);
   --shadow-hover-lift: var(--pance-shadow-hover-lift);

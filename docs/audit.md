@@ -14,7 +14,7 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | §4.2 H3 size | ✅ Decided: 20px (`typography/h3`), 18px is `typography/h3-compact` for modal/drawer titles |
 | §4.5 Warning solid | ✅ amber-700 everywhere |
 | §5.1 Disabled opacity | ✅ 0.45 everywhere |
-| Figma library | ✅ Rebuilt from tokens: 878 variables, 14 text + 13 effect styles, 70 icons, 88 components (1,027 variants) incl. Avatar, Progress, Steps, Segmented control, Metric card and Data table; Field and Input gaps from the dogfooding form fixed ([docs/figma.md](figma.md)) |
+| Figma library | ✅ Rebuilt from tokens: 878 variables, 14 text + 13 effect + 6 fill styles, 70 icons, 88 components (1,027 variants) incl. Avatar, Progress, Steps, Segmented control, Metric card and Data table; Field and Input gaps from the dogfooding form fixed ([docs/figma.md](figma.md)) |
 | §3.5–3.10 ARIA patterns, keyboard, Field association | ✅ Fixed: dialog, menu button, select-only and autocomplete combobox, tabs, radio group, tooltip, disclosure; Field wires `id`, `aria-describedby`, `aria-invalid`, `aria-required`. 35 keyboard and ARIA tests in `tests/keyboard.mjs` |
 | axe-core, 20 pages × 2 viewports | ✅ 975 → 36 violations (all of them the contrast exceptions above). Runs in CI via `tests/axe.mjs` |
 | §6 Components reading semantic tokens | ✅ Done: every component reads semantic utilities or component tokens; 32 component tokens re-aliased from primitives to semantic (code and Figma); `pnpm lint:tokens` in CI blocks hard-coded colours. Visual diff against the previous build: 0 px changed on 18 of 19 pages |

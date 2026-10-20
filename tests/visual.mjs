@@ -21,7 +21,7 @@ const diffDir = path.join(dir, '__diff__')
 const MAX_DIFF_RATIO = 0.002 // 0.2% of pixels may differ
 const PIXEL_THRESHOLD = 0.15
 
-const pages = ['', 'colors', 'type', 'spacing', 'icons', 'layout', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'dashboard', 'afterquake']
+const pages = ['', 'colors', 'type', 'spacing', 'gradients', 'icons', 'layout', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'dashboard', 'afterquake']
 const mobilePages = new Set(['', 'forms', 'table', 'metrics', 'dataviz'])
 const jobs = []
 for (const pg of pages) for (const theme of ['light', 'dark']) {

@@ -4,6 +4,11 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Added
+- **Gradient tokens** (DDR-DS-019): `gradient.brand`, `gradient.hero`, `gradient.surface-soft` and `gradient.fade`, with CSS variables `--pance-gradient-*` and Tailwind utilities `bg-gradient-brand`, `bg-gradient-hero`, `bg-gradient-surface-soft`, `bg-gradient-fade`. They follow the theme (`hero` has its own dark value), are decorative only, and the contrast test checks every stop of `hero` and `surface-soft` against the text colours in light and dark. A new `gradient` token type holds a list of linear or radial layers with an optional `opacity` per stop.
+- **Docs site:** a Gradients page under Foundations (EN/ES) with the four gradients live in the current theme, rules for using them and the CSS and Tailwind snippets. The docs site now uses the tokens instead of one-off gradient classes; the logo mark starts at aqua 500 instead of 400.
+- **Figma:** the four gradients as six fill styles (`gradient/brand`, `gradient/hero-light`, `gradient/hero-dark`, `gradient/surface-soft`, `gradient/fade-light`, `gradient/fade-dark`) with a Gradients section on the Foundations page. Variables cannot hold gradients; `brand` and `surface-soft` are bound to variables.
+
 ## [1.4.1] - 2026-10-20
 
 ### Security

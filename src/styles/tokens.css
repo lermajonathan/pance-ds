@@ -478,6 +478,10 @@
   --pance-icon-xl: var(--pance-size-24);
   --pance-icon-2xl: var(--pance-size-32);
   --pance-icon-3xl: var(--pance-size-48);
+  --pance-gradient-brand: linear-gradient(135deg, var(--pance-color-aqua-500) 0%, var(--pance-color-aqua-700) 100%);
+  --pance-gradient-hero: radial-gradient(circle at 74% 28%, color-mix(in srgb, var(--pance-color-aqua-300) 42%, transparent) 0%, transparent 56%), radial-gradient(circle at 12% 92%, color-mix(in srgb, var(--pance-color-sky-200) 55%, transparent) 0%, transparent 52%), linear-gradient(to bottom, var(--pance-color-bg-surface) 0%, var(--pance-color-bg-page) 100%);
+  --pance-gradient-surface-soft: linear-gradient(135deg, var(--pance-color-intent-primary-soft) 0%, var(--pance-color-bg-surface) 100%);
+  --pance-gradient-fade: linear-gradient(to top, var(--pance-color-bg-sunken) 0%, color-mix(in srgb, var(--pance-color-bg-sunken) 80%, transparent) 50%, transparent 100%);
 }
 
 /* ── components ────────────────────────────────────────────────── */
@@ -1142,6 +1146,7 @@
   --pance-color-dataviz-series-7: var(--pance-color-viz-categorical-dark-7);
   --pance-color-dataviz-series-8: var(--pance-color-viz-categorical-8);
   --pance-color-dataviz-no-data: var(--pance-color-slate-700);
+  --pance-gradient-hero: radial-gradient(circle at 70% 40%, color-mix(in srgb, var(--pance-color-aqua-600) 18%, transparent) 0%, transparent 60%), radial-gradient(circle at 20% 80%, color-mix(in srgb, var(--pance-color-aqua-700) 12%, transparent) 0%, transparent 50%), linear-gradient(to bottom, var(--pance-color-river-900) 0%, var(--pance-color-river-900) 100%);
   --pance-range-slider-color-primary: var(--pance-color-intent-primary-dot);
   --pance-range-slider-color-success: var(--pance-color-intent-success-dot);
   --pance-range-slider-color-warning: var(--pance-color-intent-warning-dot);
