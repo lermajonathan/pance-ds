@@ -4,7 +4,7 @@ import { useI18n, type Key } from '../i18n'
 import { LINKS, VERSION } from './version'
 
 /* ─── Copyable code block ──────────────────────────────────────────────── */
-function Snippet({ code, label }: { code: string; label: string }) {
+function Snippet({ code, label, className = '' }: { code: string; label: string; className?: string }) {
   const { t } = useI18n()
   const [copied, setCopied] = useState(false)
   const copy = () => {
@@ -14,7 +14,7 @@ function Snippet({ code, label }: { code: string; label: string }) {
     }).catch(() => {})
   }
   return (
-    <div className="overflow-hidden rounded-2xl bg-slate-950 ring-1 ring-slate-800">
+    <div className={`flex flex-col overflow-hidden rounded-2xl bg-slate-950 ring-1 ring-slate-800 ${className}`}>
       <div className="flex items-center justify-between border-b border-slate-800 px-4 py-2">
         <span className="font-mono text-11 uppercase tracking-[0.16em] text-slate-400">{label}</span>
         <button
@@ -26,7 +26,7 @@ function Snippet({ code, label }: { code: string; label: string }) {
           <span aria-live="polite">{copied ? t('home.install.copied') : t('home.install.copy')}</span>
         </button>
       </div>
-      <pre className="overflow-x-auto px-4 py-3.5 font-mono text-[13px] leading-relaxed text-slate-200"><code>{code}</code></pre>
+      <pre className="flex-1 overflow-x-auto px-4 py-3.5 font-mono text-[13px] leading-relaxed text-slate-200"><code>{code}</code></pre>
     </div>
   )
 }
@@ -69,7 +69,7 @@ const RESOURCES: { key: string; href: string; Icon: typeof GithubLogo; meta?: st
 export function GetStartedSection() {
   const { t } = useI18n()
   return (
-    <section id="get-started" className="border-t border-line bg-ground px-8 py-20 sm:py-28">
+    <section id="get-started" className="border-t border-line bg-surface px-8 py-20 sm:py-28">
       <div className="mx-auto max-w-[1120px]">
         <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.install.eyebrow')}</p>
         <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink">{t('home.install.title')}</h2>
@@ -81,13 +81,13 @@ export function GetStartedSection() {
             ['2', 'home.install.s2', 'home.install.s2.body', 'main.tsx', "import '@pance/react/styles.css'"],
             ['3', 'home.install.s3', 'home.install.s3.body', 'App.tsx', "import { Button } from '@pance/react'\n\n<Button severity=\"primary\">\n  New stream\n</Button>"],
           ] as const).map(([n, title, body, label, code]) => (
-            <div key={n} className="flex flex-col gap-3">
+            <div key={n} className="flex min-w-0 flex-col gap-3">
               <div className="flex items-baseline gap-3">
                 <span className="font-display text-3xl font-extrabold text-brand-700">{n}</span>
                 <h3 className="text-base font-semibold text-ink">{t(title as Key)}</h3>
               </div>
               <p className="text-sm leading-relaxed text-ink-muted">{t(body as Key)}</p>
-              <Snippet label={label} code={code} />
+              <Snippet label={label} code={code} className="flex-1" />
             </div>
           ))}
         </div>
