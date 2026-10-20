@@ -14,19 +14,19 @@ function Snippet({ code, label, className = '' }: { code: string; label: string;
     }).catch(() => {})
   }
   return (
-    <div className={`flex flex-col overflow-hidden rounded-2xl bg-slate-950 ring-1 ring-slate-800 ${className}`}>
-      <div className="flex items-center justify-between border-b border-slate-800 px-4 py-2">
-        <span className="font-mono text-11 uppercase tracking-[0.16em] text-slate-400">{label}</span>
+    <div className={`pance-code flex flex-col overflow-hidden rounded-2xl bg-(--code-bg) ring-1 ring-(--code-ring) ${className}`}>
+      <div className="flex items-center justify-between border-b border-(--code-ring) px-4 py-2">
+        <span className="font-mono text-11 uppercase tracking-[0.16em] text-(--code-muted)">{label}</span>
         <button
           type="button"
           onClick={copy}
-          className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400"
+          className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-medium text-(--code-soft) transition-colors hover:bg-(--code-hover) hover:text-(--code-fg) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--code-focus)"
         >
           {copied ? <Check size={14} weight="bold" /> : <Copy size={14} />}
           <span aria-live="polite">{copied ? t('home.install.copied') : t('home.install.copy')}</span>
         </button>
       </div>
-      <pre className="flex-1 overflow-x-auto px-4 py-3.5 font-mono text-[13px] leading-relaxed text-slate-200"><code>{code}</code></pre>
+      <pre className="flex-1 overflow-x-auto px-4 py-3.5 font-mono text-[13px] leading-relaxed text-(--code-fg)"><code>{code}</code></pre>
     </div>
   )
 }
@@ -47,7 +47,7 @@ export function HeroLinks() {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-10 items-center gap-1.5 text-sm font-medium text-(--hero-soft) underline-offset-4 transition-colors hover:text-(--hero-fg) hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
+          className="inline-flex min-h-10 items-center gap-1.5 text-sm font-medium text-(--hero-soft) underline-offset-4 transition-colors hover:text-(--hero-fg) hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--code-focus)"
         >
           <Icon size={16} />
           {label}

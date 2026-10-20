@@ -121,3 +121,23 @@ body {
   background-color: var(--color-canvas);
   border-color: var(--color-line);
 }
+
+/* ── Install snippets on the home page: palette per theme (site only) ───── */
+.pance-code {
+  --code-bg: var(--color-slate-950);
+  --code-ring: var(--color-slate-800);
+  --code-fg: var(--color-slate-200);
+  --code-soft: var(--color-slate-300);
+  --code-muted: var(--color-slate-400);
+  --code-hover: var(--color-slate-800);
+  --code-focus: var(--color-brand-400);
+}
+:root:not([data-theme='dark']) .pance-code {
+  --code-bg: var(--color-canvas);
+  --code-ring: var(--color-line);
+  --code-fg: var(--color-ink);
+  --code-soft: var(--color-ink-soft);
+  --code-muted: var(--color-ink-soft);
+  --code-hover: var(--color-line-soft);
+  --code-focus: var(--color-brand-700);
+}
