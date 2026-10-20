@@ -17,7 +17,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 ### Fixed
 - **`Checkbox`, `Radio` and `Switch`:** a click on the check mark, the radio dot or the switch thumb was counted twice (once by the control, once by its wrapping `<label>`), so a checked box could only be cleared from its edge. The marks now ignore the pointer, and the checkbox hit area grows to 28 px without changing how it looks. Regression test in `tests/keyboard.mjs`.
 - **`Calendar` inside `DatePicker`, `DateRangePicker` or any rounded container:** its background now follows the container's radius instead of showing square corners.
-- **`DataTable`:** a `max-height` set on a wrapper now scrolls the rows under a sticky header (it was ignored), keeping the toolbar and pagination in view.
+- **`DataTable`:** a `max-height` set on a wrapper now scrolls the rows under a sticky header (it was ignored), keeping the toolbar and pagination in view. While it scrolls, the row area is a named, focusable region so keyboard users can reach every row. Its pagination is named after the table, so two tables on one page no longer share a landmark name.
 
 ### Documentation
 - **Docs site brought up to date:** the version comes from `@pance/react` at build time (header badge, hero), real counts (88 components, 943 tokens), a Get started section (install, styles, first component) with links to GitHub, npm, Figma Community and the changelog, a GitHub link in the header, and release notes for 1.1 to 1.4 in English and Spanish.
