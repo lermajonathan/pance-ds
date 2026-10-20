@@ -127,6 +127,35 @@ for (const i of INTENTS) {
   pairs.push([B('soft-text'), B('soft-bg'), TEXT, `badge ${i} soft`], [B('solid-text'), B('solid-bg'), TEXT, `badge ${i} solid`], [B('outlined-text'), B('outlined-bg'), TEXT, `badge ${i} outlined`])
 }
 
+/* ── Gradients that carry text: every stop, composited over the base layer, must keep 4.5:1 with the text colours ── */
+const GRADIENT_TEXT = { hero: ['color.fg.default', 'color.fg.soft'], 'surface-soft': ['color.fg.default', 'color.fg.soft'] }
+const stopColour = (c, mode) => {
+  if (c === 'transparent') return null
+  const m = String(c).match(/^\{([^}]+)\}$/)
+  return parse(m ? resolve(m[1], mode) : c)
+}
+const gradientChecks = (mode) => {
+  const out = []
+  for (const [name, texts] of Object.entries(GRADIENT_TEXT)) {
+    const t = tokens.get(`gradient.${name}`)
+    const layers = mode === 'dark' && t.dark !== undefined ? t.dark : t.value
+    const bases = layers.at(-1).stops.map((st) => stopColour(st.color, mode)).filter(Boolean)
+    for (const layer of layers) for (const st of layer.stops) {
+      const c = stopColour(st.color, mode)
+      if (!c) continue
+      for (const base of bases) {
+        const bg = over([c[0], c[1], c[2], (st.opacity ?? 1) * c[3]], base)
+        for (const text of texts) {
+          const fg = over(parse(resolve(text, mode)), bg)
+          const [hi, lo] = [lum(fg), lum(bg)].sort((x, y) => y - x)
+          out.push({ r: (hi + 0.05) / (lo + 0.05), what: `${text} on gradient.${name} (${st.position} stop)` })
+        }
+      }
+    }
+  }
+  return out
+}
+
 /* ── Run ── */
 let blocking = 0
 const report = {}
@@ -136,10 +165,13 @@ for (const mode of ['light', 'dark']) {
     const r = ratio(fg, bg, mode)
     if (r + 1e-9 < min) fails.push({ what, r, min, fg: resolve(fg, mode), bg: resolve(bg, mode) })
   }
+  const gc = gradientChecks(mode)
+  for (const g of gc) if (g.r + 1e-9 < TEXT) fails.push({ what: g.what, r: g.r, min: TEXT, fg: 'text', bg: 'gradient' })
+  const total = pairs.length + gc.length
   report[mode] = fails
   const blocks = mode === 'light' || STRICT
   if (blocks) blocking += fails.length
-  console.log(`\n${mode.toUpperCase()} · ${pairs.length - fails.length}/${pairs.length} pairs pass${fails.length && !blocks ? ' (draft mode, not blocking)' : ''}`)
+  console.log(`\n${mode.toUpperCase()} · ${total - fails.length}/${total} pairs pass${fails.length && !blocks ? ' (draft mode, not blocking)' : ''}`)
   for (const f of fails) console.log(`  ${blocks ? '✗' : '•'} ${f.r.toFixed(2)}:1 < ${f.min}:1  ${f.what}  (${f.fg} on ${f.bg})`)
 }
 process.exit(blocking ? 1 : 0)

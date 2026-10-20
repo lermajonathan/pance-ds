@@ -42,7 +42,7 @@ Every variable has a scope and WEB code syntax matching `src/styles/tokens.css` 
 
 **Binding coverage.** In the component masters, colors and strokes are bound to variables (99%), and so are font sizes, spacing and radii wherever a matching variable exists. The remaining unbound values are intentional: the internal geometry of charts (1–3 px bar and marker radii) and 3 px optical alignments have no token because they are not system decisions. Do not tokenize them.
 
-**Styles:** 14 text styles (`typography/*`, font size and family bound to variables) and 13 effect styles (`shadow/*`, `focus/ring*`).
+**Styles:** 14 text styles (`typography/*`, font size and family bound to variables) 13 effect styles (`shadow/*`, `focus/ring*`) and 6 fill styles (`gradient/*`: brand, hero light and dark, surface soft, fade light and dark). Figma variables cannot hold gradients, so each gradient token is a fill style; `brand` and `surface-soft` are bound to variables, the styles with a transparent stop (hero, fade) hold resolved values per mode.
 
 ## Components (v1 core)
 

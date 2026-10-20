@@ -9,7 +9,7 @@ import fs from 'node:fs'
 const BASE = process.argv[2] ?? 'http://localhost:4173/en'
 const CONTRAST_BASELINE = 36
 const axeSrc = fs.readFileSync(createRequire(import.meta.url).resolve('axe-core/axe.min.js'), 'utf8')
-const pages = ['', 'colors', 'type', 'spacing', 'icons', 'layout', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'dashboard', 'afterquake']
+const pages = ['', 'colors', 'type', 'spacing', 'gradients', 'icons', 'layout', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'dashboard', 'afterquake']
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {})
 const agg = {}
 for (const vp of [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobile', width: 390, height: 844 }]) {

@@ -80,6 +80,21 @@ function shadowCss(layers) {
   if (!layers.length) return 'none'
   return layers.map((l) => `${l.inset ? 'inset ' : ''}${l.offsetX} ${l.offsetY} ${l.blur} ${l.spread} ${cssRef(l.color)}`).join(', ')
 }
+/* Gradient: a list of layers, painted as one background-image. Stops may carry an `opacity`. */
+function gradientCss(layers, col = (c) => c) {
+  const stop = (st) => {
+    const c = col(st.color)
+    const color = st.opacity == null ? c : `color-mix(in srgb, ${c} ${+(st.opacity * 100).toFixed(2)}%, transparent)`
+    return `${color} ${st.position}`
+  }
+  return layers
+    .map((l) => `${l.type === 'radial' ? `radial-gradient(circle at ${l.at}` : `linear-gradient(${l.angle}`}, ${l.stops.map(stop).join(', ')})`)
+    .join(', ')
+}
+const valueCss = (value, type) => {
+  if (type === 'gradient' && Array.isArray(value)) return gradientCss(value, cssRef)
+  return cssRef(String(value))
+}
 function toCss(tok) {
   const { value, type } = tok
   if (typeof value === 'string' && REF.test(value)) return cssRef(value)
@@ -87,6 +102,7 @@ function toCss(tok) {
     case 'fontFamily': return Array.isArray(value) ? fontStack(value) : value
     case 'cubicBezier': return `cubic-bezier(${value.join(', ')})`
     case 'shadow': return shadowCss(Array.isArray(value) ? value : [value])
+    case 'gradient': return gradientCss(value, cssRef)
     case 'transition': return `${cssRef(value.duration)} ${cssRef(value.timingFunction)} ${cssRef(value.delay ?? '0ms')}`
     default: return cssRef(String(value))
   }
@@ -116,7 +132,7 @@ for (const tier of TIERS) {
 }
 const darkToks = [...tokens.values()].filter((t) => t.dark !== undefined)
 css += `\n/* ── dark (draft, opt-in with data-theme="dark" — ships in v1.1) ${'─'.repeat(8)} */\n:root[data-theme='dark'] {\n`
-for (const tok of darkToks) css += `  ${cssName(tok.path)}: ${cssRef(String(tok.dark))};\n`
+for (const tok of darkToks) css += `  ${cssName(tok.path)}: ${valueCss(tok.dark, finalType(tok))};\n`
 css += '}\n'
 write('src/styles/tokens.css', css)
 
@@ -155,6 +171,9 @@ for (const i of INTENTS) for (const k of INTENT_KEYS) {
   target(path, 'theme')
   theme += `  --color-${i}-${k}: var(${cssName(path)});\n`
 }
+const GRADIENTS = ['brand', 'hero', 'surface-soft', 'fade']
+theme += '\n  /* Gradient utilities: bg-gradient-brand, bg-gradient-hero, bg-gradient-surface-soft, bg-gradient-fade */\n'
+for (const g of GRADIENTS) { target(`gradient.${g}`, 'theme'); theme += `  --background-image-gradient-${g}: var(${cssName(`gradient.${g}`)});\n` }
 const SHADOWS = { 'card-rest': 'shadow.card-rest', 'hover-lift': 'shadow.hover-lift', raised: 'shadow.xs', card: 'shadow.sm', popover: 'shadow.md', modal: 'shadow.lg', brand: 'shadow.brand', menu: 'shadow.menu', toast: 'shadow.toast' }
 theme += '\n  /* Elevation utilities: shadow-raised, shadow-card, shadow-popover, shadow-modal, shadow-brand… */\n'
 for (const [tw, path] of Object.entries(SHADOWS)) { target(path, 'theme'); theme += `  --shadow-${tw}: var(${cssName(path)});\n` }
@@ -197,6 +216,7 @@ for (const [key, tok] of tokens) {
   let v = resolveValue(tok.value, key)
   const ft = finalType(tok)
   if (ft === 'shadow') v = shadowCss(Array.isArray(v) ? v : [v])
+  else if (ft === 'gradient') v = gradientCss(v)
   else if (ft === 'cubicBezier') v = `cubic-bezier(${v.join(', ')})`
   else if (ft === 'fontFamily' && Array.isArray(v)) v = fontStack(v)
   else if (ft === 'transition') v = `${v.duration} ${v.timingFunction} ${v.delay ?? '0ms'}`
@@ -239,7 +259,8 @@ for (const tier of TIERS) {
       const key = tok.path.join('.')
       const raw = typeof tok.value === 'string' ? tok.value : JSON.stringify(tok.value).length > 80 ? '_composite_' : JSON.stringify(tok.value)
       const r = resolved[key]
-      const dk = tok.dark !== undefined ? resolveValue(tok.dark, key) : ''
+      let dk = tok.dark !== undefined ? resolveValue(tok.dark, key) : ''
+      if (dk && finalType(tok) === 'gradient') dk = gradientCss(dk)
       md += `| \`${key}\` | ${esc(raw)} | ${swatch(r)}${esc(show(r))} | ${dk ? swatch(dk) + esc(dk) : ''} | ${esc(tok.description ?? '')} |\n`
     }
     md += '\n'

@@ -1503,5 +1503,170 @@
     "3xl": {
       "$value": "{size.48}"
     }
+  },
+  "gradient": {
+    "$type": "gradient",
+    "$description": "Gradients, four in total. Each is a list of layers (linear or radial) painted as one background-image. A stop may take an `opacity`. Use them on decorative areas only: never as the only carrier of information, and text on them must pass 4.5:1 at the lightest and darkest stop.",
+    "brand": {
+      "$value": [
+        {
+          "type": "linear",
+          "angle": "135deg",
+          "stops": [
+            {
+              "color": "{color.aqua.500}",
+              "position": "0%"
+            },
+            {
+              "color": "{color.aqua.700}",
+              "position": "100%"
+            }
+          ]
+        }
+      ],
+      "$description": "Accent gradient for logo marks and icon tiles (`bg-gradient-brand`). Decorative: no text on it, and a white glyph is readable from the middle of the range on (3:1). For a functional icon use a solid fill."
+    },
+    "hero": {
+      "$value": [
+        {
+          "type": "radial",
+          "at": "74% 28%",
+          "stops": [
+            {
+              "color": "{color.aqua.300}",
+              "position": "0%",
+              "opacity": 0.42
+            },
+            {
+              "color": "transparent",
+              "position": "56%"
+            }
+          ]
+        },
+        {
+          "type": "radial",
+          "at": "12% 92%",
+          "stops": [
+            {
+              "color": "{color.sky.200}",
+              "position": "0%",
+              "opacity": 0.55
+            },
+            {
+              "color": "transparent",
+              "position": "52%"
+            }
+          ]
+        },
+        {
+          "type": "linear",
+          "angle": "to bottom",
+          "stops": [
+            {
+              "color": "{color.bg.surface}",
+              "position": "0%"
+            },
+            {
+              "color": "{color.bg.page}",
+              "position": "100%"
+            }
+          ]
+        }
+      ],
+      "$description": "Atmosphere for page heroes and closing bands (`bg-gradient-hero`). Light: a soft aqua and sky glow over the page background. Dark: the river surface with two faint aqua glows. Carries its own base, so it needs no background colour. Text on it uses `fg.default` and `fg.soft`.",
+      "$extensions": {
+        "pance.modes": {
+          "dark": [
+            {
+              "type": "radial",
+              "at": "70% 40%",
+              "stops": [
+                {
+                  "color": "{color.aqua.600}",
+                  "position": "0%",
+                  "opacity": 0.18
+                },
+                {
+                  "color": "transparent",
+                  "position": "60%"
+                }
+              ]
+            },
+            {
+              "type": "radial",
+              "at": "20% 80%",
+              "stops": [
+                {
+                  "color": "{color.aqua.700}",
+                  "position": "0%",
+                  "opacity": 0.12
+                },
+                {
+                  "color": "transparent",
+                  "position": "50%"
+                }
+              ]
+            },
+            {
+              "type": "linear",
+              "angle": "to bottom",
+              "stops": [
+                {
+                  "color": "{color.river.900}",
+                  "position": "0%"
+                },
+                {
+                  "color": "{color.river.900}",
+                  "position": "100%"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "surface-soft": {
+      "$value": [
+        {
+          "type": "linear",
+          "angle": "135deg",
+          "stops": [
+            {
+              "color": "{color.intent.primary.soft}",
+              "position": "0%"
+            },
+            {
+              "color": "{color.bg.surface}",
+              "position": "100%"
+            }
+          ]
+        }
+      ],
+      "$description": "Quiet fill for a highlighted card or panel (`bg-gradient-surface-soft`). It reads semantic tokens, so it follows the theme on its own; body text on it uses `fg.default`."
+    },
+    "fade": {
+      "$value": [
+        {
+          "type": "linear",
+          "angle": "to top",
+          "stops": [
+            {
+              "color": "{color.bg.sunken}",
+              "position": "0%"
+            },
+            {
+              "color": "{color.bg.sunken}",
+              "position": "50%",
+              "opacity": 0.8
+            },
+            {
+              "color": "transparent",
+              "position": "100%"
+            }
+          ]
+        }
+      ],
+      "$description": "Scroll and edge fade into the recessed background (`bg-gradient-fade`). Place it over content that runs out, never over text that must stay readable."
+    }
   }
 }

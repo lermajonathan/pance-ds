@@ -54,7 +54,8 @@ import { LangProvider, detectLang, isLang, useI18n, type Key } from '../i18n'
 import { LanguageSwitch } from './language-switch'
 import { HeaderSearch } from './header-search'
 import { NotificationsBell } from './notifications'
-import { GithubLogo } from '@phosphor-icons/react'
+import { GithubLogo, Gradient } from '@phosphor-icons/react'
+import { GradientsPage } from './gradients'
 import { LINKS, VERSION } from './version'
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -76,6 +77,7 @@ const NAV: Group[] = [
       { key: 'colors', labelKey: 'nav.colors', Icon: IconPalette, Page: ColorsPage },
       { key: 'type', labelKey: 'nav.type', Icon: IconTypography, Page: TypographyPage },
       { key: 'spacing', labelKey: 'nav.spacing', Icon: IconRuler, Page: SpacingPage },
+      { key: 'gradients', labelKey: 'nav.gradients', Icon: Gradient, Page: GradientsPage },
       { key: 'icons', labelKey: 'nav.icons', Icon: IconGripSquare, Page: IconsPage },
       { key: 'layout', labelKey: 'nav.layout', Icon: IconColumns, Page: LayoutPage },
     ],
@@ -123,7 +125,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
       className={`fixed inset-y-0 left-0 z-50 flex h-[100dvh] shrink-0 flex-col border-r border-line bg-surface transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:z-auto lg:max-w-none lg:translate-x-0 lg:transition-[width] ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} ${collapsed ? 'w-[86vw] max-w-[20rem] lg:w-20' : 'w-[86vw] max-w-[20rem] lg:w-72'}`}
     >
       <div className={`flex min-h-20 items-center gap-3 px-6 pt-[env(safe-area-inset-top)] lg:min-h-0 lg:h-20 lg:pt-0 ${collapsed ? 'lg:px-5' : ''}`}>
-        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-400 to-brand-700 text-white shadow-[0_6px_16px_-4px_rgba(8,145,178,0.55)]">
+        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-brand text-white shadow-[0_6px_16px_-4px_rgba(8,145,178,0.55)]">
           <IconWave size={22} weight="bold" />
         </div>
         <div className={`min-w-0 overflow-hidden transition-all duration-300 ${collapsed ? 'w-auto opacity-100 lg:w-0 lg:opacity-0' : 'w-auto opacity-100'}`}>
@@ -245,7 +247,7 @@ function Shell() {
             >
               <IconList size={20} />
             </button>
-            <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 text-white">
+            <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-brand text-white">
               <IconWave size={16} weight="bold" />
             </div>
             <span className="min-w-0 truncate font-display text-base font-extrabold tracking-tight text-ink">{isHome ? 'Pance' : label}</span>

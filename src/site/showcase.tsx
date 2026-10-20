@@ -150,7 +150,7 @@ export function Page({ eyebrow, title, lead, children }: { eyebrow: string; titl
   )
 }
 
-function Section({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
+export function Section({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
   return (
     <section className="space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line-soft pb-2">
@@ -2588,7 +2588,7 @@ export function NavigationPage() {
             <div className="overflow-hidden rounded-2xl border border-line">
               <header className="flex h-16 items-center justify-between gap-4 border-b border-line bg-surface px-6">
                 <div className="flex items-center gap-3">
-                  <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 text-white">
+                  <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-brand text-white">
                     <IconWave size={16} weight="bold" />
                   </div>
                   <span className="font-display text-base font-extrabold tracking-tight text-ink">Pance</span>
@@ -4928,7 +4928,7 @@ export function DataVizPage() {
       {/* ── Stat tiles / KPI row ──────────────────────────────────── */}
       <Section title={t('dataviz.stat.title')} hint={t('dataviz.stat.hint')}>
         {/* Hero figure */}
-        <div className="mb-4 rounded-2xl border border-line bg-gradient-to-br from-primary-soft to-surface p-6 sm:p-8">
+        <div className="mb-4 rounded-2xl border border-line bg-gradient-surface-soft p-6 sm:p-8">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-brand-500">{t('dataviz.stat.heroLabel')}</p>
           <p className="mt-2 text-4xl font-bold leading-none tracking-tight text-ink sm:text-6xl">704<span className="text-2xl font-semibold text-ink-muted sm:text-3xl"> K/s</span></p>
           <p className="mt-3 flex items-center gap-2 text-sm font-medium text-success-fg">

@@ -78,3 +78,14 @@ Import everything from `@pance/react`. Each component lives on its own Figma pag
 Rows marked "interaction only" have a Figma variant for review purposes; the code derives that state from the user's input, so there is no prop to set.
 
 Confirm exact prop names in `docs/components.md` and the exported types before wiring Code Connect; this table follows the public API as of 1.4.
+
+## Fill styles (gradients)
+
+Figma variables cannot hold gradients, so the four gradient tokens are paint styles on the Foundations page. A style with a transparent stop holds resolved colours, so `hero` and `fade` have a light and a dark style.
+
+| Figma fill style | Token | CSS variable | Tailwind |
+|---|---|---|---|
+| `gradient/brand` | `gradient.brand` | `--pance-gradient-brand` | `bg-gradient-brand` |
+| `gradient/hero-light`, `gradient/hero-dark` | `gradient.hero` (light, dark) | `--pance-gradient-hero` | `bg-gradient-hero` |
+| `gradient/surface-soft` | `gradient.surface-soft` | `--pance-gradient-surface-soft` | `bg-gradient-surface-soft` |
+| `gradient/fade-light`, `gradient/fade-dark` | `gradient.fade` (light, dark) | `--pance-gradient-fade` | `bg-gradient-fade` |

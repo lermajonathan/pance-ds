@@ -18,7 +18,7 @@ This repository contains:
 
 | | What | Where |
 |---|---|---|
-| 🎨 | **Design tokens**: 943 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
+| 🎨 | **Design tokens**: 947 tokens in three tiers (primitives → semantic → components), W3C DTCG format | [`tokens/`](tokens) |
 | 🧩 | **React components**: 71 components, built with Tailwind CSS v4 | [`src/components/`](src/components) |
 | 🔣 | **Iconography**: 70 semantic aliases over [Phosphor Icons](https://phosphoricons.com) (1,000+ icons; any of them works with Pance) | [`src/icons.tsx`](src/icons.tsx) |
 | 📖 | **Documentation site**: the bilingual explorer published at the URL above | [`src/site/`](src/site) |

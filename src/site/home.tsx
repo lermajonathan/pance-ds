@@ -86,7 +86,7 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
         >
           <ConsoleExample />
         </div>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-canvas via-canvas/80 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-fade" />
         <div className="absolute inset-x-0 bottom-5 flex justify-center">
           <Button severity="primary" onClick={onOpen}>
             {t('home.preview.open')}
@@ -116,7 +116,7 @@ export function HomePage() {
     <div>
 
       {/* ── Hero ──────────────────────────────────────────────────────── */}
-      <section className="pance-hero relative overflow-hidden px-8 py-24 md:py-32">
+      <section className="pance-hero relative overflow-hidden bg-gradient-hero px-8 py-24 md:py-32">
         {/* Background texture: subtle grid */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: 'linear-gradient(color-mix(in srgb, var(--hero-grid) 40%, transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb, var(--hero-grid) 40%, transparent) 1px,transparent 1px)', backgroundSize: '40px 40px' }} />
@@ -124,7 +124,7 @@ export function HomePage() {
         <div className="relative mx-auto max-w-[1120px]">
           <div className="flex flex-col gap-6 lg:max-w-[680px]">
             <div className="flex items-center gap-2">
-              <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--color-brand-600)_60%,transparent)]">
+              <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-brand shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--color-brand-600)_60%,transparent)]">
                 <IconWave size={14} weight="bold" className="text-white" />
               </div>
               <span className="font-mono text-11 uppercase tracking-[0.22em] text-(--hero-eyebrow)">{t('home.eyebrow')} · v{VERSION}</span>

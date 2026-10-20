@@ -7,6 +7,7 @@ import { home } from './home'
 import { colors } from './colors'
 import { type } from './type'
 import { spacing } from './spacing'
+import { gradients } from './gradients'
 import { icons } from './icons'
 import { layout } from './layout'
 import { buttons } from './buttons'
@@ -33,8 +34,8 @@ export const LANGS: { code: Lang; short: string; name: string }[] = [
 
 /* Register each domain dictionary here: add `...x.en` and `...x.es` (one line each). */
 const DICT = {
-  en: { ...shell.en, ...release.en, ...consoleDict.en, ...ui.en, ...home.en, ...colors.en, ...type.en, ...spacing.en, ...icons.en, ...layout.en, ...buttons.en, ...forms.en, ...selection.en, ...badges.en, ...feedback.en, ...navigation.en, ...overlays.en, ...table.en, ...cards.en, ...content.en, ...metrics.en, ...dataviz.en, ...afterquake.en, ...dashboardPage.en },
-  es: { ...shell.es, ...release.es, ...consoleDict.es, ...ui.es, ...home.es, ...colors.es, ...type.es, ...spacing.es, ...icons.es, ...layout.es, ...buttons.es, ...forms.es, ...selection.es, ...badges.es, ...feedback.es, ...navigation.es, ...overlays.es, ...table.es, ...cards.es, ...content.es, ...metrics.es, ...dataviz.es, ...afterquake.es, ...dashboardPage.es },
+  en: { ...shell.en, ...release.en, ...consoleDict.en, ...ui.en, ...home.en, ...colors.en, ...type.en, ...spacing.en, ...gradients.en, ...icons.en, ...layout.en, ...buttons.en, ...forms.en, ...selection.en, ...badges.en, ...feedback.en, ...navigation.en, ...overlays.en, ...table.en, ...cards.en, ...content.en, ...metrics.en, ...dataviz.en, ...afterquake.en, ...dashboardPage.en },
+  es: { ...shell.es, ...release.es, ...consoleDict.es, ...ui.es, ...home.es, ...colors.es, ...type.es, ...spacing.es, ...gradients.es, ...icons.es, ...layout.es, ...buttons.es, ...forms.es, ...selection.es, ...badges.es, ...feedback.es, ...navigation.es, ...overlays.es, ...table.es, ...cards.es, ...content.es, ...metrics.es, ...dataviz.es, ...afterquake.es, ...dashboardPage.es },
 }
 export type Key = keyof typeof DICT.en
 
