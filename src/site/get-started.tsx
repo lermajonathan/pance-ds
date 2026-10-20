@@ -71,7 +71,7 @@ export function GetStartedSection() {
   return (
     <section id="get-started" className="bg-surface px-5 pb-20 pt-4 sm:px-8 sm:pb-28 sm:pt-8">
       <div className="mx-auto max-w-[1120px]">
-        <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.install.eyebrow')}</p>
+        <p className="font-mono text-11 uppercase tracking-[0.18em] text-ink-brand">{t('home.install.eyebrow')}</p>
         <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink">{t('home.install.title')}</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">{t('home.install.lede')}</p>
 
@@ -83,7 +83,7 @@ export function GetStartedSection() {
           ] as const).map(([n, title, body, label, code]) => (
             <div key={n} className="flex min-w-0 flex-col gap-3">
               <div className="flex items-baseline gap-3">
-                <span className="font-display text-3xl font-extrabold text-brand-700">{n}</span>
+                <span className="font-display text-3xl font-extrabold text-ink-brand">{n}</span>
                 <h3 className="text-base font-semibold text-ink">{t(title as Key)}</h3>
               </div>
               <p className="text-sm leading-relaxed text-ink-muted">{t(body as Key)}</p>
@@ -102,13 +102,13 @@ export function GetStartedSection() {
               className="group flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5 shadow-sm transition-colors hover:border-brand-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
             >
               <div className="flex items-center justify-between">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon size={22} /></span>
-                <ArrowUpRight size={16} className="text-ink-muted transition-colors group-hover:text-brand-700" />
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary-soft text-primary-fg"><Icon size={22} /></span>
+                <ArrowUpRight size={16} className="text-ink-muted transition-colors group-hover:text-ink-brand" />
               </div>
               <div>
                 <p className="flex items-center gap-2 text-sm font-semibold text-ink">
                   {t(`home.res.${key}.title` as Key)}
-                  {meta && <span className="rounded-md bg-brand-50 px-1.5 py-0.5 font-mono text-10 text-brand-700">{meta}</span>}
+                  {meta && <span className="rounded-md bg-primary-soft px-1.5 py-0.5 font-mono text-10 text-primary-fg">{meta}</span>}
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-ink-muted">{t(`home.res.${key}.body` as Key)}</p>
               </div>

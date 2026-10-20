@@ -61,7 +61,7 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
   }, [])
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_2px_16px_-4px_color-mix(in_srgb,var(--color-ink)_8%,transparent)]">
+    <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_2px_16px_-4px_color-mix(in_srgb,var(--color-slate-950)_8%,transparent)]">
       <div className="flex items-center gap-3 border-b border-line-soft bg-canvas px-4 py-2.5">
         <div className="flex gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
@@ -168,7 +168,7 @@ export function HomePage() {
         <div className="mx-auto max-w-[1120px]">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.context.eyebrow')}</p>
+              <p className="font-mono text-11 uppercase tracking-[0.18em] text-ink-brand">{t('home.context.eyebrow')}</p>
               <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink">{t('home.context.title')}</h2>
               <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-muted">
                 {t('home.context.body')}
