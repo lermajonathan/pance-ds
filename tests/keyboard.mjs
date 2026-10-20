@@ -16,6 +16,13 @@ const settle = async (fn, expected, ms = 1500) => {
   for (const end = Date.now() + ms; Date.now() < end; await page.waitForTimeout(50)) if ((v = await fn()) === expected) return v
   return v
 }
+// Focus moves a tick after a key press; poll briefly instead of reading it once.
+const settled = async (check, ms = 1500) => {
+  const end = Date.now() + ms
+  let last
+  do { last = await active(); if (check(last)) return last; await page.waitForTimeout(50) } while (Date.now() < end)
+  return last
+}
 const active = () => page.evaluate(() => {
   const a = document.activeElement
   return { role: a?.getAttribute('role'), tag: a?.tagName, id: a?.id, text: a?.textContent?.trim().slice(0, 40), inDialog: !!a?.closest('[role="dialog"]') }
@@ -56,11 +63,12 @@ await test('DropdownMenu: ArrowDown opens on first item, arrows move, Escape ret
   assert(a.role === 'menuitem', `expected menuitem focused, got ${a.role}`)
   const first = a.text
   await page.keyboard.press('ArrowDown')
-  a = await active()
+  a = await settled((x) => x.role === 'menuitem' && x.text !== first)
   assert(a.role === 'menuitem' && a.text !== first, 'ArrowDown did not move to the next item')
   await page.keyboard.press('End')
+  await settled((x) => x.text !== first)
   await page.keyboard.press('Home')
-  assert((await active()).text === first, 'Home did not return to the first item')
+  assert((await settled((x) => x.text === first)).text === first, 'Home did not return to the first item')
   await page.keyboard.press('Escape')
   assert((await page.locator('[role="menu"]').count()) === 0, 'menu still open')
   assert(await trigger.evaluate((el) => el === document.activeElement || el.contains(document.activeElement)), 'focus not back on trigger')
