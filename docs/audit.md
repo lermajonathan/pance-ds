@@ -22,10 +22,11 @@ Decisions taken: Aqua is the brand, the repo JSON is the single source of truth 
 | Dimensions from tokens | ✅ Tailwind spacing, radius, type, weight, leading, tracking and container scales resolve to Pance tokens; Button, Input, Badge, Toggle, Checkbox, Radio, Tabs, Modal, Drawer, Popover, Toast and Progress read their size tokens; `lint:tokens` also blocks magic pixel sizes |
 | Token contrast test | ✅ `tests/contrast.mjs`: 147 pairs (text 4.5:1, controls and focus 3:1) in light and dark. Found and fixed: unchecked checkbox/radio and switch-off boundaries at 2.56:1 (new `color.border.control`, slate-500, 4.76:1) and 27 dark-mode pairs (hover/active states, soft hovers, subtle text, slider) |
 | §6 i18n/router decoupling | ✅ Components use `PanceProvider` labels (English default); the docs site feeds its EN/ES dictionary into it. The library has no router or i18n import |
-| npm packages | ✅ Ready: `@pance/tokens` and `@pance/react` (ESM, types, precompiled `styles.css` and a Tailwind entry). `pnpm test:packages` installs both in a fresh project and checks rendering, labels, stylesheets, token exports and types. Published on npm through GitHub Actions with trusted publishing and provenance, no stored token: 1.1.0 to 1.4.1 (1.4.1 on October 20, 2026) |
+| npm packages | ✅ Ready: `@pance/tokens` and `@pance/react` (ESM, types, precompiled `styles.css` and a Tailwind entry). `pnpm test:packages` installs both in a fresh project and checks rendering, labels, stylesheets, token exports and types. Published on npm through GitHub Actions with trusted publishing and provenance, no stored token: 1.1.0 to 1.5.0 (1.4.1 and 1.5.0 on October 20, 2026) |
 | Pointer targets (WCAG 2.5.8) | ✅ Interactive controls have at least a 24 × 24 px target through an invisible hit area (internal `hitArea` helper): Checkbox, Radio, Switch (sm), Badge and TagInput remove buttons, Breadcrumb ellipsis, MetricCard Retry, chart table toggle, "Mark all as read", DataTable "Show details". A re-check of 20 pages found none left, except inline text links and fields inside larger containers, which the criterion exempts. Released in 1.4.1 |
 | Panels in the viewport | ✅ `Popover`, `DropdownMenu`, `NotificationCenter`, `DatePicker` and `DateRangePicker` shift sideways to stay on screen and open upward when there is no room below (internal `useKeepInView`). Released in 1.4.1 |
 | Docs site | ✅ Served from GitHub Pages at `pance-ds.jonathanlerma.com` (HTTPS, EN/ES, light and dark) and deployed by `pages.yml` on every push to `main`; Figma Make no longer hosts it. Demo photos are self-hosted |
+| Gradients | ✅ Four decorative gradient tokens (`gradient.brand`, `.hero`, `.surface-soft`, `.fade`) with a new `gradient` token type: CSS variables `--pance-gradient-*`, Tailwind `bg-gradient-*`, light and dark values (`hero` has its own dark value). The contrast test checks every stop of `hero` and `surface-soft` against the text colours (202 pairs per mode now). The docs site has a Gradients page and uses the tokens instead of one-off classes; Figma has six fill styles (`gradient/*`). 947 tokens. Released in 1.5.0 ([DDR-DS-019](decisions/DDR-DS-019.md)) |
 
 ## 1 · Changes made during extraction
 
@@ -109,13 +110,15 @@ Done:
 9. ✅ Figma documentation structure: one page per component (header, examples, variants, tokens), a Getting started page and a DDR-DS register of design decisions ([decisions/](decisions/README.md)).
 10. ✅ **1.4.1**: fixes only, no API changes. Checkbox, Radio and Switch no longer toggle twice, Avatar falls back to initials, panels stay on screen, 24 px pointer targets, Badge remove focus ring, Calendar corner radius, DataTable scroll and landmark.
 11. ✅ Docs site moved from Figma Make to GitHub Pages on its own domain.
+12. ✅ **1.5.0**: additive. The four gradient tokens ([DDR-DS-019](decisions/DDR-DS-019.md)), a Gradients page in the docs site and fill styles in Figma. The docs site home (hero, closing bands, install snippets) now follows the theme in light mode.
 
 Next:
 
 - **Button with leading and trailing icons.** `Button` takes one `Icon` (`iconPos`: left, right, top, bottom). Add `TrailingIcon` so a button can show both (for example "Download ▾"). Additive, ships in the next minor (1.4.0) together with the matching Figma properties (`show leading icon` / `show trailing icon`). Record it as a DDR-DS.
 - ✅ **1.3.0**: one mature release covering everything since 1.2.0 (dates, theme, feedback, links, actions, forms, table features, charts, flows, docs). Decision: no interim releases; the design system is announced only once it is complete.
 - ✅ **1.4.0**: additive. `Button` `TrailingIcon` (DDR-DS-018), `bordered` on the calendars, and the finished Figma library.
-- Launch: LinkedIn (EN and ES) and Instagram posts, and a consulting case study.
+- Launch: LinkedIn (EN and ES) and Instagram posts are out; a consulting case study is next.
+- Republish the Figma Community listing so it carries the gradient fill styles (and "1,027 variants" in its description).
 - Screen-reader passes (NVDA, VoiceOver) on the dialog, combobox, data table and date picker.
 - Figma: dark values for component tokens (the Components collection has one mode).
 - Code Connect when the Figma file moves to an Organization plan.
