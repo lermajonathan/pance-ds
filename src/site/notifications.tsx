@@ -3,8 +3,8 @@ import { IconButton, Popover, Tooltip } from '../components'
 import { IconBell } from '../icons'
 import { useI18n, type Key } from '../i18n'
 
-const NOTES = [1, 2, 3, 4, 5, 6] as const
-const SEEN = 'pance-notes-seen-1.4.0'
+const NOTES = [1, 2, 3, 4, 5, 6, 7] as const
+const SEEN = 'pance-notes-seen-1.5.0'
 
 export function NotificationsBell() {
   const { t } = useI18n()
