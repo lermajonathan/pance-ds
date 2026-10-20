@@ -19,6 +19,7 @@ import {
   Globe,
   Lock,
   Sparkle,
+  ArrowUpRight,
   type Icon as PhosphorIcon,
   type IconWeight,
 } from '@phosphor-icons/react'
@@ -133,6 +134,13 @@ import { useI18n, type Key } from '../i18n'
 /* ═══════════════════════════════════════════════════════════════════════
    Documentation layout primitives
    ═══════════════════════════════════════════════════════════════════════ */
+/* Demo photos (Unsplash License) are self-hosted under public/img so the
+   docs never depend on a third-party CDN. `photo` = square avatar crop,
+   `scene` = 3:2 landscape. */
+const IMG_BASE = `${import.meta.env.BASE_URL}img/`
+const photo = (id: string) => `${IMG_BASE}av-${id.replace('photo-', '')}.webp`
+const scene = (id: string) => `${IMG_BASE}ph-${id.replace('photo-', '')}.webp`
+
 export function Page({ eyebrow, title, lead, children }: { eyebrow: string; title: string; lead: string; children: ReactNode }) {
   return (
     <div className="space-y-10">
@@ -538,7 +546,7 @@ export function TypographyPage() {
                 {t('type.ctx.quote')}
               </blockquote>
               <figcaption className="mt-4 flex items-center gap-3">
-                <Avatar name="Devon Achebe" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&auto=format" size={36} />
+                <Avatar name="Devon Achebe" src={photo('photo-1500648767791-00dcc994a43e')} size={36} />
                 <div>
                   <p className="text-sm font-semibold text-ink">Devon Achebe</p>
                   <p className="text-xs text-ink-muted">{t('type.ctx.role')}</p>
@@ -713,6 +721,24 @@ export function IconsPage() {
       title={t('nav.icons')}
       lead={t('icons.lead')}
     >
+      <Card className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-ink">{t('icons.lib.title')}</p>
+          <p className="mt-1 text-sm text-ink-muted">{t('icons.lib.body')}</p>
+          <code className="mt-3 inline-block max-w-full overflow-x-auto rounded-lg bg-canvas px-2.5 py-1 font-mono text-xs text-ink-soft ring-1 ring-line-soft">pnpm add @phosphor-icons/react</code>
+        </div>
+        <a
+          href="https://phosphoricons.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pance-focus inline-flex min-h-10 shrink-0 items-center justify-center gap-2 self-start rounded-xl border border-line bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-primary-border hover:text-primary-fg sm:self-center"
+        >
+          {t('icons.lib.cta')}
+          <ArrowUpRight size={16} aria-hidden />
+          <span className="sr-only">{t('home.links.newTab')}</span>
+        </a>
+      </Card>
+
       <Section title={t('icons.weights.title')} hint={t('icons.weights.hint')}>
         <Card className="flex flex-wrap items-end gap-x-8 gap-y-5 p-6">
           {WEIGHTS.map((w) => (
@@ -1887,7 +1913,7 @@ export function BadgesPage() {
     { name: 'Saoirse Flynn', avatar: 'photo-1494790108377-be9c29b29330' },
     { name: 'Tariq Hassan', avatar: 'photo-1472099645785-5658abf4ff4e' },
   ]
-  const toUrl = (id: string) => `https://images.unsplash.com/${id}?w=80&h=80&fit=crop&auto=format`
+  const toUrl = (id: string) => photo(id)
 
   return (
     <Page eyebrow={t('nav.group.components')} title={t('nav.badges')} lead={t('badges.lead')}>
@@ -2212,7 +2238,7 @@ export function FeedbackPage() {
             { name: 'Priya Ramanathan', avatar: 'photo-1544005313-94ddf0286df2', time: t('feedback.chat.m3.time'), text: t('feedback.chat.m3.text'), own: false },
           ].map((msg) => (
             <div key={msg.name + msg.time} className={`flex gap-3 px-5 py-4 ${msg.own ? 'flex-row-reverse' : ''}`}>
-              <Avatar name={msg.name} src={`https://images.unsplash.com/${msg.avatar}?w=80&h=80&fit=crop`} size={32} />
+              <Avatar name={msg.name} src={photo(msg.avatar)} size={32} />
               <div className={`min-w-0 max-w-sm ${msg.own ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs font-semibold text-ink">{msg.own ? t('feedback.chat.you') : msg.name}</span>
@@ -2579,7 +2605,7 @@ export function NavigationPage() {
                 <div className="flex items-center gap-2">
                   <div className="hidden w-52 sm:block"><Input placeholder={t('navigation.navbar.search')} Icon={IconSearch} inputSize="sm" /></div>
                   <Tooltip label={t('shell.notifications')} placement="bottom"><IconButton Icon={IconBell} label={t('shell.notifications')} /></Tooltip>
-                  <Avatar name="Ines Halvorsen" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" size={32} status="online" />
+                  <Avatar name="Ines Halvorsen" src={photo('photo-1438761681033-6461ffad8d80')} size={32} status="online" />
                 </div>
               </header>
               <div className="bg-canvas px-6 py-4 text-sm text-ink-muted">{t('navigation.navbar.content')}</div>
@@ -2782,6 +2808,7 @@ function NotificationCenterDemo() {
   })
   return (
     <NotificationCenter
+      align="start"
       items={items}
       onRead={(id) => setState((s) => s.map((x) => (x.id === id ? { ...x, read: true } : x)))}
       onReadAll={() => setState((s) => s.map((x) => ({ ...x, read: true })))}
@@ -2907,7 +2934,7 @@ export function OverlaysPage() {
                 { name: 'Devon Achebe', role: t('badges.team.editor'), avatar: 'photo-1500648767791-00dcc994a43e' },
               ].map((p) => (
                 <div key={p.name} className="flex items-center gap-2.5">
-                  <Avatar name={p.name} src={`https://images.unsplash.com/${p.avatar}?w=48&h=48&fit=crop`} size={28} status="online" />
+                  <Avatar name={p.name} src={photo(p.avatar)} size={28} status="online" />
                   <div>
                     <p className="text-sm font-medium text-ink leading-none">{p.name}</p>
                     <p className="text-xs text-ink-muted mt-0.5">{p.role}</p>
@@ -3509,7 +3536,7 @@ function CardField({ label, children }: { label: string; children: ReactNode }) 
   )
 }
 
-const avatarOf = (r: Row) => `https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`
+const avatarOf = (r: Row) => photo(r.avatar)
 const speed = (s: string) => parseFloat(s) * (s.includes('M/s') ? 1000 : 1)
 
 function useStreamColumns(): Column<Row>[] {
@@ -4146,7 +4173,7 @@ export function CardsPage() {
             <div key={card.title} className="group overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-12px_rgba(15,23,42,0.2)]">
               <div className="h-36 overflow-hidden bg-ground">
                 <img
-                  src={`https://images.unsplash.com/${card.img}?w=600&h=300&fit=crop`}
+                  src={scene(card.img)}
                   alt={card.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -4157,7 +4184,7 @@ export function CardsPage() {
                 <p className="mt-1 text-xs text-ink-muted">{t('cards.media.meta')}</p>
                 <div className="mt-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Avatar name="Ines Halvorsen" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=48&h=48&fit=crop" size={22} decorative />
+                    <Avatar name="Ines Halvorsen" src={photo('photo-1438761681033-6461ffad8d80')} size={22} decorative />
                     <span className="text-xs text-ink-muted">Ines Halvorsen</span>
                   </div>
                   <a href="#" className="pance-focus inline-flex items-center gap-1 text-xs font-medium text-primary-fg hover:text-primary-fg">
@@ -4211,7 +4238,7 @@ export function CardsPage() {
                 <p className="mt-0.5 truncate text-xs text-ink-muted">{row.desc}</p>
               </div>
               <div className="hidden items-center gap-2 sm:flex">
-                <Avatar name={row.owner} src={`https://images.unsplash.com/${row.avatar}?w=48&h=48&fit=crop`} size={24} />
+                <Avatar name={row.owner} src={photo(row.avatar)} size={24} />
                 <span className="text-xs text-ink-muted">{row.throughput}</span>
               </div>
               <IconButton Icon={IconDots} label={t('cards.horizontal.more')} />
@@ -4338,7 +4365,7 @@ export function ContentPage() {
       </Section>
 
       <Section title="Image" hint={t('content.image.hint')}>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-3 sm:items-start">
           {[
             { ratio: 'aspect-video', label: '16:9', img: 'photo-1518770660439-4636190af475' },
             { ratio: 'aspect-square', label: '1:1', img: 'photo-1558494949-ef010cbdcc31' },
@@ -4346,7 +4373,7 @@ export function ContentPage() {
           ].map((im) => (
             <figure key={im.label} className="overflow-hidden rounded-2xl border border-line bg-surface">
               <div className={`${im.ratio} overflow-hidden bg-ground`}>
-                <img src={`https://images.unsplash.com/${im.img}?w=600&h=400&fit=crop`} alt="" className="h-full w-full object-cover" />
+                <img src={scene(im.img)} alt="" className="h-full w-full object-cover" />
               </div>
               <figcaption className="px-4 py-3">
                 <p className="text-xs font-medium text-ink">{t('content.image.caption')}</p>
@@ -4368,7 +4395,7 @@ export function ContentPage() {
             <div className="flex items-center gap-4">
               {[48, 64, 80, 96].map((sz) => (
                 <div key={sz} className="overflow-hidden rounded-full border-2 border-line" style={{ width: sz, height: sz }}>
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="" className="h-full w-full object-cover" />
+                  <img src={photo('photo-1438761681033-6461ffad8d80')} alt="" className="h-full w-full object-cover" />
                 </div>
               ))}
             </div>
@@ -4558,7 +4585,7 @@ export function ContentPage() {
       <Section title={t('content.art.title')} hint={t('content.art.hint')}>
         <Card className="overflow-hidden lg:flex">
           <div className="h-52 lg:h-auto lg:w-72 shrink-0 overflow-hidden bg-ground">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" alt="" className="h-full w-full object-cover" />
+            <img src={scene('photo-1518770660439-4636190af475')} alt="" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col justify-between p-6">
             <div>
@@ -4572,7 +4599,7 @@ export function ContentPage() {
             </div>
             <div className="mt-5 flex items-center justify-between border-t border-line-soft pt-4">
               <div className="flex items-center gap-2">
-                <Avatar name="Devon Achebe" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=48&h=48&fit=crop" size={28} />
+                <Avatar name="Devon Achebe" src={photo('photo-1500648767791-00dcc994a43e')} size={28} />
                 <div>
                   <p className="text-xs font-semibold text-ink">Devon Achebe</p>
                   <p className="font-mono text-10 text-ink-muted">{t('content.art.read')}</p>
