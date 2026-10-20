@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef, type ReactNode } from 'react'
-import { Link, Outlet, RouterProvider, createBrowserRouter, redirect, useParams, useNavigate } from 'react-router'
+import { Link, Outlet, RouterProvider, createBrowserRouter, createHashRouter, redirect, useParams, useNavigate } from 'react-router'
 import {
   IconArticle,
   IconBell,
@@ -54,6 +54,8 @@ import { LangProvider, detectLang, isLang, useI18n, type Key } from '../i18n'
 import { LanguageSwitch } from './language-switch'
 import { HeaderSearch } from './header-search'
 import { NotificationsBell } from './notifications'
+import { GithubLogo } from '@phosphor-icons/react'
+import { LINKS, VERSION } from './version'
 
 /* ═══════════════════════════════════════════════════════════════════════
    PANCE — design system explorer shell
@@ -272,9 +274,18 @@ function Shell() {
               <LanguageSwitch variant="header" />
               <HeaderSearch pages={ALL} className="hidden w-64 md:block" />
               <NotificationsBell />
-              <span className="hidden lg:inline">
-                <Badge severity="primary">v1.0.0</Badge>
-              </span>
+              <a
+                href={LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`GitHub ${t('home.links.newTab')}`}
+                className="grid h-10 w-10 place-items-center rounded-xl text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+              >
+                <GithubLogo size={20} />
+              </a>
+              <a href={LINKS.changelog} target="_blank" rel="noopener noreferrer" className="hidden rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 lg:inline">
+                <Badge severity="primary">v{VERSION}</Badge>
+              </a>
             </div>
           </header>
           <main className={isHome ? 'flex-1 overflow-y-auto' : 'mx-auto w-full max-w-[1200px] flex-1 overflow-x-clip px-5 py-6 sm:px-8 sm:py-10'}>
@@ -353,7 +364,8 @@ function LangRoute() {
 const PAGE_KEYS = new Set(ALL.map((e) => e.key))
 const basename = import.meta.env.BASE_URL.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') : ''
 
-const router = createBrowserRouter(
+// VITE_HASH_ROUTER=1 builds a preview that works from any static path (no server rewrites).
+const router = (import.meta.env.VITE_HASH_ROUTER ? createHashRouter : createBrowserRouter)(
   [
     {
       path: '/:lang',

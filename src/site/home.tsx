@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { Badge, Button } from '../components'
 import ConsoleExample from './console-example'
 import { CoverageSection, PillarsSection } from './home-sections'
+import { GetStartedSection, HeroLinks } from './get-started'
+import { VERSION } from './version'
 import { useI18n } from '../i18n'
 import type { Key } from '../i18n'
 import {
@@ -120,7 +122,7 @@ export function HomePage() {
               <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--color-brand-600)_60%,transparent)]">
                 <IconWave size={14} weight="bold" className="text-white" />
               </div>
-              <span className="font-mono text-11 uppercase tracking-[0.22em] text-brand-400">{t('home.eyebrow')}</span>
+              <span className="font-mono text-11 uppercase tracking-[0.22em] text-brand-400">{t('home.eyebrow')} · v{VERSION}</span>
             </div>
 
             <h1 className="font-display text-5xl font-extrabold leading-[1.08] tracking-tight text-white md:text-6xl lg:text-7xl">
@@ -147,6 +149,7 @@ export function HomePage() {
                 {t('home.cta.action')}
               </button>
             </div>
+            <HeroLinks />
           </div>
 
           {/* Floating badges */}
@@ -184,6 +187,8 @@ export function HomePage() {
       </section>
 
       <CoverageSection onOpen={() => navigate('dataviz')} />
+
+      <GetStartedSection />
 
       {/* ── CTA strip ─────────────────────────────────────────────────── */}
       <section className="border-t border-line bg-river-900 px-8 py-16">

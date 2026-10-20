@@ -15,6 +15,8 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - Patterns: Traffic report's line chart no longer overflows its card and the By region bars match their percentages; Settings no longer repeats the Autoscaling row.
 
 ### Documentation
+- **Docs site brought up to date:** the version comes from `@pance/react` at build time (header badge, hero), real counts (88 components, 943 tokens), a Get started section (install, styles, first component) with links to GitHub, npm, Figma Community and the changelog, a GitHub link in the header, and release notes for 1.1 to 1.4 in English and Spanish.
+- **GitHub Pages:** `.github/workflows/pages.yml` builds the site on every push to `main` and publishes it to pance-ds.jonathanlerma.com. `scripts/pages-routes.mjs` writes one page per route (deep links return 200), a 404 fallback and the CNAME. `VITE_HASH_ROUTER=1` builds a preview that works from any static path.
 - Open-source governance: `GOVERNANCE.md` (the maintainer approves everything built or merged), `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue and pull request templates, `CODEOWNERS`, and `docs/github-setup.md` with the repository settings to apply.
 
 ## [1.4.0] - 2026-10-19
