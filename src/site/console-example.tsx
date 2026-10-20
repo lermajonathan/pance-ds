@@ -79,9 +79,9 @@ function Kpi({ label, value, sub, delta, upIsGood = true, Icon }: { label: strin
     <div className="rounded-2xl border border-line bg-surface p-5">
       <div className="flex items-center justify-between gap-2">
         <span className="flex items-center gap-2 text-sm font-medium text-ink-muted">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-700"><Icon size={16} /></span>{label}
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary-soft text-primary-fg"><Icon size={16} /></span>{label}
         </span>
-        <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-mono text-11 font-semibold ${good ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}`}>
+        <span className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 font-mono text-11 font-semibold ${good ? 'bg-success-soft text-success-fg' : 'bg-danger-soft text-danger-fg'}`}>
           {delta >= 0 ? <IconArrowUp size={10} weight="bold" /> : <IconArrowDown size={10} weight="bold" />}{Math.abs(delta).toFixed(1)}%
         </span>
       </div>
@@ -104,7 +104,7 @@ function SalesChart({ total, hidden, onToggle }: { total: number; hidden: Set<Me
         {METHODS.map((m) => {
           const off = hidden.has(m.key)
           return (
-            <button key={m.key} onClick={() => onToggle(m.key)} aria-pressed={!off} className={`pance-focus inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${off ? 'border-line text-ink-muted line-through opacity-60' : 'border-line bg-surface text-ink-soft hover:border-slate-300'}`}>
+            <button key={m.key} onClick={() => onToggle(m.key)} aria-pressed={!off} className={`pance-focus inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${off ? 'border-line text-ink-muted line-through opacity-60' : 'border-line bg-surface text-ink-soft hover:border-line-strong'}`}>
               <span className="h-2 w-2 rounded-full" style={{ background: m.color }} />{METHOD_LABEL[m.key] ? tt(METHOD_LABEL[m.key]!) : m.label}
               <span className="font-mono text-10 text-ink-muted">{Math.round(MIX[m.key] * 100)}%</span>
             </button>
@@ -207,7 +207,7 @@ export default function ConsoleExample() {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${offline ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'}`}>
+            <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${offline ? 'bg-warning-soft text-warning-fg' : 'bg-success-soft text-success-fg'}`}>
               <span className={`h-1.5 w-1.5 rounded-full ${offline ? 'bg-amber-500' : 'animate-pulse bg-emerald-500'}`} />
               {offline ? tt('console.sync.offline') : tt('console.sync.online')}
             </span>
@@ -262,18 +262,18 @@ export default function ConsoleExample() {
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <dl className="space-y-2.5 text-sm">
                   {([[tt('console.cash.base'), 150_000], [tt('console.cash.sales'), 505_500], [tt('console.cash.supplier'), -64_300]] as const).map(([k, v]) => (
-                    <div key={k} className="flex justify-between"><dt className="text-ink-muted">{k}</dt><dd className={`font-mono ${v < 0 ? 'text-rose-600' : 'text-ink'}`}>{v < 0 ? '−' : ''}{cop(Math.abs(v))}</dd></div>
+                    <div key={k} className="flex justify-between"><dt className="text-ink-muted">{k}</dt><dd className={`font-mono ${v < 0 ? 'text-danger-fg' : 'text-ink'}`}>{v < 0 ? '−' : ''}{cop(Math.abs(v))}</dd></div>
                   ))}
                   <div className="flex justify-between border-t border-line-soft pt-2.5 font-semibold"><dt className="text-ink">{tt('console.cash.expected')}</dt><dd className="font-mono text-ink">{cop(cashExpected)}</dd></div>
                 </dl>
                 <label className="block">
                   <span className="text-xs font-medium text-ink-soft">{tt('console.cash.counted')}</span>
-                  <div className="mt-1.5 flex h-10 items-center rounded-xl border border-line bg-surface px-3 focus-within:border-brand-500 focus-within:shadow-[0_0_0_3px_var(--color-brand-100)]">
+                  <div className="mt-1.5 flex h-10 items-center rounded-xl border border-line bg-surface px-3 focus-within:border-brand-500 focus-within:shadow-[0_0_0_3px_var(--color-primary-soft-hover)]">
                     <span className="font-mono text-sm text-ink-muted">$</span>
                     <input disabled={closed} value={Number(counted || 0).toLocaleString('es-CO')} onChange={(e) => setCounted(e.target.value.replace(/\D/g, '').slice(0, 9))} inputMode="numeric" className="ml-1 w-full bg-transparent font-mono text-sm text-ink outline-none disabled:text-ink-muted" />
                   </div>
                 </label>
-                <div className={`rounded-xl px-3 py-2 text-xs ${diff === 0 ? 'bg-emerald-50 text-emerald-700' : Math.abs(diff) <= 5000 ? 'bg-amber-50 text-amber-700' : 'bg-rose-50 text-rose-700'}`}>
+                <div className={`rounded-xl px-3 py-2 text-xs ${diff === 0 ? 'bg-success-soft text-success-fg' : Math.abs(diff) <= 5000 ? 'bg-warning-soft text-warning-fg' : 'bg-danger-soft text-danger-fg'}`}>
                   {diff === 0 ? tt('console.cash.exact') : `${tt('console.cash.detail', { kind: diff < 0 ? tt('console.cash.short') : tt('console.cash.over'), amount: cop(Math.abs(diff)) })}${Math.abs(diff) <= 5000 ? tt('console.cash.tolerance') : tt('console.cash.review')}`}
                 </div>
                 <Button className="mt-auto w-full" severity={closed ? 'secondary' : 'primary'} variant={closed ? 'outlined' : 'filled'} Icon={closed ? IconCheckCircle : IconCheck}
@@ -352,7 +352,7 @@ export default function ConsoleExample() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className={`font-mono text-sm font-semibold ${pct > 100 ? 'text-rose-600' : 'text-ink'}`}>{cop(d.balance)}</p>
+                          <p className={`font-mono text-sm font-semibold ${pct > 100 ? 'text-danger-fg' : 'text-ink'}`}>{cop(d.balance)}</p>
                           <p className="font-mono text-10 text-ink-muted">{tt('console.debt.limit', { amount: cop(d.limit) })}</p>
                         </div>
                       </div>
@@ -398,7 +398,7 @@ export default function ConsoleExample() {
               <ul className="divide-y divide-line-soft">
                 {DELIVERIES.map((d) => (
                   <li key={d.id} className="flex items-center gap-4 px-6 py-4">
-                    <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${d.onRoute ? 'bg-brand-50 text-brand-700' : 'bg-ground text-ink-muted'}`}><IconBuildings size={18} /></span>
+                    <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${d.onRoute ? 'bg-primary-soft text-primary-fg' : 'bg-ground text-ink-muted'}`}><IconBuildings size={18} /></span>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium text-ink">{d.to}</p>
                       <p className="font-mono text-11 text-ink-muted">{d.id} · {d.rider}</p>

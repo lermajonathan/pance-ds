@@ -40,14 +40,14 @@ export function HeroLinks() {
     { href: LINKS.figma, label: t('home.links.figma'), Icon: FigmaLogo },
   ]
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-0 pt-1">
       {items.map(({ href, label, Icon }) => (
         <a
           key={href}
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-300 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
+          className="inline-flex min-h-10 items-center gap-1.5 text-sm font-medium text-slate-300 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
         >
           <Icon size={16} />
           {label}

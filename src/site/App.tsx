@@ -158,9 +158,9 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
                   onClick={onCloseMobile}
                   aria-current={isActive ? 'page' : undefined}
                   title={collapsed ? label : undefined}
-                  className={`pance-focus group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${collapsed ? 'lg:justify-center lg:gap-0 lg:px-0' : ''} ${isActive ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}
+                  className={`pance-focus group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${collapsed ? 'lg:justify-center lg:gap-0 lg:px-0' : ''} ${isActive ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}
                 >
-                  <Icon size={18} weight={isActive ? 'fill' : 'regular'} className={`shrink-0 ${isActive ? 'text-brand-700' : 'text-ink-muted group-hover:text-ink-soft'}`} />
+                  <Icon size={18} weight={isActive ? 'fill' : 'regular'} className={`shrink-0 ${isActive ? 'text-primary-fg' : 'text-ink-muted group-hover:text-ink-soft'}`} />
                   <span className={`min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-left transition-all duration-300 ${collapsed ? 'opacity-100 lg:w-0 lg:opacity-0' : 'opacity-100'}`}>{label}</span>
                 </Link>
               )
@@ -256,7 +256,7 @@ function Shell() {
           <header className="sticky top-0 z-20 hidden h-20 items-center justify-between gap-6 border-b border-line bg-ground/80 px-8 backdrop-blur-md lg:flex">
             {isHome ? (
               <div className="flex min-w-0 items-center gap-3">
-                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1.5 font-mono text-11 font-semibold uppercase tracking-[0.12em] text-brand-700 ring-1 ring-inset ring-brand-200">
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1.5 font-mono text-11 font-semibold uppercase tracking-[0.12em] text-primary-fg ring-1 ring-inset ring-primary-border">
                   <IconCheckCircle size={14} weight="bold" />
                   {t('shell.openSource')}
                 </span>
@@ -279,7 +279,7 @@ function Shell() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`GitHub ${t('home.links.newTab')}`}
-                className="grid h-10 w-10 place-items-center rounded-xl text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+                className="grid h-10 w-10 place-items-center rounded-xl text-ink-muted transition-colors hover:bg-primary-soft hover:text-primary-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
               >
                 <GithubLogo size={20} />
               </a>
