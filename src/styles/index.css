@@ -91,3 +91,33 @@ body {
     radial-gradient(circle at 12% 92%, color-mix(in srgb, var(--color-sky-200) 55%, transparent) 0%, transparent 52%),
     linear-gradient(to bottom, var(--color-surface), var(--color-ground));
 }
+
+/* ── Home closing bands (CTA strip and copyright): palette per theme (site only) ─ */
+.pance-cta,
+.pance-foot {
+  --band-fg: #fff;
+  --band-soft: var(--color-slate-400);
+  --band-eyebrow: var(--color-brand-400);
+  --band-border: var(--color-slate-600);
+  --band-border-hover: var(--color-slate-400);
+}
+.pance-cta { background-color: var(--color-river-900); }
+.pance-foot { background-color: var(--color-river-950); border-color: color-mix(in srgb, var(--color-slate-700) 60%, transparent); }
+:root:not([data-theme='dark']) .pance-cta,
+:root:not([data-theme='dark']) .pance-foot {
+  --band-fg: var(--color-ink);
+  --band-soft: var(--color-ink-soft);
+  --band-eyebrow: var(--color-brand-700);
+  --band-border: var(--color-line-strong);
+  --band-border-hover: var(--color-ink-muted);
+}
+:root:not([data-theme='dark']) .pance-cta {
+  background-color: var(--color-surface);
+  background-image:
+    radial-gradient(circle at 88% 50%, color-mix(in srgb, var(--color-brand-300) 34%, transparent) 0%, transparent 55%),
+    radial-gradient(circle at 6% 100%, color-mix(in srgb, var(--color-sky-200) 45%, transparent) 0%, transparent 48%);
+}
+:root:not([data-theme='dark']) .pance-foot {
+  background-color: var(--color-canvas);
+  border-color: var(--color-line);
+}

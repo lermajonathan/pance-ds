@@ -196,12 +196,12 @@ export function HomePage() {
       <GetStartedSection />
 
       {/* ── CTA strip ─────────────────────────────────────────────────── */}
-      <section className="border-t border-line bg-river-900 px-8 py-16">
+      <section className="pance-cta border-t border-line px-8 py-16">
         <div className="mx-auto flex max-w-[1120px] flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="font-mono text-11 uppercase tracking-[0.2em] text-brand-400">{t('home.start.eyebrow')}</p>
-            <h2 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-white">{t('home.start.title')}</h2>
-            <p className="mt-1.5 text-sm text-slate-400">{t('home.start.body')}</p>
+            <p className="font-mono text-11 uppercase tracking-[0.2em] text-(--band-eyebrow)">{t('home.start.eyebrow')}</p>
+            <h2 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-(--band-fg)">{t('home.start.title')}</h2>
+            <p className="mt-1.5 text-sm text-(--band-soft)">{t('home.start.body')}</p>
           </div>
           <div className="flex shrink-0 flex-wrap gap-3">
             <Button severity="primary" onClick={() => navigate('colors')}>
@@ -210,7 +210,7 @@ export function HomePage() {
             </Button>
             <button
               onClick={() => navigate('afterquake')}
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:border-slate-400 hover:text-white"
+              className="inline-flex items-center gap-2 rounded-xl border border-(--band-border) px-4 py-2 text-sm font-semibold text-(--band-soft) transition-colors hover:border-(--band-border-hover) hover:text-(--band-fg)"
             >
               {t('home.start.demo')}
             </button>
@@ -219,15 +219,15 @@ export function HomePage() {
       </section>
 
       {/* ── Copyright ─────────────────────────────────────────────────── */}
-      <section className="border-t border-slate-700/60 bg-river-950 px-8 py-5">
+      <section className="pance-foot border-t px-8 py-5">
         <div className="mx-auto flex max-w-[1120px] items-center justify-center">
-          <p className="text-center font-mono text-11 text-slate-400">
+          <p className="text-center font-mono text-11 text-(--band-soft)">
             © {new Date().getFullYear()} · {t('home.credit.by')}{' '}
             <a
               href="https://ux.jonathanlerma.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 underline underline-offset-2 transition-colors hover:text-brand-400"
+              className="text-(--band-soft) underline underline-offset-2 transition-colors hover:text-(--band-eyebrow)"
             >
               Jonathan Lerma
             </a>
