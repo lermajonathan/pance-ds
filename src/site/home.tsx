@@ -116,7 +116,7 @@ export function HomePage() {
     <div>
 
       {/* ── Hero ──────────────────────────────────────────────────────── */}
-      <section data-hero="a" className="pance-hero relative overflow-hidden px-8 py-24 md:py-32">
+      <section className="pance-hero relative overflow-hidden px-8 py-24 md:py-32">
         {/* Background texture: subtle grid */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: 'linear-gradient(color-mix(in srgb, var(--hero-grid) 40%, transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb, var(--hero-grid) 40%, transparent) 1px,transparent 1px)', backgroundSize: '40px 40px' }} />
@@ -143,7 +143,7 @@ export function HomePage() {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              <Button severity="primary" size="lg" className="pance-hero-cta" onClick={() => navigate('colors')}>
+              <Button severity="primary" size="lg" onClick={() => navigate('colors')}>
                 {t('home.cta.explore')}
                 <IconArrowRight size={16} className="ml-1" />
               </Button>

@@ -75,12 +75,12 @@ body {
     radial-gradient(circle at 70% 40%, color-mix(in srgb, var(--color-brand-600) 18%, transparent) 0%, transparent 60%),
     radial-gradient(circle at 20% 80%, color-mix(in srgb, var(--color-brand-700) 12%, transparent) 0%, transparent 50%);
 }
-/* Option A · light aurora */
-:root:not([data-theme='dark']) .pance-hero[data-hero='a'] {
+/* Light theme: aurora (soft aqua and sky glow over the page background) */
+:root:not([data-theme='dark']) .pance-hero {
   --hero-fg: var(--color-ink);
   --hero-soft: var(--color-ink-soft);
   --hero-eyebrow: var(--color-brand-700);
-  --hero-em-from: var(--color-brand-600);
+  --hero-em-from: var(--color-brand-700);
   --hero-em-to: var(--color-sky-700);
   --hero-border: var(--color-line-strong);
   --hero-border-hover: var(--color-ink-muted);
@@ -90,28 +90,4 @@ body {
     radial-gradient(circle at 74% 28%, color-mix(in srgb, var(--color-brand-300) 42%, transparent) 0%, transparent 56%),
     radial-gradient(circle at 12% 92%, color-mix(in srgb, var(--color-sky-200) 55%, transparent) 0%, transparent 52%),
     linear-gradient(to bottom, var(--color-surface), var(--color-ground));
-}
-/* Option B · deep brand */
-:root:not([data-theme='dark']) .pance-hero[data-hero='b'] {
-  --hero-fg: #fff;
-  --hero-soft: var(--color-brand-50);
-  --hero-eyebrow: var(--color-brand-200);
-  --hero-em-from: #fff;
-  --hero-em-to: var(--color-brand-200);
-  --hero-border: color-mix(in srgb, #fff 45%, transparent);
-  --hero-border-hover: #fff;
-  --hero-grid: #fff;
-  background-color: var(--color-brand-800);
-  background-image:
-    radial-gradient(circle at 76% 22%, color-mix(in srgb, var(--color-brand-500) 60%, transparent) 0%, transparent 58%),
-    linear-gradient(135deg, var(--color-brand-700), var(--color-brand-900));
-}
-/* On the deep brand hero the primary button inverts so it keeps its edge against the background */
-:root:not([data-theme='dark']) .pance-hero[data-hero='b'] .pance-hero-cta {
-  background-color: #fff;
-  color: var(--color-brand-800);
-  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--color-brand-950) 70%, transparent);
-}
-:root:not([data-theme='dark']) .pance-hero[data-hero='b'] .pance-hero-cta:hover {
-  background-color: var(--color-brand-50);
 }
