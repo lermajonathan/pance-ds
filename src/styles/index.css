@@ -59,3 +59,35 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .pance-rise, .pance-fill { animation: none; }
 }
+
+/* ── Home hero: palette per theme and variant (site only) ───────────────── */
+.pance-hero {
+  --hero-fg: #fff;
+  --hero-soft: var(--color-slate-300);
+  --hero-eyebrow: var(--color-brand-400);
+  --hero-em-from: var(--color-brand-300);
+  --hero-em-to: var(--color-cyan-300);
+  --hero-border: var(--color-slate-600);
+  --hero-border-hover: var(--color-slate-400);
+  --hero-grid: var(--color-surface);
+  background-color: var(--color-river-900);
+  background-image:
+    radial-gradient(circle at 70% 40%, color-mix(in srgb, var(--color-brand-600) 18%, transparent) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, color-mix(in srgb, var(--color-brand-700) 12%, transparent) 0%, transparent 50%);
+}
+/* Light theme: aurora (soft aqua and sky glow over the page background) */
+:root:not([data-theme='dark']) .pance-hero {
+  --hero-fg: var(--color-ink);
+  --hero-soft: var(--color-ink-soft);
+  --hero-eyebrow: var(--color-brand-700);
+  --hero-em-from: var(--color-brand-700);
+  --hero-em-to: var(--color-sky-700);
+  --hero-border: var(--color-line-strong);
+  --hero-border-hover: var(--color-ink-muted);
+  --hero-grid: var(--color-ink);
+  background-color: var(--color-ground);
+  background-image:
+    radial-gradient(circle at 74% 28%, color-mix(in srgb, var(--color-brand-300) 42%, transparent) 0%, transparent 56%),
+    radial-gradient(circle at 12% 92%, color-mix(in srgb, var(--color-sky-200) 55%, transparent) 0%, transparent 52%),
+    linear-gradient(to bottom, var(--color-surface), var(--color-ground));
+}
