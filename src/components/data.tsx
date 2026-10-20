@@ -3,6 +3,7 @@ import { useId } from 'react'
 import { useLabels } from './labels'
 import { IconAlert, IconArrowDown, IconArrowUp, IconChart, type IconType } from '../icons'
 import { focus, SERIES_BG, TONE, type Severity } from './shared'
+import { hitArea } from './a11y'
 import { Progress, Skeleton } from './feedback'
 
 /* ── Delta ──────────────────────────────────────────────────────────────────
@@ -172,7 +173,7 @@ export function MetricCard({
         <IconBox Icon={err ? IconAlert : Icon} tone={err ? 'danger' : 'secondary'} />
         <p id={`${id}-l`} className="text-sm font-medium text-ink-soft">{label}</p>
         <p className="text-xs text-ink-muted">{err ? l.failedToLoad : l.noData}</p>
-        {err && onRetry && <button type="button" onClick={onRetry} className={`${focus} mt-1 rounded text-xs font-medium text-ink-link underline-offset-2 hover:underline`}>{l.retry}</button>}
+        {err && onRetry && <button type="button" onClick={onRetry} className={`${focus} ${hitArea} mt-1 rounded text-xs font-medium text-ink-link underline-offset-2 hover:underline`}>{l.retry}</button>}
       </Shell>
     )
   }

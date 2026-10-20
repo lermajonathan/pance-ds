@@ -5,6 +5,7 @@ import { useId, type ReactNode } from 'react'
 import { useLabels } from './labels'
 import { IconAlert, IconBell, IconCheck, IconCheckCircle, IconInfo, IconX, type IconType } from '../icons'
 import { focus, TONE } from './shared'
+import { hitArea } from './a11y'
 import { Popover } from './overlays'
 import { CountBadge } from './badge'
 
@@ -50,7 +51,7 @@ export function NotificationCenter({
       <div className="-mx-1">
         {unread > 0 && onReadAll && (
           <div className="mb-1 flex justify-end px-1">
-            <button type="button" onClick={(e) => { e.currentTarget.closest<HTMLElement>('[role="dialog"]')?.focus(); onReadAll() }} className={`${focus} rounded px-1 text-xs font-medium text-ink-link hover:underline`}>{l.markAllRead}</button>
+            <button type="button" onClick={(e) => { e.currentTarget.closest<HTMLElement>('[role="dialog"]')?.focus(); onReadAll() }} className={`${focus} ${hitArea} rounded px-1 text-xs font-medium text-ink-link hover:underline`}>{l.markAllRead}</button>
           </div>
         )}
         {items.length === 0 ? (

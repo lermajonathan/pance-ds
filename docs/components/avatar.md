@@ -33,6 +33,7 @@ Source: [`src/components/avatar.tsx`](../../src/components/avatar.tsx) · Figma:
 
 - `name` is required: it is the accessible name and the source of the initials.
 - Set `decorative` when the name is already visible next to it.
+- If `src` fails to load, the initials show instead of a broken image.
 - `status` is spoken through `statusLabel`; the dot is never the only cue.
 
 ## Related

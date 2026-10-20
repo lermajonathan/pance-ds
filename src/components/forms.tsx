@@ -3,7 +3,7 @@ import { createContext, createElement, useContext, useEffect, useId, useRef, use
 import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconCheckCircle, IconChevronDown, IconEdit, IconEye, IconEyeOff, IconSearch, IconX, type IconType } from '../icons'
 import { focus } from './shared'
-import { listKeyNav } from './a11y'
+import { hitArea, listKeyNav } from './a11y'
 
 /* ── Inputs ────────────────────────────────────────────────────────────── */
 export const inputBase =
@@ -780,7 +780,7 @@ export function TagInput({
           {tags.map((tag) => (
             <li key={tag} className="inline-flex items-center gap-1 rounded-full bg-primary-soft py-0.5 pl-2.5 pr-1 text-xs font-medium text-primary-fg ring-1 ring-primary-border">
               {tag}
-              <button type="button" onClick={() => remove(tag)} aria-label={`${tt.remove} ${tag}`} className="pance-focus grid h-5 w-5 place-items-center rounded-full hover:bg-primary-soft-hover">
+              <button type="button" onClick={() => remove(tag)} aria-label={`${tt.remove} ${tag}`} className={`${focus} ${hitArea} grid h-5 w-5 place-items-center rounded-full hover:bg-primary-soft-hover`}>
                 <IconX aria-hidden className="h-3 w-3" />
               </button>
             </li>

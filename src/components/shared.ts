@@ -3,6 +3,7 @@
 /** Class that applies the Pance focus ring on :focus-visible (see styles/index.css). */
 export const focus = 'pance-focus'
 
+
 /** Severity = what it means. Orthogonal to variant (how loud it is). */
 export type Severity = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' | 'contrast'
 

@@ -1,8 +1,9 @@
 /* Pance · Table — DataTable, Pagination */
-import { Fragment, useId, useMemo, useState, type ReactNode } from 'react'
+import { Fragment, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useLabels } from './labels'
 import { IconChevron, IconChevronDown, IconColumns, IconSearch } from '../icons'
 import { focus } from './shared'
+import { hitArea } from './a11y'
 import { Checkbox } from './selection'
 import { Skeleton } from './feedback'
 import { Input } from './forms'
@@ -73,6 +74,25 @@ const PAD_Y: Record<Density, string> = {
   comfortable: 'py-(--pance-data-table-cell-padding-y-comfortable)',
 }
 
+/* Gives a scroll container a tab stop only while it actually scrolls, so keyboard
+   users can reach rows hidden below a max-height (WCAG 2.1.1) without adding a
+   stop to every table. */
+function useScrollFocusable<E extends HTMLElement>() {
+  const ref = useRef<E>(null)
+  const [scrolls, setScrolls] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    const check = () => setScrolls(el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1)
+    const ro = new ResizeObserver(check)
+    ro.observe(el)
+    Array.from(el.children).forEach((c) => ro.observe(c))
+    check()
+    return () => ro.disconnect()
+  })
+  return [ref, scrolls ? 0 : undefined] as const
+}
+
 export function DataTable<T>({
   columns, rows, rowKey, rowLabel, caption,
   sort: sortProp, onSortChange, selectable, selected: selectedProp, onSelectedChange,
@@ -111,6 +131,8 @@ export function DataTable<T>({
   columnToggle?: boolean
 }) {
   const l = useLabels()
+  const [tableScroll, tableTab] = useScrollFocusable<HTMLDivElement>()
+  const [listScroll, listTab] = useScrollFocusable<HTMLUListElement>()
   const [innerSort, setInnerSort] = useState<SortState>(null)
   const [innerSel, setInnerSel] = useState<Set<string>>(new Set())
   const [page, setPage] = useState(1)
@@ -156,8 +178,8 @@ export function DataTable<T>({
   )
 
   return (
-    <section className="overflow-hidden rounded-(--pance-data-table-radius) border border-(--pance-data-table-border) bg-(--pance-data-table-bg) shadow-card-rest">
-      <header className={`flex flex-wrap items-center justify-between gap-3 border-b border-line-soft ${px} py-4`}>
+    <section className="flex max-h-[inherit] flex-col overflow-hidden rounded-(--pance-data-table-radius) border border-(--pance-data-table-border) bg-(--pance-data-table-bg) shadow-card-rest">
+      <header className={`flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-line-soft ${px} py-4`}>
         <div>
           <h3 className="font-display text-base font-bold tracking-tight text-ink">{caption}</h3>
           <p aria-live="polite" className="mt-0.5 text-sm text-ink-muted">{selected.size > 0 ? l.rowsSelected(selected.size) : l.range(sorted.length ? (current - 1) * (pageSize ?? sorted.length) + 1 : 0, pageSize ? Math.min(current * pageSize, sorted.length) : sorted.length, sorted.length)}</p>
@@ -178,7 +200,7 @@ export function DataTable<T>({
       </header>
 
       {/* md and up: real table */}
-      <div className="hidden max-h-[inherit] overflow-auto md:block">
+      <div ref={tableScroll} tabIndex={tableTab} role={tableTab === 0 ? 'region' : undefined} aria-label={tableTab === 0 ? caption : undefined} className={`hidden min-h-0 overflow-auto md:block ${focus}`}>
         <table aria-label={caption} aria-busy={loading || undefined} className="w-full border-collapse whitespace-nowrap text-left text-sm">
           <thead className="sticky top-0 z-10">
             <tr className="[&>*]:border-b [&>*]:border-(--pance-data-table-border) [&>*]:bg-(--pance-data-table-header-bg)">
@@ -241,7 +263,7 @@ export function DataTable<T>({
       </div>
 
       {/* below md: one labelled card per row */}
-      <ul className="space-y-3 p-4 md:hidden" aria-label={caption} aria-busy={loading || undefined}>
+      <ul ref={listScroll} tabIndex={listTab} className={`min-h-0 space-y-3 overflow-auto p-4 md:hidden ${focus}`} aria-label={caption} aria-busy={loading || undefined}>
         {loading ? Array.from({ length: 3 }, (_, i) => <li key={i}><Skeleton className="h-28 w-full" /></li>) : view.length === 0 ? <li>{emptyState}</li> : view.map((r) => {
           const id = rowKey(r), on = selected.has(id), open = expanded.has(id)
           const [first, ...rest] = visible
@@ -264,7 +286,7 @@ export function DataTable<T>({
               </dl>
               {renderExpanded && (
                 <>
-                  <button type="button" aria-expanded={open} aria-controls={open ? detailId(id) : undefined} onClick={() => toggleExpanded(id)} className={`${focus} mt-3 inline-flex items-center gap-1 rounded text-sm font-medium text-ink-link`}>
+                  <button type="button" aria-expanded={open} aria-controls={open ? detailId(id) : undefined} onClick={() => toggleExpanded(id)} className={`${focus} ${hitArea} mt-3 inline-flex items-center gap-1 rounded text-sm font-medium text-ink-link`}>
                     {open ? l.collapseRow(rowLabel(r)) : l.expandRow(rowLabel(r))}
                     <IconChevronDown aria-hidden className={`size-4 transition-transform motion-reduce:transition-none ${open ? 'rotate-180' : ''}`} />
                   </button>
@@ -277,9 +299,9 @@ export function DataTable<T>({
       </ul>
 
       {pageSize && pages > 1 && (
-        <footer className={`flex flex-wrap items-center justify-between gap-3 border-t border-line-soft ${px} py-3`}>
+        <footer className={`flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-line-soft ${px} py-3`}>
           <p className="text-sm text-ink-muted">{l.range((current - 1) * pageSize + 1, Math.min(current * pageSize, sorted.length), sorted.length)}</p>
-          <Pagination page={current} pages={pages} onChange={setPage} />
+          <Pagination page={current} pages={pages} onChange={setPage} label={`${l.pagination}: ${caption}`} />
         </footer>
       )}
     </section>

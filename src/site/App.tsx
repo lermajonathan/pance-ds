@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef, type ReactNode } from 'react'
-import { Link, Outlet, RouterProvider, createBrowserRouter, redirect, useParams, useNavigate } from 'react-router'
+import { Link, Outlet, RouterProvider, createBrowserRouter, createHashRouter, redirect, useParams, useNavigate } from 'react-router'
 import {
   IconArticle,
   IconBell,
@@ -54,6 +54,8 @@ import { LangProvider, detectLang, isLang, useI18n, type Key } from '../i18n'
 import { LanguageSwitch } from './language-switch'
 import { HeaderSearch } from './header-search'
 import { NotificationsBell } from './notifications'
+import { GithubLogo } from '@phosphor-icons/react'
+import { LINKS, VERSION } from './version'
 
 /* ═══════════════════════════════════════════════════════════════════════
    PANCE — design system explorer shell
@@ -156,9 +158,9 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
                   onClick={onCloseMobile}
                   aria-current={isActive ? 'page' : undefined}
                   title={collapsed ? label : undefined}
-                  className={`pance-focus group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${collapsed ? 'lg:justify-center lg:gap-0 lg:px-0' : ''} ${isActive ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}
+                  className={`pance-focus group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${collapsed ? 'lg:justify-center lg:gap-0 lg:px-0' : ''} ${isActive ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}
                 >
-                  <Icon size={18} weight={isActive ? 'fill' : 'regular'} className={`shrink-0 ${isActive ? 'text-brand-700' : 'text-ink-muted group-hover:text-ink-soft'}`} />
+                  <Icon size={18} weight={isActive ? 'fill' : 'regular'} className={`shrink-0 ${isActive ? 'text-primary-fg' : 'text-ink-muted group-hover:text-ink-soft'}`} />
                   <span className={`min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-left transition-all duration-300 ${collapsed ? 'opacity-100 lg:w-0 lg:opacity-0' : 'opacity-100'}`}>{label}</span>
                 </Link>
               )
@@ -254,7 +256,7 @@ function Shell() {
           <header className="sticky top-0 z-20 hidden h-20 items-center justify-between gap-6 border-b border-line bg-ground/80 px-8 backdrop-blur-md lg:flex">
             {isHome ? (
               <div className="flex min-w-0 items-center gap-3">
-                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1.5 font-mono text-11 font-semibold uppercase tracking-[0.12em] text-brand-700 ring-1 ring-inset ring-brand-200">
+                <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1.5 font-mono text-11 font-semibold uppercase tracking-[0.12em] text-primary-fg ring-1 ring-inset ring-primary-border">
                   <IconCheckCircle size={14} weight="bold" />
                   {t('shell.openSource')}
                 </span>
@@ -272,9 +274,18 @@ function Shell() {
               <LanguageSwitch variant="header" />
               <HeaderSearch pages={ALL} className="hidden w-64 md:block" />
               <NotificationsBell />
-              <span className="hidden lg:inline">
-                <Badge severity="primary">v1.0.0</Badge>
-              </span>
+              <a
+                href={LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`GitHub ${t('home.links.newTab')}`}
+                className="grid h-10 w-10 place-items-center rounded-xl text-ink-muted transition-colors hover:bg-primary-soft hover:text-primary-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+              >
+                <GithubLogo size={20} />
+              </a>
+              <a href={LINKS.changelog} target="_blank" rel="noopener noreferrer" className="hidden rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 lg:inline">
+                <Badge severity="primary">v{VERSION}</Badge>
+              </a>
             </div>
           </header>
           <main className={isHome ? 'flex-1 overflow-y-auto' : 'mx-auto w-full max-w-[1200px] flex-1 overflow-x-clip px-5 py-6 sm:px-8 sm:py-10'}>
@@ -353,7 +364,8 @@ function LangRoute() {
 const PAGE_KEYS = new Set(ALL.map((e) => e.key))
 const basename = import.meta.env.BASE_URL.startsWith('/') ? import.meta.env.BASE_URL.replace(/\/$/, '') : ''
 
-const router = createBrowserRouter(
+// VITE_HASH_ROUTER=1 builds a preview that works from any static path (no server rewrites).
+const router = (import.meta.env.VITE_HASH_ROUTER ? createHashRouter : createBrowserRouter)(
   [
     {
       path: '/:lang',

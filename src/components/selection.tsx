@@ -2,7 +2,7 @@
 import { useId, useRef, type KeyboardEvent, type Ref } from 'react'
 import { IconCheck, type IconType } from '../icons'
 import { focus } from './shared'
-import { listKeyNav } from './a11y'
+import { hitArea, listKeyNav } from './a11y'
 
 /* ── Selection controls ────────────────────────────────────────────────── */
 /* ── Toggle / Switch ───────────────────────────────────────────────────── */
@@ -48,11 +48,11 @@ export function Toggle({
       aria-describedby={describedBy}
       disabled={disabled}
       onClick={() => onChange(!on)}
-      className={`${focus} relative shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${TOGGLE_TRACK[size]} ${on ? 'bg-(--pance-toggle-color-track-on)' : 'bg-(--pance-toggle-color-track-off)'}`}
+      className={`${focus} ${hitArea} shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${TOGGLE_TRACK[size]} ${on ? 'bg-(--pance-toggle-color-track-on)' : 'bg-(--pance-toggle-color-track-off)'}`}
     >
       <span
         aria-hidden="true"
-        className={`absolute top-1/2 -translate-y-1/2 rounded-full bg-(--pance-toggle-color-thumb) shadow-sm transition-all duration-300 ${t.size} ${on ? t.on : t.off}`}
+        className={`pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-full bg-(--pance-toggle-color-thumb) shadow-sm transition-all duration-300 ${t.size} ${on ? t.on : t.off}`}
       />
     </button>
   )
@@ -134,12 +134,14 @@ export function Checkbox({
         aria-invalid={error || undefined}
         disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
-        className={`${focus} mt-0.5 grid shrink-0 place-items-center border transition-colors ${s.box} ${boxState}`}
+        className={`${focus} ${hitArea} mt-0.5 grid shrink-0 place-items-center border transition-colors ${s.box} ${boxState}`}
       >
+        {/* The mark ignores the pointer: a click on it would otherwise also reach the
+            wrapping <label>, which re-clicks the button and undoes the toggle. */}
         {indeterminate
-          ? <span className="block h-0.5 w-[55%] rounded-full bg-current" />
+          ? <span aria-hidden className="pointer-events-none block h-0.5 w-[55%] rounded-full bg-current" />
           : checked
-          ? <IconCheck className={s.icon} />
+          ? <IconCheck aria-hidden className={`pointer-events-none ${s.icon}`} />
           : null}
       </button>
       {(label || description) && (
@@ -202,10 +204,11 @@ export function Radio({
         onKeyDown={onKeyDown}
         disabled={disabled}
         onClick={() => !disabled && onChange()}
-        className={`${focus} mt-0.5 grid shrink-0 place-items-center rounded-full border transition-colors ${s.dot} ${ringState}`}
+        className={`${focus} ${hitArea} mt-0.5 grid shrink-0 place-items-center rounded-full border transition-colors ${s.dot} ${ringState}`}
       >
         <span
-          className={`rounded-full transition-transform duration-200 ${s.inner} ${checked ? (error ? 'bg-danger scale-100' : 'bg-(--pance-radio-color-checked) scale-100') : 'scale-0 bg-(--pance-radio-color-checked)'}`}
+          aria-hidden
+          className={`pointer-events-none rounded-full transition-transform duration-200 ${s.inner} ${checked ? (error ? 'bg-danger scale-100' : 'bg-(--pance-radio-color-checked) scale-100') : 'scale-0 bg-(--pance-radio-color-checked)'}`}
         />
       </button>
       {(label || description) && (

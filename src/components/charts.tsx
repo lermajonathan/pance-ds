@@ -7,6 +7,7 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { useLabels } from './labels'
 import { focus, SERIES_BG, SERIES_FILL, SERIES_MARKERS, SERIES_STROKE, type SeriesMarker } from './shared'
+import { hitArea } from './a11y'
 
 /* ── helpers ────────────────────────────────────────────────────────────── */
 const M = { t: 16, r: 16, b: 36, l: 48 }
@@ -124,7 +125,7 @@ function Frame({ title, subtitle, legend, summary, table, status, onKeyDown, onB
         </div>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
           {legend}
-          <button type="button" aria-pressed={asTable} onClick={() => setAsTable((v) => !v)} className={`${focus} rounded px-1 text-xs font-medium text-ink-link underline-offset-2 hover:underline`}>
+          <button type="button" aria-pressed={asTable} onClick={() => setAsTable((v) => !v)} className={`${focus} ${hitArea} rounded px-1 text-xs font-medium text-ink-link underline-offset-2 hover:underline`}>
             {asTable ? l.viewAsChart : l.viewAsTable}
           </button>
         </div>

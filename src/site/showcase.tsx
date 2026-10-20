@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Delta, Sparkline as LibSparkline, MetricCard as LibMetricCard, DataTable as LibDataTable, Pagination as LibPagination, type Column, LineChart as LibLineChart, BarChart as LibBarChart, RankedBarChart, DivergingBarChart, Heatmap, DonutChart, ScatterChart, Meter, NotificationCenter, ConfirmDialog, type NotificationItem, DatePicker, DateRangePicker, Calendar, toISODate, type DateRange, Spinner, EmptyState, Link as LibLink } from '../components'
+import { hitArea } from '../components/a11y'
 import {
   Waveform,
   ChartLineUp,
@@ -19,6 +20,7 @@ import {
   Globe,
   Lock,
   Sparkle,
+  ArrowUpRight,
   type Icon as PhosphorIcon,
   type IconWeight,
 } from '@phosphor-icons/react'
@@ -127,6 +129,8 @@ import {
   type IconType,
 } from '../icons'
 import { CO_DEPT_GEO } from './colombia-geo'
+import { photo, scene } from './media'
+import { TeamTable, InvoicesTable, LogTable } from './table-examples'
 import ConsoleExample from './console-example'
 import { useI18n, type Key } from '../i18n'
 
@@ -137,7 +141,7 @@ export function Page({ eyebrow, title, lead, children }: { eyebrow: string; titl
   return (
     <div className="space-y-10">
       <header className="max-w-2xl">
-        <p className="font-mono text-11 font-medium uppercase tracking-[0.18em] text-brand-700">{eyebrow}</p>
+        <p className="font-mono text-11 font-medium uppercase tracking-[0.18em] text-primary-fg">{eyebrow}</p>
         <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-ink">{title}</h1>
         <p className="mt-3 text-15 leading-relaxed text-ink-muted">{lead}</p>
       </header>
@@ -487,7 +491,7 @@ export function TypographyPage() {
             { role: 'H4', cls: 'font-display text-base font-bold text-ink', sample: t('type.tsample.h4'), note: '16px · Plus Jakarta Sans · bold' },
             { role: t('type.role.subheading'), cls: 'text-base font-semibold text-ink-soft', sample: t('type.tsample.subheading'), note: '16px · Inter · semibold' },
             { role: t('type.role.label'), cls: 'text-sm font-medium text-ink-muted', sample: t('type.tsample.label'), note: '14px · Inter · medium' },
-            { role: 'Eyebrow', cls: 'font-mono text-11 font-semibold uppercase tracking-[0.18em] text-brand-700', sample: t('type.tsample.eyebrow'), note: '11px · JetBrains Mono · semibold · ' + t('type.note.tracked') },
+            { role: 'Eyebrow', cls: 'font-mono text-11 font-semibold uppercase tracking-[0.18em] text-primary-fg', sample: t('type.tsample.eyebrow'), note: '11px · JetBrains Mono · semibold · ' + t('type.note.tracked') },
           ].map((r) => (
             <div key={r.role} className="flex flex-wrap items-center gap-x-6 gap-y-2 px-6 py-4 sm:flex-nowrap">
               <span className="w-24 shrink-0 font-mono text-10 uppercase tracking-wider text-ink-muted sm:w-28">{r.role}</span>
@@ -501,7 +505,7 @@ export function TypographyPage() {
       <Section title={t('type.context.title')} hint={t('type.context.hint')}>
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <Card className="p-8">
-            <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('type.ctx.eyebrow')}</p>
+            <p className="font-mono text-11 uppercase tracking-[0.18em] text-primary-fg">{t('type.ctx.eyebrow')}</p>
             <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-ink">{t('type.ctx.heading')}</h2>
             <p className="mt-4 text-15 leading-relaxed text-ink-soft">
               {t('type.ctx.p1')}
@@ -519,7 +523,7 @@ export function TypographyPage() {
               {t('type.ctx.readBefore').split('{link}').map((part, i, arr) => (
                 <React.Fragment key={i}>
                   {part}
-                  {i < arr.length - 1 && <a className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:decoration-brand-600">{t('type.ctx.guide')}</a>}
+                  {i < arr.length - 1 && <a className="font-medium text-primary-fg underline decoration-brand-300 underline-offset-2 hover:decoration-brand-600">{t('type.ctx.guide')}</a>}
                 </React.Fragment>
               ))}
             </p>
@@ -538,7 +542,7 @@ export function TypographyPage() {
                 {t('type.ctx.quote')}
               </blockquote>
               <figcaption className="mt-4 flex items-center gap-3">
-                <Avatar name="Devon Achebe" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&auto=format" size={36} />
+                <Avatar name="Devon Achebe" src={photo('photo-1500648767791-00dcc994a43e')} size={36} />
                 <div>
                   <p className="text-sm font-semibold text-ink">Devon Achebe</p>
                   <p className="text-xs text-ink-muted">{t('type.ctx.role')}</p>
@@ -591,7 +595,7 @@ export function SpacingPage() {
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {radii.map((r) => (
             <Card key={r.name} className="p-6">
-              <div className={`h-20 border-2 border-dashed border-brand-300 bg-brand-50 ${r.cls}`} />
+              <div className={`h-20 border-2 border-dashed border-primary-border bg-primary-soft ${r.cls}`} />
               <p className="mt-3 text-sm font-semibold text-ink">{r.name}</p>
               <p className="font-mono text-10 text-ink-muted">{r.px}px</p>
             </Card>
@@ -611,7 +615,7 @@ export function SpacingPage() {
             <div key={e.level} className={`flex flex-col justify-between rounded-2xl border border-line bg-surface p-6 ${e.shadow}`}>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-brand-50 font-mono text-10 font-bold text-brand-700">{e.level}</span>
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-primary-soft font-mono text-10 font-bold text-primary-fg">{e.level}</span>
                   <p className="text-sm font-semibold text-ink">{e.name}</p>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-ink-muted">{e.desc}</p>
@@ -627,7 +631,7 @@ export function SpacingPage() {
           {[
             { label: t('spacing.ctx.none'), shadow: '', hover: '' },
             { label: t('spacing.ctx.subtle'), shadow: 'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]', hover: 'hover:shadow-[0_1px_2px_rgba(15,23,42,0.04),0_16px_32px_-16px_rgba(15,23,42,0.28)] hover:-translate-y-0.5' },
-            { label: t('spacing.ctx.brand'), shadow: 'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]', hover: 'hover:shadow-[0_18px_40px_-20px_rgba(8,145,178,0.55)] hover:border-brand-200 hover:-translate-y-0.5' },
+            { label: t('spacing.ctx.brand'), shadow: 'shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-16px_rgba(15,23,42,0.18)]', hover: 'hover:shadow-[0_18px_40px_-20px_rgba(8,145,178,0.55)] hover:border-primary-border hover:-translate-y-0.5' },
           ].map((e) => (
             <div key={e.label} className={`cursor-default rounded-2xl border border-line bg-surface p-6 transition-all duration-300 ${e.shadow} ${e.hover}`}>
               <p className="text-sm font-semibold text-ink">{e.label}</p>
@@ -713,11 +717,29 @@ export function IconsPage() {
       title={t('nav.icons')}
       lead={t('icons.lead')}
     >
+      <Card className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-ink">{t('icons.lib.title')}</p>
+          <p className="mt-1 text-sm text-ink-muted">{t('icons.lib.body')}</p>
+          <code className="mt-3 inline-block max-w-full overflow-x-auto rounded-lg bg-canvas px-2.5 py-1 font-mono text-xs text-ink-soft ring-1 ring-line-soft">pnpm add @phosphor-icons/react</code>
+        </div>
+        <a
+          href="https://phosphoricons.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pance-focus inline-flex min-h-10 shrink-0 items-center justify-center gap-2 self-start rounded-xl border border-line bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-primary-border hover:text-primary-fg sm:self-center"
+        >
+          {t('icons.lib.cta')}
+          <ArrowUpRight size={16} aria-hidden />
+          <span className="sr-only">{t('home.links.newTab')}</span>
+        </a>
+      </Card>
+
       <Section title={t('icons.weights.title')} hint={t('icons.weights.hint')}>
         <Card className="flex flex-wrap items-end gap-x-8 gap-y-5 p-6">
           {WEIGHTS.map((w) => (
             <div key={w} className="flex flex-col items-center gap-2">
-              <Waveform size={40} weight={w} className="text-brand-700" />
+              <Waveform size={40} weight={w} className="text-primary-fg" />
               <span className="font-mono text-10 uppercase tracking-wider text-ink-muted">{w}</span>
             </div>
           ))}
@@ -729,9 +751,9 @@ export function IconsPage() {
           {PHOSPHOR_SAMPLE.map(({ name, Cmp }) => (
             <div
               key={name}
-              className="group flex flex-col items-center gap-2.5 rounded-xl border border-line-soft bg-surface p-5 transition-colors hover:border-brand-200 hover:bg-brand-50/40"
+              className="group flex flex-col items-center gap-2.5 rounded-xl border border-line-soft bg-surface p-5 transition-colors hover:border-primary-border hover:bg-primary-soft/40"
             >
-              <Cmp size={26} weight="regular" className="text-ink-soft transition-colors group-hover:text-brand-700" />
+              <Cmp size={26} weight="regular" className="text-ink-soft transition-colors group-hover:text-primary-fg" />
               <span className="w-full truncate text-center font-mono text-10 text-ink-muted">{name}</span>
             </div>
           ))}
@@ -857,11 +879,16 @@ export function ButtonsPage() {
       <Section title={t('buttons.group.title')} hint={t('buttons.group.hint')}>
         <Demo>
           <div className="max-w-full overflow-x-auto">
-            <ButtonGroup>
-              <Button variant="outlined" severity="secondary" Icon={IconEdit}>{t('buttons.group.edit')}</Button>
-              <Button variant="outlined" severity="secondary" Icon={IconCopy}>{t('buttons.group.duplicate')}</Button>
-              <Button variant="outlined" severity="secondary" Icon={IconTrash}>{t('buttons.group.delete')}</Button>
-            </ButtonGroup>
+            {/* Small size on phones so the whole group fits without scrolling. */}
+            {(['sm', 'md'] as const).map((size) => (
+              <span key={size} className={size === 'sm' ? 'inline-flex sm:hidden' : 'hidden sm:inline-flex'}>
+                <ButtonGroup>
+                  <Button size={size} variant="outlined" severity="secondary" Icon={IconEdit}>{t('buttons.group.edit')}</Button>
+                  <Button size={size} variant="outlined" severity="secondary" Icon={IconCopy}>{t('buttons.group.duplicate')}</Button>
+                  <Button size={size} variant="outlined" severity="secondary" Icon={IconTrash}>{t('buttons.group.delete')}</Button>
+                </ButtonGroup>
+              </span>
+            ))}
           </div>
           <ButtonGroup>
             <Button Icon={IconArrowUp} aria-label={t('buttons.group.sortAsc')} />
@@ -1077,13 +1104,13 @@ export function FormsPage() {
           </Field>
           {pwd.length > 0 && (
             <div className="space-y-1.5">
-              <div className="h-1.5 overflow-hidden rounded-full bg-slate-200">
+              <div className="h-1.5 overflow-hidden rounded-full bg-line">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${pwdSev === 'danger' ? 'bg-rose-500' : pwdSev === 'warning' ? 'bg-amber-500' : pwdSev === 'primary' ? 'bg-brand-500' : 'bg-emerald-500'}`}
                   style={{ width: `${pwdStrength}%` }}
                 />
               </div>
-              <p className={`text-xs font-medium ${pwdSev === 'danger' ? 'text-rose-600' : pwdSev === 'warning' ? 'text-amber-700' : pwdSev === 'primary' ? 'text-brand-700' : 'text-emerald-700'}`}>
+              <p className={`text-xs font-medium ${pwdSev === 'danger' ? 'text-danger-fg' : pwdSev === 'warning' ? 'text-warning-fg' : pwdSev === 'primary' ? 'text-primary-fg' : 'text-success-fg'}`}>
                 {pwdLabel}
               </p>
             </div>
@@ -1240,7 +1267,7 @@ export function FormsPage() {
                 />
               </Field>
               {pinDone && (
-                <p className="flex items-center gap-1.5 text-sm font-medium text-emerald-700">
+                <p className="flex items-center gap-1.5 text-sm font-medium text-success-fg">
                   <IconCheck className="h-4 w-4" /> {t('forms.pin.accepted')}
                 </p>
               )}
@@ -1447,7 +1474,7 @@ export function FormsPage() {
                     type="button"
                     aria-pressed={invitePerm === k}
                     onClick={() => setInvitePerm(k)}
-                    className={`pance-focus rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${invitePerm === k ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line bg-surface text-ink-soft hover:border-slate-300 hover:bg-canvas'}`}
+                    className={`pance-focus rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors ${invitePerm === k ? 'border-primary-border-strong bg-primary-soft text-primary-fg' : 'border-line bg-surface text-ink-soft hover:border-line-strong hover:bg-canvas'}`}
                   >
                     {label}
                   </button>
@@ -1882,7 +1909,7 @@ export function BadgesPage() {
     { name: 'Saoirse Flynn', avatar: 'photo-1494790108377-be9c29b29330' },
     { name: 'Tariq Hassan', avatar: 'photo-1472099645785-5658abf4ff4e' },
   ]
-  const toUrl = (id: string) => `https://images.unsplash.com/${id}?w=80&h=80&fit=crop&auto=format`
+  const toUrl = (id: string) => photo(id)
 
   return (
     <Page eyebrow={t('nav.group.components')} title={t('nav.badges')} lead={t('badges.lead')}>
@@ -2177,11 +2204,11 @@ export function FeedbackPage() {
             { severity: 'danger', icon: IconAlert, title: t('feedback.inline.mismatch.title'), body: t('feedback.inline.mismatch.body') },
           ] as const).map(({ severity, icon: Icon, title, body }) => {
             const colors: Record<string, string> = {
-              primary: 'bg-brand-50 border-brand-200 text-brand-700',
-              success: 'bg-emerald-50 border-emerald-200 text-emerald-700',
-              info: 'bg-sky-50 border-sky-200 text-sky-700',
-              warning: 'bg-amber-50 border-amber-200 text-amber-700',
-              danger: 'bg-rose-50 border-rose-200 text-rose-700',
+              primary: 'bg-primary-soft border-primary-border text-primary-fg',
+              success: 'bg-success-soft border-success-border text-success-fg',
+              info: 'bg-info-soft border-info-border text-info-fg',
+              warning: 'bg-warning-soft border-warning-border text-warning-fg',
+              danger: 'bg-danger-soft border-danger-border text-danger-fg',
             }
             const iconColors: Record<string, string> = {
               primary: 'text-brand-500', success: 'text-emerald-500', info: 'text-sky-500', warning: 'text-amber-500', danger: 'text-rose-500',
@@ -2207,7 +2234,7 @@ export function FeedbackPage() {
             { name: 'Priya Ramanathan', avatar: 'photo-1544005313-94ddf0286df2', time: t('feedback.chat.m3.time'), text: t('feedback.chat.m3.text'), own: false },
           ].map((msg) => (
             <div key={msg.name + msg.time} className={`flex gap-3 px-5 py-4 ${msg.own ? 'flex-row-reverse' : ''}`}>
-              <Avatar name={msg.name} src={`https://images.unsplash.com/${msg.avatar}?w=80&h=80&fit=crop`} size={32} />
+              <Avatar name={msg.name} src={photo(msg.avatar)} size={32} />
               <div className={`min-w-0 max-w-sm ${msg.own ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs font-semibold text-ink">{msg.own ? t('feedback.chat.you') : msg.name}</span>
@@ -2399,7 +2426,7 @@ export function NavigationPage() {
         <Card className="space-y-6 p-6">
           <div className="flex flex-wrap items-center gap-3">
             {(['sm', 'md', 'lg'] as const).map((s) => (
-              <button key={s} onClick={() => setTabSize(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-13 font-medium transition-colors ${tabSize === s ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line text-ink-muted hover:border-slate-300'}`}>{s}</button>
+              <button key={s} onClick={() => setTabSize(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-13 font-medium transition-colors ${tabSize === s ? 'border-primary-border-strong bg-primary-soft text-primary-fg' : 'border-line text-ink-muted hover:border-line-strong'}`}>{s}</button>
             ))}
           </div>
           <div>
@@ -2510,7 +2537,7 @@ export function NavigationPage() {
               <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} collapsed label={`${t('navigation.menu.title')} · ${t('navigation.menu.collapsed')}`} />
             </div>
             <div className="min-w-0 flex-1 border-l border-line-soft pl-4">
-              <p className="mb-2 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-brand-700">{navKey}</span></p>
+              <p className="mb-2 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-primary-fg">{navKey}</span></p>
               <p className="text-xs text-ink-muted">{t('navigation.menu.collapsedNote')}</p>
             </div>
           </Card>
@@ -2568,13 +2595,13 @@ export function NavigationPage() {
                 </div>
                 <nav aria-label={t('navigation.navbar.full')} className="hidden items-center gap-1 md:flex">
                   {(['navigation.navbar.dashboard', 'navigation.navbar.streams', 'navigation.navbar.schemas', 'navigation.navbar.connectors'] as const).map((item, i) => (
-                    <a key={item} href="#" className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${i === 0 ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}>{t(item)}</a>
+                    <a key={item} href="#" className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${i === 0 ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}>{t(item)}</a>
                   ))}
                 </nav>
                 <div className="flex items-center gap-2">
                   <div className="hidden w-52 sm:block"><Input placeholder={t('navigation.navbar.search')} Icon={IconSearch} inputSize="sm" /></div>
                   <Tooltip label={t('shell.notifications')} placement="bottom"><IconButton Icon={IconBell} label={t('shell.notifications')} /></Tooltip>
-                  <Avatar name="Ines Halvorsen" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" size={32} status="online" />
+                  <Avatar name="Ines Halvorsen" src={photo('photo-1438761681033-6461ffad8d80')} size={32} status="online" />
                 </div>
               </header>
               <div className="bg-canvas px-6 py-4 text-sm text-ink-muted">{t('navigation.navbar.content')}</div>
@@ -2643,13 +2670,13 @@ export function NavigationPage() {
           <div className="space-y-3">
             <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.standalone')}</p>
             <div className="flex flex-wrap gap-6">
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-brand-700 transition-colors hover:text-brand-700">
+              <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1.5 rounded text-sm font-medium text-primary-fg transition-colors hover:text-primary-fg`}>
                 <IconArrowRight className="h-4 w-4" /> {t('navigation.link.docs')}
               </a>
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-brand-700 transition-colors hover:text-brand-700">
+              <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1.5 rounded text-sm font-medium text-primary-fg transition-colors hover:text-primary-fg`}>
                 <IconExternal className="h-4 w-4" /> {t('navigation.link.newTab')}
               </a>
-              <a href="#" className="pance-focus inline-flex items-center gap-1.5 rounded text-sm font-medium text-danger transition-colors hover:text-rose-700">
+              <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1.5 rounded text-sm font-medium text-danger transition-colors hover:text-danger-fg`}>
                 <IconTrash className="h-4 w-4" /> {t('navigation.link.delete')}
               </a>
               <span className="inline-flex cursor-not-allowed items-center gap-1.5 text-sm font-medium text-ink-muted opacity-50">
@@ -2661,7 +2688,7 @@ export function NavigationPage() {
             <p className="font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.link.external')}</p>
             <div className="flex flex-wrap gap-4">
               {(['navigation.link.changelog', 'navigation.link.api', 'navigation.link.sdks', 'navigation.link.status'] as const).map((l) => (
-                <a key={l} href="#" className="pance-focus inline-flex items-center gap-1 rounded-lg border border-line bg-surface px-3 py-1.5 text-sm font-medium text-ink-soft shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors hover:border-brand-200 hover:text-brand-700">
+                <a key={l} href="#" className="pance-focus inline-flex items-center gap-1 rounded-lg border border-line bg-surface px-3 py-1.5 text-sm font-medium text-ink-soft shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors hover:border-primary-border hover:text-primary-fg">
                   {t(l)}
                   <IconExternal className="h-3.5 w-3.5 text-ink-muted" />
                 </a>
@@ -2697,7 +2724,7 @@ function DestructiveRow({ name, region }: { name: string; region: string }) {
   return (
     <div className="group flex items-center justify-between px-5 py-3">
       <div className="flex items-center gap-3">
-        <div className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-brand-700"><IconStream className="h-4 w-4" /></div>
+        <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary-soft text-primary-fg"><IconStream className="h-4 w-4" /></div>
         <div>
           <p className="font-mono text-sm font-medium text-ink">{name}</p>
           <p className="text-xs text-ink-muted">{region}</p>
@@ -2710,7 +2737,7 @@ function DestructiveRow({ name, region }: { name: string; region: string }) {
           <Button size="sm" severity="secondary" variant="outlined" onClick={() => setConfirming(false)}>{t('overlays.cancel')}</Button>
         </div>
       ) : (
-        <button onClick={() => setConfirming(true)} className="pance-focus flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-ink-muted opacity-0 transition-opacity hover:bg-rose-50 hover:text-danger group-hover:opacity-100 focus-visible:opacity-100">
+        <button onClick={() => setConfirming(true)} className="pance-focus flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-ink-muted opacity-0 transition-opacity hover:bg-danger-soft hover:text-danger group-hover:opacity-100 focus-visible:opacity-100">
           <IconTrash className="h-3.5 w-3.5" /> {t('overlays.delete')}
         </button>
       )}
@@ -2735,7 +2762,7 @@ function SoftDeleteDemo() {
           {items.map((name) => (
             <div key={name} className="flex items-center justify-between px-4 py-2.5">
               <span className="font-mono text-sm text-ink">{name}</span>
-              <button onClick={() => softDelete(name)} aria-label={`${t('ui.remove')} ${name}`} className="pance-focus -my-[3px] grid h-7 w-7 place-items-center rounded-lg text-ink-muted hover:bg-rose-50 hover:text-danger"><IconTrash aria-hidden className="h-3.5 w-3.5" /></button>
+              <button onClick={() => softDelete(name)} aria-label={`${t('ui.remove')} ${name}`} className="pance-focus -my-[3px] grid h-7 w-7 place-items-center rounded-lg text-ink-muted hover:bg-danger-soft hover:text-danger"><IconTrash aria-hidden className="h-3.5 w-3.5" /></button>
             </div>
           ))}
           {items.length === 0 && <p className="px-4 py-4 text-xs text-ink-muted italic">{t('overlays.destructive.noActive')}</p>}
@@ -2750,7 +2777,7 @@ function SoftDeleteDemo() {
           {trash.map((name) => (
             <div key={name} className="flex items-center justify-between px-4 py-2.5">
               <span className="font-mono text-sm text-ink-muted line-through">{name}</span>
-              <button onClick={() => restore(name)} className="pance-focus rounded-lg px-2 py-1 text-xs font-medium text-brand-700 hover:bg-brand-50">{t('overlays.destructive.restore')}</button>
+              <button onClick={() => restore(name)} className="pance-focus rounded-lg px-2 py-1 text-xs font-medium text-primary-fg hover:bg-primary-soft">{t('overlays.destructive.restore')}</button>
             </div>
           ))}
           {trash.length === 0 && <p className="px-4 py-4 text-xs text-ink-muted italic">{t('overlays.destructive.trashEmpty')}</p>}
@@ -2802,6 +2829,7 @@ export function OverlaysPage() {
 
   /* Toast state */
   const [toasts, setToasts] = useState<ToastItem[]>([])
+  const [scaleConfirm, setScaleConfirm] = useState<'simple' | null>(null)
   const addToast = (severity: ToastItem['severity'], title: string, description?: string, action?: ToastItem['action']) =>
     setToasts((t) => [...t, { id: String(++_toastId), severity, title, description, action }])
   const dismissToast = (id: string) => setToasts((t) => t.filter((x) => x.id !== id))
@@ -2902,7 +2930,7 @@ export function OverlaysPage() {
                 { name: 'Devon Achebe', role: t('badges.team.editor'), avatar: 'photo-1500648767791-00dcc994a43e' },
               ].map((p) => (
                 <div key={p.name} className="flex items-center gap-2.5">
-                  <Avatar name={p.name} src={`https://images.unsplash.com/${p.avatar}?w=48&h=48&fit=crop`} size={28} status="online" />
+                  <Avatar name={p.name} src={photo(p.avatar)} size={28} status="online" />
                   <div>
                     <p className="text-sm font-medium text-ink leading-none">{p.name}</p>
                     <p className="text-xs text-ink-muted mt-0.5">{p.role}</p>
@@ -2958,11 +2986,11 @@ export function OverlaysPage() {
           <Card className="p-5">
             <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('overlays.destructive.scale')}</p>
             <div className="flex flex-wrap items-center gap-3">
-              <Button severity="danger" variant="text" Icon={IconTrash}>{t('overlays.delete')}</Button>
-              <Button severity="danger" variant="outlined" Icon={IconTrash}>{t('overlays.deleteStream')}</Button>
-              <Button severity="danger" Icon={IconTrash}>{t('overlays.deleteStream')}</Button>
+              <Button severity="danger" variant="text" Icon={IconTrash} onClick={() => addToast('info', t('overlays.destructive.moved'), undefined, { label: t('ui.undo'), onClick: () => addToast('success', t('overlays.destructive.restored')) })}>{t('overlays.delete')}</Button>
+              <Button severity="danger" variant="outlined" Icon={IconTrash} onClick={() => setScaleConfirm('simple')}>{t('overlays.deleteStream')}</Button>
+              <Button severity="danger" Icon={IconTrash} onClick={() => setModalDelete(true)}>{t('overlays.deleteStream')}</Button>
               <span className="mx-1 h-6 w-px bg-line" />
-              <Tooltip label={t('overlays.destructive.deleteItem')} placement="top"><IconButton Icon={IconTrash} label={t('overlays.delete')} /></Tooltip>
+              <Tooltip label={t('overlays.destructive.deleteItem')} placement="top"><IconButton Icon={IconTrash} label={t('overlays.delete')} onClick={() => setScaleConfirm('simple')} /></Tooltip>
             </div>
             <p className="mt-3 text-xs text-ink-muted">{t('overlays.destructive.scaleNote')}</p>
           </Card>
@@ -2989,22 +3017,22 @@ export function OverlaysPage() {
 
           {/* Do / Don't */}
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-              <p className="mb-3 font-mono text-10 font-semibold uppercase tracking-wider text-emerald-700">{t('overlays.do.title')}</p>
-              <div className="space-y-2 text-sm text-emerald-900">
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.name')} <em>"{t('overlays.do.nameEx')}"</em></span></div>
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.state')} <em>"{t('overlays.do.stateEx')}"</em></span></div>
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.order')}</span></div>
-                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /><span>{t('overlays.do.undo')}</span></div>
+            <div className="rounded-2xl border border-success-border bg-success-soft p-5">
+              <p className="mb-3 font-mono text-10 font-semibold uppercase tracking-wider text-success-fg">{t('overlays.do.title')}</p>
+              <div className="space-y-2 text-sm text-ink-soft">
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-success-fg" /><span>{t('overlays.do.name')} <em>"{t('overlays.do.nameEx')}"</em></span></div>
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-success-fg" /><span>{t('overlays.do.state')} <em>"{t('overlays.do.stateEx')}"</em></span></div>
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-success-fg" /><span>{t('overlays.do.order')}</span></div>
+                <div className="flex items-start gap-2"><IconCheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-success-fg" /><span>{t('overlays.do.undo')}</span></div>
               </div>
             </div>
-            <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5">
-              <p className="mb-3 font-mono text-10 font-semibold uppercase tracking-wider text-rose-700">{t('overlays.dont.title')}</p>
-              <div className="space-y-2 text-sm text-rose-900">
-                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" /><span>{t('overlays.dont.generic')} <em>"{t('overlays.dont.genericEx')}"</em></span></div>
-                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" /><span>{t('overlays.dont.ambiguous')} <em>"{t('overlays.dont.yes')}"</em> / <em>"{t('overlays.dont.no')}"</em>.</span></div>
-                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" /><span>{t('overlays.dont.red')}</span></div>
-                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" /><span>{t('overlays.dont.skip')}</span></div>
+            <div className="rounded-2xl border border-danger-border bg-danger-soft p-5">
+              <p className="mb-3 font-mono text-10 font-semibold uppercase tracking-wider text-danger-fg">{t('overlays.dont.title')}</p>
+              <div className="space-y-2 text-sm text-ink-soft">
+                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-danger-fg" /><span>{t('overlays.dont.generic')} <em>"{t('overlays.dont.genericEx')}"</em></span></div>
+                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-danger-fg" /><span>{t('overlays.dont.ambiguous')} <em>"{t('overlays.dont.yes')}"</em> / <em>"{t('overlays.dont.no')}"</em>.</span></div>
+                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-danger-fg" /><span>{t('overlays.dont.red')}</span></div>
+                <div className="flex items-start gap-2"><IconAlert className="mt-0.5 h-4 w-4 shrink-0 text-danger-fg" /><span>{t('overlays.dont.skip')}</span></div>
               </div>
             </div>
           </div>
@@ -3026,9 +3054,18 @@ export function OverlaysPage() {
 
       {/* — Modals rendered in portal — */}
       <ConfirmDialog
+        open={scaleConfirm === 'simple'}
+        onClose={() => setScaleConfirm(null)}
+        onConfirm={() => { setScaleConfirm(null); addToast('success', t('overlays.destructive.deleted')) }}
+        title={t('overlays.destructive.confirmQ')}
+        description={t('overlays.destructive.simpleDesc')}
+        confirmLabel={t('overlays.deleteStream')}
+        cancelLabel={t('overlays.cancel')}
+      />
+      <ConfirmDialog
         open={modalDelete}
         onClose={() => setModalDelete(false)}
-        onConfirm={() => setModalDelete(false)}
+        onConfirm={() => { setModalDelete(false); addToast('success', t('overlays.destructive.deleted')) }}
         title={t('overlays.modal.deleteTitle')}
         description={t('overlays.modal.deleteDesc')}
         confirmLabel={t('overlays.deleteStream')}
@@ -3233,7 +3270,7 @@ export function MetricsPage() {
               { n: t('metrics.anatomy.compare'), d: t('metrics.anatomy.compareD') },
             ].map(({ n, d }, i) => (
               <div key={i} className="flex gap-3">
-                <span className="mt-0.5 h-5 w-5 shrink-0 grid place-items-center rounded-full bg-brand-50 font-mono text-9 font-bold text-brand-700">→</span>
+                <span className="mt-0.5 h-5 w-5 shrink-0 grid place-items-center rounded-full bg-primary-soft font-mono text-9 font-bold text-primary-fg">→</span>
                 <span><strong className="font-semibold text-ink">{n}</strong><span className="text-ink-muted"> — {d}</span></span>
               </div>
             ))}
@@ -3504,7 +3541,7 @@ function CardField({ label, children }: { label: string; children: ReactNode }) 
   )
 }
 
-const avatarOf = (r: Row) => `https://images.unsplash.com/${r.avatar}?w=64&h=64&fit=crop&auto=format`
+const avatarOf = (r: Row) => photo(r.avatar)
 const speed = (s: string) => parseFloat(s) * (s.includes('M/s') ? 1000 : 1)
 
 function useStreamColumns(): Column<Row>[] {
@@ -3535,7 +3572,7 @@ function CbBox({ on, indeterminate, onClick, label }: { on: boolean; indetermina
     <button
       onClick={onClick}
       aria-label={label}
-      className={`pance-focus grid h-4 w-4 place-items-center rounded border transition-colors ${on || indeterminate ? 'border-brand-700 bg-brand-700 text-white' : 'border-slate-300 bg-surface hover:border-brand-400'}`}
+      className={`pance-focus grid h-4 w-4 place-items-center rounded border transition-colors ${on || indeterminate ? 'border-brand-700 bg-brand-700 text-white' : 'border-line-strong bg-surface hover:border-primary-border-strong'}`}
     >
       {on ? <IconCheck className="h-3 w-3" /> : indeterminate ? <span className="block h-0.5 w-2 rounded-full bg-white" /> : null}
     </button>
@@ -3611,8 +3648,8 @@ function ExpandableTable() {
 function SkeletonTable() {
   const { t } = useI18n()
   return (
-    <Card className="overflow-hidden">
-      <header className="flex items-center justify-between border-b border-line-soft px-6 py-5">
+    <Card className="relative overflow-hidden">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line-soft px-6 py-5">
         <div className="space-y-2">
           <Skeleton className="h-5 w-32" />
           <Skeleton className="h-3.5 w-48" />
@@ -3622,7 +3659,7 @@ function SkeletonTable() {
           <Skeleton className="h-9 w-28 rounded-xl" />
         </div>
       </header>
-      <div tabIndex={0} className="pance-focus overflow-x-auto">
+      <div tabIndex={0} className="pance-focus relative overflow-x-auto">
       <table className="w-full border-collapse text-sm">
         <thead>
           <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3">
@@ -3683,7 +3720,7 @@ function EmptyTable({ reason }: { reason: 'no-data' | 'filtered' | 'error' }) {
         </table>
       </div>
       <div className="flex flex-col items-center gap-4 px-6 py-16 text-center">
-        <span className={`grid h-14 w-14 place-items-center rounded-2xl ${reason === 'error' ? 'bg-rose-50 text-danger' : 'bg-slate-100 text-ink-muted'}`}>
+        <span className={`grid h-14 w-14 place-items-center rounded-2xl ${reason === 'error' ? 'bg-danger-soft text-danger' : 'bg-canvas text-ink-muted'}`}>
           <s.Icon className="h-6 w-6" />
         </span>
         <div>
@@ -3721,13 +3758,13 @@ function SimpleTable() {
                 <p className="font-mono text-13 font-medium text-ink">{r.region}</p>
                 <p className="text-sm text-ink-muted">{r.location}</p>
               </div>
-              <span className={`font-mono text-13 font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
+              <span className={`font-mono text-13 font-medium ${parseInt(r.latency) < 10 ? 'text-success-fg' : parseInt(r.latency) < 20 ? 'text-warning-fg' : 'text-danger-fg'}`}>{r.latency}</span>
             </div>
             <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line-soft pt-4">
               <CardField label={t('table.col.throughput')}><span className="font-mono text-13 font-medium text-ink">{r.throughput}</span></CardField>
               <CardField label={t('table.simple.streams')}>
                 <span className="flex items-center gap-2">
-                  <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-200"><span className="block h-full rounded-full bg-brand-400" style={{ width: `${(r.streams / r.quota) * 100}%` }} /></span>
+                  <span className="h-1.5 w-16 overflow-hidden rounded-full bg-line"><span className="block h-full rounded-full bg-brand-400" style={{ width: `${(r.streams / r.quota) * 100}%` }} /></span>
                   <span className="font-mono text-13 text-ink-soft">{r.streams}/{r.quota}</span>
                 </span>
               </CardField>
@@ -3750,7 +3787,7 @@ function SimpleTable() {
               <td className="px-6 py-3.5 text-right font-mono text-13 text-ink">{r.streams}</td>
               <td className="px-6 py-3.5 text-right">
                 <div className="inline-flex items-center gap-2">
-                  <div className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-200">
+                  <div className="h-1.5 w-16 overflow-hidden rounded-full bg-line">
                     <div className="h-full rounded-full bg-brand-400 transition-all" style={{ width: `${(r.streams / r.quota) * 100}%` }} />
                   </div>
                   <span className="font-mono text-13 text-ink-soft">{r.streams}/{r.quota}</span>
@@ -3758,7 +3795,7 @@ function SimpleTable() {
               </td>
               <td className="px-6 py-3.5 text-right font-mono text-13 font-medium text-ink">{r.throughput}</td>
               <td className="px-6 py-3.5 text-right">
-                <span className={`font-mono text-13 font-medium ${parseInt(r.latency) < 10 ? 'text-emerald-700' : parseInt(r.latency) < 20 ? 'text-amber-700' : 'text-rose-600'}`}>{r.latency}</span>
+                <span className={`font-mono text-13 font-medium ${parseInt(r.latency) < 10 ? 'text-success-fg' : parseInt(r.latency) < 20 ? 'text-warning-fg' : 'text-danger-fg'}`}>{r.latency}</span>
               </td>
             </tr>
           ))}
@@ -3780,6 +3817,19 @@ export function TablePage() {
         <FullDataTable />
       </Section>
 
+      {/* ── Common arrangements ── */}
+      <Section title={t('table.team.title')} hint={t('table.team.hint')}>
+        <TeamTable />
+      </Section>
+
+      <Section title={t('table.inv.title')} hint={t('table.inv.hint')}>
+        <InvoicesTable />
+      </Section>
+
+      <Section title={t('table.log.title')} hint={t('table.log.hint')}>
+        <LogTable />
+      </Section>
+
       {/* ── 2. Expandable rows ── */}
       <Section title={t('table.expand.title')} hint={t('table.expand.hint')}>
         <ExpandableTable />
@@ -3795,7 +3845,7 @@ export function TablePage() {
         <div className="space-y-3">
           <div className="flex flex-wrap gap-2">
             {(['no-data', 'filtered', 'error'] as const).map(s => (
-              <button key={s} onClick={() => setEmptyState(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-13 font-medium transition-colors ${emptyState === s ? 'border-brand-400 bg-brand-50 text-brand-700' : 'border-line text-ink-muted hover:border-slate-300'}`}>{s}</button>
+              <button key={s} onClick={() => setEmptyState(s)} className={`pance-focus rounded-lg border px-3 py-1.5 font-mono text-13 font-medium transition-colors ${emptyState === s ? 'border-primary-border-strong bg-primary-soft text-primary-fg' : 'border-line text-ink-muted hover:border-line-strong'}`}>{s}</button>
             ))}
           </div>
           <EmptyTable reason={emptyState} />
@@ -3841,7 +3891,7 @@ export function LayoutPage() {
               { name: '2xl', value: '1536px', cols: '12', use: t('layout.bp.2xl') },
             ].map((bp) => (
               <div key={bp.name} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-6 py-3.5">
-                <span className="w-10 font-mono text-sm font-semibold text-brand-700">{bp.name}</span>
+                <span className="w-10 font-mono text-sm font-semibold text-primary-fg">{bp.name}</span>
                 <span className="w-24 font-mono text-xs text-ink-muted">{bp.value}</span>
                 <span className="w-14 text-xs text-ink-muted">{t('layout.bp.cols', { n: bp.cols })}</span>
                 <span className="min-w-0 basis-full text-sm text-ink-soft sm:basis-0 sm:flex-1">{bp.use}</span>
@@ -3865,8 +3915,8 @@ export function LayoutPage() {
             <div key={c.name} className="flex items-center gap-4">
               <span className="w-28 shrink-0 font-mono text-11 text-ink-muted">{c.name}</span>
               <div className="flex-1 rounded-full bg-ground">
-                <div className="flex h-7 items-center justify-end rounded-full bg-brand-100 pr-3 transition-all" style={{ width: `${c.pct}%` }}>
-                  <span className="font-mono text-10 font-semibold text-brand-700">{c.px}</span>
+                <div className="flex h-7 items-center justify-end rounded-full bg-primary-soft-hover pr-3 transition-all" style={{ width: `${c.pct}%` }}>
+                  <span className="font-mono text-10 font-semibold text-primary-fg">{c.px}</span>
                 </div>
               </div>
             </div>
@@ -3880,7 +3930,7 @@ export function LayoutPage() {
             <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.grid.equal')}</p>
             <div className="grid grid-cols-12 gap-2">
               {Array.from({ length: 12 }, (_, i) => (
-                <div key={i} className="flex h-10 items-center justify-center rounded-lg bg-brand-100 font-mono text-10 font-semibold text-brand-700">{i + 1}</div>
+                <div key={i} className="flex h-10 items-center justify-center rounded-lg bg-primary-soft-hover font-mono text-10 font-semibold text-primary-fg">{i + 1}</div>
               ))}
             </div>
           </div>
@@ -3895,7 +3945,7 @@ export function LayoutPage() {
               ].map((row) => (
                 <div key={row.label} className="grid grid-cols-12 gap-2">
                   {row.cols.map((cls, i) => (
-                    <div key={i} className={`flex h-10 items-center justify-center rounded-lg bg-brand-50 border border-brand-200 font-mono text-10 text-brand-700 ${cls}`}>{cls.replace('col-span-', '')} {t('layout.grid.col')}</div>
+                    <div key={i} className={`flex h-10 items-center justify-center rounded-lg bg-primary-soft border border-primary-border font-mono text-10 text-primary-fg ${cls}`}>{cls.replace('col-span-', '')} {t('layout.grid.col')}</div>
                   ))}
                 </div>
               ))}
@@ -3910,18 +3960,18 @@ export function LayoutPage() {
           <div>
             <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.pat.sidebarMain')}</p>
             <div className="grid grid-cols-4 gap-3">
-              <div className="rounded-xl border border-dashed border-brand-300 bg-brand-50 p-4">
-                <p className="font-mono text-10 font-semibold text-brand-700">{t('layout.pat.sidebar')}</p>
+              <div className="rounded-xl border border-dashed border-primary-border bg-primary-soft p-4">
+                <p className="font-mono text-10 font-semibold text-primary-fg">{t('layout.pat.sidebar')}</p>
                 <div className="mt-3 space-y-2">
-                  {[0, 1, 2].map((i) => <div key={i} className="h-7 rounded-lg bg-brand-100" />)}
+                  {[0, 1, 2].map((i) => <div key={i} className="h-7 rounded-lg bg-primary-soft-hover" />)}
                 </div>
               </div>
-              <div className="col-span-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4">
-                <p className="font-mono text-10 font-semibold text-slate-500">{t('layout.pat.main')}</p>
+              <div className="col-span-3 rounded-xl border border-dashed border-line-strong bg-canvas p-4">
+                <p className="font-mono text-10 font-semibold text-ink-muted">{t('layout.pat.main')}</p>
                 <div className="mt-3 grid grid-cols-3 gap-2">
-                  {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-16 rounded-lg bg-slate-200" />)}
+                  {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-16 rounded-lg bg-line" />)}
                 </div>
-                <div className="mt-2 h-24 rounded-lg bg-slate-200" />
+                <div className="mt-2 h-24 rounded-lg bg-line" />
               </div>
             </div>
           </div>
@@ -3930,27 +3980,27 @@ export function LayoutPage() {
           <div>
             <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.pat.dashboard')}</p>
             <div className="grid grid-cols-3 gap-3">
-              {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-20 rounded-xl border border-dashed border-brand-300 bg-brand-50 p-3"><p className="font-mono text-10 text-brand-700">{t('layout.pat.metric', { n: i + 1 })}</p></div>)}
+              {Array.from({ length: 3 }, (_, i) => <div key={i} className="h-20 rounded-xl border border-dashed border-primary-border bg-primary-soft p-3"><p className="font-mono text-10 text-primary-fg">{t('layout.pat.metric', { n: i + 1 })}</p></div>)}
             </div>
-            <div className="mt-3 h-28 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3">
-              <p className="font-mono text-10 text-slate-500">{t('layout.pat.table')}</p>
+            <div className="mt-3 h-28 rounded-xl border border-dashed border-line-strong bg-canvas p-3">
+              <p className="font-mono text-10 text-ink-muted">{t('layout.pat.table')}</p>
             </div>
           </div>
 
           {/* Form layout */}
           <div>
             <p className="mb-2 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('layout.pat.form')}</p>
-            <div className="mx-auto max-w-lg rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 space-y-3">
-              <div className="h-8 w-1/2 rounded-lg bg-slate-200" />
+            <div className="mx-auto max-w-lg rounded-xl border border-dashed border-line-strong bg-canvas p-5 space-y-3">
+              <div className="h-8 w-1/2 rounded-lg bg-line" />
               <div className="grid grid-cols-2 gap-3">
-                <div className="h-10 rounded-lg bg-slate-200" />
-                <div className="h-10 rounded-lg bg-slate-200" />
+                <div className="h-10 rounded-lg bg-line" />
+                <div className="h-10 rounded-lg bg-line" />
               </div>
-              <div className="h-10 rounded-lg bg-slate-200" />
-              <div className="h-20 rounded-lg bg-slate-200" />
+              <div className="h-10 rounded-lg bg-line" />
+              <div className="h-20 rounded-lg bg-line" />
               <div className="flex justify-end gap-2">
-                <div className="h-9 w-20 rounded-xl bg-slate-300" />
-                <div className="h-9 w-24 rounded-xl bg-brand-200" />
+                <div className="h-9 w-20 rounded-xl bg-line-strong" />
+                <div className="h-9 w-24 rounded-xl bg-primary-border" />
               </div>
             </div>
           </div>
@@ -3965,9 +4015,9 @@ export function LayoutPage() {
               { id: 'surface', label: t('layout.box.surface'), cls: 'bg-surface border border-line rounded-2xl p-6', desc: t('layout.box.surfaceDesc') },
               { id: 'ground', label: t('layout.box.ground'), cls: 'bg-ground rounded-2xl p-6', desc: t('layout.box.groundDesc') },
               { id: 'canvas', label: t('layout.box.canvas'), cls: 'bg-canvas border border-line-soft rounded-2xl p-6', desc: t('layout.box.canvasDesc') },
-              { id: 'tint', label: t('layout.box.tint'), cls: 'bg-brand-50 border border-brand-200 rounded-2xl p-6', desc: t('layout.box.tintDesc') },
+              { id: 'tint', label: t('layout.box.tint'), cls: 'bg-primary-soft border border-primary-border rounded-2xl p-6', desc: t('layout.box.tintDesc') },
               { id: 'inset', label: t('layout.box.inset'), cls: 'bg-ground border border-line rounded-xl p-4', desc: t('layout.box.insetDesc') },
-              { id: 'bleed', label: t('layout.box.bleed'), cls: 'bg-ink rounded-2xl p-6', desc: t('layout.box.bleedDesc') },
+              { id: 'bleed', label: t('layout.box.bleed'), cls: 'bg-slate-950 ring-1 ring-slate-800 rounded-2xl p-6', desc: t('layout.box.bleedDesc') },
             ].map((b) => (
               <div key={b.label} className={b.cls}>
                 <p className={`text-xs font-semibold ${b.id === 'bleed' ? 'text-white' : 'text-ink'}`}>{b.label}</p>
@@ -3984,7 +4034,7 @@ export function LayoutPage() {
           <div className="space-y-6">
             {/* Block with eyebrow */}
             <div className="rounded-2xl border border-line bg-surface p-6">
-              <p className="font-mono text-11 font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.block.eyebrow')}</p>
+              <p className="font-mono text-11 font-semibold uppercase tracking-[0.18em] text-primary-fg">{t('layout.block.eyebrow')}</p>
               <h3 className="mt-1 font-display text-xl font-bold text-ink">{t('layout.block.heading')}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-muted">{t('layout.block.desc')}</p>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -4024,7 +4074,7 @@ export function LayoutPage() {
           <p className="font-mono text-10 uppercase tracking-wider text-ink-muted">{tr('layout.content.intro')}</p>
           <Card className="p-6 lg:p-8">
             <div className="mx-auto max-w-prose space-y-4">
-              <p className="font-mono text-11 font-semibold uppercase tracking-[0.18em] text-brand-700">{t('layout.content.eyebrow')}</p>
+              <p className="font-mono text-11 font-semibold uppercase tracking-[0.18em] text-primary-fg">{t('layout.content.eyebrow')}</p>
               <h2 className="font-display text-2xl font-extrabold tracking-tight text-ink">{t('layout.content.heading')}</h2>
               <p className="text-15 leading-relaxed text-ink-soft">{t('layout.content.p1')}</p>
               <h3 className="font-display text-lg font-bold text-ink">{t('layout.content.h3')}</h3>
@@ -4037,7 +4087,7 @@ export function LayoutPage() {
                   </li>
                 ))}
               </ul>
-              <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+              <div className="rounded-xl border border-warning-border bg-warning-soft px-4 py-3 text-sm text-warning-fg">
                 <strong>{t('layout.content.avoid')}</strong> {t('layout.content.avoidText')}
               </div>
             </div>
@@ -4054,7 +4104,7 @@ export function LayoutPage() {
                 <div key={cls} className="flex items-center gap-4">
                   <span className="w-16 font-mono text-11 text-ink-muted">{cls}</span>
                   <div className={`flex ${cls}`}>
-                    {[0, 1, 2].map((i) => <div key={i} className="h-6 w-12 rounded-md bg-brand-200" />)}
+                    {[0, 1, 2].map((i) => <div key={i} className="h-6 w-12 rounded-md bg-primary-border" />)}
                   </div>
                   <span className="font-mono text-10 text-ink-muted">{val}</span>
                 </div>
@@ -4110,10 +4160,10 @@ export function CardsPage() {
               <button
                 key={stream.id}
                 onClick={() => setSelectedCard(selected ? null : stream.id)}
-                className={`pance-focus group w-full rounded-2xl border p-5 text-left transition-all duration-200 ${selected ? 'border-brand-400 bg-brand-50 shadow-[0_0_0_3px_var(--color-brand-100)]' : 'border-line bg-surface hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_8px_24px_-12px_rgba(8,145,178,0.3)]'}`}
+                className={`pance-focus group w-full rounded-2xl border p-5 text-left transition-all duration-200 ${selected ? 'border-primary-border-strong bg-primary-soft shadow-[0_0_0_3px_var(--color-primary-soft-hover)]' : 'border-line bg-surface hover:-translate-y-0.5 hover:border-primary-border hover:shadow-[0_8px_24px_-12px_rgba(8,145,178,0.3)]'}`}
               >
                 <div className="flex items-start justify-between">
-                  <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700 group-hover:bg-brand-100">
+                  <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary-soft text-primary-fg group-hover:bg-primary-soft-hover">
                     <IconStream className="h-4 w-4" />
                   </div>
                   <Badge severity={stream.status === 'Flowing' ? 'success' : 'secondary'} dot size="sm">{t(stream.status === 'Flowing' ? 'badges.dots.flowing' : 'badges.dots.paused')}</Badge>
@@ -4141,7 +4191,7 @@ export function CardsPage() {
             <div key={card.title} className="group overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-12px_rgba(15,23,42,0.2)]">
               <div className="h-36 overflow-hidden bg-ground">
                 <img
-                  src={`https://images.unsplash.com/${card.img}?w=600&h=300&fit=crop`}
+                  src={scene(card.img)}
                   alt={card.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -4152,10 +4202,10 @@ export function CardsPage() {
                 <p className="mt-1 text-xs text-ink-muted">{t('cards.media.meta')}</p>
                 <div className="mt-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Avatar name="Ines Halvorsen" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=48&h=48&fit=crop" size={22} decorative />
+                    <Avatar name="Ines Halvorsen" src={photo('photo-1438761681033-6461ffad8d80')} size={22} decorative />
                     <span className="text-xs text-ink-muted">Ines Halvorsen</span>
                   </div>
-                  <a href="#" className="pance-focus inline-flex items-center gap-1 text-xs font-medium text-brand-700 hover:text-brand-700">
+                  <a href="#" className={`pance-focus ${hitArea} inline-flex items-center gap-1 text-xs font-medium text-primary-fg hover:text-primary-fg`}>
                     {t('cards.media.read')} <IconArrowRight className="h-3 w-3" />
                   </a>
                 </div>
@@ -4175,8 +4225,8 @@ export function CardsPage() {
           ].map(({ label, value, delta, up, Icon }) => (
             <Card key={label} className="p-5">
               <div className="flex items-center justify-between">
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-50 text-brand-700"><Icon className="h-4 w-4" /></span>
-                <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-11 font-semibold ${up ? 'bg-brand-50 text-brand-700' : 'bg-emerald-50 text-emerald-700'}`}>
+                <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary-soft text-primary-fg"><Icon className="h-4 w-4" /></span>
+                <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-11 font-semibold ${up ? 'bg-primary-soft text-primary-fg' : 'bg-success-soft text-success-fg'}`}>
                   {up ? <IconArrowUp className="h-3 w-3" /> : <IconArrowDown className="h-3 w-3" />}{delta}
                 </span>
               </div>
@@ -4195,7 +4245,7 @@ export function CardsPage() {
             { name: 'ledger-sync', desc: t('cards.horizontal.d3'), status: 'Paused', throughput: '0 K/s', avatar: 'photo-1544005313-94ddf0286df2', owner: 'Priya Ramanathan' },
           ].map((row) => (
             <Card key={row.name} className="flex items-center gap-4 px-5 py-4">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary-fg">
                 <IconStream className="h-5 w-5" />
               </div>
               <div className="min-w-0 flex-1">
@@ -4206,7 +4256,7 @@ export function CardsPage() {
                 <p className="mt-0.5 truncate text-xs text-ink-muted">{row.desc}</p>
               </div>
               <div className="hidden items-center gap-2 sm:flex">
-                <Avatar name={row.owner} src={`https://images.unsplash.com/${row.avatar}?w=48&h=48&fit=crop`} size={24} />
+                <Avatar name={row.owner} src={photo(row.avatar)} size={24} />
                 <span className="text-xs text-ink-muted">{row.throughput}</span>
               </div>
               <IconButton Icon={IconDots} label={t('cards.horizontal.more')} />
@@ -4238,7 +4288,7 @@ export function CardsPage() {
                   <div key={label}>
                     <div className="mb-1 flex justify-between text-xs">
                       <span className="text-ink-muted">{label}</span>
-                      <span className={`font-mono font-semibold ${v >= 90 ? 'text-danger' : v >= 75 ? 'text-amber-700' : 'text-ink'}`}>{v}%</span>
+                      <span className={`font-mono font-semibold ${v >= 90 ? 'text-danger' : v >= 75 ? 'text-warning-fg' : 'text-ink'}`}>{v}%</span>
                     </div>
                     <div className="h-1.5 overflow-hidden rounded-full bg-ground">
                       <div className={`h-full rounded-full ${v >= 90 ? 'bg-danger' : v >= 75 ? 'bg-amber-400' : 'bg-brand-500'}`} style={{ width: `${v}%` }} />
@@ -4261,10 +4311,10 @@ export function CardsPage() {
                 </div>
               </Panel>
               <Panel title={t('cards.panel.danger')} description={t('cards.panel.dangerDesc')} icon={IconAlert} iconSeverity="danger" collapsible>
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-danger-border bg-danger-soft px-4 py-3">
                   <div>
                     <p className="text-sm font-semibold text-danger">{t('cards.panel.deleteThis')}</p>
-                    <p className="text-xs text-rose-700">{t('cards.panel.deleteWarn')}</p>
+                    <p className="text-xs text-danger-fg">{t('cards.panel.deleteWarn')}</p>
                   </div>
                   <Button size="sm" severity="danger">{t('cards.panel.delete')}</Button>
                 </div>
@@ -4278,8 +4328,8 @@ export function CardsPage() {
         <div className="grid gap-4 sm:grid-cols-5">
           {[
             { label: t('cards.anatomy.default'), cls: 'border-line bg-surface', content: t('cards.states.base') },
-            { label: t('cards.states.hover'), cls: 'border-brand-200 bg-surface -translate-y-0.5 shadow-[0_8px_24px_-12px_rgba(8,145,178,0.3)]', content: t('cards.states.hovered') },
-            { label: t('cards.states.selected'), cls: 'border-brand-400 bg-brand-50 shadow-[0_0_0_3px_var(--color-brand-100)]', content: t('cards.states.active') },
+            { label: t('cards.states.hover'), cls: 'border-primary-border bg-surface -translate-y-0.5 shadow-[0_8px_24px_-12px_rgba(8,145,178,0.3)]', content: t('cards.states.hovered') },
+            { label: t('cards.states.selected'), cls: 'border-primary-border-strong bg-primary-soft shadow-[0_0_0_3px_var(--color-primary-soft-hover)]', content: t('cards.states.active') },
             { label: t('cards.states.disabled'), cls: 'border-line bg-ground opacity-50 cursor-not-allowed', content: t('cards.states.disabled') },
             { label: t('cards.states.loading'), cls: 'border-line bg-surface', content: null },
           ].map((s) => (
@@ -4333,7 +4383,7 @@ export function ContentPage() {
       </Section>
 
       <Section title="Image" hint={t('content.image.hint')}>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-3 sm:items-start">
           {[
             { ratio: 'aspect-video', label: '16:9', img: 'photo-1518770660439-4636190af475' },
             { ratio: 'aspect-square', label: '1:1', img: 'photo-1558494949-ef010cbdcc31' },
@@ -4341,7 +4391,7 @@ export function ContentPage() {
           ].map((im) => (
             <figure key={im.label} className="overflow-hidden rounded-2xl border border-line bg-surface">
               <div className={`${im.ratio} overflow-hidden bg-ground`}>
-                <img src={`https://images.unsplash.com/${im.img}?w=600&h=400&fit=crop`} alt="" className="h-full w-full object-cover" />
+                <img src={scene(im.img)} alt="" className="h-full w-full object-cover" />
               </div>
               <figcaption className="px-4 py-3">
                 <p className="text-xs font-medium text-ink">{t('content.image.caption')}</p>
@@ -4363,7 +4413,7 @@ export function ContentPage() {
             <div className="flex items-center gap-4">
               {[48, 64, 80, 96].map((sz) => (
                 <div key={sz} className="overflow-hidden rounded-full border-2 border-line" style={{ width: sz, height: sz }}>
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="" className="h-full w-full object-cover" />
+                  <img src={photo('photo-1438761681033-6461ffad8d80')} alt="" className="h-full w-full object-cover" />
                 </div>
               ))}
             </div>
@@ -4432,11 +4482,11 @@ export function ContentPage() {
             <p className="mb-4 font-mono text-10 uppercase tracking-wider text-ink-muted">{t('content.it.features')}</p>
             <div className="space-y-3">
               {[
-                { Icon: IconCheckCircle, text: t('content.it.f1'), color: 'text-emerald-700 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f2'), color: 'text-emerald-700 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f3'), color: 'text-emerald-700 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f4'), color: 'text-emerald-700 bg-emerald-50' },
-                { Icon: IconCheckCircle, text: t('content.it.f5'), color: 'text-emerald-700 bg-emerald-50' },
+                { Icon: IconCheckCircle, text: t('content.it.f1'), color: 'text-success-fg bg-success-soft' },
+                { Icon: IconCheckCircle, text: t('content.it.f2'), color: 'text-success-fg bg-success-soft' },
+                { Icon: IconCheckCircle, text: t('content.it.f3'), color: 'text-success-fg bg-success-soft' },
+                { Icon: IconCheckCircle, text: t('content.it.f4'), color: 'text-success-fg bg-success-soft' },
+                { Icon: IconCheckCircle, text: t('content.it.f5'), color: 'text-success-fg bg-success-soft' },
               ].map(({ Icon, text, color }) => (
                 <div key={text} className="flex items-start gap-3">
                   <span className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full ${color}`}><Icon className="h-3 w-3" /></span>
@@ -4459,7 +4509,7 @@ export function ContentPage() {
                 { Icon: IconStar, label: 'SLA', value: '99.95%' },
               ].map(({ Icon, label, value }) => (
                 <div key={label} className="flex items-center gap-2.5">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700"><Icon className="h-3.5 w-3.5" /></span>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary-soft text-primary-fg"><Icon className="h-3.5 w-3.5" /></span>
                   <div>
                     <p className="font-mono text-10 text-ink-muted">{label}</p>
                     <p className="text-sm font-semibold text-ink">{value}</p>
@@ -4480,7 +4530,7 @@ export function ContentPage() {
                     <span className="w-6 font-mono text-10 text-ink-muted">{sz}</span>
                     <span className={`inline-flex items-center text-ink-soft ${cfg.gap}`}><IconStream className={cfg.icon} /><span className={cfg.text}>checkout-events</span></span>
                     <span className={`inline-flex items-center text-ink-muted ${cfg.gap}`}><IconGlobe className={cfg.icon} /><span className={cfg.text}>us-east-1</span></span>
-                    <span className={`inline-flex items-center text-emerald-700 ${cfg.gap}`}><IconCheckCircle className={cfg.icon} /><span className={cfg.text}>{t('content.it.flowing')}</span></span>
+                    <span className={`inline-flex items-center text-success-fg ${cfg.gap}`}><IconCheckCircle className={cfg.icon} /><span className={cfg.text}>{t('content.it.flowing')}</span></span>
                   </div>
                 )
               })}
@@ -4498,7 +4548,7 @@ export function ContentPage() {
               { name: 'events-export-jan.csv', type: 'CSV', size: '4.2 MB', severity: 'success' as const, desc: t('content.dl.d2') },
               { name: 'connector-config.json', type: 'JSON', size: '3 KB', severity: 'info' as const, desc: t('content.dl.d3') },
             ].map((file) => (
-              <div key={file.name} className="group flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-brand-200 hover:shadow-[0_4px_16px_-8px_rgba(8,145,178,0.2)]">
+              <div key={file.name} className="group flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4 transition-all hover:border-primary-border hover:shadow-[0_4px_16px_-8px_rgba(8,145,178,0.2)]">
                 <div className="flex items-start gap-3">
                   <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ground text-ink-muted">
                     <IconDownload className="h-5 w-5" />
@@ -4540,7 +4590,7 @@ export function ContentPage() {
                       <span className="font-mono text-10 text-ink-muted">{file.size}</span>
                     </div>
                   </div>
-                  <button aria-label={`${t('content.dl.title')} ${file.name}`} className="pance-focus grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-brand-50 hover:text-brand-700">
+                  <button aria-label={`${t('content.dl.title')} ${file.name}`} className="pance-focus grid h-8 w-8 shrink-0 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-primary-soft hover:text-primary-fg">
                     <IconDownload aria-hidden className="h-4 w-4" />
                   </button>
                 </div>
@@ -4553,7 +4603,7 @@ export function ContentPage() {
       <Section title={t('content.art.title')} hint={t('content.art.hint')}>
         <Card className="overflow-hidden lg:flex">
           <div className="h-52 lg:h-auto lg:w-72 shrink-0 overflow-hidden bg-ground">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" alt="" className="h-full w-full object-cover" />
+            <img src={scene('photo-1518770660439-4636190af475')} alt="" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col justify-between p-6">
             <div>
@@ -4567,7 +4617,7 @@ export function ContentPage() {
             </div>
             <div className="mt-5 flex items-center justify-between border-t border-line-soft pt-4">
               <div className="flex items-center gap-2">
-                <Avatar name="Devon Achebe" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=48&h=48&fit=crop" size={28} />
+                <Avatar name="Devon Achebe" src={photo('photo-1500648767791-00dcc994a43e')} size={28} />
                 <div>
                   <p className="text-xs font-semibold text-ink">Devon Achebe</p>
                   <p className="font-mono text-10 text-ink-muted">{t('content.art.read')}</p>
@@ -4727,7 +4777,7 @@ function VizStatTile({ label, value, delta, deltaLabel, trend, trendColor = VC[0
       <div>
         <p className="text-3xl font-bold leading-none tracking-tight text-ink">{value}</p>
         {delta && (
-          <p className={`mt-1.5 flex items-center gap-1 text-xs font-medium ${isGood ? 'text-emerald-700' : 'text-rose-600'}`}>
+          <p className={`mt-1.5 flex items-center gap-1 text-xs font-medium ${isGood ? 'text-success-fg' : 'text-danger-fg'}`}>
             <span>{delta}</span>
             {deltaLabel && <span className="font-normal text-ink-muted">{deltaLabel}</span>}
           </p>
@@ -4869,7 +4919,7 @@ export function DataVizPage() {
           <span className="text-xs text-ink-muted">{t('dataviz.filter.region')}</span>
           <div className="flex flex-wrap gap-1">
             {['All','US East','EU West','AP South'].map(r => (
-              <span key={r} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-soft hover:border-brand-300 hover:text-brand-700 cursor-pointer transition-colors">{r === 'All' ? t('dataviz.regionAll') : r}</span>
+              <span key={r} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink-soft hover:border-primary-border hover:text-primary-fg cursor-pointer transition-colors">{r === 'All' ? t('dataviz.regionAll') : r}</span>
             ))}
           </div>
         </div>
@@ -4878,10 +4928,10 @@ export function DataVizPage() {
       {/* ── Stat tiles / KPI row ──────────────────────────────────── */}
       <Section title={t('dataviz.stat.title')} hint={t('dataviz.stat.hint')}>
         {/* Hero figure */}
-        <div className="mb-4 rounded-2xl border border-line bg-gradient-to-br from-brand-50 to-surface p-6 sm:p-8">
+        <div className="mb-4 rounded-2xl border border-line bg-gradient-to-br from-primary-soft to-surface p-6 sm:p-8">
           <p className="text-xs font-medium uppercase tracking-[0.14em] text-brand-500">{t('dataviz.stat.heroLabel')}</p>
           <p className="mt-2 text-4xl font-bold leading-none tracking-tight text-ink sm:text-6xl">704<span className="text-2xl font-semibold text-ink-muted sm:text-3xl"> K/s</span></p>
-          <p className="mt-3 flex items-center gap-2 text-sm font-medium text-emerald-700">
+          <p className="mt-3 flex items-center gap-2 text-sm font-medium text-success-fg">
             <span>+23.4%</span>
             <span className="font-normal text-ink-muted">{t('dataviz.stat.vsLastYear')}</span>
           </p>
@@ -4943,20 +4993,20 @@ export function DataVizPage() {
           <div className="rounded-2xl border border-line bg-surface p-6">
             <p className="mb-4 text-sm font-semibold text-ink">{t('dataviz.donut.guideTitle')}</p>
             <div className="space-y-3 text-sm text-ink-soft">
-              <div className="flex gap-3 rounded-xl bg-emerald-50 p-3">
-                <span className="font-mono text-emerald-700">✓</span>
+              <div className="flex gap-3 rounded-xl bg-success-soft p-3">
+                <span className="font-mono text-success-fg">✓</span>
                 <span>{t('dataviz.donut.g1a')}<strong className="text-ink">{t('dataviz.donut.g1b')}</strong>{t('dataviz.donut.g1c')}<strong className="text-ink">{t('dataviz.donut.g1d')}</strong>{t('dataviz.donut.g1e')}</span>
               </div>
-              <div className="flex gap-3 rounded-xl bg-rose-50 p-3">
-                <span className="font-mono text-rose-600">✗</span>
+              <div className="flex gap-3 rounded-xl bg-danger-soft p-3">
+                <span className="font-mono text-danger-fg">✗</span>
                 <span>{t('dataviz.donut.g2a')}<strong className="text-ink">{t('dataviz.donut.g2b')}</strong>{t('dataviz.donut.g2c')}</span>
               </div>
-              <div className="flex gap-3 rounded-xl bg-rose-50 p-3">
-                <span className="font-mono text-rose-600">✗</span>
+              <div className="flex gap-3 rounded-xl bg-danger-soft p-3">
+                <span className="font-mono text-danger-fg">✗</span>
                 <span>{t('dataviz.donut.g3a')}<strong className="text-ink">{t('dataviz.donut.g3b')}</strong>{t('dataviz.donut.g3c')}</span>
               </div>
-              <div className="flex gap-3 rounded-xl bg-rose-50 p-3">
-                <span className="font-mono text-rose-600">✗</span>
+              <div className="flex gap-3 rounded-xl bg-danger-soft p-3">
+                <span className="font-mono text-danger-fg">✗</span>
                 <span>{t('dataviz.donut.g4a')}<strong className="text-ink">{t('dataviz.donut.g4b')}</strong>{t('dataviz.donut.g4c')}</span>
               </div>
             </div>
@@ -5012,7 +5062,7 @@ export function DataVizPage() {
                   <td className="px-4 py-3"><VizSparkline data={row.trend} color={VC[i % 3]} width={72} height={24} /></td>
                   <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink">{row.lat}</td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-11 font-medium ${row.ok ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-11 font-medium ${row.ok ? 'bg-success-soft text-success-fg' : 'bg-warning-soft text-warning-fg'}`}>
                       <span className={`h-1.5 w-1.5 rounded-full ${row.ok ? 'bg-emerald-500' : 'bg-amber-500'}`} />
                       {row.ok ? t('dataviz.spark.healthy') : t('dataviz.spark.degraded')}
                     </span>
@@ -5059,10 +5109,10 @@ export function DataVizPage() {
           {/* Status palette */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[
-              { role: t('dataviz.palette.good'),     c: '#0ca30c', bg: '#f0fdf0', text: 'text-emerald-700' },
-              { role: t('dataviz.palette.warning'),  c: '#fab219', bg: '#fefce8', text: 'text-amber-700'   },
+              { role: t('dataviz.palette.good'),     c: '#0ca30c', bg: '#f0fdf0', text: 'text-success-fg' },
+              { role: t('dataviz.palette.warning'),  c: '#fab219', bg: '#fefce8', text: 'text-warning-fg'   },
               { role: t('dataviz.palette.serious'),  c: '#ec835a', bg: '#fff7ed', text: 'text-orange-700'  },
-              { role: t('dataviz.palette.critical'), c: '#d03b3b', bg: '#fef2f2', text: 'text-rose-700'    },
+              { role: t('dataviz.palette.critical'), c: '#d03b3b', bg: '#fef2f2', text: 'text-danger-fg'    },
             ].map(({ role, c, bg, text }) => (
               <div key={role} className="rounded-xl border border-line bg-surface p-3">
                 <div className="mb-2 h-6 w-full rounded-lg" style={{ backgroundColor: bg }}>
@@ -5097,7 +5147,7 @@ export function DataVizPage() {
                   <td className="px-4 py-3 text-ink-soft">{t(`dataviz.form.${i}.job` as Key)}</td>
                   <td className="px-4 py-3 font-medium text-ink">{t(`dataviz.form.${i}.form` as Key)}</td>
                   <td className="px-4 py-3 text-ink-muted">{t(`dataviz.form.${i}.color` as Key)}</td>
-                  <td className="px-4 py-3 font-mono text-xs text-rose-600">{t(`dataviz.form.${i}.anti` as Key)}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-danger-fg">{t(`dataviz.form.${i}.anti` as Key)}</td>
                 </tr>
               ))}
             </tbody>
@@ -5124,13 +5174,13 @@ export function DataVizPage() {
 
       {/* ── Composed dashboard specimen ───────────────────────────── */}
       <Section title={t('dataviz.spec.title')} hint={t('dataviz.spec.hint')}>
-        <div className="rounded-2xl border border-2 border-dashed border-brand-200 bg-brand-50/30 p-1">
+        <div className="rounded-2xl border border-2 border-dashed border-primary-border bg-primary-soft/30 p-1">
           <div className="rounded-xl bg-surface p-5">
             {/* Specimen filter bar */}
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-canvas px-4 py-2.5">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-medium text-ink-muted">{t('dataviz.spec.scope')}</span>
-                <span className="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-700">{t('dataviz.spec.last30')}</span>
+                <span className="rounded-full bg-primary-soft-hover px-2 py-0.5 text-xs font-medium text-primary-fg">{t('dataviz.spec.last30')}</span>
                 <span className="rounded-full bg-ground px-2 py-0.5 text-xs text-ink-muted">{t('dataviz.spec.allRegions')}</span>
               </div>
               <span className="text-10 text-ink-muted">{t('dataviz.spec.updated')}</span>
@@ -5543,7 +5593,7 @@ function DeptModal({ dept, onClose }: { dept: AQDept; onClose: () => void }) {
       footer={<Button severity="primary" onClick={onClose}>{t('aq.close')}</Button>}
     >
       <div className="space-y-5">
-        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm text-amber-700">
+        <div className="rounded-xl border border-warning-border bg-warning-soft px-4 py-2.5 text-sm text-warning-fg">
           {t('aq.modal.warn')}
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -5666,7 +5716,7 @@ export function AfterQuakePage() {
         <div className="flex flex-wrap items-start justify-between gap-4 mx-6">
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-rose-100 px-2.5 py-1 font-mono text-10 font-bold uppercase tracking-wide text-rose-700">{t('aq.eyebrow')}</span>
+              <span className="rounded-full bg-danger-soft-hover px-2.5 py-1 font-mono text-10 font-bold uppercase tracking-wide text-danger-fg">{t('aq.eyebrow')}</span>
               <Badge severity="danger" variant="solid">{t('aq.badge.quake')}</Badge>
               <Badge severity="secondary">{t('aq.badge.region')}</Badge>
             </div>
@@ -5692,7 +5742,7 @@ export function AfterQuakePage() {
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
                 activeTab === tab.id
-                  ? 'border-brand-500 text-brand-700'
+                  ? 'border-brand-500 text-primary-fg'
                   : 'border-transparent text-ink-soft hover:text-ink'
               }`}>
               {tab.label}
@@ -5739,7 +5789,7 @@ export function AfterQuakePage() {
                     <p className="text-xs text-ink-muted">{t('aq.mapCard.hint')}</p>
                   </div>
                   {selectedDept && (
-                    <button onClick={() => setSelectedDept(null)} className="text-xs font-medium text-brand-700 hover:underline">{t('aq.mapCard.clear')}</button>
+                    <button onClick={() => setSelectedDept(null)} className="text-xs font-medium text-primary-fg hover:underline">{t('aq.mapCard.clear')}</button>
                   )}
                 </div>
                 <ColombiaMap
@@ -5768,7 +5818,7 @@ export function AfterQuakePage() {
                       const pct = d.hospitalCapacity
                       return (
                         <button key={d.id} onClick={() => setSelectedDept(d.id)}
-                          className="flex w-full items-center gap-3 rounded-xl border border-line bg-canvas px-3 py-2.5 text-left transition-colors hover:border-brand-200 hover:bg-brand-50/40">
+                          className="flex w-full items-center gap-3 rounded-xl border border-line bg-canvas px-3 py-2.5 text-left transition-colors hover:border-primary-border hover:bg-primary-soft/40">
                           <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: s.color }} />
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center justify-between gap-2">
@@ -5872,7 +5922,7 @@ export function AfterQuakePage() {
                         </td>
                         <td className="px-4 py-3">
                           <button onClick={() => setDetailModal(d.id)} aria-label={t('aq.viewDetail', { name: d.name })} title={t('aq.viewDetail', { name: d.name })}
-                            className="grid h-7 w-7 place-items-center rounded-lg text-ink-muted hover:bg-ground hover:text-brand-700">
+                            className="grid h-7 w-7 place-items-center rounded-lg text-ink-muted hover:bg-ground hover:text-primary-fg">
                             <IconInfo size={14} />
                           </button>
                         </td>
@@ -6053,7 +6103,7 @@ export function AfterQuakePage() {
                               <span className="font-mono text-10 font-bold text-ink-muted">{ev.t}</span>
                               <span className="rounded-full px-1.5 py-0.5 text-9 font-bold uppercase" style={{ backgroundColor: s.bg, color: s.text }}>{t(s.key)}</span>
                             </div>
-                            <p className={`mt-0.5 text-sm ${isCurrent ? 'font-semibold text-brand-700' : 'text-ink-soft'}`}>{t(ev.txt)}</p>
+                            <p className={`mt-0.5 text-sm ${isCurrent ? 'font-semibold text-primary-fg' : 'text-ink-soft'}`}>{t(ev.txt)}</p>
                           </div>
                         </div>
                       )
@@ -6081,9 +6131,9 @@ export function AfterQuakePage() {
 
         {/* ── Disclaimer footer ───────────────────────────────────────── */}
         <Divider />
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-800">
+        <div className="rounded-2xl border border-warning-border bg-warning-soft p-5 text-sm text-warning-fg">
           <p className="font-semibold mb-1">{t('aq.disc.title')}</p>
-          <p className="text-amber-700 leading-relaxed">{t('aq.disc.body', { sgc: '\u0001', ungrd: '\u0002' }).split(/(\u0001|\u0002)/).map((part, i) => part === '\u0001' ? <strong key={i}>{t('aq.disc.sgc')}</strong> : part === '\u0002' ? <strong key={i}>{t('aq.disc.ungrd')}</strong> : part)}</p>
+          <p className="text-warning-fg leading-relaxed">{t('aq.disc.body', { sgc: '\u0001', ungrd: '\u0002' }).split(/(\u0001|\u0002)/).map((part, i) => part === '\u0001' ? <strong key={i}>{t('aq.disc.sgc')}</strong> : part === '\u0002' ? <strong key={i}>{t('aq.disc.ungrd')}</strong> : part)}</p>
         </div>
 
       </div>

@@ -2,7 +2,8 @@
 import { type ReactNode } from 'react'
 import { useLabels } from './labels'
 import { type IconType } from '../icons'
-import { type Severity, type SurfaceVariant, TONE } from './shared'
+import { focus, type Severity, type SurfaceVariant, TONE } from './shared'
+import { hitArea } from './a11y'
 
 /* ── Badge / Tag ────────────────────────────────────────────────────────────
    Same severity × variant model as Button: severity carries meaning,
@@ -59,8 +60,8 @@ export function Badge({
         <button
           type="button"
           onClick={onRemove}
-          className={`-mr-0.5 ml-0.5 rounded-full p-0.5 transition-colors hover:bg-current/15 focus:outline-none`}
-          aria-label={tt.remove}
+          className={`${focus} ${hitArea} -mr-0.5 ml-0.5 rounded-full p-0.5 transition-colors hover:bg-current/15`}
+          aria-label={typeof children === 'string' ? `${tt.remove} ${children}` : tt.remove}
         >
           <svg className={sz.icon} viewBox="0 0 12 12" fill="none">
             <path d="M9 3L3 9M3 3l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

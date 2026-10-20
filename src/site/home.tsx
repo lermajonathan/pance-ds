@@ -1,7 +1,11 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { Badge, Button } from '../components'
+import { Code as CodeIcon } from '@phosphor-icons/react'
+import type { IconType } from '../icons'
 import ConsoleExample from './console-example'
 import { CoverageSection, PillarsSection } from './home-sections'
+import { GetStartedSection, HeroLinks } from './get-started'
+import { VERSION } from './version'
 import { useI18n } from '../i18n'
 import type { Key } from '../i18n'
 import {
@@ -59,7 +63,7 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
   }, [])
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_2px_16px_-4px_color-mix(in_srgb,var(--color-ink)_8%,transparent)]">
+    <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_2px_16px_-4px_color-mix(in_srgb,var(--color-slate-950)_8%,transparent)]">
       <div className="flex items-center gap-3 border-b border-line-soft bg-canvas px-4 py-2.5">
         <div className="flex gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
@@ -94,7 +98,12 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
   )
 }
 
-const CHIPS: Key[] = ['home.chip.components', 'home.chip.severity', 'home.chip.wcag', 'home.chip.tailwind']
+const CHIPS: { key: Key; severity: 'primary' | 'help' | 'success' | 'info'; Icon: IconType }[] = [
+  { key: 'home.chip.components', severity: 'primary', Icon: IconComponents },
+  { key: 'home.chip.severity', severity: 'help', Icon: IconPalette },
+  { key: 'home.chip.wcag', severity: 'success', Icon: IconShield },
+  { key: 'home.chip.tailwind', severity: 'info', Icon: CodeIcon },
+]
 
 /* ══════════════════════════════════════════════════════════════════════════
    HomePage
@@ -120,7 +129,7 @@ export function HomePage() {
               <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--color-brand-600)_60%,transparent)]">
                 <IconWave size={14} weight="bold" className="text-white" />
               </div>
-              <span className="font-mono text-11 uppercase tracking-[0.22em] text-brand-400">{t('home.eyebrow')}</span>
+              <span className="font-mono text-11 uppercase tracking-[0.22em] text-brand-400">{t('home.eyebrow')} · v{VERSION}</span>
             </div>
 
             <h1 className="font-display text-5xl font-extrabold leading-[1.08] tracking-tight text-white md:text-6xl lg:text-7xl">
@@ -147,12 +156,13 @@ export function HomePage() {
                 {t('home.cta.action')}
               </button>
             </div>
+            <HeroLinks />
           </div>
 
           {/* Floating badges */}
           <div className="absolute right-0 top-8 hidden flex-col gap-2 lg:flex">
-            {CHIPS.map(k => (
-              <span key={k} className="rounded-full border border-slate-600/60 bg-slate-800/60 px-3 py-1 text-right text-xs font-medium text-slate-300 backdrop-blur-sm">{t(k)}</span>
+            {CHIPS.map(({ key, severity, Icon }) => (
+              <span key={key} className="flex justify-end"><Badge size="md" severity={severity} Icon={Icon}>{t(key)}</Badge></span>
             ))}
           </div>
         </div>
@@ -165,7 +175,7 @@ export function HomePage() {
         <div className="mx-auto max-w-[1120px]">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.context.eyebrow')}</p>
+              <p className="font-mono text-11 uppercase tracking-[0.18em] text-ink-brand">{t('home.context.eyebrow')}</p>
               <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink">{t('home.context.title')}</h2>
               <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-muted">
                 {t('home.context.body')}
@@ -184,6 +194,8 @@ export function HomePage() {
       </section>
 
       <CoverageSection onOpen={() => navigate('dataviz')} />
+
+      <GetStartedSection />
 
       {/* ── CTA strip ─────────────────────────────────────────────────── */}
       <section className="border-t border-line bg-river-900 px-8 py-16">

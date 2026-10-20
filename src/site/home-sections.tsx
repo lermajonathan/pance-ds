@@ -10,7 +10,7 @@ const SEVERITIES: Severity[] = ['primary', 'success', 'warning', 'danger', 'info
 
 function Frame({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`relative overflow-hidden rounded-[28px] bg-white/80 p-4 ring-1 ring-slate-200 shadow-[0_1px_2px_color-mix(in_srgb,var(--color-ink)_4%,transparent),0_24px_48px_-28px_color-mix(in_srgb,var(--color-ink)_28%,transparent)] backdrop-blur-sm sm:p-6 ${className}`}>
+    <div className={`relative overflow-hidden rounded-[28px] bg-surface/80 p-4 ring-1 ring-line shadow-[0_1px_2px_color-mix(in_srgb,var(--color-slate-950)_4%,transparent),0_24px_48px_-28px_color-mix(in_srgb,var(--color-slate-950)_28%,transparent)] backdrop-blur-sm sm:p-6 ${className}`}>
       {children}
     </div>
   )
@@ -19,7 +19,7 @@ function Frame({ children, className = '' }: { children: ReactNode; className?: 
 function HumanArt() {
   const tiles = [
     { cls: 'bg-brand-700 text-white', ratio: '5.4:1', grade: 'AA' },
-    { cls: 'bg-ink text-white', ratio: '17.9:1', grade: 'AAA' },
+    { cls: 'bg-slate-900 text-white ring-1 ring-slate-700', ratio: '17.9:1', grade: 'AAA' },
     { cls: 'bg-brand-50 text-brand-700 ring-1 ring-brand-200', ratio: '5.1:1', grade: 'AA' },
   ]
   return (
@@ -63,7 +63,7 @@ function OpenArt() {
     <div className="space-y-3">
       <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-sm">
         <div className="flex items-center gap-2 border-b border-line bg-ground px-4 py-2">
-          <IconGlobe size={14} className="text-brand-700" />
+          <IconGlobe size={14} className="text-ink-brand" />
           <span className="min-w-0 truncate font-mono text-11 text-ink-muted">pance / design-system</span>
           <span className="ml-auto shrink-0"><Badge severity="success" variant="soft" size="sm">{t('shell.openSource')}</Badge></span>
         </div>
@@ -125,7 +125,7 @@ export function PillarsSection() {
   return (
     <section className="border-b border-line bg-surface px-5 py-14 sm:px-8 sm:py-32" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
       <div className="mx-auto max-w-[1120px]">
-        <div role="tablist" className="grid grid-cols-2 gap-1.5 rounded-3xl border border-line bg-[rgb(253,253,253)] p-1.5 lg:grid-cols-4">
+        <div role="tablist" className="grid grid-cols-2 gap-1.5 rounded-3xl border border-line bg-canvas p-1.5 lg:grid-cols-4">
           {PILLARS.map((p, i) => {
             const on = i === active
             return (
@@ -138,9 +138,9 @@ export function PillarsSection() {
                 tabIndex={on ? 0 : -1}
                 onClick={() => { setManual(true); setActive(i) }}
                 onKeyDown={(e) => onKey(e, i)}
-                className={`relative flex min-w-0 items-center gap-3 overflow-hidden rounded-[1.25rem] px-3 py-3 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 sm:px-4 ${on ? 'bg-surface shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-ink)_35%,transparent)] ring-1 ring-line' : 'text-ink-muted hover:bg-surface/60 hover:text-ink'}`}
+                className={`relative flex min-w-0 items-center gap-3 overflow-hidden rounded-[1.25rem] px-3 py-3 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 sm:px-4 ${on ? 'bg-surface shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-slate-950)_35%,transparent)] ring-1 ring-line' : 'text-ink-muted hover:bg-surface/60 hover:text-ink'}`}
               >
-                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-colors ${on ? 'bg-brand-600 text-white' : 'bg-brand-50 text-brand-700'}`}>
+                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-colors ${on ? 'bg-primary-solid text-primary-on-solid' : 'bg-primary-soft text-primary-fg'}`}>
                   <p.Icon size={18} weight="duotone" />
                 </span>
                 <span className={`min-w-0 text-13 font-semibold leading-snug sm:text-sm ${on ? 'text-ink' : ''}`}>{t(p.title)}</span>
@@ -156,7 +156,7 @@ export function PillarsSection() {
               const on = i === active
               return (
                 <div key={p.id} aria-hidden={!on} inert={!on} className={`col-start-1 row-start-1 ${on ? 'pance-rise' : 'invisible'}`}>
-                  <p className="font-mono text-11 tracking-[0.18em] text-brand-700">{String(i + 1).padStart(2, '0')} / {String(PILLARS.length).padStart(2, '0')}</p>
+                  <p className="font-mono text-11 tracking-[0.18em] text-ink-brand">{String(i + 1).padStart(2, '0')} / {String(PILLARS.length).padStart(2, '0')}</p>
                   <h2 className="mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">{t(p.title)}</h2>
                   <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">{t(p.body)}</p>
                 </div>
@@ -180,10 +180,10 @@ export function PillarsSection() {
 /* ─── Coverage: expanding chart panels ─────────────────────────────────── */
 type Tone = { accent: string; text: string; glow: string; pill: string }
 const TONES: Record<string, Tone> = {
-  brand: { accent: 'text-brand-500', text: 'text-brand-700', glow: 'from-brand-100/70', pill: 'bg-brand-50 text-brand-700 ring-brand-100' },
-  violet: { accent: 'text-violet-500', text: 'text-violet-700', glow: 'from-violet-100/70', pill: 'bg-violet-50 text-violet-700 ring-violet-100' },
-  emerald: { accent: 'text-emerald-500', text: 'text-emerald-700', glow: 'from-emerald-100/70', pill: 'bg-emerald-50 text-emerald-700 ring-emerald-100' },
-  amber: { accent: 'text-amber-500', text: 'text-amber-700', glow: 'from-amber-100/70', pill: 'bg-amber-50 text-amber-700 ring-amber-100' },
+  brand: { accent: 'text-primary-fg', text: 'text-primary-fg', glow: 'from-primary-soft', pill: 'bg-primary-soft text-primary-fg ring-primary-border' },
+  violet: { accent: 'text-help-fg', text: 'text-help-fg', glow: 'from-help-soft', pill: 'bg-help-soft text-help-fg ring-help-border' },
+  emerald: { accent: 'text-success-fg', text: 'text-success-fg', glow: 'from-success-soft', pill: 'bg-success-soft text-success-fg ring-success-border' },
+  amber: { accent: 'text-warning-fg', text: 'text-warning-fg', glow: 'from-warning-soft', pill: 'bg-warning-soft text-warning-fg ring-warning-border' },
 }
 
 type Kind = 'line' | 'bars' | 'donut' | 'graph'
@@ -250,7 +250,7 @@ export function CoverageSection({ onOpen }: { onOpen: () => void }) {
       <div className="relative mx-auto max-w-[1120px]">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-x-8 gap-y-5 sm:mb-16">
           <div className="min-w-0 max-w-xl">
-            <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.coverage.eyebrow')}</p>
+            <p className="font-mono text-11 uppercase tracking-[0.18em] text-ink-brand">{t('home.coverage.eyebrow')}</p>
             <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">{t('home.coverage.title')}</h2>
             <p className="mt-3 text-base leading-relaxed text-ink-muted">{t('home.coverage.lede')}</p>
           </div>
@@ -273,7 +273,7 @@ export function CoverageSection({ onOpen }: { onOpen: () => void }) {
                 onMouseEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
                 onClick={() => setActive(i)}
-                className={`relative flex min-w-0 cursor-default flex-col overflow-hidden rounded-[28px] bg-white/80 p-6 ring-1 outline-none backdrop-blur-sm transition-[flex-grow,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-brand-500 lg:basis-0 ${on ? 'ring-slate-200 shadow-[0_1px_2px_color-mix(in_srgb,var(--color-ink)_4%,transparent),0_24px_48px_-28px_color-mix(in_srgb,var(--color-ink)_28%,transparent)] lg:flex-[3.2]' : 'ring-slate-200/70 lg:flex-1'}`}
+                className={`relative flex min-w-0 cursor-default flex-col overflow-hidden rounded-[28px] bg-surface/80 p-6 ring-1 outline-none backdrop-blur-sm transition-[flex-grow,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-brand-500 lg:basis-0 ${on ? 'ring-line shadow-[0_1px_2px_color-mix(in_srgb,var(--color-slate-950)_4%,transparent),0_24px_48px_-28px_color-mix(in_srgb,var(--color-slate-950)_28%,transparent)] lg:flex-[3.2]' : 'ring-line lg:flex-1'}`}
               >
                 <div aria-hidden className={`pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t ${c.glow} to-transparent transition-opacity duration-500 ${on ? 'opacity-100' : 'opacity-0'}`} />
 

@@ -34,7 +34,7 @@ Source: [`src/components/badge.tsx`](../../src/components/badge.tsx) · Figma: `
 ## Accessibility
 
 - Meaning is carried by the text, never by colour alone. Use `dot` or `Icon` to add a second cue.
-- The remove button is named from the badge text ("Remove Beta").
+- The remove button is named from the badge text ("Remove Beta"), shows the focus ring and has a 24 × 24 px target.
 
 ## Content
 

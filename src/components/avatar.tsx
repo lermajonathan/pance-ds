@@ -1,4 +1,5 @@
 /* Pance · Avatars — Avatar, AvatarGroup */
+import { useState } from 'react'
 
 /* ── Avatar ────────────────────────────────────────────────────────────── */
 export type AvatarStatus = 'online' | 'away' | 'busy' | 'offline'
@@ -24,10 +25,13 @@ export function Avatar({
   statusLabel?: string
 }) {
   const initials = name.split(' ').map((w) => w[0]).slice(0, 2).join('')
+  // Remember which src failed, so a broken photo shows the initials and a new src gets a fresh try.
+  const [failedSrc, setFailedSrc] = useState<string | null>(null)
+  const showImage = !!src && failedSrc !== src
   const radius = square ? 'rounded-xl' : 'rounded-full'
   const statusSize = Math.max(8, Math.round(size * 0.27))
-  const inner = src ? (
-    <img src={src} alt={decorative ? '' : name} style={{ width: size, height: size }} className={`shrink-0 ${radius} bg-ground object-cover ${ring ? 'ring-2 ring-surface' : ''}`} />
+  const inner = showImage ? (
+    <img src={src} alt={decorative ? '' : name} onError={() => setFailedSrc(src)} style={{ width: size, height: size }} className={`shrink-0 ${radius} bg-ground object-cover ${ring ? 'ring-2 ring-surface' : ''}`} />
   ) : (
     <span
       role={decorative ? undefined : 'img'}

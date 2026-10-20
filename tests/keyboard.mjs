@@ -188,6 +188,15 @@ await test('DataTable: row checkbox is named, toggles with Space and marks the r
   assert((await all.getAttribute('aria-checked')) === 'mixed', 'select-all should be mixed when some rows are selected')
 })
 
+await test('Checkbox: a pointer click anywhere on the box toggles it on and off', async () => {
+  const box = page.locator('main table').first().locator('tbody [role="checkbox"]').nth(1)
+  const b = await box.boundingBox()
+  for (const expected of ['true', 'false', 'true', 'false']) {
+    await page.mouse.click(b.x + b.width / 2, b.y + b.height / 2)
+    assert((await settle(() => box.getAttribute('aria-checked'), expected)) === expected, `center click should leave the box ${expected}`)
+  }
+})
+
 await test('Pagination: is a labelled navigation and marks the current page', async () => {
   const nav = page.locator('main nav[aria-label]').first()
   assert(await nav.locator('[aria-current="page"]').count() === 1, 'current page is not marked with aria-current')
@@ -425,6 +434,30 @@ await test('Toast: the Undo action is a button that dismisses the toast and runs
   await toast.getByRole('button', { name: /^undo$|^deshacer$/i }).click()
   assert((await page.locator('[role="status"]', { hasText: /restored|restaurado/i }).count()) >= 1, 'undo did not run')
   assert((await settle(() => page.locator('[role="status"]', { hasText: /moved to trash|movido a la papelera/i }).count(), 0)) === 0, 'toast was not dismissed')
+})
+
+await test('Avatar: a photo that fails to load falls back to the initials', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } })
+  const p = await ctx.newPage()
+  await p.route(/\/img\/av-/, (r) => r.fulfill({ status: 404, body: '' }))
+  await p.goto(`${BASE}/badges`, { waitUntil: 'networkidle' })
+  const broken = await p.locator('main img[src*="/img/av-"]').count()
+  const initials = await p.locator('main [role="img"]', { hasText: /^[A-Z]{1,2}$/ }).count()
+  await ctx.close()
+  assert(broken === 0, `${broken} broken avatar images are still shown`)
+  assert(initials > 0, 'no initials rendered in place of the photos')
+})
+
+await test('Popover: a panel that would overflow shifts back inside the viewport', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
+  const p = await ctx.newPage()
+  await p.goto(`${BASE}/overlays`, { waitUntil: 'networkidle' })
+  const bell = p.locator('main button[aria-haspopup="dialog"][aria-label*="otific"]').first()
+  await bell.scrollIntoViewIfNeeded()
+  await bell.click()
+  const box = await p.locator('main [role="dialog"]').first().boundingBox()
+  await ctx.close()
+  assert(box && box.x >= 0 && box.x + box.width <= 390, `panel spans ${box?.x}..${(box?.x ?? 0) + (box?.width ?? 0)} in a 390 px viewport`)
 })
 
 await browser.close()

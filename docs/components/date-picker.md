@@ -34,7 +34,7 @@ Source: [`src/components/date.tsx`](../../src/components/date.tsx) · Figma: `Da
 
 ## Accessibility
 
-- Use inside `Field`: label and value form the accessible name. Non-modal dialog; Escape closes and refocuses the trigger.
+- Use inside `Field`: label and value form the accessible name. Non-modal dialog; Escape closes and refocuses the trigger. The panel shifts or opens upwards to stay on screen.
 - Dates are ISO strings (`"2026-10-15"`), never `Date` objects, so there are no time-zone surprises.
 
 ## Related

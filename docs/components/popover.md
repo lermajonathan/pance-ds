@@ -30,6 +30,7 @@ Source: [`src/components/overlays.tsx`](../../src/components/overlays.tsx) · Fi
 ## Accessibility
 
 - The trigger gets `aria-expanded`; focus moves in on open; Escape or an outside click closes and refocuses the trigger.
+- The panel stays on screen: it shifts sideways to fit the viewport or a clipping container, and opens upwards when there is no room below.
 
 ## Related
 

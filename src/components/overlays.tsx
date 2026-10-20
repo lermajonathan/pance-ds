@@ -2,7 +2,7 @@
 import { createElement, useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { useLabels } from './labels'
 import { IconX, type IconType } from '../icons'
-import { focusableIn, listKeyNav, mergeTriggerProps, useDialogFocus } from './a11y'
+import { focusableIn, listKeyNav, mergeTriggerProps, useDialogFocus, useKeepInView } from './a11y'
 import { type Severity, TONE } from './shared'
 
 /* Closes a floating layer on outside pointer-down. */
@@ -211,8 +211,13 @@ export function Popover({
   const titleId = useId()
   useOutsideClose(ref, open, () => setOpen(false))
   useEffect(() => {
-    if (open) panel.current?.focus()
+    // preventScroll: useKeepInView may still move the panel; reveal it once placed.
+    if (!open) return
+    panel.current?.focus({ preventScroll: true })
+    const raf = requestAnimationFrame(() => panel.current?.scrollIntoView({ block: 'nearest' }))
+    return () => cancelAnimationFrame(raf)
   }, [open])
+  const fit = useKeepInView(panel, open)
   const close = () => {
     setOpen(false)
     focusableIn(ref.current)[0]?.focus()
@@ -228,7 +233,8 @@ export function Popover({
           role="dialog"
           aria-labelledby={title ? titleId : undefined}
           tabIndex={-1}
-          className={`absolute top-full z-40 mt-2 w-(--pance-popover-width) rounded-(--pance-popover-radius) border border-line bg-surface p-(--pance-popover-padding) shadow-popover outline-none ${alignClass}`}
+          style={fit.dx ? { transform: `translateX(${fit.dx}px)` } : undefined}
+          className={`absolute z-40 max-w-[calc(100vw-1rem)] w-(--pance-popover-width) rounded-(--pance-popover-radius) border border-line bg-surface p-(--pance-popover-padding) shadow-popover outline-none ${fit.up ? 'bottom-full mb-2' : 'top-full mt-2'} ${alignClass}`}
         >
           {title && <p id={titleId} className="mb-1 font-semibold text-sm text-ink">{title}</p>}
           {description && <p className="mb-3 text-xs text-ink-muted">{description}</p>}
@@ -265,10 +271,17 @@ export function DropdownMenu({
   const ref = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([])
   const menuId = useId()
+  const menuRef = useRef<HTMLUListElement>(null)
+  const fit = useKeepInView(menuRef, open)
+  useEffect(() => {
+    if (!open) return
+    const raf = requestAnimationFrame(() => menuRef.current?.scrollIntoView({ block: 'nearest' }))
+    return () => cancelAnimationFrame(raf)
+  }, [open])
   const actions = items.filter(isAction)
   useOutsideClose(ref, open, () => setOpen(false))
   useEffect(() => {
-    if (open) itemRefs.current[active]?.focus()
+    if (open) itemRefs.current[active]?.focus({ preventScroll: true })
   }, [open, active])
 
   const openAt = (i: number) => {
@@ -305,11 +318,13 @@ export function DropdownMenu({
       })}
       {open && (
         <ul
+          ref={menuRef}
           id={menuId}
           role="menu"
           aria-label={label}
           onKeyDown={onMenuKey}
-          className={`absolute top-full z-40 mt-1.5 min-w-(--pance-dropdown-menu-min-width) overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover ${align === 'end' ? 'right-0' : 'left-0'}`}
+          style={fit.dx ? { transform: `translateX(${fit.dx}px)` } : undefined}
+          className={`absolute z-40 min-w-(--pance-dropdown-menu-min-width) overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover ${fit.up ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} ${align === 'end' ? 'right-0' : 'left-0'}`}
         >
           {items.map((item, i) => {
             if (item.type === 'separator') return <li key={i} role="separator" className="my-1 border-t border-line-soft" />

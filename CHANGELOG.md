@@ -14,7 +14,19 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 - `Progress` gains a `value` variant (0–100 % in steps of 10) whose fill scales with the bar, so instances show their real value; the text property is now `value label`. The library has 1,027 variants (was 987).
 - Patterns: Traffic report's line chart no longer overflows its card and the By region bars match their percentages; Settings no longer repeats the Autoscaling row.
 
+### Fixed
+- **`Checkbox`, `Radio` and `Switch`:** a click on the check mark, the radio dot or the switch thumb was counted twice (once by the control, once by its wrapping `<label>`), so a checked box could only be cleared from its edge. The marks now ignore the pointer. Regression test in `tests/keyboard.mjs`.
+- **`Avatar`:** a photo that fails to load shows the initials instead of a broken image with the name cut off.
+- **`Popover`, `DropdownMenu`, `NotificationCenter`, `DatePicker` and `DateRangePicker`:** the panel stays on screen. It shifts sideways when it would overflow the viewport or a container that clips (the notification panel was cut off on the docs page), and opens upwards when there is no room below but there is above. Focus moving into the panel no longer scrolls the page before the panel is placed.
+- **Pointer targets of at least 24 × 24 px (WCAG 2.5.8)** for `Checkbox` (sm and md), `Radio`, `Switch` (sm), the `Badge` and `TagInput` remove buttons, the `Breadcrumb` ellipsis, `MetricCard` Retry, the chart "View as table" toggle, `NotificationCenter` "Mark all as read" and `DataTable`'s mobile "Show details". An internal `hitArea` class grows the target with an invisible layer, so nothing looks different.
+- **`Badge`:** the remove button shows the focus ring (it had none) and is named after the badge text, as the docs already said.
+- **`Calendar` inside `DatePicker`, `DateRangePicker` or any rounded container:** its background now follows the container's radius instead of showing square corners.
+- **`DataTable`:** a `max-height` set on a wrapper now scrolls the rows under a sticky header (it was ignored), keeping the toolbar and pagination in view. While it scrolls, the row area is a named, focusable region so keyboard users can reach every row. Its pagination is named after the table, so two tables on one page no longer share a landmark name.
+
 ### Documentation
+- **Docs site brought up to date:** the version comes from `@pance/react` at build time (header badge, hero), real counts (88 components, 943 tokens), a Get started section (install, styles, first component) with links to GitHub, npm, Figma Community and the changelog, a GitHub link in the header, and release notes for 1.1 to 1.4 in English and Spanish.
+- **GitHub Pages:** `.github/workflows/pages.yml` builds the site on every push to `main` and publishes it to pance-ds.jonathanlerma.com. `scripts/pages-routes.mjs` writes one page per route (deep links return 200), a 404 fallback and the CNAME. `VITE_HASH_ROUTER=1` builds a preview that works from any static path.
+- Docs site: demo photos are self-hosted (`public/img`), the notification center demo no longer clips, Iconography links to the full Phosphor library, hero chips use `Badge`, destructive buttons on Overlays open the matching confirmation (toast with Undo, simple confirm, type-to-confirm), and Data table adds three common layouts: members (avatars, roles, status filter, bulk actions), invoices (currency, dates, summary strip) and a scrolling log (sticky header, level filter).
 - Open-source governance: `GOVERNANCE.md` (the maintainer approves everything built or merged), `CODE_OF_CONDUCT.md`, `SECURITY.md`, issue and pull request templates, `CODEOWNERS`, and `docs/github-setup.md` with the repository settings to apply.
 
 ## [1.4.0] - 2026-10-19

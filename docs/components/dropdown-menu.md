@@ -29,6 +29,7 @@ Source: [`src/components/overlays.tsx`](../../src/components/overlays.tsx) · Fi
 ## Accessibility
 
 - WAI-ARIA menu button: Enter, Space or ↓ opens on the first item, ↑ on the last; arrows and Home/End move; Enter activates; Escape closes; Tab leaves.
+- The menu stays on screen: it shifts sideways to fit the viewport or a clipping container, and opens upwards when there is no room below.
 
 ## Content
 
