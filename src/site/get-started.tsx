@@ -69,7 +69,7 @@ const RESOURCES: { key: string; href: string; Icon: typeof GithubLogo; meta?: st
 export function GetStartedSection() {
   const { t } = useI18n()
   return (
-    <section id="get-started" className="border-t border-line bg-surface px-8 py-20 sm:py-28">
+    <section id="get-started" className="bg-surface px-5 pb-20 pt-4 sm:px-8 sm:pb-28 sm:pt-8">
       <div className="mx-auto max-w-[1120px]">
         <p className="font-mono text-11 uppercase tracking-[0.18em] text-brand-700">{t('home.install.eyebrow')}</p>
         <h2 className="mt-1 font-display text-3xl font-extrabold tracking-tight text-ink">{t('home.install.title')}</h2>

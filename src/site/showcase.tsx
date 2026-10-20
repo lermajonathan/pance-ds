@@ -857,11 +857,16 @@ export function ButtonsPage() {
       <Section title={t('buttons.group.title')} hint={t('buttons.group.hint')}>
         <Demo>
           <div className="max-w-full overflow-x-auto">
-            <ButtonGroup>
-              <Button variant="outlined" severity="secondary" Icon={IconEdit}>{t('buttons.group.edit')}</Button>
-              <Button variant="outlined" severity="secondary" Icon={IconCopy}>{t('buttons.group.duplicate')}</Button>
-              <Button variant="outlined" severity="secondary" Icon={IconTrash}>{t('buttons.group.delete')}</Button>
-            </ButtonGroup>
+            {/* Small size on phones so the whole group fits without scrolling. */}
+            {(['sm', 'md'] as const).map((size) => (
+              <span key={size} className={size === 'sm' ? 'inline-flex sm:hidden' : 'hidden sm:inline-flex'}>
+                <ButtonGroup>
+                  <Button size={size} variant="outlined" severity="secondary" Icon={IconEdit}>{t('buttons.group.edit')}</Button>
+                  <Button size={size} variant="outlined" severity="secondary" Icon={IconCopy}>{t('buttons.group.duplicate')}</Button>
+                  <Button size={size} variant="outlined" severity="secondary" Icon={IconTrash}>{t('buttons.group.delete')}</Button>
+                </ButtonGroup>
+              </span>
+            ))}
           </div>
           <ButtonGroup>
             <Button Icon={IconArrowUp} aria-label={t('buttons.group.sortAsc')} />
@@ -3611,8 +3616,8 @@ function ExpandableTable() {
 function SkeletonTable() {
   const { t } = useI18n()
   return (
-    <Card className="overflow-hidden">
-      <header className="flex items-center justify-between border-b border-line-soft px-6 py-5">
+    <Card className="relative overflow-hidden">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-line-soft px-6 py-5">
         <div className="space-y-2">
           <Skeleton className="h-5 w-32" />
           <Skeleton className="h-3.5 w-48" />
@@ -3622,7 +3627,7 @@ function SkeletonTable() {
           <Skeleton className="h-9 w-28 rounded-xl" />
         </div>
       </header>
-      <div tabIndex={0} className="pance-focus overflow-x-auto">
+      <div tabIndex={0} className="pance-focus relative overflow-x-auto">
       <table className="w-full border-collapse text-sm">
         <thead>
           <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3">
