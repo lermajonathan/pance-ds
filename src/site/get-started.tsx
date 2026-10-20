@@ -47,7 +47,7 @@ export function HeroLinks() {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-10 items-center gap-1.5 text-sm font-medium text-slate-300 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
+          className="inline-flex min-h-10 items-center gap-1.5 text-sm font-medium text-(--hero-soft) underline-offset-4 transition-colors hover:text-(--hero-fg) hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
         >
           <Icon size={16} />
           {label}

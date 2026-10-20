@@ -116,12 +116,10 @@ export function HomePage() {
     <div>
 
       {/* ── Hero ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-river-900 px-8 py-24 md:py-32">
+      <section data-hero="a" className="pance-hero relative overflow-hidden px-8 py-24 md:py-32">
         {/* Background texture: subtle grid */}
-        <div className="pointer-events-none absolute inset-0"
-          style={{ backgroundImage: 'radial-gradient(circle at 70% 40%, color-mix(in srgb, var(--color-brand-600) 18%, transparent) 0%, transparent 60%), radial-gradient(circle at 20% 80%, color-mix(in srgb, var(--color-brand-700) 12%, transparent) 0%, transparent 50%)' }} />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: 'linear-gradient(color-mix(in srgb, var(--color-surface) 40%, transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb, var(--color-surface) 40%, transparent) 1px,transparent 1px)', backgroundSize: '40px 40px' }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: 'linear-gradient(color-mix(in srgb, var(--hero-grid) 40%, transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb, var(--hero-grid) 40%, transparent) 1px,transparent 1px)', backgroundSize: '40px 40px' }} />
 
         <div className="relative mx-auto max-w-[1120px]">
           <div className="flex flex-col gap-6 lg:max-w-[680px]">
@@ -129,29 +127,29 @@ export function HomePage() {
               <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-700 shadow-[0_4px_12px_-2px_color-mix(in_srgb,var(--color-brand-600)_60%,transparent)]">
                 <IconWave size={14} weight="bold" className="text-white" />
               </div>
-              <span className="font-mono text-11 uppercase tracking-[0.22em] text-brand-400">{t('home.eyebrow')} · v{VERSION}</span>
+              <span className="font-mono text-11 uppercase tracking-[0.22em] text-(--hero-eyebrow)">{t('home.eyebrow')} · v{VERSION}</span>
             </div>
 
-            <h1 className="font-display text-5xl font-extrabold leading-[1.08] tracking-tight text-white md:text-6xl lg:text-7xl">
+            <h1 className="font-display text-5xl font-extrabold leading-[1.08] tracking-tight text-(--hero-fg) md:text-6xl lg:text-7xl">
               {t('home.h1.pre')}{' '}
-              <span className="bg-gradient-to-r from-brand-300 to-cyan-300 bg-clip-text text-transparent">
+              <span className="bg-[linear-gradient(to_right,var(--hero-em-from),var(--hero-em-to))] bg-clip-text text-transparent">
                 {t('home.h1.em')}
               </span>{' '}
               {t('home.h1.post')}
             </h1>
 
-            <p className="max-w-xl text-lg leading-relaxed text-slate-300">
+            <p className="max-w-xl text-lg leading-relaxed text-(--hero-soft)">
               {t('home.lede')}
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              <Button severity="primary" size="lg" onClick={() => navigate('colors')}>
+              <Button severity="primary" size="lg" className="pance-hero-cta" onClick={() => navigate('colors')}>
                 {t('home.cta.explore')}
                 <IconArrowRight size={16} className="ml-1" />
               </Button>
               <button
                 onClick={() => navigate('afterquake')}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-200 transition-colors hover:border-slate-400 hover:text-white"
+                className="inline-flex items-center gap-2 rounded-xl border border-(--hero-border) px-5 py-2.5 text-sm font-semibold text-(--hero-soft) transition-colors hover:border-(--hero-border-hover) hover:text-(--hero-fg)"
               >
                 {t('home.cta.action')}
               </button>
