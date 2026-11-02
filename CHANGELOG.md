@@ -4,6 +4,9 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Changed
+- **Dark-mode data colours** (DDR-DS-027): categorical series 2, 4 and 5 are slightly deeper in dark mode (`#e5632e`, `#c87f00`, `#d36891`, new tokens `color.viz.categorical-dark.2`, `.4` and `.5`) so all eight series sit in the dark lightness band (OKLCH L 0.48 to 0.67). Light mode does not change. The contrast test now checks that band for every categorical slot (3 new checks in dark mode).
+
 ## [1.5.0] - 2026-10-20
 
 ### Added

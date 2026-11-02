@@ -156,6 +156,27 @@ const gradientChecks = (mode) => {
   return out
 }
 
+/* ── Categorical data colours in dark mode must sit in one lightness band (DDR-DS-027) ──
+   Perceptual lightness (OKLCH L) is what keeps eight series reading as equals on the dark chart surface. */
+const DARK_BAND = { min: 0.48, max: 0.67 }
+const SERIES_SLOTS = [1, 2, 3, 4, 5, 6, 7, 8]
+const oklabLightness = ([r, g, b]) => {
+  const lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4 }
+  const [R, G, B] = [r, g, b].map(lin)
+  const l = Math.cbrt(0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B)
+  const m = Math.cbrt(0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B)
+  const s = Math.cbrt(0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B)
+  return 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s
+}
+const lightnessBandChecks = (mode) => {
+  if (mode !== 'dark') return []
+  return SERIES_SLOTS.map((n) => {
+    const path = `color.dataviz.series.${n}`
+    const L = oklabLightness(parse(resolve(path, mode)))
+    return { L, ok: L >= DARK_BAND.min && L <= DARK_BAND.max, what: `${path} lightness in the dark band (OKLCH L ${DARK_BAND.min}–${DARK_BAND.max})`, colour: resolve(path, mode) }
+  })
+}
+
 /* ── Run ── */
 let blocking = 0
 const report = {}
@@ -167,11 +188,16 @@ for (const mode of ['light', 'dark']) {
   }
   const gc = gradientChecks(mode)
   for (const g of gc) if (g.r + 1e-9 < TEXT) fails.push({ what: g.what, r: g.r, min: TEXT, fg: 'text', bg: 'gradient' })
-  const total = pairs.length + gc.length
+  const bands = lightnessBandChecks(mode)
+  for (const b of bands) if (!b.ok) fails.push({ what: b.what, r: b.L, min: DARK_BAND.min, fg: b.colour, bg: `L ${b.L.toFixed(3)}`, band: true })
+  const total = pairs.length + gc.length + bands.length
   report[mode] = fails
   const blocks = mode === 'light' || STRICT
   if (blocks) blocking += fails.length
   console.log(`\n${mode.toUpperCase()} · ${total - fails.length}/${total} pairs pass${fails.length && !blocks ? ' (draft mode, not blocking)' : ''}`)
-  for (const f of fails) console.log(`  ${blocks ? '✗' : '•'} ${f.r.toFixed(2)}:1 < ${f.min}:1  ${f.what}  (${f.fg} on ${f.bg})`)
+  for (const f of fails) {
+    const mark = blocks ? '✗' : '•'
+    console.log(f.band ? `  ${mark} ${f.bg}  ${f.what}  (${f.fg})` : `  ${mark} ${f.r.toFixed(2)}:1 < ${f.min}:1  ${f.what}  (${f.fg} on ${f.bg})`)
+  }
 }
 process.exit(blocking ? 1 : 0)

@@ -96,6 +96,9 @@
   --pance-color-viz-categorical-light-3: #1aa674;
   --pance-color-viz-categorical-light-4: #c48500;
   --pance-color-viz-categorical-light-5: #e56a98;
+  --pance-color-viz-categorical-dark-2: #e5632e;
+  --pance-color-viz-categorical-dark-4: #c87f00;
+  --pance-color-viz-categorical-dark-5: #d36891;
   --pance-color-viz-categorical-dark-7: #6959c5;
   --pance-color-viz-sequential-1: #cde2fb;
   --pance-color-viz-sequential-2: #b7d3f6;
@@ -1138,10 +1141,10 @@
   --pance-color-dataviz-positive: var(--pance-color-dataviz-series-1);
   --pance-color-dataviz-negative: var(--pance-color-dataviz-series-8);
   --pance-color-dataviz-series-1: var(--pance-color-viz-categorical-1);
-  --pance-color-dataviz-series-2: var(--pance-color-viz-categorical-2);
+  --pance-color-dataviz-series-2: var(--pance-color-viz-categorical-dark-2);
   --pance-color-dataviz-series-3: var(--pance-color-viz-categorical-3);
-  --pance-color-dataviz-series-4: var(--pance-color-viz-categorical-4);
-  --pance-color-dataviz-series-5: var(--pance-color-viz-categorical-5);
+  --pance-color-dataviz-series-4: var(--pance-color-viz-categorical-dark-4);
+  --pance-color-dataviz-series-5: var(--pance-color-viz-categorical-dark-5);
   --pance-color-dataviz-series-6: var(--pance-color-viz-categorical-6);
   --pance-color-dataviz-series-7: var(--pance-color-viz-categorical-dark-7);
   --pance-color-dataviz-series-8: var(--pance-color-viz-categorical-8);
