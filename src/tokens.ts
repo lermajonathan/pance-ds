@@ -153,20 +153,20 @@ export const tokens = {
       },
       "status": {
         "good": {
-          "solid": "#0ca30c",
-          "soft": "#f0fdf0"
+          "solid": "#047857",
+          "soft": "#ecfdf5"
         },
         "warning": {
-          "solid": "#fab219",
-          "soft": "#fefce8"
+          "solid": "#b45309",
+          "soft": "#fffbeb"
         },
         "serious": {
           "solid": "#ec835a",
           "soft": "#fff7ed"
         },
         "critical": {
-          "solid": "#d03b3b",
-          "soft": "#fef2f2"
+          "solid": "#be123c",
+          "soft": "#fff1f2"
         }
       }
     },
@@ -335,7 +335,12 @@ export const tokens = {
         "8": "#e34948"
       },
       "diverging-negative": "#c2410c",
-      "no-data": "#e2e8f0"
+      "no-data": "#e2e8f0",
+      "status": {
+        "good": "#047857",
+        "warning": "#b45309",
+        "critical": "#be123c"
+      }
     }
   },
   "fontFamily": {

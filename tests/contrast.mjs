@@ -11,7 +11,7 @@ const read = (f) => JSON.parse(fs.readFileSync(new URL(`../tokens/${f}.json`, im
 const tokens = new Map()
 const walk = (node, path) => {
   if (node && typeof node === 'object' && '$value' in node) {
-    tokens.set(path.join('.'), { value: node.$value, dark: node.$extensions?.['pance.modes']?.dark })
+    tokens.set(path.join('.'), { value: node.$value, dark: node.$extensions?.['pance.modes']?.dark, deprecated: node.$deprecated })
     return
   }
   for (const [k, v] of Object.entries(node)) if (!k.startsWith('$') && v && typeof v === 'object') walk(v, [...path, k])
@@ -92,6 +92,7 @@ pairs.push(
   ['color.dataviz.negative', 'color.dataviz.surface', UI, 'negative series'],
   ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => [`color.dataviz.series.${n}`, 'color.dataviz.surface', UI, `chart series ${n}`]),
   ['color.dataviz.diverging-negative', 'color.dataviz.surface', UI, 'diverging bar, below the baseline (orange pole)'],
+  ...['good', 'warning', 'critical'].map((k) => [`color.dataviz.status.${k}`, 'color.dataviz.surface', UI, `chart status colour: ${k}`]),
   // Spinner and EmptyState
   ['spinner.arc', 'color.bg.surface', UI, 'spinner arc vs surface'],
   ['spinner.arc', 'color.bg.page', UI, 'spinner arc vs page'],
@@ -205,6 +206,24 @@ const divergingChecks = (mode) => {
   return out
 }
 
+/* ── One status-colour system (DDR-DS-028) ──
+   The old data-viz status tokens (color.viz.status.*) are deprecated aliases of the intent colours, so a chart and a
+   button never disagree about what "good", "warning" or "critical" look like. "serious" has no intent and keeps its value. */
+const STATUS_ALIASES = [
+  ['color.viz.status.good.solid', 'color.intent.success.fg'], ['color.viz.status.good.soft', 'color.intent.success.soft'],
+  ['color.viz.status.warning.solid', 'color.intent.warning.fg'], ['color.viz.status.warning.soft', 'color.intent.warning.soft'],
+  ['color.viz.status.critical.solid', 'color.intent.danger.fg'], ['color.viz.status.critical.soft', 'color.intent.danger.soft'],
+]
+const statusChecks = (mode) => {
+  const out = []
+  for (const [old, intent] of STATUS_ALIASES) {
+    const alias = typeof tokens.get(old)?.value === 'string' && /^\{[^}]+\}$/.test(tokens.get(old).value)
+    out.push({ ok: alias && resolve(old, mode) === resolve(intent, mode), what: `${old} is an alias of ${intent}` })
+  }
+  for (const [path, t] of tokens) if (path.startsWith('color.viz.status.')) out.push({ ok: Boolean(t.deprecated), what: `${path} is marked $deprecated` })
+  return out
+}
+
 /* ── Run ── */
 let blocking = 0
 const report = {}
@@ -220,7 +239,9 @@ for (const mode of ['light', 'dark']) {
   for (const b of bands) if (!b.ok) fails.push({ what: b.what, r: b.L, min: DARK_BAND.min, fg: b.colour, bg: `L ${b.L.toFixed(3)}`, band: true })
   const diverging = divergingChecks(mode)
   for (const d of diverging) if (!d.ok) fails.push({ what: d.what, r: 0, min: 0, fg: '', bg: 'diverging', band: true })
-  const total = pairs.length + gc.length + bands.length + diverging.length
+  const status = statusChecks(mode)
+  for (const c of status) if (!c.ok) fails.push({ what: c.what, r: 0, min: 0, fg: '', bg: 'status', band: true })
+  const total = pairs.length + gc.length + bands.length + diverging.length + status.length
   report[mode] = fails
   const blocks = mode === 'light' || STRICT
   if (blocks) blocking += fails.length
