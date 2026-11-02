@@ -15,6 +15,7 @@ Source: [`src/components/charts.tsx`](../../src/components/charts.tsx) · Figma:
 ## When not to use
 
 - Thousands of points.
+- More than two series. In forms where any two marks can touch (scatter, bubble, maps, small multiples) the limit is two: fold the rest into "Other" or split into small multiples (DDR-DS-027).
 
 ## Props
 

@@ -92,7 +92,7 @@ export const dataviz = define(
     'dataviz.donut.g4c': ' is just a stat tile — one number is the chart. Use a stat tile with a meter instead.',
 
     'dataviz.scatter.title': 'Scatter plot · correlation',
-    'dataviz.scatter.hint': "Two quantitative axes. 24px minimum hit targets (transparent overlay per mark). Max 3 series for all-pairs CVD — fold to 'Other' beyond that. Series cap validated.",
+    'dataviz.scatter.hint': "Two quantitative axes. 24px minimum hit targets (transparent overlay per mark). Max 2 series when any two marks can touch (colour-blind safe) — fold into 'Other' or use small multiples beyond that. Series cap validated.",
     'dataviz.scatter.chartTitle': 'Latency vs throughput per stream',
     'dataviz.scatter.chartSub': 'Each dot = one stream · hover for identity · endpoint is labeled',
     'dataviz.scatter.x': 'Throughput (K events/s)',
@@ -316,7 +316,7 @@ export const dataviz = define(
     'dataviz.donut.g4c': ' es solo una tarjeta de dato: un número es el gráfico. Usa una tarjeta de dato con un medidor.',
 
     'dataviz.scatter.title': 'Dispersión · correlación',
-    'dataviz.scatter.hint': 'Dos ejes cuantitativos. Áreas de toque mínimas de 24px (capa transparente por marca). Máximo 3 series para pares con daltonismo; más allá, agrupa en «Otros». Límite de series validado.',
+    'dataviz.scatter.hint': 'Dos ejes cuantitativos. Áreas de toque mínimas de 24px (capa transparente por marca). Máximo 2 series cuando dos marcas cualesquiera pueden tocarse (seguro para daltonismo); más allá, agrupa en «Otros» o usa múltiplos pequeños. Límite de series validado.',
     'dataviz.scatter.chartTitle': 'Latencia vs. rendimiento por stream',
     'dataviz.scatter.chartSub': 'Cada punto = un stream · pasa el cursor para identificarlo · el extremo está etiquetado',
     'dataviz.scatter.x': 'Rendimiento (K eventos/s)',
