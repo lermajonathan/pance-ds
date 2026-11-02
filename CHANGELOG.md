@@ -5,6 +5,7 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 ## [Unreleased]
 
 ### Changed
+- **Diverging data ramp is now aqua ↔ orange** (DDR-DS-027): the warm arm `color.viz.diverging.7` to `.11` moves from red to orange, ending in the pole `#c2410c`. The red pole sat at ΔE 4.6 from the danger colour (`rose-600`), so a bar that only meant "below the baseline" read as "bad"; the orange pole is 9.2 away. Both arms keep matching lightness. `DivergingBarChart` draws its negative bars with a new token, `color.dataviz.diverging-negative` (the orange pole, 3:1 on the chart surface in both modes). `color.dataviz.negative` and `Sparkline` do not change. The contrast test now checks that lightness falls monotonically away from the centre, that the two arms match, and that the warm pole stays at least 8 ΔE from the danger colour. Existing diverging charts change colour; pair them with a sign or a label at the baseline.
 - **Dark-mode data colours** (DDR-DS-027): categorical series 2, 4 and 5 are slightly deeper in dark mode (`#e5632e`, `#c87f00`, `#d36891`, new tokens `color.viz.categorical-dark.2`, `.4` and `.5`) so all eight series sit in the dark lightness band (OKLCH L 0.48 to 0.67). Light mode does not change. The contrast test now checks that band for every categorical slot (3 new checks in dark mode).
 
 ## [1.5.0] - 2026-10-20

@@ -91,6 +91,7 @@ pairs.push(
   ['color.dataviz.positive', 'color.dataviz.surface', UI, 'positive series'],
   ['color.dataviz.negative', 'color.dataviz.surface', UI, 'negative series'],
   ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => [`color.dataviz.series.${n}`, 'color.dataviz.surface', UI, `chart series ${n}`]),
+  ['color.dataviz.diverging-negative', 'color.dataviz.surface', UI, 'diverging bar, below the baseline (orange pole)'],
   // Spinner and EmptyState
   ['spinner.arc', 'color.bg.surface', UI, 'spinner arc vs surface'],
   ['spinner.arc', 'color.bg.page', UI, 'spinner arc vs page'],
@@ -156,18 +157,22 @@ const gradientChecks = (mode) => {
   return out
 }
 
-/* ── Categorical data colours in dark mode must sit in one lightness band (DDR-DS-027) ──
-   Perceptual lightness (OKLCH L) is what keeps eight series reading as equals on the dark chart surface. */
-const DARK_BAND = { min: 0.48, max: 0.67 }
-const SERIES_SLOTS = [1, 2, 3, 4, 5, 6, 7, 8]
-const oklabLightness = ([r, g, b]) => {
+/* ── Perceptual colour (OKLab): lightness for the data palettes, distance for "does it read as X" ── */
+const oklab = ([r, g, b]) => {
   const lin = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4 }
   const [R, G, B] = [r, g, b].map(lin)
   const l = Math.cbrt(0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B)
   const m = Math.cbrt(0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B)
   const s = Math.cbrt(0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B)
-  return 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s
+  return [0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s, 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s]
 }
+const oklabLightness = (rgb) => oklab(rgb)[0]
+const distance = (a, b) => 100 * Math.hypot(...oklab(a).map((v, i) => v - oklab(b)[i]))
+
+/* ── Categorical data colours in dark mode must sit in one lightness band (DDR-DS-027) ──
+   Perceptual lightness (OKLCH L) is what keeps eight series reading as equals on the dark chart surface. */
+const DARK_BAND = { min: 0.48, max: 0.67 }
+const SERIES_SLOTS = [1, 2, 3, 4, 5, 6, 7, 8]
 const lightnessBandChecks = (mode) => {
   if (mode !== 'dark') return []
   return SERIES_SLOTS.map((n) => {
@@ -175,6 +180,29 @@ const lightnessBandChecks = (mode) => {
     const L = oklabLightness(parse(resolve(path, mode)))
     return { L, ok: L >= DARK_BAND.min && L <= DARK_BAND.max, what: `${path} lightness in the dark band (OKLCH L ${DARK_BAND.min}–${DARK_BAND.max})`, colour: resolve(path, mode) }
   })
+}
+
+/* ── Diverging data ramp (DDR-DS-027): aqua ↔ neutral ↔ orange ──
+   Steps 1–5 run from the aqua pole to the centre, step 6 is the neutral centre, steps 7–11 run from the centre
+   to the warm pole. Lightness must fall monotonically away from the centre, both arms must match each other
+   (so the ramp is not louder on one side), and the warm pole must not read as the danger colour. */
+const DIVERGING = { steps: Array.from({ length: 11 }, (_, i) => `color.viz.diverging.${i + 1}`), centre: 5, mirrorTolerance: 0.06, minDistanceFromDanger: 8 }
+const divergingChecks = (mode) => {
+  if (mode !== 'light') return []
+  const colours = DIVERGING.steps.map((p) => parse(resolve(p, mode)))
+  const L = colours.map((c) => oklab(c)[0])
+  const c = DIVERGING.centre
+  const out = []
+  for (let i = 0; i < c; i++) out.push({ ok: L[i] < L[i + 1], what: `diverging.${i + 1} is darker than diverging.${i + 2} (cool arm gets lighter toward the centre)` })
+  for (let i = c; i < L.length - 1; i++) out.push({ ok: L[i] > L[i + 1], what: `diverging.${i + 1} is lighter than diverging.${i + 2} (warm arm gets darker away from the centre)` })
+  for (let k = 1; k <= c; k++) {
+    const gap = Math.abs(L[c - k] - L[c + k])
+    out.push({ ok: gap <= DIVERGING.mirrorTolerance, what: `diverging.${c - k + 1} and diverging.${c + k + 1} match in lightness (Δ ${gap.toFixed(3)} ≤ ${DIVERGING.mirrorTolerance})` })
+  }
+  const pole = colours.at(-1), danger = parse(resolve('color.intent.danger.solid', mode))
+  const d = distance(pole, danger)
+  out.push({ ok: d >= DIVERGING.minDistanceFromDanger, what: `warm pole is ≥ ${DIVERGING.minDistanceFromDanger} ΔE from the danger colour (is ${d.toFixed(1)})` })
+  return out
 }
 
 /* ── Run ── */
@@ -190,7 +218,9 @@ for (const mode of ['light', 'dark']) {
   for (const g of gc) if (g.r + 1e-9 < TEXT) fails.push({ what: g.what, r: g.r, min: TEXT, fg: 'text', bg: 'gradient' })
   const bands = lightnessBandChecks(mode)
   for (const b of bands) if (!b.ok) fails.push({ what: b.what, r: b.L, min: DARK_BAND.min, fg: b.colour, bg: `L ${b.L.toFixed(3)}`, band: true })
-  const total = pairs.length + gc.length + bands.length
+  const diverging = divergingChecks(mode)
+  for (const d of diverging) if (!d.ok) fails.push({ what: d.what, r: 0, min: 0, fg: '', bg: 'diverging', band: true })
+  const total = pairs.length + gc.length + bands.length + diverging.length
   report[mode] = fails
   const blocks = mode === 'light' || STRICT
   if (blocks) blocking += fails.length
