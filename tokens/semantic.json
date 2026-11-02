@@ -1093,6 +1093,71 @@
             "dark": "{color.slate.700}"
           }
         }
+      },
+      "status": {
+        "$description": "Status colours for charts: good, warning and critical are the intent colours (success, warning, danger), so a chart and a button never disagree. Always paired with an icon and a label (DDR-DS-027, DDR-DS-028).",
+        "good": {
+          "$value": "{color.intent.success.fg}"
+        },
+        "warning": {
+          "$value": "{color.intent.warning.fg}"
+        },
+        "critical": {
+          "$value": "{color.intent.danger.fg}"
+        }
+      }
+    },
+    "viz": {
+      "status": {
+        "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. The data-viz status palette is now the intent colours: use color.dataviz.status.good, .warning and .critical for chart marks, or color.intent.success, .warning and .danger tokens for fills. `serious` has no replacement; use warning or danger.",
+        "good": {
+          "solid": {
+            "$value": "{color.dataviz.status.good}",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. Use color.dataviz.status.good."
+          },
+          "soft": {
+            "$value": "{color.intent.success.soft}",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. Use color.intent.success.soft."
+          }
+        },
+        "warning": {
+          "solid": {
+            "$value": "{color.dataviz.status.warning}",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. Use color.dataviz.status.warning."
+          },
+          "soft": {
+            "$value": "{color.intent.warning.soft}",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. Use color.intent.warning.soft."
+          }
+        },
+        "serious": {
+          "solid": {
+            "$value": "#ec835a",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. No replacement: use color.dataviz.status.warning or .critical."
+          },
+          "soft": {
+            "$value": "#fff7ed",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. No replacement: use color.intent.warning.soft or color.intent.danger.soft."
+          }
+        },
+        "critical": {
+          "solid": {
+            "$value": "{color.dataviz.status.critical}",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. Use color.dataviz.status.critical."
+          },
+          "soft": {
+            "$value": "{color.intent.danger.soft}",
+            "$deprecated": true,
+            "$description": "Deprecated in 1.6.0 (DDR-DS-028), removed in 2.0.0. Use color.intent.danger.soft."
+          }
+        }
       }
     }
   },

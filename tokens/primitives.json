@@ -412,40 +412,6 @@
         "11": {
           "$value": "#c2410c"
         }
-      },
-      "status": {
-        "good": {
-          "solid": {
-            "$value": "#0ca30c"
-          },
-          "soft": {
-            "$value": "#f0fdf0"
-          }
-        },
-        "warning": {
-          "solid": {
-            "$value": "#fab219"
-          },
-          "soft": {
-            "$value": "#fefce8"
-          }
-        },
-        "serious": {
-          "solid": {
-            "$value": "#ec835a"
-          },
-          "soft": {
-            "$value": "#fff7ed"
-          }
-        },
-        "critical": {
-          "solid": {
-            "$value": "#d03b3b"
-          },
-          "soft": {
-            "$value": "#fef2f2"
-          }
-        }
       }
     }
   },
