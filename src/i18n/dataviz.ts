@@ -62,7 +62,7 @@ export const dataviz = define(
     'dataviz.stack.errors': 'Errors',
 
     'dataviz.div.title': 'Diverging bar · polarity',
-    'dataviz.div.hint': 'Blue (slot 1) for positive, red (slot 8) for negative — warm/cool poles that read as opposite. Neutral gray midpoint. Use when the story is above/below a baseline.',
+    'dataviz.div.hint': 'Aqua (slot 1) for positive, orange (the diverging pole) for negative: warm/cool poles that read as opposite without reading as a status colour. Neutral gray midpoint. Use when the story is above/below a baseline.',
     'dataviz.div.chartTitle': 'Year-over-year growth by stream',
     'dataviz.div.chartSub': 'Percentage change vs same period last year',
 
@@ -123,7 +123,7 @@ export const dataviz = define(
     'dataviz.palette.slot': 'Slot {n}',
     'dataviz.palette.seqTitle': 'Sequential ramp · brand teal',
     'dataviz.palette.seqNote': 'One hue, light→dark. For magnitude (heatmaps, sequential fills). Never a rainbow ramp.',
-    'dataviz.palette.divTitle': 'Diverging pair · teal ↔ red, neutral gray midpoint',
+    'dataviz.palette.divTitle': 'Diverging pair · aqua ↔ orange, neutral gray midpoint',
     'dataviz.palette.divNote': 'Warm/cool poles that read as opposite. Neutral gray midpoint = "nothing." Never blue↔aqua (both cool).',
     'dataviz.palette.good': 'Good',
     'dataviz.palette.warning': 'Warning',
@@ -191,7 +191,7 @@ export const dataviz = define(
     'dataviz.anti.4.bad': 'Rainbow sequential ramp',
     'dataviz.anti.4.fix': 'One hue, light→dark. Analogous neighbors are the only multi-hue exception.',
     'dataviz.anti.5.bad': 'Hue at diverging midpoint',
-    'dataviz.anti.5.fix': 'Neutral gray midpoint only. Poles must be warm ↔ cool (teal ↔ red).',
+    'dataviz.anti.5.fix': 'Neutral gray midpoint only. Poles must be warm ↔ cool (aqua ↔ orange).',
     'dataviz.anti.6.bad': 'Status color for series 4',
     'dataviz.anti.6.fix': 'Status tokens for good/bad meaning; categorical slots for identity.',
     'dataviz.anti.7.bad': 'Number on every data point',
@@ -286,7 +286,7 @@ export const dataviz = define(
     'dataviz.stack.errors': 'Errores',
 
     'dataviz.div.title': 'Barras divergentes · polaridad',
-    'dataviz.div.hint': 'Azul (slot 1) para positivo, rojo (slot 8) para negativo: polos cálido y frío que se leen como opuestos. Punto medio gris neutro. Úsalas cuando la historia es sobre o bajo una línea base.',
+    'dataviz.div.hint': 'Aqua (slot 1) para positivo, naranja (el polo divergente) para negativo: polos cálido y frío que se leen como opuestos sin parecer un color de estado. Punto medio gris neutro. Úsalas cuando la historia es sobre o bajo una línea base.',
     'dataviz.div.chartTitle': 'Crecimiento interanual por stream',
     'dataviz.div.chartSub': 'Cambio porcentual vs. el mismo periodo del año pasado',
 
@@ -347,7 +347,7 @@ export const dataviz = define(
     'dataviz.palette.slot': 'Slot {n}',
     'dataviz.palette.seqTitle': 'Escala secuencial · teal de marca',
     'dataviz.palette.seqNote': 'Un solo tono, de claro a oscuro. Para magnitud (mapas de calor, rellenos secuenciales). Nunca una escala arcoíris.',
-    'dataviz.palette.divTitle': 'Par divergente · teal ↔ rojo, punto medio gris neutro',
+    'dataviz.palette.divTitle': 'Par divergente · aqua ↔ naranja, punto medio gris neutro',
     'dataviz.palette.divNote': 'Polos cálido y frío que se leen como opuestos. El punto medio gris neutro = «nada». Nunca azul↔aqua (ambos fríos).',
     'dataviz.palette.good': 'Bueno',
     'dataviz.palette.warning': 'Advertencia',
@@ -415,7 +415,7 @@ export const dataviz = define(
     'dataviz.anti.4.bad': 'Escala secuencial arcoíris',
     'dataviz.anti.4.fix': 'Un tono, de claro a oscuro. Los tonos análogos vecinos son la única excepción multitono.',
     'dataviz.anti.5.bad': 'Un tono en el punto medio divergente',
-    'dataviz.anti.5.fix': 'Solo punto medio gris neutro. Los polos deben ser cálido ↔ frío (teal ↔ rojo).',
+    'dataviz.anti.5.fix': 'Solo punto medio gris neutro. Los polos deben ser cálido ↔ frío (aqua ↔ naranja).',
     'dataviz.anti.6.bad': 'Color de estado para la serie 4',
     'dataviz.anti.6.fix': 'Tokens de estado para el significado bueno/malo; slots categóricos para identidad.',
     'dataviz.anti.7.bad': 'Un número en cada punto de datos',

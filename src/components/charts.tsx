@@ -334,7 +334,7 @@ export function DivergingBarChart({ title, subtitle, data, format = compact }: {
               <span className="truncate text-xs text-(--pance-color-dataviz-ink-muted)">{d.label}</span>
               <span aria-hidden className="relative h-5">
                 <span className="absolute inset-y-0 left-1/2 w-px bg-(--pance-color-dataviz-baseline)" />
-                <span className={`absolute inset-y-0 rounded-sm ${pos ? 'bg-(--pance-color-dataviz-positive) left-1/2' : 'bg-(--pance-color-dataviz-negative) right-1/2'}`} style={{ width: `${(Math.abs(d.value) / max) * 50}%` }} />
+                <span className={`absolute inset-y-0 rounded-sm ${pos ? 'bg-(--pance-color-dataviz-positive) left-1/2' : 'bg-(--pance-color-dataviz-diverging-negative) right-1/2'}`} style={{ width: `${(Math.abs(d.value) / max) * 50}%` }} />
               </span>
               <span className="text-right font-mono text-xs font-semibold tabular-nums"><span className="sr-only">{pos ? l.deltaUp('') : l.deltaDown('')}</span>{pos ? '+' : ''}{format(d.value)}</span>
             </li>

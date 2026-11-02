@@ -1076,6 +1076,15 @@
           }
         }
       },
+      "diverging-negative": {
+        "$value": "{color.viz.diverging.11}",
+        "$description": "Bars below the baseline in a diverging bar chart: the orange pole of the diverging ramp. Not a status colour, so it never means bad; pair with a sign or label (DDR-DS-027).",
+        "$extensions": {
+          "pance.modes": {
+            "dark": "{color.viz.diverging.11}"
+          }
+        }
+      },
       "no-data": {
         "$value": "{color.slate.200}",
         "$description": "Fill for cells or bars with no data. Decorative: always accompanied by a text label such as “No data”.",

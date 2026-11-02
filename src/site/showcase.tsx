@@ -4639,7 +4639,7 @@ export function ContentPage() {
    Palette validated: node validate_palette.js "#0891b2,#eb6834,#1baf7a,
    #eda100,#e87ba4,#008300,#4a3aa7,#e34948" --mode light
    All PASS. WARN on slots 3/4/5 contrast (<3:1) → direct labels required.
-   Sequential hue: brand teal (#0891b2 ramp). Diverging: teal ↔ red.
+   Sequential hue: brand teal (#0891b2 ramp). Diverging: aqua ↔ orange (DDR-DS-027).
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* — Categorical palette (8 slots, fixed order) — */
@@ -5100,7 +5100,7 @@ export function DataVizPage() {
           <div className="rounded-2xl border border-line bg-surface p-4">
             <p className="mb-3 text-sm font-semibold text-ink">{t('dataviz.palette.divTitle')}</p>
             <div className="flex h-8 gap-0.5 overflow-hidden rounded-lg">
-              {['#0891b2','#0e9aba','#14a4c3','#1aaecb','#7dc8d3','#e2e8f0','#f4a4a4','#f08080','#e95e5e','#e34948','#d03333'].map((c, i) => (
+              {['#0891b2','#0e9aba','#14a4c3','#1aaecb','#7dc8d3','#e2e8f0','#e8a995','#dc8063','#da7251','#d7633c','#c2410c'].map((c, i) => (
                 <div key={i} className="flex-1 h-full" style={{ backgroundColor: c }} title={c} />
               ))}
             </div>
