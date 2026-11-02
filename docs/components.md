@@ -193,6 +193,11 @@ It sorts and paginates the rows you pass; for server-side data, control `sort` a
 `LineChart`, `BarChart` (`mode: 'grouped' | 'stacked'`), `RankedBarChart`, `DivergingBarChart`, `Heatmap`, `DonutChart`. Shared: `title`, `subtitle?`, `format?`. Cartesian charts take `labels` and `series: { name, data }[]`.
 Series colours are `color.dataviz.series.1…8` and follow dark mode. Each series also has its own marker (line charts) or fill pattern (bars), and every slice or row carries a text label.
 
+**Colour rules for charts** (DDR-DS-027, DDR-DS-028):
+- A series that means good or bad uses the status colours `color.dataviz.status.good`, `.warning` and `.critical`; any other series uses a categorical slot. A chart never mixes both, and a status always has an icon and a label.
+- Forms where any two marks can touch (scatter, bubble, maps, small multiples) take **at most two series**. With more, fold the rest into "Other" or split into small multiples.
+- Diverging charts run aqua ↔ orange and carry a sign or a label at the baseline. Orange means "below", not "bad".
+
 `ScatterChart`: `title`, `subtitle?`, `points: { label, x, y }[]`, `xLabel`, `yLabel`, `formatX?`, `formatY?`. Arrow keys move between points and read out the name with both values; hover targets are 24px. Like every chart it has "View as table".
 
 `Meter`: `label`, `value`, `max = 100`, `unit?`, `severity: 'default' | 'warning' | 'danger'`, `format?`. `role="meter"` with `aria-valuetext`; warning and danger also print "Warning" or "Critical", so colour is never the only cue. Tokens: `meter.*`. For progress that only ever goes up, use `Progress`.

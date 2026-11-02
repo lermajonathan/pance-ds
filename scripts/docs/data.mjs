@@ -133,7 +133,7 @@ export const data = {
     cat: 'Charts',
     summary: 'Two numeric measures per point, to show correlation or outliers.',
     use: ['Relationship between two variables for a handful to a few dozen points.'],
-    avoid: ['Thousands of points.'],
+    avoid: ['Thousands of points.', 'More than two series. In forms where any two marks can touch (scatter, bubble, maps, small multiples) the limit is two: fold the rest into "Other" or split into small multiples (DDR-DS-027).'],
     a11y: ['Arrow keys move between points and read the name with both values; hover targets are 24px; "View as table" lists all points.'],
     related: ['LineChart'],
     tokens: 'chart',
