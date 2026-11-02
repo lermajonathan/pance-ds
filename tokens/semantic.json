@@ -1023,7 +1023,7 @@
           "$value": "{color.viz.categorical.2}",
           "$extensions": {
             "pance.modes": {
-              "dark": "{color.viz.categorical.2}"
+              "dark": "{color.viz.categorical-dark.2}"
             }
           }
         },
@@ -1039,7 +1039,7 @@
           "$value": "{color.viz.categorical-light.4}",
           "$extensions": {
             "pance.modes": {
-              "dark": "{color.viz.categorical.4}"
+              "dark": "{color.viz.categorical-dark.4}"
             }
           }
         },
@@ -1047,7 +1047,7 @@
           "$value": "{color.viz.categorical-light.5}",
           "$extensions": {
             "pance.modes": {
-              "dark": "{color.viz.categorical.5}"
+              "dark": "{color.viz.categorical-dark.5}"
             }
           }
         },

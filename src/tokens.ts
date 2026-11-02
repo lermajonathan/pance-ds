@@ -118,6 +118,9 @@ export const tokens = {
         "5": "#e56a98"
       },
       "categorical-dark": {
+        "2": "#e5632e",
+        "4": "#c87f00",
+        "5": "#d36891",
         "7": "#6959c5"
       },
       "sequential": {

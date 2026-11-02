@@ -323,7 +323,16 @@
         }
       },
       "categorical-dark": {
-        "$description": "Dark-mode replacement for categorical slot 7, lightened until it reaches 3:1 on slate-900.",
+        "$description": "Dark-mode replacements for categorical slots 2, 4, 5 and 7. Slots 2, 4 and 5 are deepened into the dark lightness band (OKLCH L 0.48 to 0.67, DDR-DS-027); slot 7 is lightened until it reaches 3:1 on slate-900.",
+        "2": {
+          "$value": "#e5632e"
+        },
+        "4": {
+          "$value": "#c87f00"
+        },
+        "5": {
+          "$value": "#d36891"
+        },
         "7": {
           "$value": "#6959c5"
         }
