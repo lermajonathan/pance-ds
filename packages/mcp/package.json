@@ -1,0 +1,44 @@
+{
+  "name": "@pance/mcp",
+  "version": "1.5.0",
+  "license": "MIT",
+  "author": "Jonathan Lerma",
+  "homepage": "https://pance-ds.jonathanlerma.com",
+  "bugs": "https://github.com/lermajonathan/pance-ds/issues",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "description": "Read-only MCP server for the Pance design system: components with props and examples, design tokens and design decisions, for coding agents. No network, no keys.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "design-system",
+    "react",
+    "design-tokens",
+    "pance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lermajonathan/pance-ds.git",
+    "directory": "packages/mcp"
+  },
+  "bin": {
+    "pance-mcp": "./bin/pance-mcp.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

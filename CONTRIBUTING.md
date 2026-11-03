@@ -48,6 +48,7 @@ pnpm docs:check && pnpm test:docs       # component pages are fresh, examples ty
 pnpm test:llms                          # llms.txt and llms-full.txt cover every component and token group
 pnpm build
 pnpm build:packages && pnpm test:packages
+pnpm test:mcp                           # the MCP server answers from the sources (needs build:packages first)
 # with `pnpm preview --port 4173` running:
 pnpm test:keyboard http://localhost:4173/en
 pnpm test:axe http://localhost:4173/en

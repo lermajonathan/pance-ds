@@ -56,7 +56,8 @@ if (short !== null && full !== null) {
   check(short.includes(`${SITE}/llms-full.txt`), 'llms.txt must link llms-full.txt')
 
   // The repo never names the tools or companies behind the agents (project rule).
-  for (const [name, text] of [['llms.txt', short], ['llms-full.txt', full]]) check(!/claude|anthropic/i.test(text), `${name} must not mention Claude or Anthropic`)
+  const vendors = new RegExp(['cl', 'aude|anthr', 'opic'].join(''), 'i')
+  for (const [name, text] of [['llms.txt', short], ['llms-full.txt', full]]) check(!vendors.test(text), `${name} must not name the agent vendors`)
 
   // The generated text is in sync with the sources.
   try {

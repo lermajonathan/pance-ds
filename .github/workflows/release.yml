@@ -1,6 +1,6 @@
 name: Release
 
-# Publishes @pance/tokens and @pance/react to npm when a GitHub release is published.
+# Publishes @pance/tokens, @pance/react and @pance/mcp to npm when a GitHub release is published.
 # Auth: npm trusted publishing (OIDC), no stored secret. It is configured on npmjs.com for each package
 # (Settings → Trusted publishing → GitHub Actions · lermajonathan/pance-ds · release.yml · allow npm publish).
 
@@ -35,7 +35,7 @@ jobs:
         if: github.event_name == 'release'
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          for p in tokens react; do
+          for p in tokens react mcp; do
             V=$(node -p "require('./packages/$p/package.json').version")
             [ "$V" = "$TAG" ] || { echo "::error::packages/$p is $V but the release is $TAG"; exit 1; }
           done
@@ -44,9 +44,13 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm build:packages
       - run: pnpm test:packages
+      - run: pnpm test:mcp
       - name: Publish @pance/tokens
         working-directory: packages/tokens
         run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}
       - name: Publish @pance/react
         working-directory: packages/react
+        run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}
+      - name: Publish @pance/mcp
+        working-directory: packages/mcp
         run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}

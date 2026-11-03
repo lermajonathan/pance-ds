@@ -1,6 +1,7 @@
 // Builds the two publishable packages from the repo sources:
 //   packages/tokens  → @pance/tokens  (CSS variables, Tailwind theme, typed JS object, JSON)
 //   packages/react   → @pance/react   (components + icons, precompiled CSS, Tailwind entry, types)
+//   packages/mcp     → @pance/mcp     (read-only MCP server and its snapshot; scripts/build-mcp.mjs)
 // Run with `pnpm build:packages` (tokens are rebuilt first).
 import { execSync } from 'node:child_process'
 import fs from 'node:fs'
@@ -37,5 +38,8 @@ write('packages/react/dist/tailwind.css', [
 ].join('\n'))
 
 for (const pkg of ['tokens', 'react']) copy('LICENSE', `packages/${pkg}/LICENSE`)
+
+/* ── @pance/mcp (reads the tokens built above) ── */
+run('node scripts/build-mcp.mjs')
 const sizes = (dir) => fs.readdirSync(rel(dir), { recursive: true }).filter((f) => fs.statSync(rel(path.join(dir, f))).isFile()).length
-console.log(`\n✓ @pance/tokens (${sizes('packages/tokens/dist')} files) · @pance/react (${sizes('packages/react/dist')} files)`)
+console.log(`\n✓ @pance/tokens (${sizes('packages/tokens/dist')} files) · @pance/react (${sizes('packages/react/dist')} files) · @pance/mcp (${sizes('packages/mcp/dist')} file)`)
