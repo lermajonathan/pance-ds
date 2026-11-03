@@ -13,6 +13,7 @@ Import everything from `@pance/react`. Each component lives on its own Figma pag
 | Badge | `Badge` | severity, variant, size, label → children, dot → `dot`, removable → `onRemove` |
 | Count badge | `CountBadge` | severity → `severity`; number → `count`; cap → `max` |
 | Input | `Input` | size, state (error → `invalid` via `Field`, disabled → `disabled`), placeholder, value |
+| Number field | `NumberField` | size → `inputSize`, state (error, success, disabled); value → `value` / `defaultValue`; hover and focus are interaction only |
 | Textarea | `Textarea` | as Input |
 | Field | `Field` | label, hint, required → `required`, error message → `error`, status |
 | Input group | `InputGroup` | prefix / trailing icon → `prefix`, `suffix` |
