@@ -1,10 +1,11 @@
-/* Pance · Form inputs — Input, NumberField, Field, Textarea, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, Select, TagInput */
-import { createContext, createElement, useContext, useEffect, useId, useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type TextareaHTMLAttributes, type KeyboardEvent, type ClipboardEvent } from 'react'
+/* Pance · Form inputs — Input, NumberField, TimeField, Field, Textarea, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, Select, TagInput */
+import { createContext, createElement, useContext, useEffect, useId, useLayoutEffect, useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type TextareaHTMLAttributes, type KeyboardEvent, type ClipboardEvent } from 'react'
 import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconCheckCircle, IconChevronDown, IconEdit, IconEye, IconEyeOff, IconMinus, IconPlus, IconSearch, IconX, type IconType } from '../icons'
 import { focus } from './shared'
 import { flipArrow, hitArea, isRtl, listKeyNav } from './a11y'
 import { clampNumber, formatNumber, isPartialNumber, parseNumber, stepNumber, type NumberFormatOptions } from './number-field-logic'
+import { clampTime, formatTime, isPartialTime, parseTime, segmentAt, stepTime, toMinutes, type TimeSegment } from './time-field-logic'
 
 /* ── Inputs ────────────────────────────────────────────────────────────── */
 export const inputBase =
@@ -236,6 +237,133 @@ export function NumberField({
       >
         <IconPlus aria-hidden className={iconSize} />
       </button>
+      {name && <input type="hidden" name={name} value={value ?? ''} />}
+    </div>
+  )
+}
+
+/* ── Time field ────────────────────────────────────────────────────────── */
+/** A time-of-day field. The value is a 24-hour "HH:mm" string (or null when empty); the text follows the locale (12 h or 24 h). */
+export function TimeField({
+  value: valueProp,
+  defaultValue = null,
+  onValueChange,
+  min,
+  max,
+  step = 1,
+  inputSize = 'md',
+  error,
+  success,
+  disabled,
+  readOnly,
+  name,
+  className = '',
+  onBlur,
+  onKeyDown,
+  ref,
+  ...rest
+}: {
+  ref?: Ref<HTMLInputElement>
+  /** Controlled value as "HH:mm" (24 h). `null` is an empty field. */
+  value?: string | null
+  defaultValue?: string | null
+  /** Called with the committed "HH:mm", or `null` when the field is emptied. */
+  onValueChange?: (value: string | null) => void
+  /** Earliest time, "HH:mm". */
+  min?: string
+  /** Latest time, "HH:mm". */
+  max?: string
+  /** Minutes per press of ArrowUp / ArrowDown on the minutes. */
+  step?: number
+  inputSize?: InputSize
+  error?: boolean
+  success?: boolean
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'min' | 'max' | 'step' | 'size'>) {
+  const tt = useLabels()
+  const locale = tt.locale
+  const [inner, setInner] = useState<string | null>(defaultValue)
+  const controlled = valueProp !== undefined
+  const value = controlled ? valueProp : inner
+  const [draft, setDraft] = useState<string | null>(null) // text being typed; null when not editing
+  const a11y = useFieldControl({ ...rest, error })
+  const text = draft ?? formatTime(value, locale)
+  const el = useRef<HTMLInputElement | null>(null)
+  const keepCaret = useRef<TimeSegment | null>(null)
+
+  // After a step the text is rewritten and the browser moves the caret to the end: put it back in the same segment.
+  useLayoutEffect(() => {
+    const node = el.current
+    const segment = keepCaret.current
+    keepCaret.current = null
+    if (!node || !segment || document.activeElement !== node) return
+    const colon = text.indexOf(':')
+    if (colon === -1) return
+    const at = segment === 'hour' ? colon : segment === 'minute' ? colon + 3 : text.length
+    node.setSelectionRange(at, at)
+  }, [text])
+
+  const commit = (next: string | null) => {
+    if (!controlled) setInner(next)
+    if (next !== value) onValueChange?.(next)
+  }
+  const stepBy = (segment: TimeSegment, direction: 1 | -1) => {
+    const from = draft === null ? value : parseTime(draft, locale) ?? value
+    keepCaret.current = segment
+    setDraft(null)
+    commit(stepTime(from, segment, direction, { step, min, max }))
+  }
+  const finishTyping = () => {
+    if (draft === null) return
+    const parsed = parseTime(draft, locale)
+    setDraft(null)
+    commit(parsed === null ? null : clampTime(parsed, min, max))
+  }
+
+  const inactive = disabled || readOnly
+  const state = error ? inputError : success ? inputSuccess : inputNormal
+
+  const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
+    onKeyDown?.(e)
+    if (e.defaultPrevented || inactive) return
+    const key = e.key
+    if (key === 'ArrowUp' || key === 'ArrowDown') {
+      e.preventDefault()
+      stepBy(segmentAt(text, e.currentTarget.selectionStart ?? text.length), key === 'ArrowUp' ? 1 : -1)
+    } else if (key === 'PageUp' || key === 'PageDown') { e.preventDefault(); stepBy('hour', key === 'PageUp' ? 1 : -1) }
+    else if (key === 'Home') { e.preventDefault(); setDraft(null); commit(min ?? '00:00') }
+    else if (key === 'End') { e.preventDefault(); setDraft(null); commit(max ?? '23:59') }
+    else if (key === 'Enter') finishTyping()
+  }
+
+  return (
+    <div className="relative">
+      <input
+        ref={(node) => {
+          el.current = node
+          if (typeof ref === 'function') ref(node)
+          else if (ref) ref.current = node
+        }}
+        type="text"
+        role="spinbutton"
+        data-time-field=""
+        autoComplete="off"
+        value={text}
+        disabled={disabled}
+        readOnly={readOnly}
+        aria-valuenow={value ? toMinutes(value) : undefined}
+        aria-valuemin={toMinutes(min ?? '00:00')}
+        aria-valuemax={toMinutes(max ?? '23:59')}
+        aria-valuetext={value ? formatTime(value, locale) : undefined}
+        onChange={(e) => {
+          const next = e.target.value
+          if (isPartialTime(next, locale)) setDraft(next)
+        }}
+        onBlur={(e) => { finishTyping(); onBlur?.(e) }}
+        onKeyDown={onKey}
+        className={`${inputBase} ${INPUT_SIZE[inputSize]} ${state} tabular-nums ${className}`}
+        {...rest}
+        {...a11y}
+      />
       {name && <input type="hidden" name={name} value={value ?? ''} />}
     </div>
   )
