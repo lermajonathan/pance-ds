@@ -21,7 +21,7 @@ export function LanguageSwitch({ variant }: { variant: 'header' | 'icon' | 'bloc
         type="button"
         onClick={() => setLang(other.code)}
         aria-label={`${current.short} · ${t('shell.switchTo', { name: other.name })}`}
-        className="pance-focus ml-auto inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-line bg-surface px-3 text-ink-soft"
+        className="pance-focus ms-auto inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-line bg-surface px-3 text-ink-soft"
       >
         <IconGlobe size={18} aria-hidden />
         <span className="font-mono text-xs font-semibold">{current.short}</span>

@@ -81,7 +81,7 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
         <div
           aria-hidden
           inert
-          className="pointer-events-none absolute left-0 top-0 origin-top-left select-none p-6"
+          className="pointer-events-none absolute start-0 top-0 origin-top-left select-none p-6"
           style={{ width: box.w, transform: `scale(${box.scale})` }}
         >
           <ConsoleExample />
@@ -90,7 +90,7 @@ function ConsolePreview({ onOpen }: { onOpen: () => void }) {
         <div className="absolute inset-x-0 bottom-5 flex justify-center">
           <Button severity="primary" onClick={onOpen}>
             {t('home.preview.open')}
-            <IconArrowRight size={14} className="ml-1" />
+            <IconArrowRight size={14} className="ms-1" />
           </Button>
         </div>
       </div>
@@ -145,7 +145,7 @@ export function HomePage() {
             <div className="flex flex-wrap gap-3 pt-2">
               <Button severity="primary" size="lg" onClick={() => navigate('colors')}>
                 {t('home.cta.explore')}
-                <IconArrowRight size={16} className="ml-1" />
+                <IconArrowRight size={16} className="ms-1" />
               </Button>
               <button
                 onClick={() => navigate('afterquake')}
@@ -158,7 +158,7 @@ export function HomePage() {
           </div>
 
           {/* Floating badges */}
-          <div className="absolute right-0 top-8 hidden flex-col gap-2 lg:flex">
+          <div className="absolute end-0 top-8 hidden flex-col gap-2 lg:flex">
             {CHIPS.map(({ key, severity, Icon }) => (
               <span key={key} className="flex justify-end"><Badge size="md" severity={severity} Icon={Icon}>{t(key)}</Badge></span>
             ))}
@@ -206,7 +206,7 @@ export function HomePage() {
           <div className="flex shrink-0 flex-wrap gap-3">
             <Button severity="primary" onClick={() => navigate('colors')}>
               {t('home.start.color')}
-              <IconArrowRight size={14} className="ml-1" />
+              <IconArrowRight size={14} className="ms-1" />
             </Button>
             <button
               onClick={() => navigate('afterquake')}

@@ -287,7 +287,7 @@ function Ramp({ name, role, scale, steps }: { name: string; role: Key; scale: st
               key={s.step}
               onClick={() => copy(s.hex)}
               title={`${scale}-${s.step} · ${s.hex}`}
-              className="group text-left"
+              className="group text-start"
             >
               <div
                 className="flex h-16 flex-col justify-between rounded-xl p-2 ring-1 ring-inset ring-black/5 transition-transform duration-200 group-hover:-translate-y-1"
@@ -533,7 +533,7 @@ export function TypographyPage() {
             <Card className="p-6">
               <p className="font-mono text-11 uppercase tracking-[0.16em] text-ink-muted">{t('type.ctx.throughput')}</p>
               <p className="mt-2 font-display text-4xl font-extrabold tracking-tight text-ink">
-                2.9<span className="ml-1 font-mono text-lg font-semibold text-ink-muted">M/s</span>
+                2.9<span className="ms-1 font-mono text-lg font-semibold text-ink-muted">M/s</span>
               </p>
               <p className="mt-1 text-sm text-ink-muted">{t('type.ctx.peak')}</p>
             </Card>
@@ -1142,7 +1142,7 @@ export function FormsPage() {
             </InputGroup>
           </Field>
           <Field label={t('forms.addons.searchAction')} hint={t('forms.addons.searchActionHint')}>
-            <InputGroup suffixButton={<Button size="md" className="!h-full rounded-l-none rounded-r-xl">{t('forms.addons.searchBtn')}</Button>}>
+            <InputGroup suffixButton={<Button size="md" className="!h-full rounded-s-none rounded-e-xl">{t('forms.addons.searchBtn')}</Button>}>
               <Input placeholder={t('forms.addons.searchPh')} Icon={IconSearch} />
             </InputGroup>
           </Field>
@@ -2014,11 +2014,11 @@ export function BadgesPage() {
             <div className="flex flex-col gap-2">
               <div className="relative inline-flex w-fit">
                 <Button severity="secondary" variant="outlined" Icon={IconBell}>{t('badges.ctx.alerts')}</Button>
-                <span className="absolute -right-1.5 -top-1.5"><CountBadge count={4} /></span>
+                <span className="absolute -end-1.5 -top-1.5"><CountBadge count={4} /></span>
               </div>
               <div className="relative inline-flex w-fit">
                 <Button severity="secondary" variant="outlined" Icon={IconMail}>{t('badges.ctx.messages')}</Button>
-                <span className="absolute -right-1.5 -top-1.5"><CountBadge count={12} /></span>
+                <span className="absolute -end-1.5 -top-1.5"><CountBadge count={12} /></span>
               </div>
             </div>
           </Card>
@@ -2489,7 +2489,7 @@ export function NavigationPage() {
             <div className="flex flex-wrap items-center gap-3 border-t border-line-soft pt-4">
               <Button variant="outlined" severity="secondary" disabled={step === 0} onClick={() => setStep((s) => Math.max(0, s - 1))}>{t('navigation.stepper.back')}</Button>
               <Button disabled={step === WIZARD_STEPS.length - 1} onClick={() => setStep((s) => Math.min(WIZARD_STEPS.length - 1, s + 1))}>{t('navigation.stepper.continue')}</Button>
-              <span className="ml-auto font-mono text-xs text-ink-muted">{t('navigation.stepper.progress', { n: step + 1, total: WIZARD_STEPS.length })}</span>
+              <span className="ms-auto font-mono text-xs text-ink-muted">{t('navigation.stepper.progress', { n: step + 1, total: WIZARD_STEPS.length })}</span>
             </div>
           </Card>
 
@@ -2536,7 +2536,7 @@ export function NavigationPage() {
               <p className="mb-3 px-1 font-mono text-10 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.collapsed')}</p>
               <NavMenu items={NAV_ITEMS} value={navKey} onChange={setNavKey} collapsed label={`${t('navigation.menu.title')} · ${t('navigation.menu.collapsed')}`} />
             </div>
-            <div className="min-w-0 flex-1 border-l border-line-soft pl-4">
+            <div className="min-w-0 flex-1 border-s border-line-soft ps-4">
               <p className="mb-2 font-mono text-11 font-medium uppercase tracking-wider text-ink-muted">{t('navigation.menu.active')} <span className="text-primary-fg">{navKey}</span></p>
               <p className="text-xs text-ink-muted">{t('navigation.menu.collapsedNote')}</p>
             </div>
@@ -3676,9 +3676,9 @@ function SkeletonTable() {
               <td className="px-6 py-3.5"><div className="flex items-center gap-2.5"><Skeleton className="h-7 w-7 rounded-full" /><Skeleton className="h-4 w-28" /></div></td>
               <td className="px-6 py-3.5"><Skeleton className="h-4 w-20" /></td>
               <td className="px-6 py-3.5"><Skeleton className="h-5 w-16 rounded-full" /></td>
-              <td className="px-6 py-3.5"><Skeleton className="ml-auto h-4 w-16" /></td>
+              <td className="px-6 py-3.5"><Skeleton className="ms-auto h-4 w-16" /></td>
               <td className="px-6 py-3.5"><Skeleton className="h-4 w-16" /></td>
-              <td className="px-6 py-3.5"><Skeleton className="ml-auto h-8 w-8 rounded-lg" /></td>
+              <td className="px-6 py-3.5"><Skeleton className="ms-auto h-8 w-8 rounded-lg" /></td>
             </tr>
           ))}
         </tbody>
@@ -3714,7 +3714,7 @@ function EmptyTable({ reason }: { reason: 'no-data' | 'filtered' | 'error' }) {
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
-              <th>{t('table.col.name')}</th><th>{t('table.col.owner')}</th><th>{t('table.col.region')}</th><th>{t('table.col.status')}</th><th className="text-right">{t('table.col.throughput')}</th>
+              <th>{t('table.col.name')}</th><th>{t('table.col.owner')}</th><th>{t('table.col.region')}</th><th>{t('table.col.status')}</th><th className="text-end">{t('table.col.throughput')}</th>
             </tr>
           </thead>
         </table>
@@ -3773,10 +3773,10 @@ function SimpleTable() {
         ))}
       </div>
       {/* md+: table */}
-      <table className="hidden w-full border-collapse text-left text-sm md:table">
+      <table className="hidden w-full border-collapse text-start text-sm md:table">
         <thead>
           <tr className="bg-canvas [&>th]:border-b [&>th]:border-line [&>th]:px-6 [&>th]:py-3 [&>th]:font-mono [&>th]:text-11 [&>th]:font-semibold [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
-            <th>{t('table.col.region')}</th><th>{t('table.simple.location')}</th><th className="text-right">{t('table.simple.streams')}</th><th className="text-right">{t('table.simple.quota')}</th><th className="text-right">{t('table.col.throughput')}</th><th className="text-right">{t('table.simple.latency')}</th>
+            <th className="text-start">{t('table.col.region')}</th><th className="text-start">{t('table.simple.location')}</th><th className="text-end">{t('table.simple.streams')}</th><th className="text-end">{t('table.simple.quota')}</th><th className="text-end">{t('table.col.throughput')}</th><th className="text-end">{t('table.simple.latency')}</th>
           </tr>
         </thead>
         <tbody>
@@ -3784,8 +3784,8 @@ function SimpleTable() {
             <tr key={r.region} className={`border-b border-line-soft transition-colors last:border-0 hover:bg-canvas ${i % 2 === 1 ? 'bg-canvas/60' : ''}`}>
               <td className="px-6 py-3.5 font-mono text-13 font-medium text-ink">{r.region}</td>
               <td className="px-6 py-3.5 text-ink-soft">{r.location}</td>
-              <td className="px-6 py-3.5 text-right font-mono text-13 text-ink">{r.streams}</td>
-              <td className="px-6 py-3.5 text-right">
+              <td className="px-6 py-3.5 text-end font-mono text-13 text-ink">{r.streams}</td>
+              <td className="px-6 py-3.5 text-end">
                 <div className="inline-flex items-center gap-2">
                   <div className="h-1.5 w-16 overflow-hidden rounded-full bg-line">
                     <div className="h-full rounded-full bg-brand-400 transition-all" style={{ width: `${(r.streams / r.quota) * 100}%` }} />
@@ -3793,8 +3793,8 @@ function SimpleTable() {
                   <span className="font-mono text-13 text-ink-soft">{r.streams}/{r.quota}</span>
                 </div>
               </td>
-              <td className="px-6 py-3.5 text-right font-mono text-13 font-medium text-ink">{r.throughput}</td>
-              <td className="px-6 py-3.5 text-right">
+              <td className="px-6 py-3.5 text-end font-mono text-13 font-medium text-ink">{r.throughput}</td>
+              <td className="px-6 py-3.5 text-end">
                 <span className={`font-mono text-13 font-medium ${parseInt(r.latency) < 10 ? 'text-success-fg' : parseInt(r.latency) < 20 ? 'text-warning-fg' : 'text-danger-fg'}`}>{r.latency}</span>
               </td>
             </tr>
@@ -3915,7 +3915,7 @@ export function LayoutPage() {
             <div key={c.name} className="flex items-center gap-4">
               <span className="w-28 shrink-0 font-mono text-11 text-ink-muted">{c.name}</span>
               <div className="flex-1 rounded-full bg-ground">
-                <div className="flex h-7 items-center justify-end rounded-full bg-primary-soft-hover pr-3 transition-all" style={{ width: `${c.pct}%` }}>
+                <div className="flex h-7 items-center justify-end rounded-full bg-primary-soft-hover pe-3 transition-all" style={{ width: `${c.pct}%` }}>
                   <span className="font-mono text-10 font-semibold text-primary-fg">{c.px}</span>
                 </div>
               </div>
@@ -4160,7 +4160,7 @@ export function CardsPage() {
               <button
                 key={stream.id}
                 onClick={() => setSelectedCard(selected ? null : stream.id)}
-                className={`pance-focus group w-full rounded-2xl border p-5 text-left transition-all duration-200 ${selected ? 'border-primary-border-strong bg-primary-soft shadow-[0_0_0_3px_var(--color-primary-soft-hover)]' : 'border-line bg-surface hover:-translate-y-0.5 hover:border-primary-border hover:shadow-[0_8px_24px_-12px_rgba(8,145,178,0.3)]'}`}
+                className={`pance-focus group w-full rounded-2xl border p-5 text-start transition-all duration-200 ${selected ? 'border-primary-border-strong bg-primary-soft shadow-[0_0_0_3px_var(--color-primary-soft-hover)]' : 'border-line bg-surface hover:-translate-y-0.5 hover:border-primary-border hover:shadow-[0_8px_24px_-12px_rgba(8,145,178,0.3)]'}`}
               >
                 <div className="flex items-start justify-between">
                   <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary-soft text-primary-fg group-hover:bg-primary-soft-hover">
@@ -4915,7 +4915,7 @@ export function DataVizPage() {
               >{t(`dataviz.range.${r}`)}</button>
             ))}
           </div>
-          <span className="ml-2 h-4 w-px bg-line" />
+          <span className="ms-2 h-4 w-px bg-line" />
           <span className="text-xs text-ink-muted">{t('dataviz.filter.region')}</span>
           <div className="flex flex-wrap gap-1">
             {['All','US East','EU West','AP South'].map(r => (
@@ -5037,13 +5037,13 @@ export function DataVizPage() {
         <div tabIndex={0} className="pance-focus overflow-x-auto rounded-2xl border border-line bg-surface">
           <table className="w-full text-sm">
             <thead className="border-b border-line">
-              <tr className="text-left">
-                <th className="px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.stream')}</th>
-                <th className="px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.region')}</th>
-                <th className="px-4 py-3 text-right font-medium text-ink-muted tabular-nums">{t('dataviz.spark.throughput')}</th>
-                <th className="px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.trend')}</th>
-                <th className="px-4 py-3 text-right font-medium text-ink-muted tabular-nums">{t('dataviz.spark.p99')}</th>
-                <th className="px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.status')}</th>
+              <tr className="text-start">
+                <th className="text-start px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.stream')}</th>
+                <th className="text-start px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.region')}</th>
+                <th className="px-4 py-3 text-end font-medium text-ink-muted tabular-nums">{t('dataviz.spark.throughput')}</th>
+                <th className="text-start px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.trend')}</th>
+                <th className="px-4 py-3 text-end font-medium text-ink-muted tabular-nums">{t('dataviz.spark.p99')}</th>
+                <th className="text-start px-4 py-3 font-medium text-ink-muted">{t('dataviz.spark.status')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -5058,9 +5058,9 @@ export function DataVizPage() {
                 <tr key={row.name} className="hover:bg-ground">
                   <td className="px-4 py-3 font-mono text-xs text-ink">{row.name}</td>
                   <td className="px-4 py-3 text-xs text-ink-muted">{row.region}</td>
-                  <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink">{row.val}</td>
+                  <td className="px-4 py-3 text-end font-mono text-xs tabular-nums text-ink">{row.val}</td>
                   <td className="px-4 py-3"><VizSparkline data={row.trend} color={VC[i % 3]} width={72} height={24} /></td>
-                  <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink">{row.lat}</td>
+                  <td className="px-4 py-3 text-end font-mono text-xs tabular-nums text-ink">{row.lat}</td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-11 font-medium ${row.ok ? 'bg-success-soft text-success-fg' : 'bg-warning-soft text-warning-fg'}`}>
                       <span className={`h-1.5 w-1.5 rounded-full ${row.ok ? 'bg-emerald-500' : 'bg-amber-500'}`} />
@@ -5134,11 +5134,11 @@ export function DataVizPage() {
         <div tabIndex={0} className="pance-focus overflow-x-auto rounded-2xl border border-line bg-surface">
           <table className="w-full text-sm">
             <thead className="border-b border-line bg-canvas">
-              <tr className="text-left">
-                <th className="px-4 py-3 font-semibold text-ink">{t('dataviz.form.job')}</th>
-                <th className="px-4 py-3 font-semibold text-ink">{t('dataviz.form.form')}</th>
-                <th className="px-4 py-3 font-semibold text-ink">{t('dataviz.form.color')}</th>
-                <th className="px-4 py-3 font-semibold text-ink">{t('dataviz.form.anti')}</th>
+              <tr className="text-start">
+                <th className="text-start px-4 py-3 font-semibold text-ink">{t('dataviz.form.job')}</th>
+                <th className="text-start px-4 py-3 font-semibold text-ink">{t('dataviz.form.form')}</th>
+                <th className="text-start px-4 py-3 font-semibold text-ink">{t('dataviz.form.color')}</th>
+                <th className="text-start px-4 py-3 font-semibold text-ink">{t('dataviz.form.anti')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line">
@@ -5818,7 +5818,7 @@ export function AfterQuakePage() {
                       const pct = d.hospitalCapacity
                       return (
                         <button key={d.id} onClick={() => setSelectedDept(d.id)}
-                          className="flex w-full items-center gap-3 rounded-xl border border-line bg-canvas px-3 py-2.5 text-left transition-colors hover:border-primary-border hover:bg-primary-soft/40">
+                          className="flex w-full items-center gap-3 rounded-xl border border-line bg-canvas px-3 py-2.5 text-start transition-colors hover:border-primary-border hover:bg-primary-soft/40">
                           <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: s.color }} />
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center justify-between gap-2">
@@ -5871,24 +5871,24 @@ export function AfterQuakePage() {
                   </button>
                 ))}
               </div>
-              <span className="ml-auto text-xs text-ink-muted">{t(filteredDepts.length === 1 ? 'aq.count.one' : 'aq.count.other', { n: filteredDepts.length })}</span>
+              <span className="ms-auto text-xs text-ink-muted">{t(filteredDepts.length === 1 ? 'aq.count.one' : 'aq.count.other', { n: filteredDepts.length })}</span>
             </div>
 
             {/* Full table */}
             <div tabIndex={0} className="pance-focus overflow-x-auto rounded-2xl border border-line bg-surface">
               <table className="w-full min-w-[56rem] text-sm">
                 <thead className="border-b border-line bg-canvas">
-                  <tr className="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:font-mono [&>th]:text-10 [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
+                  <tr className="[&>th]:px-4 [&>th]:py-3 [&>th]:text-start [&>th]:font-mono [&>th]:text-10 [&>th]:uppercase [&>th]:tracking-[0.12em] [&>th]:text-ink-muted">
                     <th>{t('aq.th.department')}</th>
                     <th>{t('aq.th.severity')}</th>
-                    <th className="text-right">{t('aq.m.deceased')}</th>
-                    <th className="text-right">{t('aq.th.severelyInjured')}</th>
-                    <th className="text-right">{t('aq.th.missing')}</th>
-                    <th className="text-right">{t('aq.m.displaced')}</th>
-                    <th className="text-right">{t('aq.m.rescued')}</th>
-                    <th className="text-right">{t('aq.th.collapsed')}</th>
-                    <th className="text-right">{t('aq.th.atRisk')}</th>
-                    <th className="text-right">{t('aq.th.hosp')}</th>
+                    <th className="text-end">{t('aq.m.deceased')}</th>
+                    <th className="text-end">{t('aq.th.severelyInjured')}</th>
+                    <th className="text-end">{t('aq.th.missing')}</th>
+                    <th className="text-end">{t('aq.m.displaced')}</th>
+                    <th className="text-end">{t('aq.m.rescued')}</th>
+                    <th className="text-end">{t('aq.th.collapsed')}</th>
+                    <th className="text-end">{t('aq.th.atRisk')}</th>
+                    <th className="text-end">{t('aq.th.hosp')}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -5904,20 +5904,20 @@ export function AfterQuakePage() {
                             {t(s.key)}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-right font-mono text-xs font-semibold" style={{ color: d.deceased > 0 ? '#e11d48' : '#94a3b8' }}>{nf(d.deceased)}</td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-ink-muted tabular-nums">{nf(d.severelyInjured)}</td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-ink-muted tabular-nums">{nf(d.missing)}</td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-ink-muted tabular-nums">{nf(d.displaced)}</td>
-                        <td className="px-4 py-3 text-right font-mono text-xs font-medium" style={{ color: '#059669' }}>{nf(d.rescued)}</td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-ink-muted tabular-nums">{nf(d.buildingsCollapsed)}</td>
-                        <td className="px-4 py-3 text-right font-mono text-xs text-ink-muted tabular-nums">{nf(d.buildingsAtRisk)}</td>
+                        <td className="px-4 py-3 text-end font-mono text-xs font-semibold" style={{ color: d.deceased > 0 ? '#e11d48' : '#94a3b8' }}>{nf(d.deceased)}</td>
+                        <td className="px-4 py-3 text-end font-mono text-xs text-ink-muted tabular-nums">{nf(d.severelyInjured)}</td>
+                        <td className="px-4 py-3 text-end font-mono text-xs text-ink-muted tabular-nums">{nf(d.missing)}</td>
+                        <td className="px-4 py-3 text-end font-mono text-xs text-ink-muted tabular-nums">{nf(d.displaced)}</td>
+                        <td className="px-4 py-3 text-end font-mono text-xs font-medium" style={{ color: '#059669' }}>{nf(d.rescued)}</td>
+                        <td className="px-4 py-3 text-end font-mono text-xs text-ink-muted tabular-nums">{nf(d.buildingsCollapsed)}</td>
+                        <td className="px-4 py-3 text-end font-mono text-xs text-ink-muted tabular-nums">{nf(d.buildingsAtRisk)}</td>
                         <td className="px-4 py-3">
                           <div className="flex items-center justify-end gap-1.5">
                             <div className="w-12 overflow-hidden rounded-full bg-ground" style={{ height: 6 }}>
                               <div className="h-full rounded-full"
                                 style={{ width: `${d.hospitalCapacity}%`, backgroundColor: d.hospitalCapacity >= 95 ? '#e11d48' : d.hospitalCapacity >= 80 ? '#f97316' : '#0891b2' }} />
                             </div>
-                            <span className="w-9 text-right font-mono text-10 tabular-nums text-ink-muted">{d.hospitalCapacity}%</span>
+                            <span className="w-9 text-end font-mono text-10 tabular-nums text-ink-muted">{d.hospitalCapacity}%</span>
                           </div>
                         </td>
                         <td className="px-4 py-3">
@@ -5934,13 +5934,13 @@ export function AfterQuakePage() {
                   <tr className="[&>td]:px-4 [&>td]:py-3 [&>td]:font-mono [&>td]:text-xs [&>td]:font-semibold">
                     <td className="text-ink">{t('aq.totals')}</td>
                     <td></td>
-                    <td className="text-right text-danger">{nf(AQ_TOTALS.deceased)}</td>
-                    <td className="text-right text-ink-muted tabular-nums">{nf(AQ_TOTALS.severelyInjured)}</td>
-                    <td className="text-right text-ink-muted tabular-nums">{nf(AQ_TOTALS.missing)}</td>
-                    <td className="text-right text-ink-muted tabular-nums">{nf(AQ_TOTALS.displaced)}</td>
-                    <td className="text-right" style={{ color: '#059669' }}>{nf(AQ_TOTALS.rescued)}</td>
-                    <td className="text-right text-ink-muted tabular-nums">{nf(AQ_TOTALS.buildingsCollapsed)}</td>
-                    <td className="text-right text-ink-muted tabular-nums">{nf(AQ_TOTALS.buildingsAtRisk)}</td>
+                    <td className="text-end text-danger">{nf(AQ_TOTALS.deceased)}</td>
+                    <td className="text-end text-ink-muted tabular-nums">{nf(AQ_TOTALS.severelyInjured)}</td>
+                    <td className="text-end text-ink-muted tabular-nums">{nf(AQ_TOTALS.missing)}</td>
+                    <td className="text-end text-ink-muted tabular-nums">{nf(AQ_TOTALS.displaced)}</td>
+                    <td className="text-end" style={{ color: '#059669' }}>{nf(AQ_TOTALS.rescued)}</td>
+                    <td className="text-end text-ink-muted tabular-nums">{nf(AQ_TOTALS.buildingsCollapsed)}</td>
+                    <td className="text-end text-ink-muted tabular-nums">{nf(AQ_TOTALS.buildingsAtRisk)}</td>
                     <td></td><td></td>
                   </tr>
                 </tfoot>
@@ -5957,7 +5957,7 @@ export function AfterQuakePage() {
               <div tabIndex={0} className="pance-focus overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="border-b border-line-soft">
-                    <tr className="[&>th]:px-4 [&>th]:py-2.5 [&>th]:text-left [&>th]:font-mono [&>th]:text-10 [&>th]:uppercase [&>th]:tracking-[0.1em] [&>th]:text-ink-muted">
+                    <tr className="[&>th]:px-4 [&>th]:py-2.5 [&>th]:text-start [&>th]:font-mono [&>th]:text-10 [&>th]:uppercase [&>th]:tracking-[0.1em] [&>th]:text-ink-muted">
                       <th>{t('aq.hosp.hospital')}</th><th>{t('aq.hosp.city')}</th><th>{t('aq.hosp.type')}</th><th>{t('aq.hosp.capacity')}</th><th>{t('aq.hosp.occupancy')}</th><th>{t('aq.hosp.status')}</th>
                     </tr>
                   </thead>
@@ -5980,13 +5980,13 @@ export function AfterQuakePage() {
                           <td className="px-4 py-3 font-medium text-ink">{h.name}</td>
                           <td className="px-4 py-3 text-ink-muted">{h.city}</td>
                           <td className="px-4 py-3 text-xs text-ink-muted">{t(h.type)}</td>
-                          <td className="px-4 py-3 text-right font-mono text-xs tabular-nums text-ink-muted">{h.cap}</td>
+                          <td className="px-4 py-3 text-end font-mono text-xs tabular-nums text-ink-muted">{h.cap}</td>
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
                               <div className="flex-1 overflow-hidden rounded-full bg-ground" style={{ height: 6 }}>
                                 <div className="h-full rounded-full" style={{ width: `${Math.min(100,h.occ)}%`, backgroundColor: sevColor }} />
                               </div>
-                              <span className="w-8 text-right font-mono text-10 tabular-nums text-ink-muted">{h.occ}%</span>
+                              <span className="w-8 text-end font-mono text-10 tabular-nums text-ink-muted">{h.occ}%</span>
                             </div>
                           </td>
                           <td className="px-4 py-3">
@@ -6085,7 +6085,7 @@ export function AfterQuakePage() {
               <div className="space-y-3">
                 <p className="text-sm font-semibold text-ink">{t('aq.timeline.events')}</p>
                 <div className="relative">
-                  <div className="absolute left-[19px] top-0 bottom-0 w-px bg-line" />
+                  <div className="absolute start-[19px] top-0 bottom-0 w-px bg-line" />
                   <div className="space-y-4">
                     {AQ_TIMELINE.map((ev, i) => {
                       const s = AQ_SEV[ev.sev]

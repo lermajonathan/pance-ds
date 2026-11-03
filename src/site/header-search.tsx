@@ -94,7 +94,7 @@ export function HeaderSearch({ pages, className = '' }: { pages: { key: string; 
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => choose(r)}
           onMouseEnter={() => setActive(i)}
-          className={`flex w-full min-w-0 items-baseline gap-2 rounded-lg px-3 py-2 text-left text-sm ${i === active ? 'bg-brand-50 text-brand-700' : 'text-ink'}`}
+          className={`flex w-full min-w-0 items-baseline gap-2 rounded-lg px-3 py-2 text-start text-sm ${i === active ? 'bg-brand-50 text-brand-700' : 'text-ink'}`}
         >
           <span className="min-w-0 truncate font-medium">{r.label}</span>
           {r.context && <span className="min-w-0 shrink-0 truncate font-mono text-11 text-ink-muted">{r.context}</span>}
@@ -122,7 +122,7 @@ export function HeaderSearch({ pages, className = '' }: { pages: { key: string; 
         onKeyDown={onKeyDown}
       />
       {showPanel && (
-        <div className="absolute right-0 top-full z-40 mt-2 max-h-[min(24rem,70vh)] w-[min(24rem,90vw)] overflow-y-auto rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)]">
+        <div className="absolute end-0 top-full z-40 mt-2 max-h-[min(24rem,70vh)] w-[min(24rem,90vw)] overflow-y-auto rounded-xl border border-line bg-surface p-1.5 shadow-[0_16px_40px_-16px_rgba(15,23,42,0.3)]">
           <ul id="hs-list" role="listbox">
             {flat.length === 0 && <li className="px-3 py-3 text-sm text-ink-muted">{t('shell.search.empty', { q: q.trim() })}</li>}
             {pageResults.length > 0 && (

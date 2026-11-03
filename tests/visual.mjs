@@ -3,6 +3,7 @@
 //   pnpm build && pnpm preview --port 4173 &
 //   node tests/visual.mjs [baseUrl] --update [--baseline=dir]   capture screenshots as the baseline
 //   node tests/visual.mjs [baseUrl] [--baseline=dir]            compare (writes tests/visual/__diff__ on failure)
+//   add --dir=rtl to either command to shoot the pages with dir="rtl" on <html> (desktop only, files end in -rtl.png; DDR-DS-031)
 // Baselines are never committed: CI builds the base commit, captures it, then compares the new build with it.
 // Requests outside the site (web fonts, stock photos) are blocked so every machine renders the same fallbacks; time is frozen and motion is off.
 import { chromium } from 'playwright'
@@ -14,6 +15,7 @@ import path from 'node:path'
 const args = process.argv.slice(2)
 const update = args.includes('--update')
 const BASE = args.find((a) => a.startsWith('http')) ?? 'http://localhost:4173/en'
+const RTL = args.includes('--dir=rtl')
 const only = args.find((a) => a.startsWith('--only='))?.slice(7)
 const dir = path.resolve(import.meta.dirname, 'visual')
 const baseline = path.resolve(args.find((a) => a.startsWith('--baseline='))?.slice(11) ?? path.join(dir, 'baseline'))
@@ -21,14 +23,14 @@ const diffDir = path.join(dir, '__diff__')
 const MAX_DIFF_RATIO = 0.002 // 0.2% of pixels may differ
 const PIXEL_THRESHOLD = 0.15
 
-const pages = ['', 'colors', 'type', 'spacing', 'gradients', 'icons', 'layout', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'gallery', 'dashboard', 'afterquake']
+const pages = ['', 'colors', 'type', 'spacing', 'gradients', 'icons', 'layout', 'rtl', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'gallery', 'dashboard', 'afterquake']
 const mobilePages = new Set(['', 'forms', 'table', 'metrics', 'dataviz'])
 const jobs = []
 for (const pg of pages) for (const theme of ['light', 'dark']) {
   jobs.push({ pg, theme, vp: 'desktop', width: 1440, height: 900 })
-  if (mobilePages.has(pg)) jobs.push({ pg, theme, vp: 'mobile', width: 390, height: 844 })
+  if (!RTL && mobilePages.has(pg)) jobs.push({ pg, theme, vp: 'mobile', width: 390, height: 844 })
 }
-const name = (j) => `${j.pg || 'home'}-${j.theme}-${j.vp}.png`
+const name = (j) => `${j.pg || 'home'}-${j.theme}-${j.vp}${RTL ? '-rtl' : ''}.png`
 
 fs.mkdirSync(baseline, { recursive: true })
 fs.rmSync(diffDir, { recursive: true, force: true })
@@ -44,6 +46,7 @@ for (const j of jobs) {
   await page.clock.install({ time: new Date('2026-10-15T12:00:00Z') })
   await page.addInitScript((t) => { try { localStorage.setItem('pance-theme', t) } catch { /* ignore */ } }, j.theme)
   await page.goto(`${BASE}/${j.pg}`, { waitUntil: 'networkidle' })
+  if (RTL) await page.evaluate(() => document.documentElement.setAttribute('dir', 'rtl'))
   await page.addStyleTag({ content: '*,*::before,*::after{animation:none!important;transition:none!important;caret-color:transparent!important}' })
   await page.evaluate(() => document.fonts.ready)
   const shot = await page.screenshot({ fullPage: true })

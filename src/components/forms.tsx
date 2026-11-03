@@ -280,7 +280,7 @@ export function RangeSlider({
         aria-valuetext={valueText}
         {...a11y}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full [background:linear-gradient(to_right,var(--fill)_var(--pct),var(--pance-color-border-default)_var(--pct))] rtl:[background:linear-gradient(to_left,var(--fill)_var(--pct),var(--pance-color-border-default)_var(--pct))] disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
+        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full [background:linear-gradient(calc(90deg*var(--pance-dir)),var(--fill)_var(--pct),var(--pance-color-border-default)_var(--pct))] disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
         style={{
           ['--fill' as string]: thumb,
           ['--pct' as string]: `${pct}%`,

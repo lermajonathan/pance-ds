@@ -8,6 +8,7 @@ import path from 'node:path'
 
 const root = path.resolve(import.meta.dirname, '..')
 const dir = path.join(root, 'src/components')
+const siteDir = path.join(root, 'src/site')
 
 // { file, token (exact utility, variants stripped), reason }
 const EXCEPTIONS = []
@@ -31,9 +32,14 @@ const stringsIn = (src) => [...src.matchAll(/(['"`])((?:\\.|(?!\1)[^\\\n])*)\1/g
 const lineOf = (src, index) => src.slice(0, index).split('\n').length
 
 const failures = []
-const files = fs.readdirSync(dir).filter((n) => n.endsWith('.tsx'))
-for (const f of files) {
-  const src = fs.readFileSync(path.join(dir, f), 'utf8')
+// The docs site is checked too, so switching the page to RTL looks right everywhere, not only in the library.
+const files = [
+  ...fs.readdirSync(dir).filter((n) => n.endsWith('.tsx')).map((n) => path.join(dir, n)),
+  ...fs.readdirSync(siteDir).filter((n) => n.endsWith('.tsx')).map((n) => path.join(siteDir, n)),
+]
+for (const full of files) {
+  const f = path.relative(path.join(root, 'src'), full)
+  const src = fs.readFileSync(full, 'utf8')
   const lines = src.split('\n')
   lines.forEach((ln, i) => {
     const m = ln.match(/rtl-exempt:\s*(.*)$/)
@@ -44,6 +50,8 @@ for (const f of files) {
     for (const raw of s.text.split(/\s+/)) {
       if (!raw) continue
       const u = utility(raw.replace(/['"`}{,;]+$/, ''))
+      // rtl: and :dir() both fail inside a dir="ltr" island in an RTL page (and :dir() gets compiled to :lang()). Use --pance-dir (1 or -1), which the nearest dir attribute sets.
+      if (/(^|:)(rtl|ltr):/.test(raw) || raw.includes(':dir(')) failures.push(`${f}:${lineOf(src, s.index)} "${raw}" uses an rtl:/ltr:/:dir() variant; use the --pance-dir variable so nested direction islands work`)
       // Centering with -translate-x-1/2 only works with left-1/2 / right-1/2: start-1/2 shifts the wrong way in RTL.
       if ((u === 'start-1/2' || u === 'end-1/2') && s.text.split(/\s+/).some((t) => utility(t).replace(/^-/, '') === 'translate-x-1/2')) {
         failures.push(`${f}:${lineOf(src, s.index)} "${u}" with translate-x-1/2 is not centred in RTL (use left-1/2)`)
@@ -87,6 +95,23 @@ if (a11y) {
     eq(a11y.flipArrow('ArrowUp', true), 'ArrowUp', 'flipArrow keeps vertical keys')
   }
 }
+
+// Wiring: the check runs in CI and release, and the docs have an RTL page, a direction switch and RTL test modes.
+const read = (rel) => fs.readFileSync(path.join(root, rel), 'utf8')
+const pkg = JSON.parse(read('package.json'))
+if (pkg.scripts?.['test:rtl'] !== 'node tests/rtl.mjs') failures.push('package.json needs "test:rtl": "node tests/rtl.mjs"')
+for (const wf of ['.github/workflows/ci.yml', '.github/workflows/release.yml']) {
+  if (!read(wf).includes('pnpm test:rtl')) failures.push(`${wf} does not run pnpm test:rtl`)
+}
+const css = read('src/styles/components.css')
+if (!/\[dir=['"]?rtl['"]?\]\s*\{[^}]*--pance-dir:\s*-1/.test(css) || !/--pance-dir:\s*1/.test(css)) failures.push('src/styles/components.css must define --pance-dir: 1 by default and -1 under [dir="rtl"]')
+const app = read('src/site/App.tsx')
+if (!/key: 'rtl'/.test(app)) failures.push("src/site/App.tsx has no 'rtl' docs page")
+if (!app.includes('DirSwitch')) failures.push('src/site/App.tsx does not render the DirSwitch')
+const shell = read('src/i18n/shell.ts')
+if ((shell.match(/'nav\.rtl':/g) ?? []).length < 2) failures.push("src/i18n/shell.ts needs 'nav.rtl' in English and Spanish")
+for (const f of ['tests/visual.mjs', 'tests/axe.mjs']) if (!read(f).includes('--dir=rtl')) failures.push(`${f} has no --dir=rtl mode`)
+if (!read('.github/workflows/ci.yml').includes('--dir=rtl')) failures.push('ci.yml does not run the RTL visual and axe passes')
 
 if (failures.length) {
   console.error(failures.join('\n'))

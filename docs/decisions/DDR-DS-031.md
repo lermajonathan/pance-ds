@@ -15,8 +15,9 @@ Components position and space themselves with physical Tailwind utilities (`pl-*
 3. **Charts keep a left-to-right plot.** The plot area (axes, bars, lines, the diverging baseline) is wrapped in `dir="ltr"`; time and magnitude read the same in every language. Labels, values and legends follow the page direction.
 4. **`Tooltip` and `Drawer` gain `'start'` and `'end'` placements.** `'left'` and `'right'` stay as they are, so no one breaks. `'start'` and `'end'` flip with the page direction.
 5. **Direction-dependent pieces are fixed one by one.** The slider fill (`linear-gradient(to right…)`) and the toggle thumb (fixed `left-[…]` offsets) respond to direction. Directional icons (chevrons, arrows, "next" and "previous") mirror in RTL.
+   Where a utility cannot follow direction (gradient angles, mirrored icons, off-canvas slides) the code uses the CSS variable `--pance-dir` (`1` in left-to-right, `-1` in right-to-left), defined in `components.css` and set by the nearest `dir` attribute. It is used instead of Tailwind's `rtl:` variant and `:dir()` because both fail inside a `dir="ltr"` island on an RTL page (`rtl:` matches any ancestor; `:dir()` is compiled down to `:lang()` lists). The `rtl-exempt:` comment marks the few physical values that stay, such as safe-area insets, which are physical.
 6. **Exceptions are listed with a reason** in `tests/rtl.mjs`. `src/components/a11y.ts` is out of scope: its positioning works on screen geometry from `getBoundingClientRect`.
-7. **Docs.** A page on RTL, a direction switch (LTR / RTL) in the docs site, and a regression test that renders key components under `dir="rtl"`.
+7. **Docs and tests.** A page on RTL under Foundations, a direction switch (LTR / RTL, also `?dir=rtl`) in the docs site, and `--dir=rtl` modes for the visual and axe tests, which CI runs. The docs site is held to the same rule as the library (`pnpm test:rtl` scans `src/components` and `src/site`).
 
 ## Tests (written first)
 

@@ -1,6 +1,18 @@
 /* Pance · component styles that utilities can't express.
    Shipped in @pance/react/styles.css and imported by the docs site. */
 
+/* Direction as a number (DDR-DS-031): 1 in left-to-right, -1 in right-to-left.
+   Custom properties inherit, so the nearest dir attribute wins, even for a dir="ltr" island
+   inside an RTL page. Use it where a utility cannot follow direction: gradient angles,
+   mirrored icons, off-canvas slides. */
+:root,
+[dir='ltr'] {
+  --pance-dir: 1;
+}
+[dir='rtl'] {
+  --pance-dir: -1;
+}
+
 /* Fluid focus ring used across interactive elements */
 .pance-focus:focus-visible {
   outline: none;

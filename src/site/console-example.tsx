@@ -270,7 +270,7 @@ export default function ConsoleExample() {
                   <span className="text-xs font-medium text-ink-soft">{tt('console.cash.counted')}</span>
                   <div className="mt-1.5 flex h-10 items-center rounded-xl border border-line bg-surface px-3 focus-within:border-brand-500 focus-within:shadow-[0_0_0_3px_var(--color-primary-soft-hover)]">
                     <span className="font-mono text-sm text-ink-muted">$</span>
-                    <input disabled={closed} value={Number(counted || 0).toLocaleString('es-CO')} onChange={(e) => setCounted(e.target.value.replace(/\D/g, '').slice(0, 9))} inputMode="numeric" className="ml-1 w-full bg-transparent font-mono text-sm text-ink outline-none disabled:text-ink-muted" />
+                    <input disabled={closed} value={Number(counted || 0).toLocaleString('es-CO')} onChange={(e) => setCounted(e.target.value.replace(/\D/g, '').slice(0, 9))} inputMode="numeric" className="ms-1 w-full bg-transparent font-mono text-sm text-ink outline-none disabled:text-ink-muted" />
                   </div>
                 </label>
                 <div className={`rounded-xl px-3 py-2 text-xs ${diff === 0 ? 'bg-success-soft text-success-fg' : Math.abs(diff) <= 5000 ? 'bg-warning-soft text-warning-fg' : 'bg-danger-soft text-danger-fg'}`}>
@@ -305,13 +305,13 @@ export default function ConsoleExample() {
             <div tabIndex={0} className="pance-focus overflow-x-auto">
               <table className="w-full min-w-[720px] text-sm">
                 <thead>
-                  <tr className="border-b border-line-soft text-left font-mono text-10 uppercase tracking-wider text-ink-muted">
-                    <th className="px-6 py-3 font-medium">{tt('console.tx.th.time')}</th>
-                    <th className="px-3 py-3 font-medium">{tt('console.tx.th.customer')}</th>
-                    <th className="px-3 py-3 font-medium">{tt('console.tx.th.detail')}</th>
-                    <th className="px-3 py-3 font-medium">{tt('console.tx.th.method')}</th>
-                    <th className="px-3 py-3 text-right font-medium">{tt('console.tx.th.amount')}</th>
-                    <th className="px-6 py-3 text-right font-medium">{tt('console.tx.th.status')}</th>
+                  <tr className="border-b border-line-soft text-start font-mono text-10 uppercase tracking-wider text-ink-muted">
+                    <th className="text-start px-6 py-3 font-medium">{tt('console.tx.th.time')}</th>
+                    <th className="text-start px-3 py-3 font-medium">{tt('console.tx.th.customer')}</th>
+                    <th className="text-start px-3 py-3 font-medium">{tt('console.tx.th.detail')}</th>
+                    <th className="text-start px-3 py-3 font-medium">{tt('console.tx.th.method')}</th>
+                    <th className="px-3 py-3 text-end font-medium">{tt('console.tx.th.amount')}</th>
+                    <th className="px-6 py-3 text-end font-medium">{tt('console.tx.th.status')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-line-soft">
@@ -319,12 +319,12 @@ export default function ConsoleExample() {
                     const m = methodOf(t.method)
                     return (
                       <tr key={t.id} className="transition-colors hover:bg-canvas">
-                        <td className="px-6 py-3 font-mono text-xs text-ink-muted">{t.time}<span className="ml-2 text-10">{t.id}</span></td>
+                        <td className="px-6 py-3 font-mono text-xs text-ink-muted">{t.time}<span className="ms-2 text-10">{t.id}</span></td>
                         <td className="px-3 py-3 font-medium text-ink">{t.who}</td>
                         <td className="max-w-[240px] truncate px-3 py-3 text-ink-muted">{t.items}</td>
                         <td className="px-3 py-3"><span className="inline-flex items-center gap-1.5 text-xs text-ink-soft"><span className="h-2 w-2 rounded-full" style={{ background: m.color }} />{METHOD_LABEL[m.key] ? tt(METHOD_LABEL[m.key]!) : m.label}</span></td>
-                        <td className={`px-3 py-3 text-right font-mono ${t.status === 'reversada' ? 'text-ink-muted line-through' : 'text-ink'}`}>{cop(t.amount)}</td>
-                        <td className="px-6 py-3 text-right"><Badge size="sm" severity={STATUS[t.status].sev}>{tt(STATUS[t.status].label)}</Badge></td>
+                        <td className={`px-3 py-3 text-end font-mono ${t.status === 'reversada' ? 'text-ink-muted line-through' : 'text-ink'}`}>{cop(t.amount)}</td>
+                        <td className="px-6 py-3 text-end"><Badge size="sm" severity={STATUS[t.status].sev}>{tt(STATUS[t.status].label)}</Badge></td>
                       </tr>
                     )
                   })}
@@ -351,7 +351,7 @@ export default function ConsoleExample() {
                             <p className="font-mono text-11 text-ink-muted">{d.phone} · {d.days === 1 ? tt('console.debt.ago1') : tt('console.debt.ago', { n: d.days })}</p>
                           </div>
                         </div>
-                        <div className="text-right">
+                        <div className="text-end">
                           <p className={`font-mono text-sm font-semibold ${pct > 100 ? 'text-danger-fg' : 'text-ink'}`}>{cop(d.balance)}</p>
                           <p className="font-mono text-10 text-ink-muted">{tt('console.debt.limit', { amount: cop(d.limit) })}</p>
                         </div>
@@ -403,7 +403,7 @@ export default function ConsoleExample() {
                       <p className="truncate text-sm font-medium text-ink">{d.to}</p>
                       <p className="font-mono text-11 text-ink-muted">{d.id} · {d.rider}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-end">
                       <Badge size="sm" severity={d.onRoute ? 'primary' : 'secondary'} dot>{d.onRoute ? tt('console.deliv.onroute') : tt('console.deliv.preparing')}</Badge>
                       <p className="mt-1 font-mono text-11 text-ink-muted">{tt('console.deliv.min', { n: d.eta })}</p>
                     </div>

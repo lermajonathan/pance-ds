@@ -31,8 +31,8 @@ export function Pagination({
     const left = Math.max(2, page - siblings), right = Math.min(pages - 1, page + siblings)
     return [1, ...(left > 2 ? ['gap' as const] : []), ...Array.from({ length: right - left + 1 }, (_, i) => left + i), ...(right < pages - 1 ? ['gap' as const] : []), pages]
   }
-  const prev = <button type="button" aria-label={l.previousPage} disabled={page <= 1} onClick={() => onChange(page - 1)} className={btn}><IconChevron aria-hidden className="size-4 rotate-180 rtl:rotate-0" /></button>
-  const next = <button type="button" aria-label={l.nextPage} disabled={page >= pages} onClick={() => onChange(page + 1)} className={btn}><IconChevron aria-hidden className="size-4 rtl:rotate-180" /></button>
+  const prev = <button type="button" aria-label={l.previousPage} disabled={page <= 1} onClick={() => onChange(page - 1)} className={btn}><IconChevron aria-hidden className="size-4 [scale:calc(-1*var(--pance-dir))_1]" /></button>
+  const next = <button type="button" aria-label={l.nextPage} disabled={page >= pages} onClick={() => onChange(page + 1)} className={btn}><IconChevron aria-hidden className="size-4 [scale:var(--pance-dir)_1]" /></button>
   return (
     <nav aria-label={label ?? l.pagination} className="flex items-center gap-1">
       {prev}
