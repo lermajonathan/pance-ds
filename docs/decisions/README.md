@@ -38,3 +38,4 @@ Owned by Design (Jonathan Lerma). The DDR-DS series records decisions about the 
 | [DDR-DS-019](DDR-DS-019.md) | Four gradient tokens, decorative only | 2026-10-20 | Accepted |
 | [DDR-DS-027](DDR-DS-027.md) | Data palettes: orange diverging pole and dark categorical steps | 2026-10-29 | Proposed |
 | [DDR-DS-028](DDR-DS-028.md) | One status-colour system for charts and controls | 2026-11-02 | Proposed |
+| [DDR-DS-029](DDR-DS-029.md) | Agent access through llms.txt, a read-only MCP server and a skill | 2026-11-02 | Proposed |
