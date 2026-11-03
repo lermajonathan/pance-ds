@@ -62,5 +62,18 @@ if (mod) {
   check(renderToString(h(Probe)) === '<span>1234</span>', 'the server render already shows the final value')
 }
 
+// 5. Chart entrance (DDR-DS-030): line, bar and donut charts animate in through CSS classes that use the motion tokens.
+const charts = fs.readFileSync(path.join(root, 'src/components/charts.tsx'), 'utf8')
+const fn = (name) => charts.slice(charts.indexOf(`export function ${name}(`)).split(/\n\/\* ── /)[0]
+for (const [name, cls] of [['LineChart', 'pance-chart-reveal'], ['BarChart', 'pance-chart-grow'], ['DonutChart', 'pance-chart-fade']]) {
+  check(fn(name).includes(cls), `${name} does not use ${cls}`)
+  const rule = css.match(new RegExp(`\\.${cls}\\s*\\{([^}]*)\\}`))
+  check(Boolean(rule), `src/styles/index.css does not define .${cls}`)
+  if (rule) check(/var\(--pance-duration-slower\)/.test(rule[1]) && /var\(--pance-easing-out-expo\)/.test(rule[1]), `.${cls} must use the duration and easing tokens, not raw values`)
+}
+check(/@media \(prefers-reduced-motion: reduce\)[\s\S]*\.pance-chart-(reveal|grow|fade)/.test(css), 'the chart entrance classes are turned off under prefers-reduced-motion')
+// Highlight on hover moves smoothly (opacity / stroke width), never carries data.
+check(/transition-opacity/.test(fn('BarChart')), 'BarChart hover highlight does not transition opacity')
+
 if (failures.length) { console.error(failures.map((f) => `✗ ${f}`).join('\n')); process.exit(1) }
 console.log('motion ok')
