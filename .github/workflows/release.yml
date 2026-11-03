@@ -49,6 +49,7 @@ jobs:
       - run: pnpm test:motion
       - run: pnpm test:gallery
       - run: pnpm test:rtl
+      - run: pnpm test:numberfield
       - name: Publish @pance/tokens
         working-directory: packages/tokens
         run: npm publish ${{ inputs.dry-run && '--dry-run' || '' }}

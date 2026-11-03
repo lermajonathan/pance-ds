@@ -42,6 +42,8 @@ jobs:
         run: pnpm test:gallery
       - name: Right-to-left readiness (logical properties, start/end API, key mapping)
         run: pnpm test:rtl
+      - name: NumberField logic (parse, format, step, clamp)
+        run: pnpm test:numberfield
       - name: Install Chromium for accessibility tests
         run: pnpm exec playwright install --with-deps chromium
       - name: Accessibility (keyboard patterns + axe-core)

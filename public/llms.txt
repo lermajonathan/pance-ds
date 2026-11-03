@@ -1,6 +1,6 @@
 # Pance Design System
 
-> Pance is an accessible React design system for social and data-heavy products: 71 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.6.0, MIT.
+> Pance is an accessible React design system for social and data-heavy products: 72 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.6.0, MIT.
 
 Pance is MIT and open source. Read the full text in one file at the first link, or open one page per component.
 
@@ -92,6 +92,7 @@ Pance is MIT and open source. Read the full text in one file at the first link, 
 - [InlineEdit](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/inline-edit.md): Text that turns into an input on click and commits on Enter.
 - [Input](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md): A single-line text field in three sizes, with optional leading and trailing icons and error or success states.
 - [InputGroup](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input-group.md): An input with attached prefix, suffix, icons or a button that share one focus ring.
+- [NumberField](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/number-field.md): A numeric field with − and + buttons.
 - [PinInput](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/pin-input.md): A row of single-character boxes for one-time codes.
 - [RangeSlider](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/range-slider.md): A native range input for picking a number in an interval.
 - [Select](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/select.md): A select-only dropdown built as a button plus listbox, with typeahead.

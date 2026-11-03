@@ -48,6 +48,7 @@ import {
   InputGroup,
   NavMenu,
   PinInput,
+  NumberField,
   Progress,
   Radio,
   RadioCard,
@@ -1253,6 +1254,23 @@ export function FormsPage() {
             </Field>
           </Card>
         </div>
+      </Section>
+
+      {/* ── 8b. Number field ── */}
+      <Section title={t('forms.number.title')} hint={t('forms.number.hint')}>
+        <Card className="p-6">
+          <div className="grid gap-8 md:grid-cols-3">
+            <Field label={t('forms.number.guests')} hint={t('forms.number.guestsHint')}>
+              <NumberField defaultValue={2} min={1} max={10} largeStep={5} />
+            </Field>
+            <Field label={t('forms.number.price')} hint={t('forms.number.priceHint')}>
+              <NumberField defaultValue={1250.5} min={0} step={0.5} formatOptions={{ style: 'currency', currency: 'USD' }} />
+            </Field>
+            <Field label={t('forms.number.invalid')} error={t('forms.number.invalidMsg')}>
+              <NumberField defaultValue={0} min={0} max={5} error />
+            </Field>
+          </div>
+        </Card>
       </Section>
 
       {/* ── 9. PIN / OTP input ── */}

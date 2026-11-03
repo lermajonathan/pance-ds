@@ -1,9 +1,10 @@
-/* Pance · Form inputs — Input, Field, Textarea, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, Select, TagInput */
+/* Pance · Form inputs — Input, NumberField, Field, Textarea, InputGroup, RangeSlider, FileDropzone, PinInput, InlineEdit, Combobox, Select, TagInput */
 import { createContext, createElement, useContext, useEffect, useId, useRef, useState, type InputHTMLAttributes, type ReactNode, type Ref, type TextareaHTMLAttributes, type KeyboardEvent, type ClipboardEvent } from 'react'
 import { useLabels } from './labels'
-import { IconAlert, IconCheck, IconCheckCircle, IconChevronDown, IconEdit, IconEye, IconEyeOff, IconSearch, IconX, type IconType } from '../icons'
+import { IconAlert, IconCheck, IconCheckCircle, IconChevronDown, IconEdit, IconEye, IconEyeOff, IconMinus, IconPlus, IconSearch, IconX, type IconType } from '../icons'
 import { focus } from './shared'
 import { flipArrow, hitArea, isRtl, listKeyNav } from './a11y'
+import { clampNumber, formatNumber, isPartialNumber, parseNumber, stepNumber, type NumberFormatOptions } from './number-field-logic'
 
 /* ── Inputs ────────────────────────────────────────────────────────────── */
 export const inputBase =
@@ -94,6 +95,148 @@ export function Input({
       ) : TrailingIcon ? (
         <TrailingIcon aria-hidden="true" className={`pointer-events-none absolute ${iconEnd} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />
       ) : null}
+    </div>
+  )
+}
+
+/* ── Number field ──────────────────────────────────────────────────────── */
+const NUMBER_PAD: Record<InputSize, string> = {
+  sm: 'h-(--pance-input-size-sm-height) px-(--pance-input-size-sm-height) text-(length:--pance-input-size-sm-font-size)',
+  md: 'h-(--pance-input-size-md-height) px-(--pance-input-size-md-height) text-(length:--pance-input-size-md-font-size) leading-5',
+  lg: 'h-(--pance-input-size-lg-height) px-(--pance-input-size-lg-height) text-(length:--pance-input-size-lg-font-size)',
+}
+
+/** A numeric field with − and + buttons. The value is a number (or null when empty); the text follows the locale. */
+export function NumberField({
+  value: valueProp,
+  defaultValue = null,
+  onValueChange,
+  min,
+  max,
+  step = 1,
+  largeStep,
+  formatOptions,
+  inputSize = 'md',
+  error,
+  success,
+  disabled,
+  readOnly,
+  name,
+  className = '',
+  onBlur,
+  onKeyDown,
+  ref,
+  ...rest
+}: {
+  ref?: Ref<HTMLInputElement>
+  /** Controlled value. `null` is an empty field. */
+  value?: number | null
+  defaultValue?: number | null
+  /** Called with the committed number, or `null` when the field is emptied. */
+  onValueChange?: (value: number | null) => void
+  min?: number
+  max?: number
+  /** Amount for the arrow keys and the − / + buttons. */
+  step?: number
+  /** Amount for PageUp, PageDown and Shift + arrow. Defaults to ten steps. */
+  largeStep?: number
+  /** Passed to `Intl.NumberFormat`: decimals, percent, currency, units. */
+  formatOptions?: NumberFormatOptions
+  inputSize?: InputSize
+  error?: boolean
+  success?: boolean
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'type' | 'min' | 'max' | 'step' | 'size'>) {
+  const tt = useLabels()
+  const locale = tt.locale
+  const [inner, setInner] = useState<number | null>(defaultValue)
+  const controlled = valueProp !== undefined
+  const value = controlled ? valueProp : inner
+  const [draft, setDraft] = useState<string | null>(null) // text being typed; null when not editing
+  const a11y = useFieldControl({ ...rest, error })
+  const text = draft ?? formatNumber(value, locale, formatOptions)
+
+  const commit = (next: number | null) => {
+    if (!controlled) setInner(next)
+    if (next !== value) onValueChange?.(next)
+  }
+  const stepBy = (direction: 1 | -1, large = false) => {
+    setDraft(null)
+    commit(stepNumber(value, direction, { step, largeStep, min, max, large }))
+  }
+  const finishTyping = () => {
+    if (draft === null) return
+    const parsed = parseNumber(draft, locale, formatOptions)
+    setDraft(null)
+    commit(parsed === null ? null : clampNumber(parsed, min, max))
+  }
+
+  const atMin = value !== null && min !== undefined && value <= min
+  const atMax = value !== null && max !== undefined && value >= max
+  const inactive = disabled || readOnly
+  const state = error ? inputError : success ? inputSuccess : inputNormal
+  const iconSize = inputSize === 'sm' ? 'size-(--pance-input-size-sm-icon)' : inputSize === 'lg' ? 'size-(--pance-input-size-lg-icon)' : 'size-(--pance-input-size-md-icon)'
+  const decimals = formatOptions?.maximumFractionDigits === 0
+  const stepper = `${focus} absolute inset-y-0 grid aspect-square place-items-center text-ink-muted transition-colors enabled:hover:text-ink disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled)`
+
+  const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
+    onKeyDown?.(e)
+    if (e.defaultPrevented || inactive) return
+    const key = e.key
+    if (key === 'ArrowUp' || key === 'ArrowDown') { e.preventDefault(); stepBy(key === 'ArrowUp' ? 1 : -1, e.shiftKey) }
+    else if (key === 'PageUp' || key === 'PageDown') { e.preventDefault(); stepBy(key === 'PageUp' ? 1 : -1, true) }
+    else if (key === 'Home' && min !== undefined) { e.preventDefault(); setDraft(null); commit(min) }
+    else if (key === 'End' && max !== undefined) { e.preventDefault(); setDraft(null); commit(max) }
+    else if (key === 'Enter') finishTyping()
+  }
+
+  return (
+    <div className="relative">
+      <input
+        ref={ref}
+        type="text"
+        role="spinbutton"
+        inputMode={decimals ? 'numeric' : 'decimal'}
+        autoComplete="off"
+        value={text}
+        disabled={disabled}
+        readOnly={readOnly}
+        aria-valuenow={value ?? undefined}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuetext={value === null ? undefined : formatNumber(value, locale, formatOptions)}
+        onChange={(e) => {
+          const next = e.target.value
+          if (isPartialNumber(next, locale, { min, maxFractionDigits: decimals ? 0 : undefined, formatOptions })) setDraft(next)
+        }}
+        onBlur={(e) => { finishTyping(); onBlur?.(e) }}
+        onKeyDown={onKey}
+        className={`${inputBase} ${NUMBER_PAD[inputSize]} ${state} text-center tabular-nums ${className}`}
+        {...rest}
+        {...a11y}
+      />
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label={tt.decrease}
+        disabled={inactive || atMin}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => stepBy(-1)}
+        className={`${stepper} start-0 rounded-s-(--pance-input-radius)`}
+      >
+        <IconMinus aria-hidden className={iconSize} />
+      </button>
+      <button
+        type="button"
+        tabIndex={-1}
+        aria-label={tt.increase}
+        disabled={inactive || atMax}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => stepBy(1)}
+        className={`${stepper} end-0 rounded-e-(--pance-input-radius)`}
+      >
+        <IconPlus aria-hidden className={iconSize} />
+      </button>
+      {name && <input type="hidden" name={name} value={value ?? ''} />}
     </div>
   )
 }
