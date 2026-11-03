@@ -219,10 +219,12 @@ export function LineChart({ title, subtitle, labels, series, height = 260, forma
         }} onMouseLeave={() => setActive(null)}>
           <g transform={`translate(${M.l},${M.t})`}>
             <Axes ticks={ticks} yMax={yMax} format={format} labels={labels} xAt={xAt} plotW={plotW} plotH={plotH} />
+            <g className="pance-chart-reveal">
             {series.map((s, i) => (
               <polyline key={s.name} fill="none" className={SERIES_STROKE[i % 8]} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={i % 3 === 1 ? '6 3' : i % 3 === 2 ? '2 3' : undefined} points={s.data.map((v, j) => `${xAt(j)},${yAt(v)}`).join(' ')} />
             ))}
             {series.map((s, i) => (dense ? [s.data.length - 1] : s.data.map((_, j) => j)).map((j) => <Marker key={`${s.name}${j}`} shape={SERIES_MARKERS[i % 8]} x={xAt(j)} y={yAt(s.data[j])} i={i} />))}
+            </g>
             {active !== null && (
               <>
                 <line x1={xAt(active)} x2={xAt(active)} y1={0} y2={plotH} className="stroke-(--pance-color-dataviz-baseline)" strokeWidth={1} />
@@ -266,7 +268,7 @@ export function BarChart({ title, subtitle, labels, series, height = 260, format
             {labels.map((_, i) => {
               let acc = 0
               return (
-                <g key={i} onMouseEnter={() => setActive(i)} opacity={active === null || active === i ? 1 : 0.55}>
+                <g key={i} onMouseEnter={() => setActive(i)} opacity={active === null || active === i ? 1 : 0.55} className="transition-opacity duration-150">
                   <rect x={slot * i} y={0} width={slot} height={plotH} fill="transparent" />
                   {series.map((s, k) => {
                     const v = s.data[i], bh = hOf(v)
@@ -274,7 +276,7 @@ export function BarChart({ title, subtitle, labels, series, height = 260, format
                     const y = mode === 'stacked' ? plotH - hOf(acc + v) : plotH - bh
                     acc += v
                     return (
-                      <g key={s.name}>
+                      <g key={s.name} className="pance-chart-grow">
                         <rect x={x} y={y} width={Math.max(0, bw - 1)} height={Math.max(0, bh - (mode === 'stacked' ? 1 : 0))} rx={2} className={SERIES_FILL[k % 8]} />
                         {patternOf(pid, k) && <rect x={x} y={y} width={Math.max(0, bw - 1)} height={Math.max(0, bh - (mode === 'stacked' ? 1 : 0))} rx={2} fill={patternOf(pid, k)} />}
                       </g>
@@ -407,7 +409,7 @@ export function DonutChart({ title, subtitle, slices, format = compact, size = 1
           {slices.map((s, i) => {
             const len = (s.value / total) * c, off = -acc
             acc += len
-            return <circle key={s.label} cx={size / 2} cy={size / 2} r={r} fill="none" strokeWidth={active === i ? 28 : 24} strokeDasharray={`${Math.max(0, len - 2)} ${c}`} strokeDashoffset={off} className={SERIES_STROKE[i % 8]} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)} />
+            return <circle key={s.label} cx={size / 2} cy={size / 2} r={r} fill="none" strokeWidth={active === i ? 28 : 24} strokeDasharray={`${Math.max(0, len - 2)} ${c}`} strokeDashoffset={off} className={`pance-chart-fade transition-[stroke-width] duration-150 ${SERIES_STROKE[i % 8]}`} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)} />
           })}
         </svg>
         <ul className="m-0 min-w-40 flex-1 list-none space-y-1.5 p-0">

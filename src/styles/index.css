@@ -55,9 +55,16 @@ body {
   to { transform: scaleX(1); }
 }
 .pance-rise { animation: pance-rise var(--pance-duration-slower) var(--pance-easing-out-expo) both; }
+/* Chart entrance (DDR-DS-030): runs once on mount, never carries data; the end state is the static chart. */
+@keyframes pance-reveal { from { clip-path: inset(-8px 100% -8px -8px); } to { clip-path: inset(-8px -8px -8px -8px); } }
+@keyframes pance-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pance-fade { from { opacity: 0; } to { opacity: 1; } }
+.pance-chart-reveal { animation: pance-reveal var(--pance-duration-slower) var(--pance-easing-out-expo) both; }
+.pance-chart-grow { transform-box: fill-box; transform-origin: bottom; animation: pance-grow var(--pance-duration-slower) var(--pance-easing-out-expo) both; }
+.pance-chart-fade { animation: pance-fade var(--pance-duration-slower) var(--pance-easing-out-expo) both; }
 .pance-fill { transform-origin: left; animation: pance-fill var(--pance-dur, var(--pance-duration-progress)) linear forwards; }
 @media (prefers-reduced-motion: reduce) {
-  .pance-rise, .pance-fill { animation: none; }
+  .pance-rise, .pance-fill, .pance-chart-reveal, .pance-chart-grow, .pance-chart-fade { animation: none; }
   /* DDR-DS-030: state changes still happen, they just do not travel. */
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
