@@ -201,16 +201,16 @@ export function DataTable<T>({
 
       {/* md and up: real table */}
       <div ref={tableScroll} tabIndex={tableTab} role={tableTab === 0 ? 'region' : undefined} aria-label={tableTab === 0 ? caption : undefined} className={`hidden min-h-0 overflow-auto md:block ${focus}`}>
-        <table aria-label={caption} aria-busy={loading || undefined} className="w-full border-collapse whitespace-nowrap text-left text-sm">
+        <table aria-label={caption} aria-busy={loading || undefined} className="w-full border-collapse whitespace-nowrap text-start text-sm">
           <thead className="sticky top-0 z-10">
             <tr className="[&>*]:border-b [&>*]:border-(--pance-data-table-border) [&>*]:bg-(--pance-data-table-header-bg)">
-              {selectable && <th scope="col" className={`w-(--pance-data-table-select-column-width) ${px} py-(--pance-data-table-header-padding-y)`}><Checkbox checked={allOn} indeterminate={!allOn && someOn} onChange={toggleAll} ariaLabel={l.selectAllRows} /></th>}
+              {selectable && <th scope="col" className={`w-(--pance-data-table-select-column-width) ${px} text-start py-(--pance-data-table-header-padding-y)`}><Checkbox checked={allOn} indeterminate={!allOn && someOn} onChange={toggleAll} ariaLabel={l.selectAllRows} /></th>}
               {renderExpanded && <td className={`w-(--pance-data-table-select-column-width) ${px}`}><span className="sr-only">{l.expandColumn}</span></td>}
               {visible.map((c) => {
                 const active = sort?.key === c.key
                 return (
                   <th key={c.key} scope="col" aria-sort={c.sortable ? (active ? (sort!.dir === 'asc' ? 'ascending' : 'descending') : 'none') : undefined}
-                    className={`${px} py-(--pance-data-table-header-padding-y) font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted ${c.align === 'end' ? 'text-right' : ''}`}>
+                    className={`${px} py-(--pance-data-table-header-padding-y) font-mono text-xs font-semibold uppercase tracking-wider text-ink-muted ${c.align === 'end' ? 'text-end' : 'text-start'}`}>
                     {c.sortable ? (
                       <button type="button" onClick={() => cycle(c.key)} aria-label={l.sortBy(c.header)} className={`${focus} -mx-1 inline-flex items-center gap-1 rounded px-1 uppercase tracking-wider hover:text-ink ${active ? 'text-primary-fg' : ''}`}>
                         {c.header}
@@ -245,10 +245,10 @@ export function DataTable<T>({
                     )}
                     {visible.map((c, i) => {
                       const content = c.render ? c.render(r) : String((r as Record<string, unknown>)[c.key] ?? '')
-                      const cls = `${px} ${pad} ${c.align === 'end' ? 'text-right' : ''}`
+                      const cls = `${px} ${pad} ${c.align === 'end' ? 'text-end' : 'text-start'}`
                       return i === 0 ? <th key={c.key} scope="row" className={`${cls} font-medium text-ink`}>{content}</th> : <td key={c.key} className={`${cls} text-ink-soft`}>{content}</td>
                     })}
-                    {rowActions && <td className={`${px} ${pad} text-right`}>{rowActions(r)}</td>}
+                    {rowActions && <td className={`${px} ${pad} text-end`}>{rowActions(r)}</td>}
                   </tr>
                   {renderExpanded && open && (
                     <tr id={detailId(id)} className="border-b border-(--pance-data-table-row-border) bg-(--pance-data-table-header-bg) last:border-0">

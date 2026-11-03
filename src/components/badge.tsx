@@ -60,7 +60,7 @@ export function Badge({
         <button
           type="button"
           onClick={onRemove}
-          className={`${focus} ${hitArea} -mr-0.5 ml-0.5 rounded-full p-0.5 transition-colors hover:bg-current/15`}
+          className={`${focus} ${hitArea} -me-0.5 ms-0.5 rounded-full p-0.5 transition-colors hover:bg-current/15`}
           aria-label={typeof children === 'string' ? `${tt.remove} ${children}` : tt.remove}
         >
           <svg className={sz.icon} viewBox="0 0 12 12" fill="none">

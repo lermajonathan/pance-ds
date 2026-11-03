@@ -47,7 +47,7 @@ export function Accordion({
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => toggle(item.id)}
-              className={`pance-focus flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-canvas ${index === 0 ? 'rounded-t-2xl' : ''} ${index === items.length - 1 && !isOpen ? 'rounded-b-2xl' : ''} ${isOpen ? 'bg-canvas' : ''}`}
+              className={`pance-focus flex w-full items-center justify-between gap-4 px-5 py-4 text-start transition-colors hover:bg-canvas ${index === 0 ? 'rounded-t-2xl' : ''} ${index === items.length - 1 && !isOpen ? 'rounded-b-2xl' : ''} ${isOpen ? 'bg-canvas' : ''}`}
             >
               <span className="block">
                 <span className="block text-sm font-semibold text-ink">{item.title}</span>
