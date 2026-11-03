@@ -3,7 +3,7 @@ import { createContext, createElement, useContext, useEffect, useId, useRef, use
 import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconCheckCircle, IconChevronDown, IconEdit, IconEye, IconEyeOff, IconSearch, IconX, type IconType } from '../icons'
 import { focus } from './shared'
-import { hitArea, listKeyNav } from './a11y'
+import { flipArrow, hitArea, isRtl, listKeyNav } from './a11y'
 
 /* ── Inputs ────────────────────────────────────────────────────────────── */
 export const inputBase =
@@ -394,8 +394,9 @@ export function PinInput({
     if (e.key === 'Backspace' && !values[i] && i > 0) {
       refs.current[i - 1]?.focus()
     }
-    if (e.key === 'ArrowLeft' && i > 0) { e.preventDefault(); refs.current[i - 1]?.focus() }
-    if (e.key === 'ArrowRight' && i < length - 1) { e.preventDefault(); refs.current[i + 1]?.focus() }
+    const arrow = flipArrow(e.key, isRtl(e.currentTarget))
+    if (arrow === 'ArrowLeft' && i > 0) { e.preventDefault(); refs.current[i - 1]?.focus() }
+    if (arrow === 'ArrowRight' && i < length - 1) { e.preventDefault(); refs.current[i + 1]?.focus() }
   }
 
   const onPaste = (e: ClipboardEvent) => {

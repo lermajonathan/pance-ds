@@ -2,7 +2,7 @@
 import { useId, useRef, type KeyboardEvent, type Ref } from 'react'
 import { IconCheck, type IconType } from '../icons'
 import { focus } from './shared'
-import { hitArea, listKeyNav } from './a11y'
+import { hitArea, isRtl, listKeyNav } from './a11y'
 
 /* ── Selection controls ────────────────────────────────────────────────── */
 /* ── Toggle / Switch ───────────────────────────────────────────────────── */
@@ -246,7 +246,7 @@ export function RadioGroup<T extends string>({
   const selected = options.findIndex((o) => o.value === value)
   const focusIdx = selected >= 0 ? selected : options.findIndex((o) => !o.disabled)
   const onKey = (i: number) => (e: KeyboardEvent<HTMLButtonElement>) => {
-    const next = listKeyNav(e.key, i, options.length, (j) => !!options[j].disabled, 'both')
+    const next = listKeyNav(e.key, i, options.length, (j) => !!options[j].disabled, 'both', isRtl(e.currentTarget))
     if (next === null) return
     e.preventDefault()
     onChange(options[next].value)
@@ -364,7 +364,7 @@ export function SegmentedControl<T extends string>({
             aria-checked={active}
             tabIndex={active ? 0 : -1}
             onKeyDown={(e) => {
-              const next = listKeyNav(e.key, i, options.length, () => false, 'both')
+              const next = listKeyNav(e.key, i, options.length, () => false, 'both', isRtl(e.currentTarget))
               if (next === null) return
               e.preventDefault()
               onChange(options[next].value)

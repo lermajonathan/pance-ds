@@ -61,14 +61,28 @@ export function useDialogFocus(ref: RefObject<HTMLElement | null>, open: boolean
   }, [open, ref])
 }
 
-/** Returns the next index for a list navigated with arrows/Home/End, skipping disabled items. */
+/** True when the element renders right-to-left (from `dir` or `lang`, as computed by the browser). */
+export function isRtl(el?: Element | null): boolean {
+  return !!el && typeof getComputedStyle === 'function' && getComputedStyle(el).direction === 'rtl'
+}
+
+/** In right-to-left, ArrowLeft and ArrowRight swap so the keys follow what the person sees. */
+export function flipArrow(key: string, rtl: boolean): string {
+  if (!rtl) return key
+  return key === 'ArrowLeft' ? 'ArrowRight' : key === 'ArrowRight' ? 'ArrowLeft' : key
+}
+
+/** Returns the next index for a list navigated with arrows/Home/End, skipping disabled items.
+ *  Pass `rtl` (see isRtl) so the horizontal arrows follow the page direction. */
 export function listKeyNav(
-  key: string,
+  rawKey: string,
   index: number,
   count: number,
   isDisabled: (i: number) => boolean = () => false,
   orientation: 'vertical' | 'horizontal' | 'both' = 'vertical',
+  rtl = false,
 ): number | null {
+  const key = flipArrow(rawKey, rtl)
   const next = orientation === 'horizontal' ? ['ArrowRight'] : orientation === 'vertical' ? ['ArrowDown'] : ['ArrowDown', 'ArrowRight']
   const prev = orientation === 'horizontal' ? ['ArrowLeft'] : orientation === 'vertical' ? ['ArrowUp'] : ['ArrowUp', 'ArrowLeft']
   const step = (from: number, dir: 1 | -1) => {
