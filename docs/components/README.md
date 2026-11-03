@@ -1,6 +1,6 @@
 # Components
 
-71 components, one page each. Every page has a short summary, when to use it and when not to, props (generated from the TypeScript source, so they cannot drift), accessibility behaviour, content guidance, related components and a working example.
+72 components, one page each. Every page has a short summary, when to use it and when not to, props (generated from the TypeScript source, so they cannot drift), accessibility behaviour, content guidance, related components and a working example.
 
 Cross-cutting reference stays in [components.md](../components.md) (shared model, keyboard contract, built-in strings) and [tokens.md](../tokens.md). Figma component names and prop mapping are in [figma-code-map.md](../figma-code-map.md).
 
@@ -100,6 +100,7 @@ Cross-cutting reference stays in [components.md](../components.md) (shared model
 | [`InlineEdit`](inline-edit.md) | Text that turns into an input on click and commits on Enter. |
 | [`Input`](input.md) | A single-line text field in three sizes, with optional leading and trailing icons and error or success states. |
 | [`InputGroup`](input-group.md) | An input with attached prefix, suffix, icons or a button that share one focus ring. |
+| [`NumberField`](number-field.md) | A numeric field with − and + buttons. |
 | [`PinInput`](pin-input.md) | A row of single-character boxes for one-time codes. |
 | [`RangeSlider`](range-slider.md) | A native range input for picking a number in an interval. |
 | [`Select`](select.md) | A select-only dropdown built as a button plus listbox, with typeahead. |

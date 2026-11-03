@@ -60,6 +60,7 @@ import {
   PencilSimple,
   Percent,
   Phone,
+  Minus,
   Plus,
   Pulse,
   Ruler,
@@ -120,6 +121,7 @@ export const IconEdit = PencilSimple
 export const IconTrash = Trash
 export const IconCopy = Copy
 export const IconPlus = Plus
+export const IconMinus = Minus
 export const IconDownload = DownloadSimple
 export const IconSearch = MagnifyingGlass
 export const IconFilter = Funnel

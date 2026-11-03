@@ -14,6 +14,21 @@ export const forms = {
   <Input type="email" placeholder="name@company.com" autoComplete="email" />
 </Field>`,
   },
+  NumberField: {
+    cat: 'Forms',
+    summary: 'A numeric field with − and + buttons. The value is a number; the text follows the language, with decimals, percent or currency.',
+    use: ['A quantity or amount the person can type or nudge: guests, units, price, percentage.', 'Values with a known range or step: set `min`, `max` and `step`.'],
+    avoid: ['Identifiers that happen to be digits (phone, postcode, card number): use `Input` so leading zeros survive.', 'A value picked from a wide range by feel: use `RangeSlider`.', 'Only a handful of fixed choices: use `SegmentedControl` or `Select`.'],
+    native: 'native `<input>` attributes (`id`, `placeholder`, `autoComplete`, `aria-label`); `name` adds a hidden field with the plain number',
+    a11y: ['The field is a `spinbutton` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and `aria-valuetext` (the formatted text, e.g. "$1,250.50").', 'ArrowUp and ArrowDown change the value by `step`; PageUp, PageDown and Shift + arrow by `largeStep` (ten steps by default); Home and End go to `min` and `max` when they are set.', 'The − and + buttons are named, kept out of the Tab order (the keyboard has the arrows) and never take focus from the field; they are disabled at the limits.', 'Typing accepts only what can become a number in the current language; the value is read, clamped to `min` and `max` and re-formatted when you leave the field or press Enter.', 'Inside `Field` it is wired automatically: label, hint, error and required.'],
+    content: ['Say the unit in the label or hint ("Price per night, USD"), not in the placeholder.', 'Errors say the range: "Choose between 1 and 10 guests".'],
+    related: ['Input', 'Field', 'RangeSlider'],
+    tokens: 'input',
+    figma: '`Number field`',
+    example: `<Field label="Guests" hint="Between 1 and 10">
+  <NumberField defaultValue={2} min={1} max={10} largeStep={5} onValueChange={setGuests} />
+</Field>`,
+  },
   Field: {
     cat: 'Forms',
     summary: 'Labels a control and connects its hint, error and character count to it for assistive technology.',

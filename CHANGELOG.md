@@ -4,6 +4,9 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+### Added
+- **`NumberField`**: a numeric field with − and + buttons for quantities and amounts. The value is a number (`null` when empty) and the text follows the language through `Intl.NumberFormat` (`formatOptions` for decimals, percent, currency or units). It is a `spinbutton`: ArrowUp/ArrowDown change the value by `step`, PageUp/PageDown and Shift + arrow by `largeStep`, Home/End go to `min`/`max`; typing accepts only what can become a number and is clamped when you leave the field. Controlled (`value`, `onValueChange`) or uncontrolled (`defaultValue`), three sizes, `error` and `success` states, works inside `Field`, mirrors in right-to-left. New strings `increase` and `decrease` in `PanceProvider` labels, new icon alias `IconMinus`. `pnpm test:numberfield` checks parsing, formatting, stepping and clamping; `tests/keyboard.mjs` checks the keyboard and ARIA behaviour.
+
 ## [1.6.0] - 2026-11-03
 
 ### Added

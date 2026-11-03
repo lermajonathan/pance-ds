@@ -336,7 +336,7 @@ function SiteLabels({ children }: { children: ReactNode }) {
   const labels = useMemo<Partial<PanceLabels>>(() => ({
     close: t('ui.close'), dismiss: t('ui.dismiss'), remove: t('ui.remove'), removeFile: t('ui.removeFile'),
     moreActions: t('ui.moreActions'), breadcrumb: t('ui.breadcrumb'), showFullPath: t('ui.showFullPath'),
-    showPassword: t('ui.showPassword'), optional: t('ui.optional'), clickToUpload: t('ui.clickToUpload'),
+    showPassword: t('ui.showPassword'), increase: t('ui.increase'), decrease: t('ui.decrease'), optional: t('ui.optional'), clickToUpload: t('ui.clickToUpload'),
     orDrag: t('ui.orDrag'), clickToEdit: t('ui.clickToEdit'), search: t('ui.search'), addTag: t('ui.addTag'),
     noResults: (query: string) => t('ui.noResults', { query }),
     deltaUp: (value: string) => t('ui.data.deltaUp', { value }), deltaDown: (value: string) => t('ui.data.deltaDown', { value }),

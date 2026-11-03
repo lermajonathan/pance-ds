@@ -16,6 +16,9 @@ export type PanceLabels = {
   breadcrumb: string
   showFullPath: string
   showPassword: string
+  /** NumberField stepper buttons. */
+  increase: string
+  decrease: string
   optional: string
   clickToUpload: string
   orDrag: string
@@ -112,6 +115,8 @@ export const defaultLabels: PanceLabels = {
   breadcrumb: 'Breadcrumb',
   showFullPath: 'Show full path',
   showPassword: 'Show password',
+  increase: 'Increase',
+  decrease: 'Decrease',
   optional: '(optional)',
   clickToUpload: 'Click to upload',
   orDrag: 'or drag and drop',
