@@ -23,6 +23,7 @@
     "test:docs": "node tests/docs-examples.mjs",
     "test:llms": "node tests/llms.mjs",
     "test:motion": "node tests/motion.mjs",
+    "test:gallery": "node tests/gallery.mjs",
     "build:mcp": "node scripts/build-mcp.mjs",
     "test:mcp": "node tests/mcp.mjs",
     "test:skill": "node tests/skill.mjs",

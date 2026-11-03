@@ -56,6 +56,7 @@ import { HeaderSearch } from './header-search'
 import { NotificationsBell } from './notifications'
 import { GithubLogo, Gradient } from '@phosphor-icons/react'
 import { GradientsPage } from './gradients'
+import { GalleryPage } from './gallery'
 import { LINKS, VERSION } from './version'
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -102,6 +103,7 @@ const NAV: Group[] = [
     items: [
       { key: 'metrics', labelKey: 'nav.metrics', Icon: IconStar, Page: MetricsPage },
       { key: 'dataviz', labelKey: 'nav.dataviz', Icon: IconChart, Page: DataVizPage },
+      { key: 'gallery', labelKey: 'nav.gallery', Icon: IconCards, Page: GalleryPage },
     ],
   },
   {
