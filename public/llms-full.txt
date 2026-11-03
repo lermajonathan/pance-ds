@@ -3151,7 +3151,7 @@ Source: [`src/components/theme.tsx`](https://github.com/lermajonathan/pance-ds/b
 import { TimeField } from '@pance/react'
 ```
 
-Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Time field` (planned) · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Time field` · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
 
 #### When to use
 

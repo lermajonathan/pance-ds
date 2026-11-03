@@ -6,7 +6,7 @@
 import { TimeField } from '@pance/react'
 ```
 
-Source: [`src/components/forms.tsx`](../../src/components/forms.tsx) · Figma: `Time field` (planned) · Tokens: `input.*` in [tokens.md](../tokens.md)
+Source: [`src/components/forms.tsx`](../../src/components/forms.tsx) · Figma: `Time field` · Tokens: `input.*` in [tokens.md](../tokens.md)
 
 ## When to use
 

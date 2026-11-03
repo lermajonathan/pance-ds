@@ -11,7 +11,7 @@ Pages are grouped by separator pages (`──  COMPONENTS  ──`) and sorted A
 | Cover | File cover with a live shader background ("Pance Streamlines") over component instances |
 | Getting started | A visual start page: hero, a three-step quick start with live components, key numbers, the three token tiers, a map of the file, Light and Dark side by side, pattern thumbnails, how a change reaches Figma, and links |
 | Foundations · Icons | Color ramps, intents, typography, spacing, radius and elevation specimens, bound to variables and styles; the 71 icon components (a selection from Phosphor Icons, which has 1,000+; any Phosphor icon works with Pance) |
-| Components | **One page per component** (67 pages, 89 component sets, 1,045 variants; the React library has 72 components) |
+| Components | **One page per component** (68 pages, 90 component sets, 1,063 variants; the React library has 73 components) |
 | Patterns | Compositions built only from instances: "Create a stream" form, "Streams dashboard", "Filtered results", "Settings", "Destructive confirm", "Sign in", "Onboarding", "Notifications and toasts", "Team members", "Traffic report", "Loading, empty and error", "Checkout", "Profile" and "Search results" (14 patterns) |
 | Decisions | **DDR-DS**: the register of design decisions, one card per record. The master text is [`docs/decisions/`](decisions/README.md) |
 | Internal | **Community previews** (eight 1920 × 1080 gallery frames and a 4-second Motion intro for the Community listing), **Doc templates** (status chip, header, section banner and token row used by every component page) and Archive (the previous file content, untouched) |
@@ -184,6 +184,7 @@ Component dimensions in Figma are bound to the same variables as code where a to
 | Component | Variants | Properties |
 |---|---|---|
 | Number field | 18 | size (sm · md · lg) × state (default · hover · focus · error · success · disabled); `value` text property; − and + buttons use `Icon/Minus` and `Icon/Plus`; uses `input/*` tokens |
+| Time field | 18 | size (sm · md · lg) × state (default · hover · focus · error · success · disabled); `value` text property; padding bound to the `input/size/*/padding-x` variables like `Input`; uses `input/*` tokens |
 
 New icon: `Icon/Minus` (maps to `IconMinus`).
 

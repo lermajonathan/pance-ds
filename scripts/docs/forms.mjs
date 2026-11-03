@@ -39,7 +39,7 @@ export const forms = {
     content: ['Say the zone or meaning in the label ("Start time, Bogotá"), not in the placeholder.', 'Errors say the range: "Choose a time between 8:00 and 20:00".'],
     related: ['NumberField', 'DatePicker', 'Field'],
     tokens: 'input',
-    figma: '`Time field` (planned)',
+    figma: '`Time field`',
     example: `<Field label="Start time" hint="Between 8:00 and 20:00">
   <TimeField defaultValue="09:30" min="08:00" max="20:00" step={15} onValueChange={setStart} />
 </Field>`,
