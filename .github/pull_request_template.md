@@ -7,7 +7,7 @@ Closes #
 ## Checklist
 
 - [ ] The proposal for this change has the `approved` label (not needed for typos and small docs fixes)
-- [ ] `pnpm tokens`, `pnpm test:contrast`, `pnpm lint:tokens`, `pnpm typecheck` and `pnpm docs:check` pass
+- [ ] `pnpm tokens`, `pnpm test:contrast`, `pnpm lint:tokens`, `pnpm typecheck` and `pnpm docs:check` and `pnpm test:llms` pass
 - [ ] Accessibility checked: keyboard path, accessible name, contrast, focus
 - [ ] Light and dark screenshots for visual changes
 - [ ] CHANGELOG `[Unreleased]` updated
