@@ -21,6 +21,7 @@
     "docs": "node scripts/build-docs.mjs",
     "docs:check": "node scripts/build-docs.mjs --check",
     "test:docs": "node tests/docs-examples.mjs",
+    "test:llms": "node tests/llms.mjs",
     "test:visual": "node tests/visual.mjs",
     "test:visual:capture": "node tests/visual.mjs --update"
   },

@@ -6,9 +6,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { extractComponents } from './lib/extract-components.mjs'
 import { content } from './docs/index.mjs'
+import { buildAgentDocs } from './lib/agent-docs.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const outDir = path.join(root, 'docs/components')
+const publicDir = path.join(root, 'public')
 const check = process.argv.includes('--check')
 const tokenGroups = new Set(Object.keys(JSON.parse(fs.readFileSync(path.join(root, 'tokens/components.json'), 'utf8'))).filter((k) => !k.startsWith('$')))
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
@@ -95,6 +97,8 @@ const index = [
   ]),
 ].join('\n')
 files.set('README.md', index)
+// Text for coding agents, served from the site root (DDR-DS-029). It reuses the pages above.
+const agentFiles = errors.length ? new Map() : buildAgentDocs({ comps, content, pages: files })
 
 if (errors.length) {
   console.error(errors.join('\n'))
@@ -107,11 +111,16 @@ if (check) {
     if (!fs.existsSync(p) || fs.readFileSync(p, 'utf8') !== md) { console.error(`stale: docs/components/${n}`); stale++ }
   }
   for (const n of fs.existsSync(outDir) ? fs.readdirSync(outDir) : []) if (!files.has(n)) { console.error(`orphan: docs/components/${n}`); stale++ }
+  for (const [n, txt] of agentFiles) {
+    const p = path.join(publicDir, n)
+    if (!fs.existsSync(p) || fs.readFileSync(p, 'utf8') !== txt) { console.error(`stale: public/${n}`); stale++ }
+  }
   if (stale) { console.error('Run `pnpm docs` and commit the result.'); process.exit(1) }
-  console.log(`docs ok (${comps.length} components)`)
+  console.log(`docs ok (${comps.length} components, ${agentFiles.size} agent files)`)
 } else {
   fs.mkdirSync(outDir, { recursive: true })
   for (const n of fs.readdirSync(outDir)) if (!files.has(n)) fs.unlinkSync(path.join(outDir, n))
   for (const [n, md] of files) fs.writeFileSync(path.join(outDir, n), md)
-  console.log(`wrote ${files.size} files`)
+  for (const [n, txt] of agentFiles) fs.writeFileSync(path.join(publicDir, n), txt)
+  console.log(`wrote ${files.size} files and ${agentFiles.size} agent files`)
 }

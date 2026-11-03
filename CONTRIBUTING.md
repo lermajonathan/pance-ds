@@ -45,6 +45,7 @@ pnpm test:contrast                      # every colour pair, light and dark
 pnpm lint:tokens                        # components only use tokens
 pnpm typecheck
 pnpm docs:check && pnpm test:docs       # component pages are fresh, examples type-check
+pnpm test:llms                          # llms.txt and llms-full.txt cover every component and token group
 pnpm build
 pnpm build:packages && pnpm test:packages
 # with `pnpm preview --port 4173` running:

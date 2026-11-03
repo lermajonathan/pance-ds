@@ -1,0 +1,122 @@
+# Pance Design System
+
+> Pance is an accessible React design system for social and data-heavy products: 71 components, 954 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.5.0, MIT.
+
+Pance is MIT and open source. Read the full text in one file at the first link, or open one page per component.
+
+## Start here
+
+- [Full reference for agents](https://pance-ds.jonathanlerma.com/llms-full.txt): every component, every token group, the usage rules and the decision register in one file
+- [Install and use](https://github.com/lermajonathan/pance-ds/blob/main/packages/react/README.md): install, stylesheet, Tailwind, fonts, dark mode, translating strings
+- [Component reference](https://github.com/lermajonathan/pance-ds/blob/main/docs/components.md): shared model of severity, variant and size, keyboard contract, built-in strings
+- [Tokens](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md): every token with its value and CSS variable
+- [Deprecation policy](https://github.com/lermajonathan/pance-ds/blob/main/docs/deprecation.md): what counts as breaking and how long deprecated APIs stay
+- [Design decisions](https://github.com/lermajonathan/pance-ds/blob/main/docs/decisions/README.md): the DDR-DS register
+
+## Layout
+
+- [Accordion](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/accordion.md): Stacked sections that expand and collapse.
+- [Card](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/card.md): A bordered surface with a resting shadow for grouping content.
+- [Divider](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/divider.md): A horizontal rule, optionally with a centred label.
+- [Panel](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/panel.md): A card with header, body, footer and optional collapse.
+
+## Feedback
+
+- [Alert](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/alert.md): An inline message about the state of the page or a form, in context.
+- [EmptyState](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/empty-state.md): Explains why there is nothing to show and offers one next step.
+- [Progress](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/progress.md): A bar showing how far a task has got.
+- [Skeleton](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/skeleton.md): A pulsing placeholder that holds the shape of content while it loads.
+- [Spinner](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/spinner.md): An indeterminate loading indicator with a text name.
+- [Toast](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toast.md): A short, temporary message about something that just happened, with an optional follow-up action such as Undo.
+- [ToastStack](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toast-stack.md): The fixed bottom-right container that stacks toasts as a labelled landmark.
+
+## Display
+
+- [Avatar](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/avatar.md): A person or entity as an image or initials, with an optional presence status.
+- [AvatarGroup](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/avatar-group.md): Overlapping avatars with a +N chip for the rest.
+- [Badge](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/badge.md): A small label for status, category or a removable tag.
+- [CountBadge](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/count-badge.md): A compact numeric counter, capped at `max` (shows `99+`).
+
+## Charts
+
+- [BarChart](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/bar-chart.md): Compares values across categories, grouped or stacked.
+- [DivergingBarChart](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/diverging-bar-chart.md): Bars growing left and right of a zero line for positive and negative values.
+- [DonutChart](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/donut-chart.md): Shows parts of a whole.
+- [Heatmap](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/heatmap.md): A grid where cell intensity shows a value.
+- [LineChart](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/line-chart.md): Trends over a continuous or ordered axis.
+- [Meter](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/meter.md): One measurement against a known maximum, such as storage used.
+- [RankedBarChart](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/ranked-bar-chart.md): Horizontal bars sorted by value, for rankings.
+- [ScatterChart](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/scatter-chart.md): Two numeric measures per point, to show correlation or outliers.
+
+## Navigation
+
+- [Breadcrumb](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/breadcrumb.md): Shows where the current page sits in a hierarchy.
+- [NavMenu](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/nav-menu.md): A vertical app navigation with groups, badges and a collapsed icon-only mode.
+- [Steps](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/steps.md): Shows progress through an ordered process.
+- [TabPanel](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tab-panel.md): The content region linked to a tab.
+- [Tabs](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tabs.md): Switches between related views of the same content without leaving the page.
+
+## Actions
+
+- [Button](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button.md): The primary way to trigger an action.
+- [ButtonGroup](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button-group.md): Joins related buttons into one control by collapsing inner borders and radii.
+- [IconButton](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/icon-button.md): A square, bordered button that shows only an icon.
+- [Link](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/link.md): An inline navigation link that is always underlined, so it never depends on colour alone.
+- [SplitButton](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/split-button.md): A primary action with a menu of alternatives attached.
+- [ToggleButton](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toggle-button.md): A button that stays pressed: filled when on, outlined when off.
+
+## Dates
+
+- [Calendar](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/calendar.md): A month grid for picking one date.
+- [DatePicker](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/date-picker.md): A button that opens a calendar and shows the chosen date.
+- [DateRangePicker](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/date-range-picker.md): A button that opens a two-month calendar with optional presets.
+- [RangeCalendar](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/range-calendar.md): A calendar for picking a start and end date, with one or two months.
+
+## Selection
+
+- [Checkbox](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/checkbox.md): Selects zero or more items, with an indeterminate state for partial groups.
+- [CheckboxGroup](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/checkbox-group.md): A titled list of checkboxes with a select-all parent.
+- [Radio](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio.md): A single option in a set where exactly one can be chosen.
+- [RadioCard](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-card.md): A selectable card for choices that need more room than a radio row.
+- [RadioGroup](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-group.md): A labelled set of options where exactly one is selected.
+- [SegmentedControl](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/segmented-control.md): A compact single-choice control for switching a view or a mode.
+- [SwitchRow](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/switch-row.md): A full-width row with a title, description and a switch.
+- [Toggle](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toggle.md): An on/off switch for a setting that applies immediately.
+
+## Forms
+
+- [Combobox](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/combobox.md): A text field with an autocomplete list of options.
+- [Field](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md): Labels a control and connects its hint, error and character count to it for assistive technology.
+- [FileDropzone](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/file-dropzone.md): A drag-and-drop area built on a native file input.
+- [InlineEdit](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/inline-edit.md): Text that turns into an input on click and commits on Enter.
+- [Input](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md): A single-line text field in three sizes, with optional leading and trailing icons and error or success states.
+- [InputGroup](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input-group.md): An input with attached prefix, suffix, icons or a button that share one focus ring.
+- [PinInput](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/pin-input.md): A row of single-character boxes for one-time codes.
+- [RangeSlider](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/range-slider.md): A native range input for picking a number in an interval.
+- [Select](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/select.md): A select-only dropdown built as a button plus listbox, with typeahead.
+- [TagInput](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tag-input.md): Collects a list of short values as removable chips, with optional suggestions.
+- [Textarea](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/textarea.md): A multi-line text field with a fixed 80px minimum height.
+
+## Overlays
+
+- [ConfirmDialog](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/confirm-dialog.md): A modal for decisions that are hard to undo, with optional type-to-confirm.
+- [Drawer](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/drawer.md): A side or bottom sheet for secondary tasks that keep context behind them.
+- [DropdownMenu](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/dropdown-menu.md): A menu of actions opened from a button.
+- [Modal](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/modal.md): A dialog that blocks the page until the person responds.
+- [NotificationCenter](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/notification-center.md): A bell with an unread count that opens a list of notifications.
+- [Popover](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/popover.md): A small non-modal panel anchored to a trigger.
+- [Tooltip](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tooltip.md): A short label that appears on hover and keyboard focus.
+
+## Data
+
+- [DataTable](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/data-table.md): A sortable, searchable, selectable table with pagination and a mobile card view.
+- [Delta](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/delta.md): A change between two values with direction and good/bad colour.
+- [MetricCard](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/metric-card.md): A key figure with context: label, value, change, trend and state.
+- [Pagination](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/pagination.md): Page navigation for lists and tables.
+- [Sparkline](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/sparkline.md): A tiny line or bar chart for trends inside other components.
+
+## Theme
+
+- [ThemeProvider](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/theme-provider.md): Chooses light, dark or system and sets `data-theme` on the document.
+- [ThemeToggle](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/theme-toggle.md): A Light / Dark / System radio group wired to `ThemeProvider`.
+

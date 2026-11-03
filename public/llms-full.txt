@@ -1,0 +1,3393 @@
+# Pance Design System: full reference
+
+> Pance is an accessible React design system for social and data-heavy products: 71 components, 954 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.5.0, MIT.
+
+This file is generated from the source (TypeScript props, token files and the decision register). Facts here match the published version above.
+
+## Install and use
+
+```bash
+npm install @pance/react
+```
+
+Requires React 19. Without Tailwind: `import '@pance/react/styles.css'`. With Tailwind v4: `@import "@pance/react/tailwind.css";` in your stylesheet. Dark mode: set `data-theme="dark"` on `<html>`. More in https://github.com/lermajonathan/pance-ds/blob/main/packages/react/README.md.
+
+## Rules for using Pance
+
+- Import components from `@pance/react`. Do not copy component source into a project.
+- Colours and sizes come from tokens. Use the semantic utilities (`bg-primary-solid`, `text-ink-muted`, `border-line`) or the CSS variables (`--pance-*`). Never write a raw colour or a palette step in product code.
+- Wrap every form control in `Field` so it has a visible label, hint and error association.
+- Severity says what a thing means (`primary`, `success`, `danger`…); variant says how loud it is. Do not pick a severity for its colour.
+- Status always carries an icon and a label, never colour alone. A chart series that means good or bad uses the status tokens; any other series uses the categorical palette, and a chart never mixes both.
+- Scatter charts take at most two series. Beyond two, group the rest as "Other" or use facets.
+- Built-in strings are props or `PanceProvider` labels. The library has no router or i18n dependency.
+- Deprecated APIs stay for two minor releases and 90 days. Check the component page and the changelog before using something marked `@deprecated`.
+
+## Components
+
+71 components. Props are generated from the TypeScript source.
+
+### Accordion
+
+> Stacked sections that expand and collapse.
+
+```tsx
+import { Accordion } from '@pance/react'
+```
+
+Source: [`src/components/layout.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/layout.tsx) · Figma: `Accordion item` · Tokens: `accordion.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- FAQs and long settings where people read only some parts.
+
+#### When not to use
+
+- Content everyone must read.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `items` | `AccordionItem[]` | **required** |  |
+| `allowMultiple` | `boolean` | `false` |  |
+| `headingLevel` | `2 \| 3 \| 4 \| 5 \| 6` | `3` | Heading level wrapping each trigger (WAI-ARIA accordion pattern). Match it to the page outline. |
+
+#### Accessibility
+
+- Triggers sit inside headings (`headingLevel`) with `aria-expanded` and `aria-controls`; panels are labelled regions. Enter and Space toggle.
+
+#### Related
+
+[`Panel`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/panel.md) · [`Tabs`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tabs.md)
+
+#### Example
+
+```tsx
+<Accordion items={[{ id: 'a', title: 'How is usage billed?', content: 'Per million events.' }]} />
+```
+
+### Alert
+
+> An inline message about the state of the page or a form, in context.
+
+```tsx
+import { Alert } from '@pance/react'
+```
+
+Source: [`src/components/feedback.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/feedback.tsx) · Figma: `Alert` · Tokens: `alert.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Explain a problem, a warning or useful information next to the content it concerns.
+
+#### When not to use
+
+- Temporary confirmations: use `Toast`.
+- Decisions that block the flow: use `ConfirmDialog`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `severity` | `Severity` | `'primary'` |  |
+| `variant` | `SurfaceVariant` | `'soft'` |  |
+| `title` | `string` | **required** |  |
+| `Icon` | `Icon` |  |  |
+| `children` | `ReactNode` |  |  |
+| `actions` | `ReactNode` |  |  |
+| `onClose` | `(() => void)` |  |  |
+
+#### Accessibility
+
+- `role="alert"` for danger and warning, `role="status"` otherwise.
+- Every severity has a default glyph, so meaning never depends on colour.
+- The close button is named from the labels (`dismiss`).
+
+#### Content
+
+- Title says what happened; body says what to do next. Keep actions to one or two.
+
+#### Related
+
+[`Toast`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toast.md) · [`EmptyState`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/empty-state.md) · [`ConfirmDialog`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/confirm-dialog.md)
+
+#### Example
+
+```tsx
+<Alert severity="warning" title="Quota almost reached" actions={<Button size="sm">Upgrade</Button>}>
+  You have used 92% of your events this month.
+</Alert>
+```
+
+### Avatar
+
+> A person or entity as an image or initials, with an optional presence status.
+
+```tsx
+import { Avatar } from '@pance/react'
+```
+
+Source: [`src/components/avatar.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/avatar.tsx) · Figma: `Avatar` · Tokens: `avatar.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Identify users in lists, comments and headers.
+
+#### When not to use
+
+- Decorative icons: use the icon itself.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `src` | `string` |  |  |
+| `name` | `string` | **required** |  |
+| `size` | `number` | `36` |  |
+| `ring` | `boolean` |  |  |
+| `status` | `AvatarStatus` |  |  |
+| `square` | `boolean` |  |  |
+| `decorative` | `boolean` |  | Set when the name is already shown as text next to the avatar, so screen readers don't hear it twice. |
+| `statusLabel` | `string` |  | Spoken status, e.g. a translated "Online". Defaults to the status key. |
+
+#### Accessibility
+
+- `name` is required: it is the accessible name and the source of the initials.
+- Set `decorative` when the name is already visible next to it.
+- If `src` fails to load, the initials show instead of a broken image.
+- `status` is spoken through `statusLabel`; the dot is never the only cue.
+
+#### Related
+
+[`AvatarGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/avatar-group.md)
+
+#### Example
+
+```tsx
+<Avatar name="Camila Pérez" src="/camila.jpg" status="online" statusLabel="Online" />
+```
+
+### AvatarGroup
+
+> Overlapping avatars with a +N chip for the rest.
+
+```tsx
+import { AvatarGroup } from '@pance/react'
+```
+
+Source: [`src/components/avatar.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/avatar.tsx) · Figma: `Avatar group` · Tokens: `avatar.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Show who is part of something in a small space.
+
+#### When not to use
+
+- When people need to be reachable one by one: use a list.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `people` | `{ name: string; src?: string; }[]` | **required** |  |
+| `max` | `number` | `4` |  |
+
+#### Accessibility
+
+- Each avatar is named; the +N chip is read as a number. Add a visible or hidden sentence when the total matters.
+
+#### Related
+
+[`Avatar`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/avatar.md)
+
+#### Example
+
+```tsx
+<AvatarGroup max={3} people={[{ name: 'Ana' }, { name: 'Luis' }, { name: 'Marta' }, { name: 'Iván' }]} />
+```
+
+### Badge
+
+> A small label for status, category or a removable tag.
+
+```tsx
+import { Badge } from '@pance/react'
+```
+
+Source: [`src/components/badge.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/badge.tsx) · Figma: `Badge` · Tokens: `badge.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Status of an item ("Active", "Failed").
+- Tags and filters, with `onRemove`.
+
+#### When not to use
+
+- Counts on a bell or tab: use `CountBadge`.
+- Anything clickable beyond removal; use a `Button` or `Link`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `severity` | `Severity` | `'secondary'` |  |
+| `variant` | `SurfaceVariant` | `'soft'` |  |
+| `dot` | `boolean` |  |  |
+| `rounded` | `boolean` | `true` |  |
+| `size` | `BadgeSize` | `'md'` |  |
+| `Icon` | `Icon` |  |  |
+| `onRemove` | `(() => void)` |  |  |
+| `children` | `ReactNode` | **required** |  |
+
+#### Accessibility
+
+- Meaning is carried by the text, never by colour alone. Use `dot` or `Icon` to add a second cue.
+- The remove button is named from the badge text ("Remove Beta"), shows the focus ring and has a 24 × 24 px target.
+
+#### Content
+
+- One or two words. Sentence case.
+
+#### Related
+
+[`CountBadge`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/count-badge.md) · [`TagInput`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tag-input.md)
+
+#### Example
+
+```tsx
+<Badge severity="success" dot>Active</Badge>
+<Badge variant="outlined" onRemove={() => remove('beta')}>Beta</Badge>
+```
+
+### BarChart
+
+> Compares values across categories, grouped or stacked.
+
+```tsx
+import { BarChart } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Chart / Bar` · Tokens: `chart.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Category comparisons and composition over categories (`mode="stacked"`).
+
+#### When not to use
+
+- Trends over many points: use `LineChart`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `subtitle` | `string` |  |  |
+| `labels` | `string[]` | **required** |  |
+| `series` | `Series[]` | **required** |  |
+| `height` | `number` | `260` |  |
+| `format` | `ChartFormat` | `compact` |  |
+| `mode` | `"grouped" \| "stacked"` | `'grouped'` |  |
+
+#### Accessibility
+
+- Every chart has a text alternative: arrow keys move between points and read out names and values, and "View as table" shows the same data.
+- Series are never told apart by colour alone: markers, patterns and labels repeat the meaning.
+- Colours follow dark mode through `color.dataviz.series.1…8`.
+
+#### Related
+
+[`RankedBarChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/ranked-bar-chart.md) · [`LineChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/line-chart.md)
+
+#### Example
+
+```tsx
+<BarChart title="Events by region" labels={regions} series={[{ name: '2026', data: values }]} mode="grouped" />
+```
+
+### Breadcrumb
+
+> Shows where the current page sits in a hierarchy.
+
+```tsx
+import { Breadcrumb } from '@pance/react'
+```
+
+Source: [`src/components/navigation.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/navigation.tsx) · Figma: `Breadcrumb`
+
+#### When to use
+
+- Deep hierarchies where people need to go up a level.
+
+#### When not to use
+
+- Flat sites; the main navigation is enough.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `items` | `BreadcrumbItem[]` | **required** |  |
+| `maxItems` | `number` | `0` |  |
+| `label` | `string` |  | Landmark name. Defaults to the translated "Breadcrumb"; make it unique when a page has several. |
+
+#### Accessibility
+
+- A `<nav>` with a name; the last item has `aria-current="page"`.
+- Long paths collapse into an expandable "…" button that is named.
+
+#### Related
+
+[`NavMenu`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/nav-menu.md) · [`Link`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/link.md)
+
+#### Example
+
+```tsx
+<Breadcrumb items={[{ label: 'Streams', href: '/streams' }, { label: 'checkout-events' }]} />
+```
+
+### Button
+
+> The primary way to trigger an action. Severity says what it means, variant says how loud it is.
+
+```tsx
+import { Button } from '@pance/react'
+```
+
+Source: [`src/components/button.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/button.tsx) · Figma: `Button` (severity, variant, size, state) · Tokens: `button.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Submit a form, start a task, confirm or cancel a decision.
+- One `filled` primary button per view for the main action; use `outlined` or `text` for secondary ones.
+- Use `severity="danger"` for destructive actions, ideally behind a `ConfirmDialog`.
+
+#### When not to use
+
+- Navigating to another page: use `Link`, so the element is an anchor.
+- Toggling a state: use `ToggleButton` or `Toggle`.
+- Icon-only actions without a name: use `IconButton`, which requires a label.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `severity` | `Severity` | `'primary'` |  |
+| `variant` | `ButtonVariant` | `'filled'` |  |
+| `size` | `ButtonSize` | `'md'` |  |
+| `Icon` | `Icon` |  |  |
+| `TrailingIcon` | `Icon` |  | A second icon after the label, so one button can show both (for example Download with a chevron). Ignored when `iconPos` is `top` or `bottom`. |
+| `iconPos` | `IconPos` | `'left'` |  |
+| `rounded` | `boolean` |  |  |
+| `raised` | `boolean` |  |  |
+| `loading` | `boolean` |  |  |
+| `badge` | `string \| number` |  |  |
+| `block` | `boolean` |  |  |
+| `children` | `ReactNode` |  |  |
+
+Also accepts all native `<button>` attributes (`type`, `disabled`, `onClick`, `aria-*`).
+
+#### Accessibility
+
+- Renders a native `<button>`, so Enter and Space work and it sits in the Tab order.
+- `loading` sets `aria-busy` and disables the button; keep the label so the action is still named.
+- An icon-only `Button` (Icon, no children) needs `aria-label`; prefer `IconButton`.
+- Focus shows the shared `pance-focus` ring on `:focus-visible`.
+- Disabled buttons drop to 45% opacity; do not rely on that alone to explain why. Say it in a hint nearby.
+
+#### Content
+
+- Start with a verb and name the object: "Save changes", "Delete stream".
+- Avoid "OK", "Yes" and "Submit" when a specific verb fits.
+
+#### Related
+
+[`IconButton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/icon-button.md) · [`ButtonGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button-group.md) · [`SplitButton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/split-button.md) · [`ToggleButton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toggle-button.md) · [`Link`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/link.md) · [`ConfirmDialog`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/confirm-dialog.md)
+
+#### Example
+
+```tsx
+<Button Icon={IconCheck} onClick={save}>Save changes</Button>
+<Button Icon={IconDownload} TrailingIcon={IconChevronDown}>Download</Button>
+<Button severity="danger" variant="outlined" loading={deleting}>Delete stream</Button>
+```
+
+### ButtonGroup
+
+> Joins related buttons into one control by collapsing inner borders and radii.
+
+```tsx
+import { ButtonGroup } from '@pance/react'
+```
+
+Source: [`src/components/button.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/button.tsx) · Figma: `Button group` · Tokens: `button.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Closely related actions or a small set of view options.
+
+#### When not to use
+
+- Choosing exactly one option: use `SegmentedControl`.
+- Unrelated actions; keep normal spacing.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `children` | `ReactNode` | **required** |  |
+
+#### Accessibility
+
+- Each child keeps its own button semantics and Tab stop.
+- Add `role="group"` and `aria-label` when the group needs a name.
+
+#### Related
+
+[`Button`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button.md) · [`SegmentedControl`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/segmented-control.md) · [`SplitButton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/split-button.md)
+
+#### Example
+
+```tsx
+<ButtonGroup>
+  <Button variant="outlined">Day</Button>
+  <Button variant="outlined">Week</Button>
+</ButtonGroup>
+```
+
+### Calendar
+
+> A month grid for picking one date.
+
+```tsx
+import { Calendar } from '@pance/react'
+```
+
+Source: [`src/components/date.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/date.tsx) · Figma: `Calendar` · Tokens: `calendar.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Inline date selection, or as the panel of `DatePicker`.
+
+#### When not to use
+
+- Birth dates far in the past: use separate fields.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string \| null` | **required** |  |
+| `onChange` | `(value: string) => void` | **required** |  |
+| `min` | `string` |  |  |
+| `max` | `string` |  |  |
+| `isDateDisabled` | `((date: string) => boolean)` |  |  |
+| `defaultMonth` | `string` |  |  |
+| `autoFocus` | `boolean` |  |  |
+| `bordered` | `boolean` |  | Draws the outer border, radius and surface. Off by default so the calendar can sit inside a popover or card. |
+| `className` | `string` |  |  |
+
+#### Accessibility
+
+- Grid with one Tab stop: ←→ day, ↑↓ week, Home/End week start and end, Page Up/Down month (Shift: year), Enter or Space select.
+- Dates are ISO strings (`"2026-10-15"`), never `Date` objects, so there are no time-zone surprises.
+
+#### Content
+
+- Month and weekday names come from `Intl` using `labels.locale`.
+
+#### Related
+
+[`DatePicker`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/date-picker.md) · [`RangeCalendar`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/range-calendar.md)
+
+#### Example
+
+```tsx
+<Calendar value={date} onChange={setDate} min="2026-01-01" />
+```
+
+### Card
+
+> A bordered surface with a resting shadow for grouping content.
+
+```tsx
+import { Card } from '@pance/react'
+```
+
+Source: [`src/components/layout.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/layout.tsx) · Figma: `Card` · Tokens: `card.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Group related content that sits on the page background.
+
+#### When not to use
+
+- Nesting cards inside cards.
+- Content that needs a header and actions: use `Panel`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `className` | `string` | `''` |  |
+| `children` | `ReactNode` | **required** |  |
+
+#### Accessibility
+
+- Presentational. Add a heading inside so the section has a name.
+
+#### Related
+
+[`Panel`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/panel.md)
+
+#### Example
+
+```tsx
+<Card className="p-4">…</Card>
+```
+
+### Checkbox
+
+> Selects zero or more items, with an indeterminate state for partial groups.
+
+```tsx
+import { Checkbox } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `Checkbox` · Tokens: `checkbox.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Multiple choices, agreements, table row selection.
+
+#### When not to use
+
+- Immediate on/off settings: use `Toggle`.
+- Exactly one choice: use `RadioGroup`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `checked` | `boolean` | **required** |  |
+| `indeterminate` | `boolean` |  |  |
+| `onChange` | `(v: boolean) => void` | **required** |  |
+| `label` | `string` |  |  |
+| `ariaLabel` | `string` |  | Accessible name when there is no visible label (e.g. a table's row checkbox). |
+| `description` | `string` |  |  |
+| `disabled` | `boolean` |  |  |
+| `error` | `boolean` |  |  |
+| `size` | `CheckboxSize` | `'md'` |  |
+
+#### Accessibility
+
+- Native checkbox semantics; `indeterminate` exposes `aria-checked="mixed"`.
+- Space toggles; the label is clickable.
+- `error` is shown with text in the `Field`, not only colour.
+
+#### Related
+
+[`CheckboxGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/checkbox-group.md) · [`Toggle`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toggle.md) · [`RadioGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-group.md)
+
+#### Example
+
+```tsx
+<Checkbox checked={agree} onChange={setAgree} label="I accept the terms" />
+```
+
+### CheckboxGroup
+
+> A titled list of checkboxes with a select-all parent.
+
+```tsx
+import { CheckboxGroup } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `Checkbox group` · Tokens: `checkbox.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Choosing several options where "all" is a useful shortcut.
+
+#### When not to use
+
+- A single yes/no: use `Checkbox`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` |  |  |
+| `options` | `{ value: string; label: string; description?: string; }[]` | **required** |  |
+| `values` | `Set<string>` | **required** |  |
+| `onChange` | `(values: Set<string>) => void` | **required** |  |
+
+#### Accessibility
+
+- The parent checkbox is indeterminate when only some children are selected.
+- The group has a visible title that names it.
+
+#### Related
+
+[`Checkbox`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/checkbox.md)
+
+#### Example
+
+```tsx
+<CheckboxGroup title="Channels" options={channels} values={selected} onChange={setSelected} />
+```
+
+### Combobox
+
+> A text field with an autocomplete list of options.
+
+```tsx
+import { Combobox } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Combobox` · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Long lists where typing is faster than scrolling, and values are known.
+
+#### When not to use
+
+- Short lists: use `Select` or `RadioGroup`.
+- Free values mixed with suggestions: use `TagInput`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `options` | `{ value: string; label: string; meta?: string; }[]` | **required** |  |
+| `value` | `string` | **required** |  |
+| `onChange` | `(v: string) => void` | **required** |  |
+| `placeholder` | `string` |  |  |
+| `label` | `string` |  | Accessible name when not inside a Field. |
+
+#### Accessibility
+
+- WAI-ARIA combobox with list autocomplete: type to filter, ↑↓ move the active option, Enter selects, Escape closes.
+- The result count and "no results" message are announced.
+
+#### Related
+
+[`Select`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/select.md) · [`TagInput`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tag-input.md) · [`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md)
+
+#### Example
+
+```tsx
+<Field label="City"><Combobox options={cities} value={city} onChange={setCity} /></Field>
+```
+
+### ConfirmDialog
+
+> A modal for decisions that are hard to undo, with optional type-to-confirm.
+
+```tsx
+import { ConfirmDialog } from '@pance/react'
+```
+
+Source: [`src/components/dialogs.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/dialogs.tsx) · Figma: `Confirm dialog` · Tokens: `modal.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Deleting data, revoking access, anything irreversible.
+
+#### When not to use
+
+- Reversible actions: do them and offer Undo with a `Toast` action.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `boolean` | **required** |  |
+| `onClose` | `() => void` | **required** |  |
+| `onConfirm` | `() => void` | **required** |  |
+| `title` | `string` | **required** |  |
+| `description` | `string` |  |  |
+| `confirmLabel` | `string` | **required** | Text of the confirm button, as an action: "Delete stream". |
+| `cancelLabel` | `string` |  | Defaults to the translated "Cancel". |
+| `severity` | `Severity` | `'danger'` |  |
+| `icon` | `Icon` | `IconTrash` |  |
+| `requireText` | `string` |  | Phrase to type before the confirm button is enabled. |
+| `loading` | `boolean` |  |  |
+| `children` | `ReactNode` |  |  |
+
+#### Accessibility
+
+- Built on `Modal`: focus trap, Escape, focus return. The confirm button stays disabled until `requireText` matches.
+
+#### Content
+
+- Name the action in `confirmLabel` ("Delete stream"); never "OK". Say what will be lost in `description`.
+
+#### Related
+
+[`Modal`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/modal.md) · [`Toast`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toast.md) · [`Alert`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/alert.md)
+
+#### Example
+
+```tsx
+<ConfirmDialog open={open} onClose={close} onConfirm={remove} title="Delete stream?" description="Events will be lost." confirmLabel="Delete stream" requireText="checkout-events" />
+```
+
+### CountBadge
+
+> A compact numeric counter, capped at `max` (shows `99+`).
+
+```tsx
+import { CountBadge } from '@pance/react'
+```
+
+Source: [`src/components/badge.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/badge.tsx) · Figma: `Count badge` · Tokens: `badge.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Unread or pending totals next to an icon, tab or menu item.
+
+#### When not to use
+
+- Text status: use `Badge`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `count` | `number` | **required** |  |
+| `max` | `number` | `99` |  |
+| `severity` | `Severity` | `'danger'` |  |
+
+#### Accessibility
+
+- The number is plain text. Put the meaning in the name of the control it sits on, for example "Notifications, 3 unread".
+
+#### Related
+
+[`Badge`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/badge.md) · [`NotificationCenter`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/notification-center.md)
+
+#### Example
+
+```tsx
+<CountBadge count={128} max={99} />
+```
+
+### DataTable
+
+> A sortable, searchable, selectable table with pagination and a mobile card view.
+
+```tsx
+import { DataTable } from '@pance/react'
+```
+
+Source: [`src/components/table.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/table.tsx) · Figma: `Data table`, `Data table row`, `Columns popover` · Tokens: `data-table.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Records people scan, compare, sort or act on.
+- Expandable rows (`renderExpanded`), column visibility (`columnToggle`), loading and empty states.
+
+#### When not to use
+
+- Layout. Few simple rows: a plain list is lighter.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `columns` | `Column<T>[]` | **required** |  |
+| `rows` | `T[]` | **required** |  |
+| `rowKey` | `(row: T) => string` | **required** |  |
+| `rowLabel` | `(row: T) => string` | **required** | Name of a row for screen readers, e.g. "checkout-events". Used by the selection checkbox. |
+| `caption` | `string` | **required** | Visible title; also the table's accessible name. |
+| `sort` | `SortState` |  | Controlled sort. Omit to let the table sort by itself. |
+| `onSortChange` | `((sort: SortState) => void)` |  |  |
+| `selectable` | `boolean` |  |  |
+| `selected` | `Set<string>` |  |  |
+| `onSelectedChange` | `((selected: Set<string>) => void)` |  |  |
+| `density` | `Density` | `'default'` |  |
+| `pageSize` | `number` |  | Enables pagination. |
+| `loading` | `boolean` |  |  |
+| `search` | `string` |  | Controlled search text; the table does not filter, you pass the filtered `rows`. |
+| `onSearchChange` | `((value: string) => void)` |  |  |
+| `searchPlaceholder` | `string` |  |  |
+| `actions` | `ReactNode` |  | Toolbar content shown when no rows are selected. |
+| `rowActions` | `((row: T) => ReactNode)` |  | Per-row trailing cell, e.g. a DropdownMenu. |
+| `empty` | `ReactNode` |  | Replaces the default "No results" state. |
+| `renderExpanded` | `((row: T) => ReactNode)` |  | Adds an expand button to each row; its content renders in a full-width row below. |
+| `columnToggle` | `boolean` |  | Adds a "Columns" menu to hide and show columns. The first column is the row header and always stays. |
+
+#### Accessibility
+
+- A real `<table>` with a caption, column headers, `aria-sort`, a row header column and named selection checkboxes.
+- Expand buttons have `aria-expanded` and `aria-controls` and are named by `rowLabel`.
+- On small screens it becomes labelled cards with the same data and actions.
+- It sorts and paginates the rows you pass; for server data control `sort` and pass the current page.
+
+#### Related
+
+[`Pagination`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/pagination.md) · [`EmptyState`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/empty-state.md) · [`Checkbox`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/checkbox.md) · [`Popover`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/popover.md)
+
+#### Example
+
+```tsx
+<DataTable
+  caption="Streams"
+  rowLabel={(r) => r.name}
+  rowKey={(r) => r.id}
+  rows={rows}
+  columns={[{ key: 'name', header: 'Name', sortable: true }, { key: 'events', header: 'Events', align: 'end' }]}
+  columnToggle
+/>
+```
+
+### DatePicker
+
+> A button that opens a calendar and shows the chosen date.
+
+```tsx
+import { DatePicker } from '@pance/react'
+```
+
+Source: [`src/components/date.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/date.tsx) · Figma: `Date picker` · Tokens: `date-picker.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Date fields in forms.
+
+#### When not to use
+
+- Dates the person knows by heart: a typed field may be faster.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` |  |  |
+| `placeholder` | `string` |  |  |
+| `disabled` | `boolean` |  |  |
+| `error` | `boolean` |  |  |
+| `className` | `string` |  |  |
+| `value` | `string \| null` | **required** |  |
+| `onChange` | `(value: string \| null) => void` | **required** |  |
+| `min` | `string` |  |  |
+| `max` | `string` |  |  |
+| `isDateDisabled` | `((date: string) => boolean)` |  |  |
+| `clearable` | `boolean` | `true` | Show a "Clear" action. |
+
+#### Accessibility
+
+- Use inside `Field`: label and value form the accessible name. Non-modal dialog; Escape closes and refocuses the trigger. The panel shifts or opens upwards to stay on screen.
+- Dates are ISO strings (`"2026-10-15"`), never `Date` objects, so there are no time-zone surprises.
+
+#### Related
+
+[`Calendar`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/calendar.md) · [`DateRangePicker`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/date-range-picker.md) · [`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md)
+
+#### Example
+
+```tsx
+<Field label="Start date"><DatePicker value={d} onChange={setD} clearable /></Field>
+```
+
+### DateRangePicker
+
+> A button that opens a two-month calendar with optional presets.
+
+```tsx
+import { DateRangePicker } from '@pance/react'
+```
+
+Source: [`src/components/date.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/date.tsx) · Figma: `Date range panel` · Tokens: `date-picker.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Filtering reports by period, with presets such as "Last 7 days".
+
+#### When not to use
+
+- A single date: use `DatePicker`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` |  |  |
+| `placeholder` | `string` |  |  |
+| `disabled` | `boolean` |  |  |
+| `error` | `boolean` |  |  |
+| `className` | `string` |  |  |
+| `value` | `DateRange` | **required** |  |
+| `onChange` | `(value: DateRange) => void` | **required** |  |
+| `min` | `string` |  |  |
+| `max` | `string` |  |  |
+| `isDateDisabled` | `((date: string) => boolean)` |  |  |
+| `presets` | `DateRangePreset[]` |  | Quick ranges such as "Last 7 days". |
+| `clearable` | `boolean` | `true` |  |
+
+#### Accessibility
+
+- Same behaviour as `DatePicker`. Presets are buttons in the panel.
+- Dates are ISO strings (`"2026-10-15"`), never `Date` objects, so there are no time-zone surprises.
+
+#### Related
+
+[`RangeCalendar`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/range-calendar.md) · [`DatePicker`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/date-picker.md)
+
+#### Example
+
+```tsx
+<Field label="Period"><DateRangePicker value={range} onChange={setRange} presets={presets} /></Field>
+```
+
+### Delta
+
+> A change between two values with direction and good/bad colour.
+
+```tsx
+import { Delta } from '@pance/react'
+```
+
+Source: [`src/components/data.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/data.tsx) · Tokens: `metric-card.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Next to a metric, in tables and cards.
+
+#### When not to use
+
+- Absolute values.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `number` | **required** | Signed change, e.g. 12.4 or -3.8. |
+| `upIsGood` | `boolean` | `true` | Set to false when an increase is bad (error rate, churn, cost). |
+| `format` | `((n: number) => string)` | `(n) => `${Math.abs(n)}%`` |  |
+
+#### Accessibility
+
+- Direction is written as text and an arrow, not colour alone.
+
+#### Related
+
+[`MetricCard`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/metric-card.md)
+
+#### Example
+
+```tsx
+<Delta value={-3.1} upIsGood={false} />
+```
+
+### DivergingBarChart
+
+> Bars growing left and right of a zero line for positive and negative values.
+
+```tsx
+import { DivergingBarChart } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Chart / Diverging` · Tokens: `chart.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Change versus a baseline, surplus and deficit.
+
+#### When not to use
+
+- Values that are all positive.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `subtitle` | `string` |  |  |
+| `data` | `{ label: string; value: number; }[]` | **required** |  |
+| `format` | `ChartFormat` | `compact` |  |
+
+#### Accessibility
+
+- Every chart has a text alternative: arrow keys move between points and read out names and values, and "View as table" shows the same data.
+- Series are never told apart by colour alone: markers, patterns and labels repeat the meaning.
+- Colours follow dark mode through `color.dataviz.series.1…8`.
+
+#### Related
+
+[`BarChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/bar-chart.md)
+
+#### Example
+
+```tsx
+<DivergingBarChart title="Change vs last month" data={[{ label: 'Bogotá', value: 12 }, { label: 'Cali', value: -4 }]} />
+```
+
+### Divider
+
+> A horizontal rule, optionally with a centred label.
+
+```tsx
+import { Divider } from '@pance/react'
+```
+
+Source: [`src/components/layout.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/layout.tsx) · Figma: `Divider`
+
+#### When to use
+
+- Separate groups of content, e.g. "or" between sign-in options.
+
+#### When not to use
+
+- Spacing alone is enough for most cases.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` |  |  |
+| `soft` | `boolean` |  |  |
+
+#### Accessibility
+
+- Decorative separator; a label is read as text.
+
+#### Related
+
+[`Card`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/card.md)
+
+#### Example
+
+```tsx
+<Divider label="or" />
+```
+
+### DonutChart
+
+> Shows parts of a whole.
+
+```tsx
+import { DonutChart } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Chart / Donut` · Tokens: `chart.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Up to about 5 slices that sum to a meaningful total.
+
+#### When not to use
+
+- Many categories or comparing similar sizes: use `RankedBarChart`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `subtitle` | `string` |  |  |
+| `slices` | `{ label: string; value: number; }[]` | **required** |  |
+| `format` | `ChartFormat` | `compact` |  |
+| `size` | `number` | `180` |  |
+
+#### Accessibility
+
+- Every chart has a text alternative: arrow keys move between points and read out names and values, and "View as table" shows the same data.
+- Series are never told apart by colour alone: markers, patterns and labels repeat the meaning.
+- Colours follow dark mode through `color.dataviz.series.1…8`.
+- Every slice carries a text label with its value.
+
+#### Related
+
+[`RankedBarChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/ranked-bar-chart.md)
+
+#### Example
+
+```tsx
+<DonutChart title="Traffic by source" slices={[{ label: 'Direct', value: 60 }, { label: 'Search', value: 40 }]} />
+```
+
+### Drawer
+
+> A side or bottom sheet for secondary tasks that keep context behind them.
+
+```tsx
+import { Drawer } from '@pance/react'
+```
+
+Source: [`src/components/overlays.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/overlays.tsx) · Figma: `Drawer` · Tokens: `drawer.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Details, filters and longer forms without leaving the page.
+
+#### When not to use
+
+- Quick confirmations: use `Modal`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `boolean` | **required** |  |
+| `onClose` | `() => void` | **required** |  |
+| `title` | `string` | **required** |  |
+| `description` | `string` |  |  |
+| `side` | `DrawerSide` | `'right'` |  |
+| `footer` | `ReactNode` |  |  |
+| `children` | `ReactNode` |  |  |
+
+#### Accessibility
+
+- Same dialog behaviour as `Modal`. The bottom sheet is at most 85dvh.
+
+#### Related
+
+[`Modal`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/modal.md) · [`Popover`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/popover.md)
+
+#### Example
+
+```tsx
+<Drawer open={open} onClose={close} title="Filters" side="right">…</Drawer>
+```
+
+### DropdownMenu
+
+> A menu of actions opened from a button.
+
+```tsx
+import { DropdownMenu } from '@pance/react'
+```
+
+Source: [`src/components/overlays.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/overlays.tsx) · Figma: `Menu`, `Menu item` · Tokens: `dropdown-menu.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Row actions, overflow menus, account menus.
+
+#### When not to use
+
+- Choosing a value: use `Select`.
+- Navigation: use links.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `trigger` | `ReactNode` | **required** |  |
+| `items` | `DropdownItem[]` | **required** |  |
+| `align` | `"start" \| "end"` | `'start'` |  |
+| `label` | `string` |  | Accessible name for the menu; defaults to the trigger's text. |
+
+#### Accessibility
+
+- WAI-ARIA menu button: Enter, Space or ↓ opens on the first item, ↑ on the last; arrows and Home/End move; Enter activates; Escape closes; Tab leaves.
+- The menu stays on screen: it shifts sideways to fit the viewport or a clipping container, and opens upwards when there is no room below.
+
+#### Content
+
+- Items are verbs. Put destructive items last and mark them `danger`.
+
+#### Related
+
+[`SplitButton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/split-button.md) · [`Popover`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/popover.md) · [`Select`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/select.md)
+
+#### Example
+
+```tsx
+<DropdownMenu label="Row actions" trigger={<IconButton Icon={IconDots} label="More actions" />} items={[{ type: 'item', label: 'Rename' }, { type: 'item', label: 'Delete', danger: true }]} />
+```
+
+### EmptyState
+
+> Explains why there is nothing to show and offers one next step.
+
+```tsx
+import { EmptyState } from '@pance/react'
+```
+
+Source: [`src/components/feedback.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/feedback.tsx) · Figma: `Empty state` · Tokens: `empty-state.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Empty lists, zero search results, first-run screens.
+
+#### When not to use
+
+- Errors: use `Alert`.
+- Loading: use `Skeleton`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `Icon` | `Icon` |  |  |
+| `title` | `string` | **required** |  |
+| `description` | `ReactNode` |  |  |
+| `action` | `ReactNode` |  |  |
+| `headingLevel` | `2 \| 3 \| 4 \| 5 \| 6` | `3` |  |
+| `className` | `string` | `''` |  |
+
+#### Accessibility
+
+- The title is a real heading; set `headingLevel` to keep the document outline correct.
+- Decorative icons are hidden from assistive tech.
+
+#### Content
+
+- Say what is missing and why, then give a single clear action.
+
+#### Related
+
+[`Alert`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/alert.md) · [`DataTable`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/data-table.md) · [`Skeleton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/skeleton.md)
+
+#### Example
+
+```tsx
+<EmptyState Icon={IconFolder} title="No streams yet" description="Create your first stream to start collecting events." action={<Button>Create stream</Button>} />
+```
+
+### Field
+
+> Labels a control and connects its hint, error and character count to it for assistive technology.
+
+```tsx
+import { Field } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Field` · Tokens: `field.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Around every form control: Input, Textarea, Select, Combobox, DatePicker, TagInput and others.
+
+#### When not to use
+
+- Around a group of checkboxes or radios: they have their own `title` or `label`. Use `group` only when the field holds several buttons or chips.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | **required** |  |
+| `group` | `boolean` |  | Set when the field holds several controls (buttons, radios, chips). The label then names a role="group". |
+| `hint` | `string` |  |  |
+| `error` | `string` |  |  |
+| `success` | `string` |  |  |
+| `required` | `boolean` |  |  |
+| `optional` | `boolean` |  |  |
+| `charCount` | `number` |  |  |
+| `maxChars` | `number` |  |  |
+| `children` | `ReactNode` | **required** |  |
+
+#### Accessibility
+
+- Gives the control an `id` for the `<label>`, `aria-describedby` for hint, error and count, `aria-invalid` and `aria-required`.
+- Errors replace the hint and are announced politely.
+- Custom controls read the wiring with `useFieldControl()`.
+- Mark optional fields with `optional`; mark required ones with `required` (adds text, not only an asterisk).
+
+#### Content
+
+- Labels are nouns: "Email address". Hints explain format or why you ask. Errors say what to do: "Enter a date after 1 Jan".
+
+#### Related
+
+[`Input`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md) · [`Textarea`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/textarea.md) · [`Select`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/select.md) · [`DatePicker`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/date-picker.md)
+
+#### Example
+
+```tsx
+<Field label="Bio" hint="Up to 160 characters" maxChars={160} charCount={bio.length}>
+  <Textarea value={bio} onChange={(e) => setBio(e.target.value)} />
+</Field>
+```
+
+### FileDropzone
+
+> A drag-and-drop area built on a native file input.
+
+```tsx
+import { FileDropzone } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `File dropzone` · Tokens: `file-dropzone.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Uploading one or several files with a clear accepted format.
+
+#### When not to use
+
+- Tiny uploads in dense forms where a plain file input is enough.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `accept` | `string` |  |  |
+| `hint` | `string` |  |  |
+| `onFiles` | `((files: FileList) => void)` |  |  |
+| `Icon` | `Icon` |  |  |
+
+#### Accessibility
+
+- It is a `<label>` around the native input: click, Enter and Space open the file picker, no drag required.
+- Text such as "click to upload, or drag and drop" comes from `PanceProvider` labels.
+- Report errors (type, size) in a `Field` error or `Alert`, not only visually.
+
+#### Content
+
+- State accepted types and limits in `hint`: "PNG or CSV, up to 10 MB".
+
+#### Related
+
+[`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md) · [`Alert`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/alert.md)
+
+#### Example
+
+```tsx
+<FileDropzone accept=".csv" hint="CSV up to 10 MB" onFiles={(files) => upload(files)} />
+```
+
+### Heatmap
+
+> A grid where cell intensity shows a value.
+
+```tsx
+import { Heatmap } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Chart / Heatmap` · Tokens: `chart.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Patterns across two categories, e.g. hour by weekday.
+
+#### When not to use
+
+- Exact comparison.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `subtitle` | `string` |  |  |
+| `rows` | `string[]` | **required** |  |
+| `cols` | `string[]` | **required** |  |
+| `data` | `number[][]` | **required** |  |
+| `format` | `ChartFormat` | `compact` |  |
+
+#### Accessibility
+
+- Every chart has a text alternative: arrow keys move between points and read out names and values, and "View as table" shows the same data.
+- Series are never told apart by colour alone: markers, patterns and labels repeat the meaning.
+- Colours follow dark mode through `color.dataviz.series.1…8`.
+- Each cell has a text value in the table view.
+
+#### Related
+
+[`BarChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/bar-chart.md)
+
+#### Example
+
+```tsx
+<Heatmap title="Traffic by hour" rows={days} cols={hours} data={grid} />
+```
+
+### IconButton
+
+> A square, bordered button that shows only an icon. The label is required and becomes its accessible name.
+
+```tsx
+import { IconButton } from '@pance/react'
+```
+
+Source: [`src/components/button.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/button.tsx) · Figma: `IconButton` · Tokens: `button.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Toolbar and table row actions where text would not fit.
+- Close, copy, refresh and similar well-known glyphs.
+
+#### When not to use
+
+- Primary actions: a visible label is clearer, use `Button`.
+- Glyphs people may not recognise without text.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `Icon` | `Icon` | **required** |  |
+| `label` | `string` | **required** |  |
+
+Also accepts native `<button>` attributes.
+
+#### Accessibility
+
+- `label` is required and is set as `aria-label`.
+- Wrap in `Tooltip` when the glyph needs explaining; the tooltip also appears on keyboard focus.
+- Hit area is 40×40.
+
+#### Content
+
+- Name the action, not the picture: "Copy link", not "Clipboard".
+
+#### Related
+
+[`Button`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button.md) · [`Tooltip`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tooltip.md)
+
+#### Example
+
+```tsx
+<IconButton Icon={IconCopy} label="Copy link" onClick={copy} />
+```
+
+### InlineEdit
+
+> Text that turns into an input on click and commits on Enter.
+
+```tsx
+import { InlineEdit } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Inline edit` · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Renaming an item in place where a full form would be heavy.
+
+#### When not to use
+
+- Fields that need validation messages: use a `Field` and a form.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `string` | **required** |  |
+| `onChange` | `(v: string) => void` | **required** |  |
+| `placeholder` | `string` |  |  |
+
+#### Accessibility
+
+- The display state is a button that says what it edits; Enter commits and Escape cancels, returning focus to the button.
+
+#### Related
+
+[`Input`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md)
+
+#### Example
+
+```tsx
+<InlineEdit value={name} onChange={setName} placeholder="Untitled stream" />
+```
+
+### Input
+
+> A single-line text field in three sizes, with optional leading and trailing icons and error or success states.
+
+```tsx
+import { Input } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Input` (size, state) · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Short free text: names, emails, search, numbers.
+- `type="password"` for secrets; it adds a show/hide toggle.
+
+#### When not to use
+
+- Long text: use `Textarea`.
+- A choice from a fixed list: use `Select`, `Combobox` or `RadioGroup`.
+- Unlabelled: always wrap in `Field` or provide `aria-label`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `ref` | `Ref<HTMLInputElement>` |  |  |
+| `Icon` | `Icon` |  |  |
+| `TrailingIcon` | `Icon` |  |  |
+| `error` | `boolean` |  |  |
+| `success` | `boolean` |  |  |
+| `inputSize` | `InputSize` | `'md'` |  |
+
+Also accepts native `<input>` attributes (`type`, `value`, `onChange`, `placeholder`, `autoComplete`).
+
+#### Accessibility
+
+- Inside `Field` it is wired automatically: label via `id`, `aria-describedby` for hint, error and count, `aria-invalid`, `aria-required`.
+- The password toggle is in the Tab order and uses `aria-pressed`.
+- Placeholders are not labels; they disappear and have low contrast by design.
+- Error and success are shown by border plus message text, not colour alone.
+
+#### Content
+
+- Placeholder shows an example, not an instruction: "name@company.com".
+
+#### Related
+
+[`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md) · [`InputGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input-group.md) · [`Textarea`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/textarea.md)
+
+#### Example
+
+```tsx
+<Field label="Email" hint="We only use it for receipts" required>
+  <Input type="email" placeholder="name@company.com" autoComplete="email" />
+</Field>
+```
+
+### InputGroup
+
+> An input with attached prefix, suffix, icons or a button that share one focus ring.
+
+```tsx
+import { InputGroup } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Input group` · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Units ("kg"), protocols ("https://"), search with a submit button.
+
+#### When not to use
+
+- Plain inputs: use `Input`.
+- Complex composites with several fields: lay out separate `Field`s.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `prefix` | `string` |  |  |
+| `suffix` | `string` |  |  |
+| `prefixIcon` | `Icon` |  |  |
+| `suffixIcon` | `Icon` |  |  |
+| `suffixButton` | `ReactNode` |  |  |
+| `children` | `ReactNode` | **required** |  |
+
+Also accepts native `<input>` attributes.
+
+#### Accessibility
+
+- The add-ons are presentational text; make sure the label already states the unit.
+- `suffixButton` is a real button and needs its own accessible name.
+
+#### Related
+
+[`Input`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md) · [`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md)
+
+#### Example
+
+```tsx
+<Field label="Website"><InputGroup prefix="https://" suffix=".com"><Input /></InputGroup></Field>
+```
+
+### LineChart
+
+> Trends over a continuous or ordered axis.
+
+```tsx
+import { LineChart } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Chart / Line` · Tokens: `chart.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Time series with up to about 5 series.
+
+#### When not to use
+
+- Parts of a whole: use `DonutChart`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `subtitle` | `string` |  |  |
+| `labels` | `string[]` | **required** |  |
+| `series` | `Series[]` | **required** |  |
+| `height` | `number` | `260` |  |
+| `format` | `ChartFormat` | `compact` |  |
+
+#### Accessibility
+
+- Every chart has a text alternative: arrow keys move between points and read out names and values, and "View as table" shows the same data.
+- Series are never told apart by colour alone: markers, patterns and labels repeat the meaning.
+- Colours follow dark mode through `color.dataviz.series.1…8`.
+
+#### Related
+
+[`BarChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/bar-chart.md) · [`Sparkline`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/sparkline.md) · [`ScatterChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/scatter-chart.md)
+
+#### Example
+
+```tsx
+<LineChart title="Events" labels={days} series={[{ name: 'Events', data: values }]} />
+```
+
+### Link
+
+> An inline navigation link that is always underlined, so it never depends on colour alone.
+
+```tsx
+import { Link } from '@pance/react'
+```
+
+Source: [`src/components/navigation.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/navigation.tsx) · Figma: `Link`
+
+#### When to use
+
+- Moving to another page or section, inside text or on its own.
+- External destinations, with `external`.
+
+#### When not to use
+
+- Running an action in the page: use `Button`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `variant` | `"default" \| "subtle"` | `'default'` |  |
+| `external` | `boolean` |  |  |
+| `render` | `((props: { className: string; children: ReactNode; }) => ReactNode)` |  |  |
+| `children` | `ReactNode` | **required** |  |
+
+Also accepts native `<a>` attributes.
+
+#### Accessibility
+
+- Always underlined (WCAG 1.4.1).
+- `external` adds `target="_blank"`, `rel="noopener noreferrer"`, an icon and spoken text "opens in a new tab".
+- Use `render` to apply the styles to your router link while keeping an `<a>` in the DOM.
+
+#### Content
+
+- Link text should make sense out of context. Avoid "click here".
+
+#### Related
+
+[`Button`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button.md) · [`Breadcrumb`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/breadcrumb.md)
+
+#### Example
+
+```tsx
+<Link href="/docs">Read the docs</Link>
+<Link href="https://example.com" external>Status page</Link>
+```
+
+### Meter
+
+> One measurement against a known maximum, such as storage used.
+
+```tsx
+import { Meter } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Meter` · Tokens: `meter.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Quotas and capacity, with warning and danger thresholds.
+
+#### When not to use
+
+- Progress that only goes up: use `Progress`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | **required** |  |
+| `value` | `number` | **required** |  |
+| `max` | `number` | `100` |  |
+| `unit` | `string` | `''` |  |
+| `severity` | `MeterSeverity` | `'default'` |  |
+| `format` | `((n: number) => string)` |  |  |
+
+#### Accessibility
+
+- `role="meter"` with `aria-valuetext`; warning and danger also print "Warning" or "Critical", so colour is never the only cue.
+
+#### Related
+
+[`Progress`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/progress.md) · [`MetricCard`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/metric-card.md)
+
+#### Example
+
+```tsx
+<Meter label="Storage" value={82} unit="%" severity="warning" />
+```
+
+### MetricCard
+
+> A key figure with context: label, value, change, trend and state.
+
+```tsx
+import { MetricCard } from '@pance/react'
+```
+
+Source: [`src/components/data.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/data.tsx) · Figma: `Metric card` · Tokens: `metric-card.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Headline KPIs. Variants: default, compact, hero, goal, breakdown, comparison.
+
+#### When not to use
+
+- Detailed series: use a chart.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | **required** |  |
+| `value` | `string` | **required** | Pre-formatted value, e.g. "18,204". Formatting stays with you, so locale and units are yours. |
+| `unit` | `string` |  |  |
+| `Icon` | `Icon` | `IconChart` |  |
+| `delta` | `number` |  | Signed percentage change. |
+| `upIsGood` | `boolean` | `true` |  |
+| `trend` | `number[]` |  |  |
+| `trendLabel` | `string` |  | Accessible description of the trend, e.g. "Streams per day, last 8 days". |
+| `caption` | `string` |  |  |
+| `variant` | `"default" \| "compact" \| "hero" \| "goal" \| "breakdown" \| "comparison"` | `'default'` |  |
+| `state` | `"ready" \| "loading" \| "empty" \| "error"` | `'ready'` |  |
+| `onRetry` | `(() => void)` |  |  |
+| `accent` | `Severity` | `'primary'` | Colour of the hero card. |
+| `goal` | `{ current: number; target: number; format?: (n: number) => string; }` |  | variant="goal" |
+| `breakdown` | `{ label: string; value: string; share: number; }[]` |  | variant="breakdown": `share` is a percentage of the largest part. |
+| `comparison` | `{ previous: string; currentLabel: string; previousLabel: string; }` |  | variant="comparison" |
+
+#### Accessibility
+
+- Value, change and trend are text. `Delta` says "increase" or "decrease" and whether it is good. Loading, empty and error states are announced.
+
+#### Content
+
+- Format the value yourself (`"12.4k"`). Set `upIsGood={false}` for error rate, churn, latency and cost.
+
+#### Related
+
+[`Delta`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/delta.md) · [`Sparkline`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/sparkline.md) · [`Meter`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/meter.md)
+
+#### Example
+
+```tsx
+<MetricCard label="Events" value="12.4k" delta={8.2} trend={[3, 5, 4, 8, 9]} trendLabel="Last 5 days" />
+```
+
+### Modal
+
+> A dialog that blocks the page until the person responds.
+
+```tsx
+import { Modal } from '@pance/react'
+```
+
+Source: [`src/components/overlays.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/overlays.tsx) · Figma: `Modal` · Tokens: `modal.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Short, focused tasks and decisions that need full attention.
+
+#### When not to use
+
+- Information that can sit in the page: use `Alert`.
+- Long forms: use a page or `Drawer`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `open` | `boolean` | **required** |  |
+| `onClose` | `() => void` | **required** |  |
+| `title` | `string` | **required** |  |
+| `description` | `string` |  |  |
+| `size` | `ModalSize` | `'md'` |  |
+| `icon` | `Icon` |  |  |
+| `iconSeverity` | `Severity` | `'danger'` |  |
+| `footer` | `ReactNode` |  |  |
+| `children` | `ReactNode` |  |  |
+
+#### Accessibility
+
+- `role="dialog"` with `aria-modal`, named by the title and described by `description`.
+- Focus moves in, is trapped, Escape closes, and focus returns to the opener.
+- Background scroll is locked.
+
+#### Content
+
+- Title states the task. Primary button repeats the verb.
+
+#### Related
+
+[`ConfirmDialog`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/confirm-dialog.md) · [`Drawer`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/drawer.md) · [`Popover`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/popover.md)
+
+#### Example
+
+```tsx
+<Modal open={open} onClose={() => setOpen(false)} title="Rename stream" footer={<Button onClick={save}>Save</Button>}>…</Modal>
+```
+
+### NavMenu
+
+> A vertical app navigation with groups, badges and a collapsed icon-only mode.
+
+```tsx
+import { NavMenu } from '@pance/react'
+```
+
+Source: [`src/components/navigation.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/navigation.tsx) · Figma: `Nav menu item` · Tokens: `nav-menu.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Primary navigation in dashboards and consoles.
+
+#### When not to use
+
+- Switching content on one page: use `Tabs`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `items` | `NavMenuItem[]` | **required** |  |
+| `value` | `string` | **required** |  |
+| `onChange` | `(key: string) => void` | **required** |  |
+| `collapsed` | `boolean` | `false` |  |
+| `label` | `string` |  | Name of the navigation landmark, e.g. "Main". Needed when a page has more than one <nav>. |
+
+#### Accessibility
+
+- A named `<nav>`; the active item has `aria-current="page"`; groups expose `aria-expanded`.
+- In collapsed mode, items keep their names for screen readers (and should have tooltips).
+
+#### Related
+
+[`Tabs`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tabs.md) · [`Breadcrumb`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/breadcrumb.md)
+
+#### Example
+
+```tsx
+<NavMenu label="Main" value={route} onChange={go} items={[{ key: 'home', label: 'Home', Icon: IconHome }]} />
+```
+
+### NotificationCenter
+
+> A bell with an unread count that opens a list of notifications.
+
+```tsx
+import { NotificationCenter } from '@pance/react'
+```
+
+Source: [`src/components/notifications.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/notifications.tsx) · Figma: `Notification bell`, `Notification panel`
+
+#### When to use
+
+- App-level notifications the person can review later.
+
+#### When not to use
+
+- Immediate feedback: use `Toast`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `items` | `NotificationItem[]` | **required** |  |
+| `onRead` | `(id: string) => void` | **required** |  |
+| `onReadAll` | `(() => void)` |  |  |
+| `onDismiss` | `((id: string) => void)` |  |  |
+| `footer` | `ReactNode` |  | Extra content under the list, such as a "View all" link. |
+| `align` | `"start" \| "end"` | `'end'` |  |
+
+#### Accessibility
+
+- The bell's name includes the count ("Notifications, 3 unread"); unread items say so in text.
+- Each item has named Mark as read and Dismiss buttons; focus stays inside the panel when an item disappears; Escape closes and refocuses the bell.
+
+#### Related
+
+[`Popover`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/popover.md) · [`CountBadge`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/count-badge.md) · [`Toast`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toast.md)
+
+#### Example
+
+```tsx
+<NotificationCenter items={items} onRead={markRead} onReadAll={markAll} onDismiss={dismiss} />
+```
+
+### Pagination
+
+> Page navigation for lists and tables.
+
+```tsx
+import { Pagination } from '@pance/react'
+```
+
+Source: [`src/components/table.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/table.tsx) · Figma: `Pagination`
+
+#### When to use
+
+- Lists too long for one page.
+
+#### When not to use
+
+- Feeds: use "Load more".
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `page` | `number` | **required** |  |
+| `pages` | `number` | **required** |  |
+| `onChange` | `(page: number) => void` | **required** |  |
+| `siblings` | `number` | `1` | Page buttons shown each side of the current page. |
+| `compact` | `boolean` |  | "3 / 12" instead of numbered buttons. |
+| `label` | `string` |  | Accessible name of the navigation landmark. Give each pagination on a page a different one. |
+
+#### Accessibility
+
+- A named `<nav>`; the current page has `aria-current="page"`. Give each pagination on a page a different `label`.
+
+#### Related
+
+[`DataTable`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/data-table.md)
+
+#### Example
+
+```tsx
+<Pagination page={page} pages={12} onChange={setPage} label="Streams pages" />
+```
+
+### Panel
+
+> A card with header, body, footer and optional collapse.
+
+```tsx
+import { Panel } from '@pance/react'
+```
+
+Source: [`src/components/layout.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/layout.tsx) · Figma: `Panel` · Tokens: `panel.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Settings sections, dashboard widgets, grouped forms.
+
+#### When not to use
+
+- Plain wrappers: use `Card`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `description` | `string` |  |  |
+| `icon` | `Icon` |  |  |
+| `iconSeverity` | `Severity` | `'primary'` |  |
+| `actions` | `ReactNode` |  |  |
+| `footer` | `ReactNode` |  |  |
+| `collapsible` | `boolean` | `false` |  |
+| `children` | `ReactNode` |  |  |
+| `className` | `string` | `''` |  |
+
+#### Accessibility
+
+- The collapse button has `aria-expanded` and is named by the title.
+
+#### Related
+
+[`Card`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/card.md) · [`Accordion`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/accordion.md)
+
+#### Example
+
+```tsx
+<Panel title="Retention" description="How long events are kept" collapsible>…</Panel>
+```
+
+### PinInput
+
+> A row of single-character boxes for one-time codes.
+
+```tsx
+import { PinInput } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Pin input` · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Verification and one-time codes.
+
+#### When not to use
+
+- Free text or long values.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `length` | `number` | `6` |  |
+| `onComplete` | `((pin: string) => void)` |  |  |
+| `error` | `boolean` |  |  |
+| `label` | `string` | `'Verification code'` | Name of the group (translate it). |
+| `digitLabel` | `((n: number, total: number) => string)` | `(n, total) => `Digit ${n} of ${total}`` | Name of each box (translate it). |
+
+#### Accessibility
+
+- `role="group"` with a name; each box is named "Digit 2 of 6".
+- Arrow keys move between boxes; paste fills them; `autocomplete="one-time-code"` lets phones fill it.
+
+#### Related
+
+[`Input`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md) · [`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md)
+
+#### Example
+
+```tsx
+<PinInput length={6} label="Verification code" onComplete={verify} />
+```
+
+### Popover
+
+> A small non-modal panel anchored to a trigger.
+
+```tsx
+import { Popover } from '@pance/react'
+```
+
+Source: [`src/components/overlays.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/overlays.tsx) · Figma: `Popover` · Tokens: `popover.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Extra controls or information that do not need the whole page.
+
+#### When not to use
+
+- Actions in a list: use `DropdownMenu`.
+- Tasks that need full attention: use `Modal`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `trigger` | `ReactNode` | **required** |  |
+| `title` | `string` |  |  |
+| `description` | `string` |  |  |
+| `children` | `ReactNode` | **required** |  |
+| `align` | `"start" \| "end" \| "center"` | `'start'` |  |
+
+#### Accessibility
+
+- The trigger gets `aria-expanded`; focus moves in on open; Escape or an outside click closes and refocuses the trigger.
+- The panel stays on screen: it shifts sideways to fit the viewport or a clipping container, and opens upwards when there is no room below.
+
+#### Related
+
+[`DropdownMenu`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/dropdown-menu.md) · [`Tooltip`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tooltip.md) · [`Modal`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/modal.md)
+
+#### Example
+
+```tsx
+<Popover trigger={<Button variant="outlined">Columns</Button>} title="Columns">…</Popover>
+```
+
+### Progress
+
+> A bar showing how far a task has got.
+
+```tsx
+import { Progress } from '@pance/react'
+```
+
+Source: [`src/components/feedback.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/feedback.tsx) · Figma: `Progress` · Tokens: `progress.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Uploads, imports and multi-step jobs where you know the percentage.
+
+#### When not to use
+
+- Unknown duration: use `Spinner`.
+- A measurement against a limit: use `Meter`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `number` | **required** |  |
+| `severity` | `Severity` | `'primary'` |  |
+| `showValue` | `boolean` |  |  |
+| `label` | `string` |  | Accessible name, e.g. "Upload progress". Required by WCAG 4.1.2 when there is no visible label. |
+| `valueText` | `string` |  | Human-readable value for screen readers, e.g. "3 of 8 files". |
+
+#### Accessibility
+
+- `role="progressbar"` with `aria-valuenow`. Pass `label` to name it; `valueText` for a readable value such as "Step 2 of 5".
+
+#### Related
+
+[`Spinner`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/spinner.md) · [`Meter`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/meter.md) · [`Steps`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/steps.md)
+
+#### Example
+
+```tsx
+<Progress label="Uploading report.csv" value={64} showValue />
+```
+
+### Radio
+
+> A single option in a set where exactly one can be chosen.
+
+```tsx
+import { Radio } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `Radio` · Tokens: `radio.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Only inside a `RadioGroup`, or when you build your own group.
+
+#### When not to use
+
+- Standalone: use `Checkbox`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `checked` | `boolean` | **required** |  |
+| `onChange` | `() => void` | **required** |  |
+| `label` | `string` |  |  |
+| `description` | `string` |  |  |
+| `disabled` | `boolean` |  |  |
+| `error` | `boolean` |  |  |
+| `size` | `RadioSize` | `'md'` |  |
+| `tabIndex` | `number` |  | Set by RadioGroup for roving focus. |
+| `onKeyDown` | `((e: KeyboardEvent<HTMLButtonElement>) => void)` |  |  |
+| `buttonRef` | `Ref<HTMLButtonElement>` |  |  |
+
+#### Accessibility
+
+- Use `RadioGroup` to get one Tab stop and arrow-key movement.
+
+#### Related
+
+[`RadioGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-group.md) · [`RadioCard`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-card.md)
+
+#### Example
+
+```tsx
+<Radio checked={v === 'a'} onChange={() => setV('a')} label="Option A" />
+```
+
+### RadioCard
+
+> A selectable card for choices that need more room than a radio row.
+
+```tsx
+import { RadioCard } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `Radio card` · Tokens: `radio.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Plans, delivery options, templates with a title, description and badge.
+
+#### When not to use
+
+- Simple labels: use `RadioGroup`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `checked` | `boolean` | **required** |  |
+| `onChange` | `() => void` | **required** |  |
+| `label` | `string` | **required** |  |
+| `description` | `string` |  |  |
+| `disabled` | `boolean` |  |  |
+| `Icon` | `Icon` |  |  |
+| `badge` | `string` |  |  |
+
+#### Accessibility
+
+- Behaves as a radio; place cards inside a group labelled for assistive tech.
+- Selected state is shown by border and indicator, not colour alone.
+
+#### Related
+
+[`RadioGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-group.md)
+
+#### Example
+
+```tsx
+<RadioCard checked={plan === 'pro'} onChange={() => setPlan('pro')} label="Pro" description="For teams" badge="Popular" />
+```
+
+### RadioGroup
+
+> A labelled set of options where exactly one is selected.
+
+```tsx
+import { RadioGroup } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `Radio group` · Tokens: `radio.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- 2 to 5 mutually exclusive options that should all be visible.
+
+#### When not to use
+
+- More than about 5 options: use `Select`.
+- Compact toolbars: use `SegmentedControl`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | **required** |  |
+| `options` | `{ value: T; label: string; description?: string; disabled?: boolean; }[]` | **required** |  |
+| `value` | `T \| null` | **required** |  |
+| `onChange` | `(v: T) => void` | **required** |  |
+| `size` | `RadioSize` | `'md'` |  |
+| `orientation` | `"horizontal" \| "vertical"` | `'vertical'` |  |
+| `error` | `boolean` |  |  |
+
+#### Accessibility
+
+- `role="radiogroup"`, one Tab stop; arrows move and select; Home and End jump.
+- The `label` names the group; `error` should come with a message.
+
+#### Related
+
+[`SegmentedControl`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/segmented-control.md) · [`Select`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/select.md) · [`RadioCard`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-card.md)
+
+#### Example
+
+```tsx
+<RadioGroup label="Plan" value={plan} onChange={setPlan} options={[{ value: 'free', label: 'Free' }, { value: 'pro', label: 'Pro', description: 'Billed monthly' }]} />
+```
+
+### RangeCalendar
+
+> A calendar for picking a start and end date, with one or two months.
+
+```tsx
+import { RangeCalendar } from '@pance/react'
+```
+
+Source: [`src/components/date.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/date.tsx) · Figma: `Calendar / Range` · Tokens: `calendar.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Report ranges, bookings.
+
+#### When not to use
+
+- A single date: use `Calendar`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `DateRange` | **required** |  |
+| `onChange` | `(value: DateRange) => void` | **required** |  |
+| `min` | `string` |  |  |
+| `max` | `string` |  |  |
+| `isDateDisabled` | `((date: string) => boolean)` |  |  |
+| `months` | `2 \| 1` |  |  |
+| `defaultMonth` | `string` |  |  |
+| `autoFocus` | `boolean` |  |  |
+| `bordered` | `boolean` |  | Draws the outer border, radius and surface. Off by default so the calendar can sit inside a popover or card. |
+| `className` | `string` |  |  |
+
+#### Accessibility
+
+- Same keys as `Calendar`. Pick the first day then the last; a third click starts a new range. The preview follows pointer and focus.
+- Dates are ISO strings (`"2026-10-15"`), never `Date` objects, so there are no time-zone surprises.
+
+#### Related
+
+[`DateRangePicker`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/date-range-picker.md) · [`Calendar`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/calendar.md)
+
+#### Example
+
+```tsx
+<RangeCalendar value={range} onChange={setRange} months={2} />
+```
+
+### RangeSlider
+
+> A native range input for picking a number in an interval.
+
+```tsx
+import { RangeSlider } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Range slider` · Tokens: `range-slider.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Approximate values where precision is not critical: volume, thresholds.
+
+#### When not to use
+
+- Exact values: add an `Input` or use steps. Do not use for two-handle ranges (not supported).
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `value` | `number` | **required** |  |
+| `onChange` | `(v: number) => void` | **required** |  |
+| `min` | `number` | `0` |  |
+| `max` | `number` | `100` |  |
+| `step` | `number` | `1` |  |
+| `severity` | `"primary" \| "success" \| "warning" \| "danger"` | `'primary'` |  |
+| `label` | `string` |  | Accessible name when the slider is not inside a Field. |
+| `valueText` | `string` |  | Human-readable value, e.g. "40 %" or "3 replicas" (aria-valuetext). |
+| `disabled` | `boolean` |  |  |
+
+#### Accessibility
+
+- Native `<input type="range">`: arrows, Home, End and Page keys work.
+- `label` is required outside a `Field`; `valueText` gives a readable value such as "40 percent".
+
+#### Related
+
+[`Input`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md) · [`Meter`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/meter.md)
+
+#### Example
+
+```tsx
+<RangeSlider label="Alert threshold" value={t} onChange={setT} min={0} max={100} valueText={`${t} percent`} />
+```
+
+### RankedBarChart
+
+> Horizontal bars sorted by value, for rankings.
+
+```tsx
+import { RankedBarChart } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Chart / Ranked` · Tokens: `chart.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Top-N lists with long labels.
+
+#### When not to use
+
+- Time series.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `subtitle` | `string` |  |  |
+| `data` | `{ label: string; value: number; }[]` | **required** |  |
+| `format` | `ChartFormat` | `compact` |  |
+| `unit` | `string` |  |  |
+
+#### Accessibility
+
+- Every chart has a text alternative: arrow keys move between points and read out names and values, and "View as table" shows the same data.
+- Series are never told apart by colour alone: markers, patterns and labels repeat the meaning.
+- Colours follow dark mode through `color.dataviz.series.1…8`.
+
+#### Related
+
+[`BarChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/bar-chart.md)
+
+#### Example
+
+```tsx
+<RankedBarChart title="Top endpoints" data={[{ label: '/checkout', value: 420 }]} />
+```
+
+### ScatterChart
+
+> Two numeric measures per point, to show correlation or outliers.
+
+```tsx
+import { ScatterChart } from '@pance/react'
+```
+
+Source: [`src/components/charts.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/charts.tsx) · Figma: `Chart / Scatter` · Tokens: `chart.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Relationship between two variables for a handful to a few dozen points.
+
+#### When not to use
+
+- Thousands of points.
+- More than two series. In forms where any two marks can touch (scatter, bubble, maps, small multiples) the limit is two: fold the rest into "Other" or split into small multiples (DDR-DS-027).
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `title` | `string` | **required** |  |
+| `subtitle` | `string` |  |  |
+| `points` | `ScatterPoint[]` | **required** |  |
+| `xLabel` | `string` | **required** |  |
+| `yLabel` | `string` | **required** |  |
+| `formatX` | `ChartFormat` | `compact` |  |
+| `formatY` | `ChartFormat` | `compact` |  |
+| `height` | `number` | `280` |  |
+
+#### Accessibility
+
+- Arrow keys move between points and read the name with both values; hover targets are 24px; "View as table" lists all points.
+
+#### Related
+
+[`LineChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/line-chart.md)
+
+#### Example
+
+```tsx
+<ScatterChart title="Latency vs load" xLabel="Requests/s" yLabel="p95 ms" points={[{ label: 'api-1', x: 120, y: 80 }]} />
+```
+
+### SegmentedControl
+
+> A compact single-choice control for switching a view or a mode.
+
+```tsx
+import { SegmentedControl } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `Segmented control` · Tokens: `segmented-control.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- 2 to 4 short options that change how content is shown: Day / Week / Month.
+
+#### When not to use
+
+- Navigating between sections: use `Tabs`.
+- Many options: use `Select`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `options` | `{ value: T; label: string; Icon?: IconType; }[]` | **required** |  |
+| `value` | `T` | **required** |  |
+| `onChange` | `(v: T) => void` | **required** |  |
+| `size` | `"sm" \| "md" \| "lg"` | `'md'` |  |
+| `label` | `string` |  | Accessible name for the group, e.g. "View". |
+
+#### Accessibility
+
+- `role="radiogroup"`, one Tab stop, arrows select. Give it a `label`.
+
+#### Related
+
+[`Tabs`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tabs.md) · [`RadioGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-group.md) · [`ButtonGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button-group.md)
+
+#### Example
+
+```tsx
+<SegmentedControl label="Range" value={r} onChange={setR} options={[{ value: 'd', label: 'Day' }, { value: 'w', label: 'Week' }]} />
+```
+
+### Select
+
+> A select-only dropdown built as a button plus listbox, with typeahead.
+
+```tsx
+import { Select } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Select` · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Choosing one value from a list of about 4 to 15 items.
+
+#### When not to use
+
+- Fewer than 4 options: use `RadioGroup`.
+- Long lists that need filtering: use `Combobox`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `options` | `string[]` | **required** |  |
+| `value` | `string` | **required** |  |
+| `onChange` | `(v: string) => void` | **required** |  |
+| `label` | `string` |  | Accessible name when not inside a Field. |
+| `disabled` | `boolean` |  |  |
+| `error` | `boolean` |  |  |
+
+#### Accessibility
+
+- Select-only combobox pattern: Enter, Space or ↑↓ open, arrows/Home/End move, typing jumps to a match, Enter or Space chooses, Escape closes.
+- Always give it a name through `Field` or `label`.
+
+#### Related
+
+[`Combobox`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/combobox.md) · [`RadioGroup`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/radio-group.md) · [`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md)
+
+#### Example
+
+```tsx
+<Field label="Region"><Select options={['Andina', 'Caribe', 'Pacífica']} value={r} onChange={setR} /></Field>
+```
+
+### Skeleton
+
+> A pulsing placeholder that holds the shape of content while it loads.
+
+```tsx
+import { Skeleton } from '@pance/react'
+```
+
+Source: [`src/components/feedback.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/feedback.tsx) · Figma: `Skeleton` · Tokens: `skeleton.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Loading states where the layout is known.
+
+#### When not to use
+
+- Waits under about 300 ms.
+- Unknown layout: use `Spinner`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `className` | `string` | `''` |  |
+
+#### Accessibility
+
+- `aria-hidden`; set `aria-busy="true"` on the loading container. The pulse stops with `prefers-reduced-motion`.
+
+#### Related
+
+[`Spinner`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/spinner.md) · [`EmptyState`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/empty-state.md)
+
+#### Example
+
+```tsx
+<div aria-busy="true"><Skeleton className="h-4 w-40" /></div>
+```
+
+### Sparkline
+
+> A tiny line or bar chart for trends inside other components.
+
+```tsx
+import { Sparkline } from '@pance/react'
+```
+
+Source: [`src/components/data.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/data.tsx) · Figma: `Sparkline` · Tokens: `sparkline.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Show direction at a glance in cards and table cells.
+
+#### When not to use
+
+- Reading exact values.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `data` | `number[]` | **required** |  |
+| `tone` | `"positive" \| "negative" \| "neutral"` | `'positive'` |  |
+| `size` | `SparkSize` | `'md'` |  |
+| `variant` | `"line" \| "bar"` | `'line'` |  |
+| `label` | `string` |  | Accessible name. Defaults to "Trend: from X to Y". |
+
+#### Accessibility
+
+- `label` is the text alternative; summarise the trend in words ("Up 12% over 30 days").
+
+#### Related
+
+[`MetricCard`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/metric-card.md) · [`LineChart`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/line-chart.md)
+
+#### Example
+
+```tsx
+<Sparkline data={[3, 5, 4, 8, 9]} tone="positive" label="Events, last 5 days, rising" />
+```
+
+### Spinner
+
+> An indeterminate loading indicator with a text name.
+
+```tsx
+import { Spinner } from '@pance/react'
+```
+
+Source: [`src/components/feedback.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/feedback.tsx) · Figma: `Spinner` · Tokens: `spinner.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Short waits of unknown length, inside buttons or small areas.
+
+#### When not to use
+
+- Waits longer than a few seconds: use `Progress` with a value.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `size` | `SpinnerSize` | `'md'` |  |
+| `label` | `string` |  |  |
+| `className` | `string` | `''` |  |
+
+#### Accessibility
+
+- `role="status"` named by `label` (default "Loading"). The arc stops under `prefers-reduced-motion`.
+
+#### Related
+
+[`Progress`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/progress.md) · [`Skeleton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/skeleton.md)
+
+#### Example
+
+```tsx
+<Spinner label="Loading events" />
+```
+
+### SplitButton
+
+> A primary action with a menu of alternatives attached.
+
+```tsx
+import { SplitButton } from '@pance/react'
+```
+
+Source: [`src/components/button.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/button.tsx) · Figma: `Split button` · Tokens: `button.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- One default action plus a few variants, such as "Save" with "Save as draft".
+
+#### When not to use
+
+- More than about six alternatives: use a `DropdownMenu`.
+- Unrelated actions.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | **required** |  |
+| `Icon` | `Icon` |  |  |
+| `severity` | `Severity` | `'primary'` |  |
+| `size` | `ButtonSize` | `'md'` |  |
+| `items` | `{ label: string; Icon?: IconType; onSelect?: () => void; danger?: boolean; disabled?: boolean; }[]` | **required** |  |
+| `onClick` | `(() => void)` |  | Primary action. |
+| `menuLabel` | `string` |  | Accessible name of the arrow button. Defaults to the translated "More actions". |
+
+#### Accessibility
+
+- The arrow is a separate menu button with `aria-haspopup="menu"` and `aria-expanded`, named by `menuLabel`.
+- Same keyboard model as `DropdownMenu`: Enter, Space or ↓ opens, arrows move, Escape closes and refocuses.
+
+#### Content
+
+- The main label is the default action. Menu items are alternatives to it, not a repeat.
+
+#### Related
+
+[`DropdownMenu`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/dropdown-menu.md) · [`Button`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button.md)
+
+#### Example
+
+```tsx
+<SplitButton
+  label="Publish"
+  onClick={publish}
+  items={[{ label: 'Save as draft', onSelect: saveDraft }, { label: 'Schedule…', onSelect: schedule }]}
+/>
+```
+
+### Steps
+
+> Shows progress through an ordered process.
+
+```tsx
+import { Steps } from '@pance/react'
+```
+
+Source: [`src/components/navigation.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/navigation.tsx) · Figma: `Steps` · Tokens: `steps.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Checkout, onboarding and other flows with a known number of steps.
+
+#### When not to use
+
+- Switching views: use `Tabs`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `steps` | `StepItem[]` | **required** |  |
+| `current` | `number` | **required** |  |
+| `orientation` | `"horizontal" \| "vertical"` | `'horizontal'` |  |
+| `label` | `string` |  | Accessible name of the list, e.g. "Onboarding progress". |
+| `statusText` | `{ complete: string; error: string; }` | `{ complete: 'completed', error: 'has an error' }` | Screen-reader suffix for complete and error steps (translate it). |
+
+#### Accessibility
+
+- The current step has `aria-current="step"` and each status is spoken ("completed", "error"), so it never relies on colour.
+
+#### Related
+
+[`Progress`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/progress.md) · [`Tabs`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tabs.md)
+
+#### Example
+
+```tsx
+<Steps current={1} steps={[{ label: 'Account' }, { label: 'Billing' }, { label: 'Confirm' }]} />
+```
+
+### SwitchRow
+
+> A full-width row with a title, description and a switch.
+
+```tsx
+import { SwitchRow } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `SwitchRow` · Tokens: `toggle.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Settings lists where each option needs an explanation.
+
+#### When not to use
+
+- Single inline switches: use `Toggle`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | **required** |  |
+| `description` | `string` |  |  |
+| `on` | `boolean` | **required** |  |
+| `onChange` | `(v: boolean) => void` | **required** |  |
+| `disabled` | `boolean` |  |  |
+| `size` | `ToggleSize` | `'md'` |  |
+
+#### Accessibility
+
+- The label and description name and describe the switch, and clicking the row toggles it.
+
+#### Related
+
+[`Toggle`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toggle.md)
+
+#### Example
+
+```tsx
+<SwitchRow label="Weekly digest" description="A summary every Monday" on={on} onChange={setOn} />
+```
+
+### TabPanel
+
+> The content region linked to a tab.
+
+```tsx
+import { TabPanel } from '@pance/react'
+```
+
+Source: [`src/components/navigation.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/navigation.tsx) · Tokens: `tabs.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Wrap each tab's content so it is labelled by its tab.
+
+#### When not to use
+
+- Using it without `Tabs`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `tabsId` | `string` | **required** |  |
+| `tabKey` | `string` | **required** |  |
+| `className` | `string` | `''` |  |
+| `children` | `ReactNode` | **required** |  |
+
+#### Accessibility
+
+- `role="tabpanel"` labelled by the tab; hidden when inactive.
+
+#### Related
+
+[`Tabs`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tabs.md)
+
+#### Example
+
+```tsx
+<TabPanel tabsId="stream" tabKey="Activity">…</TabPanel>
+```
+
+### Tabs
+
+> Switches between related views of the same content without leaving the page.
+
+```tsx
+import { Tabs } from '@pance/react'
+```
+
+Source: [`src/components/navigation.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/navigation.tsx) · Figma: `Tabs`, `Tab` · Tokens: `tabs.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Peer sections of one object: Overview, Activity, Settings.
+
+#### When not to use
+
+- Steps in order: use `Steps`.
+- Changing how the same data is displayed: use `SegmentedControl`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `tabs` | `(string \| TabItem)[]` | **required** |  |
+| `value` | `string` | **required** |  |
+| `onChange` | `(v: string) => void` | **required** |  |
+| `variant` | `TabVariant` | `'underline'` |  |
+| `size` | `TabSize` | `'md'` |  |
+| `label` | `string` |  | Accessible name of the tab list, e.g. "Report sections". |
+| `id` | `string` |  | Set it to link tabs to <TabPanel>s with aria-controls. |
+
+#### Accessibility
+
+- WAI-ARIA tabs with automatic activation: one Tab stop, ←→ move and select, Home and End.
+- Give `label` to name the tab list; pass `id` and wrap content in `TabPanel` to link panels with `aria-controls`.
+
+#### Content
+
+- One or two words each. Do not wrap onto two lines.
+
+#### Related
+
+[`TabPanel`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tab-panel.md) · [`SegmentedControl`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/segmented-control.md) · [`NavMenu`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/nav-menu.md)
+
+#### Example
+
+```tsx
+<Tabs id="stream" label="Stream sections" tabs={['Overview', 'Activity']} value={tab} onChange={setTab} />
+<TabPanel tabsId="stream" tabKey="Overview">…</TabPanel>
+```
+
+### TagInput
+
+> Collects a list of short values as removable chips, with optional suggestions.
+
+```tsx
+import { TagInput } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Tag input` · Tokens: `tag-input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Tags, keywords, email recipients.
+
+#### When not to use
+
+- Choosing from a fixed set only: use `Combobox` or checkboxes.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `tags` | `string[]` | **required** |  |
+| `onChange` | `(tags: string[]) => void` | **required** |  |
+| `placeholder` | `string` |  |  |
+| `suggestions` | `string[]` | `[]` |  |
+| `label` | `string` |  | Accessible name when the input isn't inside a <Field>. |
+
+#### Accessibility
+
+- Enter or comma adds, Backspace removes the last tag; each chip has a named remove button.
+- Suggestions are a listbox reachable with arrow keys.
+
+#### Related
+
+[`Badge`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/badge.md) · [`Combobox`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/combobox.md) · [`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md)
+
+#### Example
+
+```tsx
+<Field label="Tags"><TagInput tags={tags} onChange={setTags} suggestions={['api', 'billing']} /></Field>
+```
+
+### Textarea
+
+> A multi-line text field with a fixed 80px minimum height.
+
+```tsx
+import { Textarea } from '@pance/react'
+```
+
+Source: [`src/components/forms.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/forms.tsx) · Figma: `Textarea` · Tokens: `input.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Comments, descriptions and other free text longer than a line.
+
+#### When not to use
+
+- Single-line values: use `Input`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `error` | `boolean` |  |  |
+| `success` | `boolean` |  |  |
+| `className` | `string` | `''` |  |
+
+Also accepts native `<textarea>` attributes.
+
+#### Accessibility
+
+- Same wiring as `Input` through `Field`.
+- Show a character limit with `Field` `maxChars` rather than blocking typing silently.
+
+#### Related
+
+[`Input`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/input.md) · [`Field`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/field.md)
+
+#### Example
+
+```tsx
+<Field label="Message"><Textarea rows={4} /></Field>
+```
+
+### ThemeProvider
+
+> Chooses light, dark or system and sets `data-theme` on the document.
+
+```tsx
+import { ThemeProvider } from '@pance/react'
+```
+
+Source: [`src/components/theme.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/theme.tsx)
+
+#### When to use
+
+- Once at the app root.
+
+#### When not to use
+
+- Nesting providers.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `defaultMode` | `ThemeMode` | `'system'` |  |
+| `storageKey` | `string` | `DEFAULT_KEY` |  |
+| `children` | `ReactNode` | **required** |  |
+
+#### Accessibility
+
+- The system choice follows `prefers-color-scheme`. The choice is stored in `localStorage` and the app still works if storage is blocked. Inline `themeInitScript()` in `<head>` to avoid a flash.
+
+#### Related
+
+[`ThemeToggle`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/theme-toggle.md)
+
+#### Example
+
+```tsx
+<ThemeProvider defaultMode="system"><App /></ThemeProvider>
+```
+
+### ThemeToggle
+
+> A Light / Dark / System radio group wired to `ThemeProvider`.
+
+```tsx
+import { ThemeToggle } from '@pance/react'
+```
+
+Source: [`src/components/theme.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/theme.tsx) · Figma: `Theme toggle`
+
+#### When to use
+
+- Settings or header.
+
+#### When not to use
+
+- Outside a `ThemeProvider`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `size` | `"sm" \| "md" \| "lg"` | `'sm'` |  |
+| `className` | `string` | `''` |  |
+
+#### Accessibility
+
+- Radio group: one Tab stop, arrows move and select. Strings come from `labels.theme*`.
+
+#### Related
+
+[`ThemeProvider`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/theme-provider.md) · [`SegmentedControl`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/segmented-control.md)
+
+#### Example
+
+```tsx
+<ThemeToggle />
+```
+
+### Toast
+
+> A short, temporary message about something that just happened, with an optional follow-up action such as Undo.
+
+```tsx
+import { Toast } from '@pance/react'
+```
+
+Source: [`src/components/feedback.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/feedback.tsx) · Figma: `Toast`, `Toast / With action` · Tokens: `toast.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Confirm a completed action; offer a quick Undo with `action`.
+
+#### When not to use
+
+- Errors that need attention or a decision: use `Alert` or a dialog.
+- Anything the person must not miss: toasts disappear.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `item` | `ToastItem` | **required** |  |
+| `onDismiss` | `(id: string) => void` | **required** |  |
+
+#### Accessibility
+
+- `role="status"` (`alert` for danger). The dismiss button is named; the action button runs and dismisses.
+- Do not auto-dismiss messages that contain actions too quickly (WCAG 2.2.1).
+
+#### Related
+
+[`ToastStack`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toast-stack.md) · [`Alert`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/alert.md)
+
+#### Example
+
+```tsx
+<Toast item={{ id: '1', severity: 'success', title: 'Stream deleted', action: { label: 'Undo', onClick: restore } }} onDismiss={dismiss} />
+```
+
+### ToastStack
+
+> The fixed bottom-right container that stacks toasts as a labelled landmark.
+
+```tsx
+import { ToastStack } from '@pance/react'
+```
+
+Source: [`src/components/feedback.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/feedback.tsx) · Figma: `Toast` · Tokens: `toast.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Render once near the app root and feed it your toast list.
+
+#### When not to use
+
+- Several stacks on one page.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `toasts` | `ToastItem[]` | **required** |  |
+| `onDismiss` | `(id: string) => void` | **required** |  |
+| `label` | `string` | `'Notifications'` | Name of the notifications landmark. |
+
+#### Accessibility
+
+- A labelled region (`label`, default "Notifications") so screen reader users can find it.
+
+#### Related
+
+[`Toast`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toast.md)
+
+#### Example
+
+```tsx
+<ToastStack toasts={toasts} onDismiss={(id) => setToasts((t) => t.filter((x) => x.id !== id))} />
+```
+
+### Toggle
+
+> An on/off switch for a setting that applies immediately.
+
+```tsx
+import { Toggle } from '@pance/react'
+```
+
+Source: [`src/components/selection.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/selection.tsx) · Figma: `Toggle` · Tokens: `toggle.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Settings that take effect right away: notifications on, dark mode.
+
+#### When not to use
+
+- Choices that need a Save button: use `Checkbox`.
+- Selecting several items: use `Checkbox`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `on` | `boolean` | **required** |  |
+| `onChange` | `(v: boolean) => void` | **required** |  |
+| `disabled` | `boolean` |  |  |
+| `size` | `ToggleSize` | `'md'` |  |
+| `label` | `string` |  | Accessible name. Required unless the switch sits inside a <label> or SwitchRow. |
+| `labelledBy` | `string` |  |  |
+| `describedBy` | `string` |  |  |
+
+#### Accessibility
+
+- `role="switch"` with `aria-checked`; Space toggles.
+- Needs a name: pass `label`/`labelledBy`, or use `SwitchRow`.
+- State is shown by position and track fill, not colour alone.
+
+#### Related
+
+[`SwitchRow`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/switch-row.md) · [`Checkbox`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/checkbox.md) · [`ToggleButton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toggle-button.md)
+
+#### Example
+
+```tsx
+<Toggle on={on} onChange={setOn} label="Email alerts" />
+```
+
+### ToggleButton
+
+> A button that stays pressed: filled when on, outlined when off.
+
+```tsx
+import { ToggleButton } from '@pance/react'
+```
+
+Source: [`src/components/button.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/button.tsx) · Figma: `Toggle button` · Tokens: `button.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Toolbar-style on/off options such as Bold or Follow.
+
+#### When not to use
+
+- Settings that apply immediately and need a visible switch: use `Toggle` or `SwitchRow`.
+- Choosing one of several: use `SegmentedControl`.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `on` | `boolean` | **required** |  |
+| `onChange` | `(v: boolean) => void` | **required** |  |
+| `onLabel` | `string` | **required** |  |
+| `offLabel` | `string` | **required** |  |
+| `OnIcon` | `Icon` |  |  |
+| `OffIcon` | `Icon` |  |  |
+| `size` | `ButtonSize` | `'md'` |  |
+
+#### Accessibility
+
+- Sets `aria-pressed`. Keep the label the same in both states, or change it with `onLabel`/`offLabel` and never both the label and the state at once in a confusing way.
+- Enter and Space toggle.
+
+#### Related
+
+[`Toggle`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/toggle.md) · [`SwitchRow`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/switch-row.md) · [`Button`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/button.md)
+
+#### Example
+
+```tsx
+<ToggleButton on={following} onChange={setFollowing} onLabel="Following" offLabel="Follow" />
+```
+
+### Tooltip
+
+> A short label that appears on hover and keyboard focus.
+
+```tsx
+import { Tooltip } from '@pance/react'
+```
+
+Source: [`src/components/overlays.tsx`](https://github.com/lermajonathan/pance-ds/blob/main/src/components/overlays.tsx) · Figma: `Tooltip` · Tokens: `tooltip.*` in [tokens.md](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md)
+
+#### When to use
+
+- Name icon-only buttons; add a short hint to a control.
+
+#### When not to use
+
+- Essential information or interactive content: use `Popover`.
+- Touch-only contexts: tooltips need hover or focus.
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `label` | `string` | **required** |  |
+| `children` | `ReactNode` | **required** |  |
+| `placement` | `TooltipPlacement` | `'top'` |  |
+| `description` | `string` |  |  |
+
+#### Accessibility
+
+- `role="tooltip"` and `aria-describedby` on the child. Appears on focus, stays while hovered, Escape dismisses (WCAG 1.4.13).
+
+#### Related
+
+[`Popover`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/popover.md) · [`IconButton`](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/icon-button.md)
+
+#### Example
+
+```tsx
+<Tooltip label="Copy link"><IconButton Icon={IconCopy} label="Copy link" /></Tooltip>
+```
+
+## Tokens
+
+954 tokens in three tiers. CSS variable = `--pance-` + the token path in kebab-case (`color.intent.primary.solid` becomes `--pance-color-intent-primary-solid`). Product code reads semantic and component tokens; primitives are raw values. Every token with its value is in https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md.
+
+## Tokens: primitives
+
+- `color.*` — 121 tokens
+- `fontFamily.*` — 3 tokens
+- `fontWeight.*` — 6 tokens
+- `fontSize.*` — 15 tokens
+- `lineHeight.*` — 5 tokens
+- `letterSpacing.*` — 6 tokens
+- `space.*` — 16 tokens
+- `radius.*` — 6 tokens
+- `size.*` — 20 tokens
+- `duration.*` — 5 tokens
+- `easing.*` — 3 tokens
+- `opacity.*` — 3 tokens
+- `blur.*` — 1 tokens
+- `breakpoint.*` — 6 tokens
+- `container.*` — 7 tokens
+- `grid.*` — 6 tokens
+- `zIndex.*` — 4 tokens
+
+## Tokens: semantic
+
+- `color.*` — 146 tokens
+- `radius.*` — 6 tokens
+- `shadow.*` — 10 tokens
+- `focus.*` — 3 tokens
+- `typography.*` — 14 tokens
+- `motion.*` — 3 tokens
+- `icon.*` — 7 tokens
+- `gradient.*` — 4 tokens
+
+## Tokens: components
+
+- `button.*` — 146 tokens
+- `badge.*` — 96 tokens
+- `input.*` — 27 tokens
+- `field.*` — 4 tokens
+- `toggle.*` — 14 tokens
+- `checkbox.*` — 17 tokens
+- `radio.*` — 12 tokens
+- `segmented-control.*` — 10 tokens
+- `range-slider.*` — 8 tokens
+- `avatar.*` — 13 tokens
+- `tabs.*` — 18 tokens
+- `steps.*` — 9 tokens
+- `nav-menu.*` — 8 tokens
+- `card.*` — 5 tokens
+- `panel.*` — 4 tokens
+- `accordion.*` — 3 tokens
+- `alert.*` — 3 tokens
+- `progress.*` — 3 tokens
+- `skeleton.*` — 2 tokens
+- `tooltip.*` — 8 tokens
+- `popover.*` — 4 tokens
+- `dropdown-menu.*` — 7 tokens
+- `modal.*` — 11 tokens
+- `drawer.*` — 4 tokens
+- `toast.*` — 5 tokens
+- `file-dropzone.*` — 7 tokens
+- `tag-input.*` — 5 tokens
+- `sparkline.*` — 7 tokens
+- `metric-card.*` — 9 tokens
+- `data-table.*` — 13 tokens
+- `chart.*` — 6 tokens
+- `calendar.*` — 16 tokens
+- `date-picker.*` — 3 tokens
+- `spinner.*` — 6 tokens
+- `empty-state.*` — 9 tokens
+- `meter.*` — 6 tokens
+
+## Design decisions
+
+Every decision is a DDR-DS record in https://github.com/lermajonathan/pance-ds/blob/main/docs/decisions/. Records are append-only.
+
+- DDR-DS-001 (Accepted, 2026-10-14): Three-tier token architecture
+- DDR-DS-002 (Accepted, 2026-10-14): The repo JSON is the source of truth
+- DDR-DS-003 (Accepted, 2026-10-14): Brand colour is Aqua
+- DDR-DS-004 (Accepted, 2026-10-14): Breakpoint `sm` stays at 640px
+- DDR-DS-005 (Accepted, 2026-10-14): Heading 3 is 20px
+- DDR-DS-006 (Accepted, 2026-10-14): Contrast fixes change four tokens and the warning button
+- DDR-DS-007 (Accepted, 2026-10-15): Components read semantic and component tokens only
+- DDR-DS-008 (Accepted, 2026-10-15): Dark mode is a semantic layer
+- DDR-DS-009 (Accepted, 2026-10-15): Publish to npm with trusted publishing
+- DDR-DS-010 (Accepted, 2026-10-15): Built-in strings are props, with no i18n or router dependency
+- DDR-DS-011 (Accepted, 2026-10-15): One mature release instead of many small ones
+- DDR-DS-012 (Accepted, 2026-10-15): One generated documentation page per component
+- DDR-DS-013 (Accepted, 2026-10-15): Deprecation takes two minor releases and 90 days
+- DDR-DS-014 (Accepted, 2026-10-15): Visual regression without committed screenshots
+- DDR-DS-015 (Accepted, 2026-10-15): The Figma Code Connect map is kept by hand
+- DDR-DS-016 (Accepted, 2026-10-16): One Figma page per component
+- DDR-DS-017 (Accepted, 2026-10-16): Decisions are recorded as DDR-DS
+- DDR-DS-018 (Accepted, 2026-10-16): Button can show a leading and a trailing icon
+- DDR-DS-019 (Accepted, 2026-10-20): Four gradient tokens, decorative only
+- DDR-DS-027 (Proposed, 2026-10-29): Data palettes: orange diverging pole and dark categorical steps
+- DDR-DS-028 (Proposed, 2026-11-02): One status-colour system for charts and controls
+- DDR-DS-029 (Proposed, 2026-11-02): Agent access through llms.txt, a read-only MCP server and a skill

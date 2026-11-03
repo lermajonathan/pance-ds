@@ -27,6 +27,8 @@ jobs:
       - run: pnpm typecheck
       - name: Component docs are up to date and their examples type-check
         run: pnpm docs:check && pnpm test:docs
+      - name: llms.txt covers every component and token group
+        run: pnpm test:llms
       - run: pnpm build
       - name: Build and smoke-test the npm packages
         run: pnpm build:packages && pnpm test:packages
