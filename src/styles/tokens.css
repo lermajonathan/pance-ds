@@ -478,6 +478,7 @@
   --pance-motion-transition-color: var(--pance-duration-base) var(--pance-easing-standard) 0ms;
   --pance-motion-transition-control: var(--pance-duration-slow) var(--pance-easing-standard) 0ms;
   --pance-motion-transition-enter: var(--pance-duration-slower) var(--pance-easing-out-expo) 0ms;
+  --pance-motion-transition-count: var(--pance-duration-slower) var(--pance-easing-out-expo) 0ms;
   --pance-icon-xs: var(--pance-size-14);
   --pance-icon-sm: var(--pance-size-16);
   --pance-icon-md: var(--pance-size-18);

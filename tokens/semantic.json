@@ -1550,7 +1550,15 @@
           "delay": "0ms",
           "timingFunction": "{easing.out-expo}"
         },
-        "$description": "`pance-rise` entrance."
+        "$description": "`pance-rise` entrance. Also the entrance of animated charts (DDR-DS-030)."
+      },
+      "count": {
+        "$value": {
+          "duration": "{duration.slower}",
+          "delay": "0ms",
+          "timingFunction": "{easing.out-expo}"
+        },
+        "$description": "A number counting up to its value (`useCountUp`, DDR-DS-030)."
       }
     }
   },

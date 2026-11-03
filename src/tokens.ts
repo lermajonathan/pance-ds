@@ -683,7 +683,8 @@ export const tokens = {
     "transition": {
       "color": "200ms 0.4,0,0.2,1 0ms",
       "control": "300ms 0.4,0,0.2,1 0ms",
-      "enter": "500ms 0.22,1,0.36,1 0ms"
+      "enter": "500ms 0.22,1,0.36,1 0ms",
+      "count": "500ms 0.22,1,0.36,1 0ms"
     }
   },
   "icon": {
