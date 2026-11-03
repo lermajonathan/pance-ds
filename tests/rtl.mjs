@@ -44,6 +44,10 @@ for (const f of files) {
     for (const raw of s.text.split(/\s+/)) {
       if (!raw) continue
       const u = utility(raw.replace(/['"`}{,;]+$/, ''))
+      // Centering with -translate-x-1/2 only works with left-1/2 / right-1/2: start-1/2 shifts the wrong way in RTL.
+      if ((u === 'start-1/2' || u === 'end-1/2') && s.text.split(/\s+/).some((t) => utility(t).replace(/^-/, '') === 'translate-x-1/2')) {
+        failures.push(`${f}:${lineOf(src, s.index)} "${u}" with translate-x-1/2 is not centred in RTL (use left-1/2)`)
+      }
       if (!PHYSICAL.test(u) || SYMMETRIC.has(u)) continue
       if (EXCEPTIONS.some((e) => e.file === f && e.token === u)) continue
       failures.push(`${f}:${lineOf(src, s.index)} physical utility "${u}" (use the logical one, or list it in EXCEPTIONS with a reason)`)

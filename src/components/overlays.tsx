@@ -239,7 +239,7 @@ export function Popover({
     setOpen(false)
     focusableIn(ref.current)[0]?.focus()
   }
-  const alignClass = align === 'end' ? 'end-0' : align === 'center' ? 'start-1/2 -translate-x-1/2' : 'start-0'
+  const alignClass = align === 'end' ? 'end-0' : align === 'center' ? 'left-1/2 -translate-x-1/2' : 'start-0'
   return (
     <div ref={ref} className="relative inline-flex" onKeyDown={(e) => { if (e.key === 'Escape' && open) { e.stopPropagation(); close() } }}>
       {mergeTriggerProps(trigger, { 'aria-expanded': open, 'aria-haspopup': 'dialog', 'aria-controls': open ? id : undefined, onClick: () => setOpen((o) => !o) })}
