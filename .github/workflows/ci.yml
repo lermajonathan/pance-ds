@@ -40,6 +40,8 @@ jobs:
         run: pnpm test:motion
       - name: Gallery cards use only components and tokens
         run: pnpm test:gallery
+      - name: Right-to-left readiness (logical properties, start/end API, key mapping)
+        run: pnpm test:rtl
       - name: Install Chromium for accessibility tests
         run: pnpm exec playwright install --with-deps chromium
       - name: Accessibility (keyboard patterns + axe-core)
@@ -48,6 +50,7 @@ jobs:
           npx --yes wait-on@8.0.3 http://localhost:4173/en
           pnpm test:keyboard http://localhost:4173/en
           pnpm test:axe http://localhost:4173/en
+          pnpm test:axe http://localhost:4173/en --dir=rtl
 
   # Visual regression without committed screenshots: build the previous commit (or the PR base),
   # screenshot it, build this commit and compare. Both run on the same machine, so fonts and
@@ -86,6 +89,7 @@ jobs:
           (cd ../base && pnpm preview --port 4174 --strictPort &)
           npx --yes wait-on@8.0.3 http://localhost:4174/en
           node tests/visual.mjs http://localhost:4174/en --update --baseline="$RUNNER_TEMP/baseline"
+          node tests/visual.mjs http://localhost:4174/en --dir=rtl --update --baseline="$RUNNER_TEMP/baseline"
           pkill -f "vite preview" || true
       - name: Compare this commit
         if: steps.base.outputs.skip != 'true'
@@ -97,7 +101,7 @@ jobs:
           pnpm build
           pnpm preview --port 4173 --strictPort &
           npx --yes wait-on@8.0.3 http://localhost:4173/en
-          if ! node tests/visual.mjs http://localhost:4173/en --baseline="$RUNNER_TEMP/baseline"; then
+          if ! { node tests/visual.mjs http://localhost:4173/en --baseline="$RUNNER_TEMP/baseline" && node tests/visual.mjs http://localhost:4173/en --dir=rtl --baseline="$RUNNER_TEMP/baseline"; }; then
             if [ "$ALLOW" = "1" ]; then echo "Visual changes allowed by [visual-change]."; else exit 1; fi
           fi
       - uses: actions/upload-artifact@v4

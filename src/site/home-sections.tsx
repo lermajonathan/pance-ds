@@ -65,11 +65,11 @@ function OpenArt() {
         <div className="flex items-center gap-2 border-b border-line bg-ground px-4 py-2">
           <IconGlobe size={14} className="text-ink-brand" />
           <span className="min-w-0 truncate font-mono text-11 text-ink-muted">pance / design-system</span>
-          <span className="ml-auto shrink-0"><Badge severity="success" variant="soft" size="sm">{t('shell.openSource')}</Badge></span>
+          <span className="ms-auto shrink-0"><Badge severity="success" variant="soft" size="sm">{t('shell.openSource')}</Badge></span>
         </div>
         <pre className="overflow-x-auto p-4 font-mono text-[12px] leading-relaxed text-ink-soft">{'<Button severity="primary">\n  Ship it\n</Button>'}</pre>
       </div>
-      <div className="pance-rise flex items-center gap-3 pl-4">
+      <div className="pance-rise flex items-center gap-3 ps-4">
         <span aria-hidden className="h-6 w-px bg-line" />
         <Button severity="primary" size="sm">Ship it</Button>
       </div>
@@ -138,7 +138,7 @@ export function PillarsSection() {
                 tabIndex={on ? 0 : -1}
                 onClick={() => { setManual(true); setActive(i) }}
                 onKeyDown={(e) => onKey(e, i)}
-                className={`relative flex min-w-0 items-center gap-3 overflow-hidden rounded-[1.25rem] px-3 py-3 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 sm:px-4 ${on ? 'bg-surface shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-slate-950)_35%,transparent)] ring-1 ring-line' : 'text-ink-muted hover:bg-surface/60 hover:text-ink'}`}
+                className={`relative flex min-w-0 items-center gap-3 overflow-hidden rounded-[1.25rem] px-3 py-3 text-start transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 sm:px-4 ${on ? 'bg-surface shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--color-slate-950)_35%,transparent)] ring-1 ring-line' : 'text-ink-muted hover:bg-surface/60 hover:text-ink'}`}
               >
                 <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-colors ${on ? 'bg-primary-solid text-primary-on-solid' : 'bg-primary-soft text-primary-fg'}`}>
                   <p.Icon size={18} weight="duotone" />
@@ -256,7 +256,7 @@ export function CoverageSection({ onOpen }: { onOpen: () => void }) {
           </div>
           <Button severity="primary" onClick={onOpen}>
             {t('home.coverage.cta')}
-            <IconArrowRight size={14} className="ml-1" />
+            <IconArrowRight size={14} className="ms-1" />
           </Button>
         </div>
 
@@ -292,7 +292,7 @@ export function CoverageSection({ onOpen }: { onOpen: () => void }) {
                 </ul>
 
                 {!on && (
-                  <p aria-hidden className="absolute left-6 top-16 hidden font-display text-lg font-bold tracking-tight text-ink-soft [writing-mode:vertical-rl] lg:block">{t(group)}</p>
+                  <p aria-hidden className="absolute start-6 top-16 hidden font-display text-lg font-bold tracking-tight text-ink-soft [writing-mode:vertical-rl] lg:block">{t(group)}</p>
                 )}
 
                 <div className={`relative mt-6 h-24 lg:mt-auto ${c.accent} ${on ? 'lg:h-36' : 'lg:h-20'} transition-[height] duration-500`}>

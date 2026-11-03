@@ -22,6 +22,7 @@ import {
   IconUsers,
   IconWave,
   IconChart,
+  IconGlobe,
   IconMapPin,
   IconMoon,
   IconSun,
@@ -57,6 +58,8 @@ import { NotificationsBell } from './notifications'
 import { GithubLogo, Gradient } from '@phosphor-icons/react'
 import { GradientsPage } from './gradients'
 import { GalleryPage } from './gallery'
+import { RtlPage } from './rtl'
+import { DirSwitch } from './direction'
 import { LINKS, VERSION } from './version'
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -81,6 +84,7 @@ const NAV: Group[] = [
       { key: 'gradients', labelKey: 'nav.gradients', Icon: Gradient, Page: GradientsPage },
       { key: 'icons', labelKey: 'nav.icons', Icon: IconGripSquare, Page: IconsPage },
       { key: 'layout', labelKey: 'nav.layout', Icon: IconColumns, Page: LayoutPage },
+      { key: 'rtl', labelKey: 'nav.rtl', Icon: IconGlobe, Page: RtlPage },
     ],
   },
   {
@@ -124,7 +128,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
   // collapse to an icon strip.
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-50 flex h-[100dvh] shrink-0 flex-col border-r border-line bg-surface transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:z-auto lg:max-w-none lg:translate-x-0 lg:transition-[width] ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} ${collapsed ? 'w-[86vw] max-w-[20rem] lg:w-20' : 'w-[86vw] max-w-[20rem] lg:w-72'}`}
+      className={`fixed inset-y-0 start-0 z-50 flex h-[100dvh] shrink-0 flex-col border-e border-line bg-surface transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:z-auto lg:max-w-none lg:translate-x-0 lg:transition-[width] ${mobileOpen ? 'translate-x-0' : 'translate-x-[calc(var(--pance-dir)*-100%)]'} ${collapsed ? 'w-[86vw] max-w-[20rem] lg:w-20' : 'w-[86vw] max-w-[20rem] lg:w-72'}`}
     >
       <div className={`flex min-h-20 items-center gap-3 px-6 pt-[env(safe-area-inset-top)] lg:min-h-0 lg:h-20 lg:pt-0 ${collapsed ? 'lg:px-5' : ''}`}>
         <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-brand text-white shadow-[0_6px_16px_-4px_rgba(8,145,178,0.55)]">
@@ -136,7 +140,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
         </div>
         <button
           onClick={onCloseMobile}
-          className="pance-focus ml-auto grid h-9 w-9 shrink-0 place-items-center rounded-lg text-ink-muted hover:bg-ground hover:text-ink lg:hidden"
+          className="pance-focus ms-auto grid h-9 w-9 shrink-0 place-items-center rounded-lg text-ink-muted hover:bg-ground hover:text-ink lg:hidden"
           aria-label={t('shell.closeNav')}
         >
           <IconX size={20} />
@@ -165,7 +169,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
                   className={`pance-focus group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-200 ${collapsed ? 'lg:justify-center lg:gap-0 lg:px-0' : ''} ${isActive ? 'bg-primary-soft text-primary-fg' : 'text-ink-soft hover:bg-ground hover:text-ink'}`}
                 >
                   <Icon size={18} weight={isActive ? 'fill' : 'regular'} className={`shrink-0 ${isActive ? 'text-primary-fg' : 'text-ink-muted group-hover:text-ink-soft'}`} />
-                  <span className={`min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-left transition-all duration-300 ${collapsed ? 'opacity-100 lg:w-0 lg:opacity-0' : 'opacity-100'}`}>{label}</span>
+                  <span className={`min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-start transition-all duration-300 ${collapsed ? 'opacity-100 lg:w-0 lg:opacity-0' : 'opacity-100'}`}>{label}</span>
                 </Link>
               )
             })}
@@ -175,6 +179,7 @@ function Sidebar({ collapsed, onToggle, active, mobileOpen, onCloseMobile }: { c
 
       <div className="border-t border-line-soft p-4 lg:hidden">
         <LanguageSwitch variant="block" />
+        <DirSwitch className="mt-2 w-full" />
       </div>
 
       <div className="hidden border-t border-line-soft p-4 lg:block">
@@ -241,7 +246,7 @@ function Shell() {
           {/* Mobile top bar — always available so navigation is reachable.
               Safe-area padding keeps the hamburger clear of rounded corners /
               the status bar on notched devices. */}
-          <header className="sticky top-0 z-30 flex min-h-16 items-center gap-3 border-b border-line bg-ground/85 pb-2.5 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md lg:hidden">
+          <header /* rtl-exempt: safe-area insets are physical, the notch sits on a physical side */ className="sticky top-0 z-30 flex min-h-16 items-center gap-3 border-b border-line bg-ground/85 pb-2.5 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md lg:hidden">
             <button
               onClick={() => setMobileOpen(true)}
               className="pance-focus grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-line bg-surface text-ink-soft"
@@ -276,6 +281,7 @@ function Shell() {
               <ThemeToggle className="hidden xl:inline-flex" />
               <span className="hidden lg:inline-flex xl:hidden"><MobileThemeButton /></span>
               <LanguageSwitch variant="header" />
+              <DirSwitch className="hidden md:block" />
               <HeaderSearch pages={ALL} className="hidden w-64 md:block" />
               <NotificationsBell />
               <a

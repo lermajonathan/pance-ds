@@ -37,7 +37,7 @@ export function NotificationsBell() {
         ))}
       </ul>
     </Popover>
-      {!seen && <span role="status" aria-label={t('release.unread')} className="pointer-events-none absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-brand-500 ring-2 ring-surface" />}
+      {!seen && <span role="status" aria-label={t('release.unread')} className="pointer-events-none absolute end-1.5 top-1.5 h-2.5 w-2.5 rounded-full bg-brand-500 ring-2 ring-surface" />}
     </span>
   )
 }

@@ -1,21 +1,25 @@
 // axe-core audit of every docs page at desktop and mobile widths (WCAG 2.0–2.2 A/AA + best practices).
-// Usage: pnpm build && pnpm preview --port 4173 &  node tests/axe.mjs [baseUrl]
+// Usage: pnpm build && pnpm preview --port 4173 &  node tests/axe.mjs [baseUrl] [--dir=rtl]
+// With --dir=rtl every page is audited with dir="rtl" on <html> (DDR-DS-031).
 // Fails on any violation except color-contrast, which is reported against a baseline
 // (remaining nodes are disabled-state text, which WCAG 1.4.3 exempts, and colour swatch labels).
 import { chromium } from 'playwright'
 import { createRequire } from 'node:module'
 import fs from 'node:fs'
 
-const BASE = process.argv[2] ?? 'http://localhost:4173/en'
+const BASE = process.argv.slice(2).find((a) => a.startsWith('http')) ?? 'http://localhost:4173/en'
+const RTL = process.argv.includes('--dir=rtl')
+const setDir = (page) => (RTL ? page.evaluate(() => document.documentElement.setAttribute('dir', 'rtl')) : null)
 const CONTRAST_BASELINE = 36
 const axeSrc = fs.readFileSync(createRequire(import.meta.url).resolve('axe-core/axe.min.js'), 'utf8')
-const pages = ['', 'colors', 'type', 'spacing', 'gradients', 'icons', 'layout', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'gallery', 'dashboard', 'afterquake']
+const pages = ['', 'colors', 'type', 'spacing', 'gradients', 'icons', 'layout', 'rtl', 'buttons', 'forms', 'selection', 'badges', 'feedback', 'navigation', 'overlays', 'table', 'cards', 'content', 'metrics', 'dataviz', 'gallery', 'dashboard', 'afterquake']
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {})
 const agg = {}
 for (const vp of [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobile', width: 390, height: 844 }]) {
   const page = await browser.newPage({ viewport: vp })
   for (const pg of pages) {
     await page.goto(`${BASE}/${pg}`, { waitUntil: 'networkidle' })
+    await setDir(page)
     await page.addScriptTag({ content: axeSrc })
     const violations = await page.evaluate(async () =>
       (await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'] }, resultTypes: ['violations'] })).violations
@@ -33,6 +37,7 @@ for (const vp of [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobile
 for (const vp of [{ name: 'desktop', width: 1440, height: 900 }, { name: 'mobile', width: 390, height: 844 }]) {
   const page = await browser.newPage({ viewport: vp })
   await page.goto(`${BASE}/forms`, { waitUntil: 'networkidle' })
+  await setDir(page)
   await page.addScriptTag({ content: axeSrc })
   for (const name of [/^Delivery date/, /^Report period/]) {
     await page.getByRole('button', { name }).first().click()

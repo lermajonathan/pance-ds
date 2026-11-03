@@ -99,13 +99,13 @@ function MonthGrid(p: GridProps) {
       <div className="mb-(--pance-calendar-header-gap) flex items-center justify-between">
         {p.prev ? (
           <button type="button" aria-label={tt.previousMonth} onClick={p.prev} className={`${focus} grid size-(--pance-calendar-day-size) place-items-center rounded-(--pance-calendar-day-radius) text-ink-soft hover:bg-(--pance-calendar-day-bg-hover)`}>
-            <IconChevronLeft aria-hidden className="size-4 rtl:-scale-x-100" />
+            <IconChevronLeft aria-hidden className="size-4 [scale:var(--pance-dir)_1]" />
           </button>
         ) : <span className="size-(--pance-calendar-day-size)" />}
         <h2 id={titleId} aria-live="polite" className="font-semibold text-sm text-ink">{title}</h2>
         {p.next ? (
           <button type="button" aria-label={tt.nextMonth} onClick={p.next} className={`${focus} grid size-(--pance-calendar-day-size) place-items-center rounded-(--pance-calendar-day-radius) text-ink-soft hover:bg-(--pance-calendar-day-bg-hover)`}>
-            <IconChevron aria-hidden className="size-4 rtl:-scale-x-100" />
+            <IconChevron aria-hidden className="size-4 [scale:var(--pance-dir)_1]" />
           </button>
         ) : <span className="size-(--pance-calendar-day-size)" />}
       </div>

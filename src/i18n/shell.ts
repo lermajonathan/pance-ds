@@ -13,6 +13,7 @@ export const shell = define(
     'nav.gradients': 'Gradients',
     'nav.icons': 'Iconography',
     'nav.layout': 'Layout',
+    'nav.rtl': 'Right to left',
     'nav.buttons': 'Buttons',
     'nav.forms': 'Inputs & forms',
     'nav.selection': 'Selection',
@@ -41,6 +42,7 @@ export const shell = define(
     'shell.search': 'Search the system…',
     'shell.notifications': 'Notifications',
     'shell.language': 'Language',
+    'shell.direction': 'Text direction',
     'shell.switchTo': 'Switch language to {name}',
   },
   {
@@ -55,6 +57,7 @@ export const shell = define(
     'nav.gradients': 'Gradientes',
     'nav.icons': 'Iconografía',
     'nav.layout': 'Layout',
+    'nav.rtl': 'De derecha a izquierda',
     'nav.buttons': 'Botones',
     'nav.forms': 'Campos y formularios',
     'nav.selection': 'Selección',
@@ -83,6 +86,7 @@ export const shell = define(
     'shell.search': 'Buscar en el sistema…',
     'shell.notifications': 'Notificaciones',
     'shell.language': 'Idioma',
+    'shell.direction': 'Dirección del texto',
     'shell.switchTo': 'Cambiar el idioma a {name}',
   },
 )
