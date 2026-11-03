@@ -36,7 +36,8 @@ Owned by Design (Jonathan Lerma). The DDR-DS series records decisions about the 
 | [DDR-DS-017](DDR-DS-017.md) | Decisions are recorded as DDR-DS | 2026-10-16 | Accepted |
 | [DDR-DS-018](DDR-DS-018.md) | Button can show a leading and a trailing icon | 2026-10-16 | Accepted |
 | [DDR-DS-019](DDR-DS-019.md) | Four gradient tokens, decorative only | 2026-10-20 | Accepted |
-| [DDR-DS-027](DDR-DS-027.md) | Data palettes: orange diverging pole and dark categorical steps | 2026-10-29 | Proposed |
-| [DDR-DS-028](DDR-DS-028.md) | One status-colour system for charts and controls | 2026-11-02 | Proposed |
-| [DDR-DS-029](DDR-DS-029.md) | Agent access through llms.txt, a read-only MCP server and a skill | 2026-11-02 | Proposed |
-| [DDR-DS-030](DDR-DS-030.md) | Motion system and reduced motion | 2026-11-02 | Proposed |
+| [DDR-DS-027](DDR-DS-027.md) | Data palettes: orange diverging pole and dark categorical steps | 2026-10-29 | Accepted |
+| [DDR-DS-028](DDR-DS-028.md) | One status-colour system for charts and controls | 2026-11-02 | Accepted |
+| [DDR-DS-029](DDR-DS-029.md) | Agent access through llms.txt, a read-only MCP server and a skill | 2026-11-02 | Accepted |
+| [DDR-DS-030](DDR-DS-030.md) | Motion system and reduced motion | 2026-11-02 | Accepted |
+| [DDR-DS-031](DDR-DS-031.md) | Right-to-left support with logical properties | 2026-11-02 | Accepted |

@@ -1,6 +1,6 @@
 # DDR-DS-028: One status-colour system for charts and controls
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-02
 - **Owner:** Design (Jonathan Lerma)
 

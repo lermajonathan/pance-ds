@@ -4,6 +4,8 @@ All notable changes to Pance are documented here. The format follows [Keep a Cha
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-11-03
+
 ### Added
 - **Right-to-left support** (DDR-DS-031): components use logical properties (`start`/`end`, `ps`/`pe`, `ms`/`me`, `text-start`, `rounded-s`), so a page or container with `dir="rtl"` mirrors without a provider or prop. `Tooltip` and `Drawer` accept `'start'` and `'end'` placements that follow the direction (`'left'` and `'right'` are unchanged). Arrow keys follow what you see in RTL (tabs, radio groups, calendar grid, one-time code). Calendar and pagination chevrons, the `Toggle` thumb and the `RangeSlider` fill mirror. Charts keep their plot (axes, bars, lines, heatmap, diverging baseline) left to right; titles, legends, labels and values follow the page. New CSS variable `--pance-dir` (1 or -1, set by the nearest `dir` attribute) for anything a utility cannot mirror. `pnpm test:rtl` runs in CI and release.
 - **Docs: Right to left page and direction switch** (DDR-DS-031): a new page under Foundations (EN/ES) with the same components rendered in both directions, how to turn it on, what mirrors and what does not, and a physical-to-logical table. A LTR/RTL switch in the header (also `?dir=rtl`). The visual and axe tests have a `--dir=rtl` mode that CI runs.

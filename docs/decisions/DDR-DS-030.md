@@ -1,6 +1,6 @@
 # DDR-DS-030: Motion system and reduced motion
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-02
 - **Owner:** Design (Jonathan Lerma)
 

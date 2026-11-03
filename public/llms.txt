@@ -1,6 +1,6 @@
 # Pance Design System
 
-> Pance is an accessible React design system for social and data-heavy products: 71 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.5.0, MIT.
+> Pance is an accessible React design system for social and data-heavy products: 71 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.6.0, MIT.
 
 Pance is MIT and open source. Read the full text in one file at the first link, or open one page per component.
 

@@ -1,6 +1,6 @@
 # DDR-DS-027: Data palettes: orange diverging pole and dark categorical steps
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-29
 - **Owner:** Design (Jonathan Lerma)
 
