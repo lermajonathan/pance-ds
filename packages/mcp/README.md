@@ -34,3 +34,7 @@ Requires Node 22.
 An unknown component or token returns an error with the closest names, never a guess.
 
 Every component and token group is also in [`llms-full.txt`](https://pance-ds.jonathanlerma.com/llms-full.txt) for agents that read a file instead of calling a tool.
+
+## Agent skill
+
+The package also ships a short agent skill, `dist/skills/pance/SKILL.md` (and `skills/pance/SKILL.md` in the repo). It tells an agent to look facts up through this server instead of guessing, and lists the rules for using Pance: import from `@pance/react`, tokens instead of raw values, `Field` around every control, status with an icon and a label, and the chart colour rules. Copy the folder to wherever your agent reads skills.

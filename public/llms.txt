@@ -12,6 +12,7 @@ Pance is MIT and open source. Read the full text in one file at the first link, 
 - [Tokens](https://github.com/lermajonathan/pance-ds/blob/main/docs/tokens.md): every token with its value and CSS variable
 - [Deprecation policy](https://github.com/lermajonathan/pance-ds/blob/main/docs/deprecation.md): what counts as breaking and how long deprecated APIs stay
 - [Design decisions](https://github.com/lermajonathan/pance-ds/blob/main/docs/decisions/README.md): the DDR-DS register
+- [Use Pance with coding agents](https://github.com/lermajonathan/pance-ds/blob/main/docs/agents.md): this file, the MCP server and the agent skill
 
 ## Layout
 
