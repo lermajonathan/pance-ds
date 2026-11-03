@@ -36,6 +36,8 @@ jobs:
         run: pnpm test:mcp
       - name: Agent skill only names components, tokens and tools that exist
         run: pnpm test:skill
+      - name: Motion respects prefers-reduced-motion
+        run: pnpm test:motion
       - name: Install Chromium for accessibility tests
         run: pnpm exec playwright install --with-deps chromium
       - name: Accessibility (keyboard patterns + axe-core)

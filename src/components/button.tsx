@@ -131,7 +131,7 @@ export function Button({
 
   const Trail = !stacked && children ? TrailingIcon : undefined
   const trailing = Trail ? <Trail weight="regular" aria-hidden className={`${s.icon} shrink-0`} /> : null
-  const glyph = Glyph ? <Glyph weight="regular" aria-hidden className={`${s.icon} shrink-0 ${loading ? 'animate-spin' : ''}`} /> : null
+  const glyph = Glyph ? <Glyph weight="regular" aria-hidden className={`${s.icon} shrink-0 ${loading ? 'motion-safe:animate-spin' : ''}`} /> : null
 
   return (
     <button

@@ -58,6 +58,12 @@ body {
 .pance-fill { transform-origin: left; animation: pance-fill var(--pance-dur, var(--pance-duration-progress)) linear forwards; }
 @media (prefers-reduced-motion: reduce) {
   .pance-rise, .pance-fill { animation: none; }
+  /* DDR-DS-030: state changes still happen, they just do not travel. */
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 /* ── Home hero: text palette per theme (site only; the background is gradient.hero) ───────────────── */
