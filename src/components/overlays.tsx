@@ -19,13 +19,16 @@ function useOutsideClose(ref: React.RefObject<HTMLElement | null>, open: boolean
 /* ── Tooltip ───────────────────────────────────────────────────────────────
    Shows on hover AND keyboard focus (WCAG 1.4.13: hoverable, dismissible with
    Escape, persistent). The child receives aria-describedby. */
-export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
+export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end'
 
 const TT_PLACEMENT: Record<TooltipPlacement, { tip: string; arrow: string }> = {
   top:    { tip: 'bottom-full left-1/2 mb-2 -translate-x-1/2', arrow: 'absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-(--pance-tooltip-bg)' },
   bottom: { tip: 'top-full left-1/2 mt-2 -translate-x-1/2', arrow: 'absolute left-1/2 bottom-full -translate-x-1/2 border-4 border-transparent border-b-(--pance-tooltip-bg)' },
-  left:   { tip: 'right-full top-1/2 mr-2 -translate-y-1/2', arrow: 'absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-(--pance-tooltip-bg)' },
-  right:  { tip: 'left-full top-1/2 ml-2 -translate-y-1/2', arrow: 'absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-(--pance-tooltip-bg)' },
+  // rtl-exempt: 'left' and 'right' are physical placements and keep their meaning; 'start' and 'end' follow the page direction
+  left:   { tip: 'right-full top-1/2 mr-2 -translate-y-1/2', arrow: 'absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-(--pance-tooltip-bg)' }, // rtl-exempt: physical placement API
+  right:  { tip: 'left-full top-1/2 ml-2 -translate-y-1/2', arrow: 'absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-(--pance-tooltip-bg)' }, // rtl-exempt: physical placement API
+  start:  { tip: 'end-full top-1/2 me-2 -translate-y-1/2', arrow: 'absolute start-full top-1/2 -translate-y-1/2 border-4 border-transparent border-s-(--pance-tooltip-bg)' },
+  end:    { tip: 'start-full top-1/2 ms-2 -translate-y-1/2', arrow: 'absolute end-full top-1/2 -translate-y-1/2 border-4 border-transparent border-e-(--pance-tooltip-bg)' },
 }
 
 export function Tooltip({
@@ -135,16 +138,30 @@ export function Modal({
 }
 
 /* ── Drawer ────────────────────────────────────────────────────────────── */
-export type DrawerSide = 'right' | 'left' | 'bottom'
+export type DrawerSide = 'right' | 'left' | 'start' | 'end' | 'bottom'
 const DRAWER_ENTER: Record<DrawerSide, string> = {
-  right:  'right-0 inset-y-0 h-[100dvh]',
-  left:   'left-0 inset-y-0 h-[100dvh]',
-  bottom: 'bottom-0 left-0 w-full',
+  right:  'right-0 inset-y-0 h-[100dvh]', // rtl-exempt: physical side API
+  left:   'left-0 inset-y-0 h-[100dvh]', // rtl-exempt: physical side API
+  start:  'start-0 inset-y-0 h-[100dvh]',
+  end:    'end-0 inset-y-0 h-[100dvh]',
+  bottom: 'bottom-0 start-0 w-full',
 }
 const DRAWER_WIDTH: Record<DrawerSide, string> = {
   right:  'w-full max-w-(--pance-drawer-width)',
   left:   'w-full max-w-(--pance-drawer-width)',
+  start:  'w-full max-w-(--pance-drawer-width)',
+  end:    'w-full max-w-(--pance-drawer-width)',
   bottom: 'max-h-(--pance-drawer-max-height-bottom)',
+}
+
+// Rounded corner and border on the edge that faces the page. 'right' / 'left' are the physical sides; 'start' / 'end' follow the direction.
+const DRAWER_SAFE = 'pb-[env(safe-area-inset-bottom)]'
+const DRAWER_EDGE: Record<DrawerSide, string> = {
+  bottom: `rounded-t-2xl border-t ${DRAWER_SAFE}`,
+  right:  `rounded-l-2xl border-l ${DRAWER_SAFE}`, // rtl-exempt: physical side API
+  left:   `rounded-r-2xl border-r ${DRAWER_SAFE}`, // rtl-exempt: physical side API
+  end:    `rounded-s-2xl border-s ${DRAWER_SAFE}`,
+  start:  `rounded-e-2xl border-e ${DRAWER_SAFE}`,
 }
 
 export function Drawer({
@@ -174,7 +191,7 @@ export function Drawer({
         aria-labelledby={titleId}
         aria-describedby={description ? descId : undefined}
         tabIndex={-1}
-        className={`absolute flex flex-col border-line bg-surface shadow-modal outline-none ${DRAWER_ENTER[side]} ${DRAWER_WIDTH[side]} ${side === 'bottom' ? 'rounded-t-2xl border-t pb-[env(safe-area-inset-bottom)]' : side === 'right' ? 'rounded-l-2xl border-l pb-[env(safe-area-inset-bottom)]' : 'rounded-r-2xl border-r pb-[env(safe-area-inset-bottom)]'}`}
+        className={`absolute flex flex-col border-line bg-surface shadow-modal outline-none ${DRAWER_ENTER[side]} ${DRAWER_WIDTH[side]} ${DRAWER_EDGE[side]}`}
       >
         <div className="flex items-start justify-between gap-4 px-6 py-5 border-b border-line-soft">
           <div>
@@ -222,7 +239,7 @@ export function Popover({
     setOpen(false)
     focusableIn(ref.current)[0]?.focus()
   }
-  const alignClass = align === 'end' ? 'right-0' : align === 'center' ? 'left-1/2 -translate-x-1/2' : 'left-0'
+  const alignClass = align === 'end' ? 'end-0' : align === 'center' ? 'start-1/2 -translate-x-1/2' : 'start-0'
   return (
     <div ref={ref} className="relative inline-flex" onKeyDown={(e) => { if (e.key === 'Escape' && open) { e.stopPropagation(); close() } }}>
       {mergeTriggerProps(trigger, { 'aria-expanded': open, 'aria-haspopup': 'dialog', 'aria-controls': open ? id : undefined, onClick: () => setOpen((o) => !o) })}
@@ -324,7 +341,7 @@ export function DropdownMenu({
           aria-label={label}
           onKeyDown={onMenuKey}
           style={fit.dx ? { transform: `translateX(${fit.dx}px)` } : undefined}
-          className={`absolute z-40 min-w-(--pance-dropdown-menu-min-width) overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover ${fit.up ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} ${align === 'end' ? 'right-0' : 'left-0'}`}
+          className={`absolute z-40 min-w-(--pance-dropdown-menu-min-width) overflow-hidden rounded-xl border border-line bg-surface p-1.5 shadow-popover ${fit.up ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} ${align === 'end' ? 'end-0' : 'start-0'}`}
         >
           {items.map((item, i) => {
             if (item.type === 'separator') return <li key={i} role="separator" className="my-1 border-t border-line-soft" />
@@ -346,7 +363,7 @@ export function DropdownMenu({
                   className={`pance-focus flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${item.danger ? 'text-danger hover:bg-danger-soft focus-visible:bg-danger-soft' : 'text-ink-soft hover:bg-ground hover:text-ink focus-visible:bg-ground'}`}
                 >
                   {item.Icon && <item.Icon className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />}
-                  <span className="flex-1 text-left">{item.label}</span>
+                  <span className="flex-1 text-start">{item.label}</span>
                   {item.shortcut && <kbd className="font-mono text-10 text-ink-muted">{item.shortcut}</kbd>}
                 </button>
               </li>

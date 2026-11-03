@@ -10,7 +10,7 @@ import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'rea
 import { useLabels } from './labels'
 import { IconCalendar, IconChevron, IconChevronLeft } from '../icons'
 import { focus } from './shared'
-import { useKeepInView } from './a11y'
+import { flipArrow, isRtl, useKeepInView } from './a11y'
 import { inputBase, inputError, inputNormal, useFieldControl, useFieldLabelId } from './forms'
 
 /* ── ISO date helpers (UTC arithmetic: no DST or local-zone drift) ─────── */
@@ -99,13 +99,13 @@ function MonthGrid(p: GridProps) {
       <div className="mb-(--pance-calendar-header-gap) flex items-center justify-between">
         {p.prev ? (
           <button type="button" aria-label={tt.previousMonth} onClick={p.prev} className={`${focus} grid size-(--pance-calendar-day-size) place-items-center rounded-(--pance-calendar-day-radius) text-ink-soft hover:bg-(--pance-calendar-day-bg-hover)`}>
-            <IconChevronLeft aria-hidden className="size-4" />
+            <IconChevronLeft aria-hidden className="size-4 rtl:-scale-x-100" />
           </button>
         ) : <span className="size-(--pance-calendar-day-size)" />}
         <h2 id={titleId} aria-live="polite" className="font-semibold text-sm text-ink">{title}</h2>
         {p.next ? (
           <button type="button" aria-label={tt.nextMonth} onClick={p.next} className={`${focus} grid size-(--pance-calendar-day-size) place-items-center rounded-(--pance-calendar-day-radius) text-ink-soft hover:bg-(--pance-calendar-day-bg-hover)`}>
-            <IconChevron aria-hidden className="size-4" />
+            <IconChevron aria-hidden className="size-4 rtl:-scale-x-100" />
           </button>
         ) : <span className="size-(--pance-calendar-day-size)" />}
       </div>
@@ -130,7 +130,7 @@ function MonthGrid(p: GridProps) {
                 const solid = p.mode === 'range' ? (d === start || d === end) : p.value === d
                 const label = [dayName.format(utc(d)), p.mode === 'range' && d === start ? tt.rangeStart : '', p.mode === 'range' && d === end ? tt.rangeEnd : ''].filter(Boolean).join(', ')
                 const band = inRange ? 'bg-(--pance-calendar-range-bg)' : ''
-                const bandShape = a !== b && isStart ? 'rounded-l-(--pance-calendar-day-radius)' : a !== b && isEnd ? 'rounded-r-(--pance-calendar-day-radius)' : ''
+                const bandShape = a !== b && isStart ? 'rounded-s-(--pance-calendar-day-radius)' : a !== b && isEnd ? 'rounded-e-(--pance-calendar-day-radius)' : ''
                 const face = solid
                   ? 'bg-(--pance-calendar-selected-bg) text-(--pance-calendar-selected-text) font-semibold'
                   : inRange ? 'text-(--pance-calendar-range-text)' : disabled ? 'text-(--pance-calendar-day-text-disabled)' : 'text-(--pance-calendar-day-text) hover:bg-(--pance-calendar-day-bg-hover)'
@@ -222,7 +222,8 @@ function CalendarEngine({ mode, value, range, onPick, min, max, isDateDisabled, 
       Home: addDays(focusISO, -wd), End: addDays(focusISO, 6 - wd),
       PageUp: addMonths(focusISO, e.shiftKey ? -12 : -1), PageDown: addMonths(focusISO, e.shiftKey ? 12 : 1),
     }
-    if (e.key in map) { e.preventDefault(); go(map[e.key]) }
+    const key = flipArrow(e.key, isRtl(e.currentTarget))
+    if (key in map) { e.preventDefault(); go(map[key]) }
   }
   const shift = (n: number) => { setView((v) => addMonths(v, n)); setFocusISO((f) => clamp(addMonths(f, n), min, max)) }
   const open = mode === 'range' && !!range.start && !range.end
@@ -368,7 +369,7 @@ function Picker({ text, empty, panel, trigger, name }: {
         {...a11y}
         {...nameProps}
         onClick={() => setOpen((o) => !o)}
-        className={`${inputBase} h-(--pance-input-size-md-height) px-(--pance-input-size-md-padding-x) text-(length:--pance-input-size-md-font-size) flex items-center gap-2 text-left disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${trigger.error ? inputError : inputNormal} ${open ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : ''}`}
+        className={`${inputBase} h-(--pance-input-size-md-height) px-(--pance-input-size-md-padding-x) text-(length:--pance-input-size-md-font-size) flex items-center gap-2 text-start disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${trigger.error ? inputError : inputNormal} ${open ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : ''}`}
       >
         <IconCalendar aria-hidden className="size-(--pance-input-size-md-icon) shrink-0 text-ink-muted" />
         <span id={valueId} className={`truncate ${empty ? 'text-ink-subtle' : 'text-ink'}`}>{empty ? (trigger.placeholder ?? '') : text}</span>
@@ -380,7 +381,7 @@ function Picker({ text, empty, panel, trigger, name }: {
           role="dialog"
           aria-label={name}
           style={fit.dx ? { transform: `translateX(${fit.dx}px)` } : undefined}
-          className={`absolute left-0 z-40 max-w-[calc(100vw-1rem)] rounded-(--pance-date-picker-panel-radius) border border-line bg-surface shadow-popover ${fit.up ? 'bottom-full mb-2' : 'top-full mt-2'}`}
+          className={`absolute start-0 z-40 max-w-[calc(100vw-1rem)] rounded-(--pance-date-picker-panel-radius) border border-line bg-surface shadow-popover ${fit.up ? 'bottom-full mb-2' : 'top-full mt-2'}`}
         >
           {panel(close)}
         </div>
@@ -455,10 +456,10 @@ export function DateRangePicker({ value, onChange, min, max, isDateDisabled, pre
       panel={(close) => (
         <div className="flex flex-col md:flex-row">
           {presets && presets.length > 0 && (
-            <ul className="flex flex-wrap gap-1 border-line-soft border-b p-(--pance-date-picker-panel-padding) md:w-44 md:flex-col md:flex-nowrap md:border-r md:border-b-0">
+            <ul className="flex flex-wrap gap-1 border-line-soft border-b p-(--pance-date-picker-panel-padding) md:w-44 md:flex-col md:flex-nowrap md:border-e md:border-b-0">
               {presets.map((p) => (
                 <li key={p.label}>
-                  <button type="button" onClick={() => { onChange(p.range); setDraft(p.range); close() }} className={`${focus} w-full rounded-md px-2 py-1.5 text-left text-sm text-ink-soft hover:bg-ground`}>{p.label}</button>
+                  <button type="button" onClick={() => { onChange(p.range); setDraft(p.range); close() }} className={`${focus} w-full rounded-md px-2 py-1.5 text-start text-sm text-ink-soft hover:bg-ground`}>{p.label}</button>
                 </li>
               ))}
             </ul>

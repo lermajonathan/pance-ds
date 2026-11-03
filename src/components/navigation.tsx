@@ -4,7 +4,7 @@ import { useLabels } from './labels'
 import { IconAlert, IconCheck, IconChevronDown, IconExternal, type IconType } from '../icons'
 import { focus, type Severity } from './shared'
 import { Badge } from './badge'
-import { hitArea, listKeyNav } from './a11y'
+import { hitArea, isRtl, listKeyNav } from './a11y'
 
 /* ── Tabs ──────────────────────────────────────────────────────────────
    WAI-ARIA tabs pattern with automatic activation: arrows move and select,
@@ -26,16 +26,16 @@ const TAB_LOOK: Record<TabVariant, { list: string; tab: string; on: string; off:
     tab: 'rounded-xl',
     on: 'bg-(--pance-tabs-color-pill-active-bg) text-(--pance-tabs-color-pill-active-text) shadow-sm',
     off: 'text-ink-soft hover:bg-ground hover:text-ink',
-    badgeOn: 'ml-0.5 bg-current/20 text-current',
-    badgeOff: 'ml-0.5 bg-line text-ink-muted',
+    badgeOn: 'ms-0.5 bg-current/20 text-current',
+    badgeOff: 'ms-0.5 bg-line text-ink-muted',
   },
   boxed: {
     list: 'inline-flex rounded-xl border border-line bg-canvas p-1',
     tab: 'shrink-0 whitespace-nowrap rounded-lg',
     on: 'bg-surface text-primary-fg shadow-sm ring-1 ring-line',
     off: 'text-ink-muted hover:text-ink-soft',
-    badgeOn: 'ml-0.5 bg-primary-soft-hover text-primary-fg',
-    badgeOff: 'ml-0.5 bg-line text-ink-muted',
+    badgeOn: 'ms-0.5 bg-primary-soft-hover text-primary-fg',
+    badgeOff: 'ms-0.5 bg-line text-ink-muted',
   },
   underline: {
     list: 'flex w-max min-w-full gap-1 border-b border-line',
@@ -76,7 +76,7 @@ export function Tabs({
   const selected = Math.max(0, items.findIndex((t) => t.key === value))
 
   const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>, i: number) => {
-    const next = listKeyNav(e.key, i, items.length, (n) => !!items[n].disabled, 'horizontal')
+    const next = listKeyNav(e.key, i, items.length, (n) => !!items[n].disabled, 'horizontal', isRtl(e.currentTarget))
     if (next === null) return
     e.preventDefault()
     refs.current[next]?.focus()
@@ -231,7 +231,7 @@ export function Steps({
             <li key={s.label} aria-current={s.status === 'current' ? 'step' : undefined} className="relative flex gap-4">
               {!last && (
                 <span
-                  className={`absolute left-[15px] top-8 h-[calc(100%-8px)] w-0.5 ${s.status === 'complete' ? 'bg-(--pance-steps-color-connector-complete)' : 'bg-line'}`}
+                  className={`absolute start-[15px] top-8 h-[calc(100%-8px)] w-0.5 ${s.status === 'complete' ? 'bg-(--pance-steps-color-connector-complete)' : 'bg-line'}`}
                 />
               )}
               <span aria-hidden className="relative z-10 mt-1.5 flex shrink-0 flex-col items-center">
@@ -348,7 +348,7 @@ export function NavMenu({
               )}
               {!collapsed && (
                 <>
-                  <span className="flex-1 truncate text-left">{item.label}</span>
+                  <span className="flex-1 truncate text-start">{item.label}</span>
                   {item.badge !== undefined && (
                     <Badge severity={item.badgeSev ?? 'secondary'} variant="soft">{item.badge}</Badge>
                   )}
@@ -359,7 +359,7 @@ export function NavMenu({
               )}
             </button>
             {hasChildren && expanded && !collapsed && (
-              <div id={`${uid}-${item.key}`} className="ml-4 mt-0.5 flex flex-col gap-0.5 border-l border-line-soft pl-3">
+              <div id={`${uid}-${item.key}`} className="ms-4 mt-0.5 flex flex-col gap-0.5 border-s border-line-soft ps-3">
                 {item.children!.map((child) => {
                   const childActive = value === child.key
                   return (
@@ -374,7 +374,7 @@ export function NavMenu({
                       }`}
                     >
                       {child.Icon && <child.Icon aria-hidden size={15} weight={childActive ? 'fill' : 'regular'} className="shrink-0 text-ink-muted" />}
-                      <span className="flex-1 truncate text-left">{child.label}</span>
+                      <span className="flex-1 truncate text-start">{child.label}</span>
                       {child.badge !== undefined && (
                         <Badge severity={child.badgeSev ?? 'secondary'} variant="soft">{child.badge}</Badge>
                       )}
@@ -408,7 +408,7 @@ export function Link({
       {children}
       {external && (
         <>
-          <IconExternal aria-hidden className="ml-1 inline size-[1em] align-[-0.1em]" />
+          <IconExternal aria-hidden className="ms-1 inline size-[1em] align-[-0.1em]" />
           <span className="sr-only"> ({tt.opensInNewTab})</span>
         </>
       )}
