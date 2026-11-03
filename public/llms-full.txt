@@ -1,6 +1,6 @@
 # Pance Design System: full reference
 
-> Pance is an accessible React design system for social and data-heavy products: 71 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.5.0, MIT.
+> Pance is an accessible React design system for social and data-heavy products: 71 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.6.0, MIT.
 
 This file is generated from the source (TypeScript props, token files and the decision register). Facts here match the published version above.
 
@@ -3391,7 +3391,8 @@ Every decision is a DDR-DS record in https://github.com/lermajonathan/pance-ds/b
 - DDR-DS-017 (Accepted, 2026-10-16): Decisions are recorded as DDR-DS
 - DDR-DS-018 (Accepted, 2026-10-16): Button can show a leading and a trailing icon
 - DDR-DS-019 (Accepted, 2026-10-20): Four gradient tokens, decorative only
-- DDR-DS-027 (Proposed, 2026-10-29): Data palettes: orange diverging pole and dark categorical steps
-- DDR-DS-028 (Proposed, 2026-11-02): One status-colour system for charts and controls
-- DDR-DS-029 (Proposed, 2026-11-02): Agent access through llms.txt, a read-only MCP server and a skill
-- DDR-DS-030 (Proposed, 2026-11-02): Motion system and reduced motion
+- DDR-DS-027 (Accepted, 2026-10-29): Data palettes: orange diverging pole and dark categorical steps
+- DDR-DS-028 (Accepted, 2026-11-02): One status-colour system for charts and controls
+- DDR-DS-029 (Accepted, 2026-11-02): Agent access through llms.txt, a read-only MCP server and a skill
+- DDR-DS-030 (Accepted, 2026-11-02): Motion system and reduced motion
+- DDR-DS-031 (Accepted, 2026-11-02): Right-to-left support with logical properties

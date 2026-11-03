@@ -1,6 +1,6 @@
 # DDR-DS-029: Agent access through llms.txt, a read-only MCP server and a skill
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-02
 - **Owner:** Design (Jonathan Lerma)
 

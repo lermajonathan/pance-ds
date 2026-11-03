@@ -1,6 +1,6 @@
 # DDR-DS-031: Right-to-left support with logical properties
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-11-02
 - **Owner:** Design (Jonathan Lerma)
 
