@@ -87,7 +87,7 @@ check(pkg.version === react.version, `@pance/mcp ${pkg.version} must share the v
 check(pkg.bin?.['pance-mcp'] === './bin/pance-mcp.mjs', 'package needs the pance-mcp bin')
 check(JSON.stringify(Object.keys(pkg.dependencies ?? {}).sort()) === JSON.stringify(['@modelcontextprotocol/sdk', 'zod']), 'runtime dependencies must be only the MCP SDK and zod')
 const packed = JSON.parse(execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: pkgDir, stdio: ['ignore', 'pipe', 'ignore'] }).toString())[0].files.map((f) => f.path)
-for (const f of ['bin/pance-mcp.mjs', 'dist/snapshot.json', 'package.json', 'README.md']) check(packed.includes(f), `the package does not include ${f}`)
+for (const f of ['bin/pance-mcp.mjs', 'dist/snapshot.json', 'dist/skills/pance/SKILL.md', 'package.json', 'README.md']) check(packed.includes(f), `the package does not include ${f}`)
 check(packed.every((f) => !f.startsWith('test')), 'tests must not be published')
 for (const f of packed.filter((f) => /\.(mjs|json|md)$/.test(f))) {
   const text = fs.readFileSync(path.join(pkgDir, f), 'utf8')

@@ -72,6 +72,7 @@ export function buildAgentDocs({ comps, content, pages }) {
     `- [Tokens](${REPO}docs/tokens.md): every token with its value and CSS variable`,
     `- [Deprecation policy](${REPO}docs/deprecation.md): what counts as breaking and how long deprecated APIs stay`,
     `- [Design decisions](${REPO}docs/decisions/README.md): the DDR-DS register`,
+    `- [Use Pance with coding agents](${REPO}docs/agents.md): this file, the MCP server and the agent skill`,
     '',
     ...cats.flatMap((cat) => [
       `## ${cat}`,

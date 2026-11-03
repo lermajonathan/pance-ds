@@ -49,6 +49,7 @@ pnpm test:llms                          # llms.txt and llms-full.txt cover every
 pnpm build
 pnpm build:packages && pnpm test:packages
 pnpm test:mcp                           # the MCP server answers from the sources (needs build:packages first)
+pnpm test:skill                         # the agent skill only names things that exist (needs build:packages first)
 # with `pnpm preview --port 4173` running:
 pnpm test:keyboard http://localhost:4173/en
 pnpm test:axe http://localhost:4173/en

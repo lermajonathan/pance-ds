@@ -24,6 +24,7 @@
     "test:llms": "node tests/llms.mjs",
     "build:mcp": "node scripts/build-mcp.mjs",
     "test:mcp": "node tests/mcp.mjs",
+    "test:skill": "node tests/skill.mjs",
     "test:visual": "node tests/visual.mjs",
     "test:visual:capture": "node tests/visual.mjs --update"
   },
