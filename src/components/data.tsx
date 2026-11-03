@@ -4,6 +4,7 @@ import { useLabels } from './labels'
 import { IconAlert, IconArrowDown, IconArrowUp, IconChart, type IconType } from '../icons'
 import { focus, SERIES_BG, TONE, type Severity } from './shared'
 import { hitArea } from './a11y'
+import { useCountUp } from './motion'
 import { Progress, Skeleton } from './feedback'
 
 /* ── Delta ──────────────────────────────────────────────────────────────────
@@ -104,8 +105,12 @@ export function Sparkline({
    `state` swaps the body for loading, empty or error, keeping the card's size stable. */
 export type MetricCardProps = {
   label: string
-  /** Pre-formatted value, e.g. "18,204". Formatting stays with you, so locale and units are yours. */
+  /** Pre-formatted value, e.g. "18,204". Formatting stays with you, so locale and units are yours. With `countTo` it is the final text that screen readers get. */
   value: string
+  /** Counts the value up to this number on mount and when it changes (DDR-DS-030). Needs `format`. Off under reduced motion. */
+  countTo?: number
+  /** Turns the animated number into text, e.g. `(n) => Math.round(n).toLocaleString('en-US')`. Its result for `countTo` must equal `value`. */
+  format?: (n: number) => string
   unit?: string
   Icon?: IconType
   /** Signed percentage change. */
@@ -136,21 +141,25 @@ function IconBox({ Icon, tone = 'primary' }: { Icon: IconType; tone?: Severity }
   )
 }
 
-function Value({ value, unit, className }: { value: string; unit?: string; className: string }) {
+function Value({ value, srValue, unit, className }: { value: string; /** Final text when `value` is mid-count: the animated figure is hidden from assistive tech. */ srValue?: string; unit?: string; className: string }) {
   return (
     <p className={`font-display font-extrabold leading-none tracking-tight text-ink ${className}`}>
-      {value}
+      {srValue === undefined ? value : <><span aria-hidden="true">{value}</span><span className="sr-only">{srValue}</span></>}
       {unit && <span className="ml-1 font-mono text-[0.45em] font-semibold text-ink-muted">{unit}</span>}
     </p>
   )
 }
 
 export function MetricCard({
-  label, value, unit, Icon = IconChart, delta, upIsGood = true, trend, trendLabel, caption,
+  label, value, countTo, format, unit, Icon = IconChart, delta, upIsGood = true, trend, trendLabel, caption,
   variant = 'default', state = 'ready', onRetry, accent = 'primary', goal, breakdown, comparison,
 }: MetricCardProps) {
   const l = useLabels()
   const id = useId()
+  const counted = useCountUp(countTo ?? 0)
+  const animate = countTo !== undefined && format !== undefined
+  const shown = animate ? format(counted) : value
+  const srValue = animate ? value : undefined
   const good = delta === undefined ? true : upIsGood ? delta >= 0 : delta < 0
   const sparkTone = delta === undefined || delta === 0 ? 'neutral' : good ? 'positive' : 'negative'
   const shell = 'relative overflow-hidden rounded-(--pance-metric-card-radius) border border-(--pance-metric-card-border) bg-(--pance-metric-card-bg) shadow-card-rest'
@@ -190,7 +199,7 @@ export function MetricCard({
       <article aria-labelledby={`${id}-l`} className={`${shell} flex items-center justify-between gap-3 p-(--pance-metric-card-padding-compact)`}>
         <div className="min-w-0">
           <p id={`${id}-l`} className="truncate text-xs text-ink-muted">{label}</p>
-          <Value value={value} unit={unit} className="mt-1 text-xl" />
+          <Value value={shown} srValue={srValue} unit={unit} className="mt-1 text-xl" />
         </div>
         <div className="flex shrink-0 items-center gap-3">
           {trend && <Sparkline data={trend} tone={sparkTone} size="sm" label={trendLabel} />}
@@ -206,7 +215,7 @@ export function MetricCard({
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <p id={`${id}-l`} className="text-xs font-medium uppercase tracking-widest text-ink-soft">{label}</p>
-            <Value value={value} unit={unit} className="mt-3 text-6xl" />
+            <Value value={shown} srValue={srValue} unit={unit} className="mt-3 text-6xl" />
             {caption && <p className="mt-2 text-sm text-ink-soft">{caption}</p>}
             {delta !== undefined && <div className="mt-4"><Delta value={delta} upIsGood={upIsGood} /></div>}
           </div>
@@ -224,7 +233,7 @@ export function MetricCard({
       <article aria-labelledby={`${id}-l`} className={`${shell} p-(--pance-metric-card-padding)`}>
         {header}
         <div className="mt-5 flex items-end justify-between gap-3">
-          <Value value={value} unit={unit} className="text-4xl" />
+          <Value value={shown} srValue={srValue} unit={unit} className="text-4xl" />
           <p className="text-right text-xs text-ink-muted"><span className="font-mono font-semibold text-ink">{l.ofGoal(`${pct}%`)}</span></p>
         </div>
         <div className="mt-3"><Progress value={pct} severity={severity} label={label} valueText={`${fmt(goal.current)} / ${fmt(goal.target)}`} /></div>
@@ -240,7 +249,7 @@ export function MetricCard({
     return (
       <article aria-labelledby={`${id}-l`} className={`${shell} p-(--pance-metric-card-padding)`}>
         {header}
-        <Value value={value} unit={unit} className="mt-4 text-4xl" />
+        <Value value={shown} srValue={srValue} unit={unit} className="mt-4 text-4xl" />
         <ul className="mt-4 space-y-2 border-t border-line pt-4">
           {breakdown.map((b, i) => (
             <li key={b.label} className="flex items-center gap-3">
@@ -261,7 +270,7 @@ export function MetricCard({
       <article aria-labelledby={`${id}-l`} className={`${shell} p-(--pance-metric-card-padding)`}>
         {header}
         <dl className="mt-5 grid grid-cols-2 divide-x divide-line">
-          <div className="pr-4"><dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">{comparison.currentLabel}</dt><dd className="mt-1"><Value value={value} unit={unit} className="text-3xl" /></dd></div>
+          <div className="pr-4"><dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">{comparison.currentLabel}</dt><dd className="mt-1"><Value value={shown} srValue={srValue} unit={unit} className="text-3xl" /></dd></div>
           <div className="pl-4"><dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">{comparison.previousLabel}</dt><dd className="mt-1"><Value value={comparison.previous} unit={unit} className="text-3xl !text-ink-soft" /></dd></div>
         </dl>
       </article>
@@ -272,7 +281,7 @@ export function MetricCard({
     <article aria-labelledby={`${id}-l`} className={`${shell} p-(--pance-metric-card-padding)`}>
       {header}
       <div className="mt-6 flex items-end justify-between gap-3">
-        <Value value={value} unit={unit} className="text-4xl" />
+        <Value value={shown} srValue={srValue} unit={unit} className="text-4xl" />
         {trend && <Sparkline data={trend} tone={sparkTone} label={trendLabel} />}
       </div>
       {(caption ?? (delta !== undefined ? l.vsPrevious : undefined)) && <p className="mt-3 text-xs text-ink-muted">{caption ?? l.vsPrevious}</p>}

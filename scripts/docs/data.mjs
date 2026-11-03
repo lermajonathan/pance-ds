@@ -6,7 +6,7 @@ export const data = {
     use: ['Headline KPIs. Variants: default, compact, hero, goal, breakdown, comparison.'],
     avoid: ['Detailed series: use a chart.'],
     a11y: ['Value, change and trend are text. `Delta` says "increase" or "decrease" and whether it is good. Loading, empty and error states are announced.'],
-    content: ['Format the value yourself (`"12.4k"`). Set `upIsGood={false}` for error rate, churn, latency and cost.'],
+    content: ['Format the value yourself (`"12.4k"`). Set `upIsGood={false}` for error rate, churn, latency and cost.', 'To count the figure up on entrance, pass `countTo` and `format`; `value` stays the text screen readers get, and reduced motion shows it at once.'],
     related: ['Delta', 'Sparkline', 'Meter'],
     tokens: 'metric-card',
     figma: '`Metric card`',

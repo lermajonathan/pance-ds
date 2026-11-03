@@ -28,6 +28,7 @@ const html = renderToString(h(PanceProvider, { labels: { close: 'Cerrar' } },
   h(Badge, { severity: 'success', dot: true }, 'Flowing'),
   h(Tabs, { tabs: ['One', 'Two'], value: 'One', onChange() {}, label: 'Sections' }),
   h(Modal, { open: true, onClose() {}, title: 'Delete stream?' }, 'Body'),
+  h(MetricCard, { label: 'Streams', value: '18,204', countTo: 18204, format: (n) => Math.round(n).toLocaleString('en-US') }),
   h(MetricCard, { label: 'Error rate', value: '0.42', unit: '%', delta: 18.6, upIsGood: false, trend: [4, 5, 6, 9] }),
   h(DataTable, { caption: 'Streams', columns: [{ key: 'name', header: 'Name', sortable: true }, { key: 'region', header: 'Region' }], rows: [{ name: 'checkout', region: 'us-east-1' }, { name: 'auth', region: 'eu-west-2' }], rowKey: (r) => r.name, rowLabel: (r) => r.name, selectable: true }),
   h(LineChart, { title: 'Throughput', labels: ['Jan', 'Feb', 'Mar'], series: [{ name: 'US', data: [1, 2, 3] }, { name: 'EU', data: [2, 2, 4] }] }),
@@ -52,6 +53,7 @@ const html = sh('node render.mjs')
 check('components render on the server', html.includes('Create') && html.includes('role="tablist"'))
 check('Field associates its label', /<label[^>]*for="([^"]+)"[\s\S]*<input[^>]*id="\1"/.test(html))
 check('MetricCard speaks its delta', html.includes('Up 18.6%') && html.includes('worse'))
+check('MetricCount counts up to the final value, which is already in the server render and read by screen readers', html.includes('<span aria-hidden="true">18,204</span><span class="sr-only">18,204</span>'))
 check('DataTable renders a labelled, sortable table', html.includes('aria-sort="none"') && html.includes('role="checkbox"') && html.includes('scope="row"'))
 check('Charts are focusable groups with a table alternative', html.includes('role="group"') && html.includes('View as table'))
 check('DatePicker is a dialog button named by its label and value', html.includes('aria-haspopup="dialog"') && html.includes('Due: Oct 15, 2026'))
