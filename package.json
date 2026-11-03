@@ -26,6 +26,7 @@
     "test:gallery": "node tests/gallery.mjs",
     "test:rtl": "node tests/rtl.mjs",
     "test:numberfield": "node tests/number-field.mjs",
+    "test:timefield": "node tests/time-field.mjs",
     "build:mcp": "node scripts/build-mcp.mjs",
     "test:mcp": "node tests/mcp.mjs",
     "test:skill": "node tests/skill.mjs",
