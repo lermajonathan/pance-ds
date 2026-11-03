@@ -3391,3 +3391,4 @@ Every decision is a DDR-DS record in https://github.com/lermajonathan/pance-ds/b
 - DDR-DS-027 (Proposed, 2026-10-29): Data palettes: orange diverging pole and dark categorical steps
 - DDR-DS-028 (Proposed, 2026-11-02): One status-colour system for charts and controls
 - DDR-DS-029 (Proposed, 2026-11-02): Agent access through llms.txt, a read-only MCP server and a skill
+- DDR-DS-030 (Proposed, 2026-11-02): Motion system and reduced motion
