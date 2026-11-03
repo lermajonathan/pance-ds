@@ -32,6 +32,8 @@ jobs:
       - run: pnpm build
       - name: Build and smoke-test the npm packages
         run: pnpm build:packages && pnpm test:packages
+      - name: MCP server answers from the sources, is read-only and installs cleanly
+        run: pnpm test:mcp
       - name: Install Chromium for accessibility tests
         run: pnpm exec playwright install --with-deps chromium
       - name: Accessibility (keyboard patterns + axe-core)
