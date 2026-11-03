@@ -38,6 +38,8 @@ jobs:
         run: pnpm test:skill
       - name: Motion respects prefers-reduced-motion
         run: pnpm test:motion
+      - name: Gallery cards use only components and tokens
+        run: pnpm test:gallery
       - name: Install Chromium for accessibility tests
         run: pnpm exec playwright install --with-deps chromium
       - name: Accessibility (keyboard patterns + axe-core)
