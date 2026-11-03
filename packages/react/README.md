@@ -2,7 +2,7 @@
 
 Accessible, token-driven React components from **[Pance](https://pance-ds.jonathanlerma.com)**, a design system for social and data-heavy products.
 
-- 45+ components with one model: **severity** (what it means) × **variant** (how loud) × **size**
+- 71 components with one model: **severity** (what it means) × **variant** (how loud) × **size**
 - WCAG 2.2 AA: WAI-ARIA keyboard patterns (dialog, menu, combobox, tabs, radio group…), labelled form fields, contrast checked in light and dark
 - Every colour and size comes from [`@pance/tokens`](https://www.npmjs.com/package/@pance/tokens)
 - No router or i18n dependency: built-in strings are English by default and translatable
