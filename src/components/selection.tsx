@@ -14,9 +14,9 @@ const TOGGLE_TRACK: Record<ToggleSize, string> = {
   lg: 'h-(--pance-toggle-size-lg-track-height) w-(--pance-toggle-size-lg-track-width)',
 }
 const TOGGLE_THUMB: Record<ToggleSize, { size: string; on: string; off: string }> = {
-  sm: { size: 'size-(--pance-toggle-size-sm-thumb)', on: 'left-[18px]', off: 'left-0.5' },
-  md: { size: 'size-(--pance-toggle-size-md-thumb)', on: 'left-[22px]', off: 'left-0.5' },
-  lg: { size: 'size-(--pance-toggle-size-lg-thumb)', on: 'left-[26px]', off: 'left-[3px]' },
+  sm: { size: 'size-(--pance-toggle-size-sm-thumb)', on: 'start-[18px]', off: 'start-0.5' },
+  md: { size: 'size-(--pance-toggle-size-md-thumb)', on: 'start-[22px]', off: 'start-0.5' },
+  lg: { size: 'size-(--pance-toggle-size-lg-thumb)', on: 'start-[26px]', off: 'start-[3px]' },
 }
 
 export function Toggle({
@@ -304,7 +304,7 @@ export function RadioCard({
       aria-describedby={description ? `${uid}-d` : undefined}
       disabled={disabled}
       onClick={() => !disabled && onChange()}
-      className={`${focus} w-full rounded-xl border p-4 text-left transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${
+      className={`${focus} w-full rounded-xl border p-4 text-start transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${
         checked
           ? 'border-primary-border-strong bg-primary-soft shadow-[0_0_0_1px_var(--color-primary-border-strong)]'
           : 'border-line bg-surface hover:border-line-strong hover:bg-canvas'
@@ -426,7 +426,7 @@ export function CheckboxGroup({
           />
         </div>
       )}
-      <div className="space-y-3 pl-1">
+      <div className="space-y-3 ps-1">
         {options.map((o) => (
           <Checkbox
             key={o.value}

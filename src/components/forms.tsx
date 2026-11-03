@@ -66,18 +66,18 @@ export function Input({
   const resolvedType = isPwd ? (showPwd ? 'text' : 'password') : type
   const state = error ? inputError : success ? inputSuccess : inputNormal
   const iconSize = inputSize === 'sm' ? 'size-(--pance-input-size-sm-icon)' : inputSize === 'lg' ? 'size-(--pance-input-size-lg-icon)' : 'size-(--pance-input-size-md-icon)'
-  const leftPad = Icon ? (inputSize === 'sm' ? 'pl-8' : inputSize === 'lg' ? 'pl-11' : 'pl-10') : ''
-  const rightPad = (isPwd || TrailingIcon) ? (inputSize === 'sm' ? 'pr-8' : inputSize === 'lg' ? 'pr-11' : 'pr-10') : ''
-  const iconLeft = inputSize === 'sm' ? 'left-2.5' : inputSize === 'lg' ? 'left-4' : 'left-3.5'
-  const iconRight = inputSize === 'sm' ? 'right-2.5' : inputSize === 'lg' ? 'right-4' : 'right-3.5'
+  const startPad = Icon ? (inputSize === 'sm' ? 'ps-8' : inputSize === 'lg' ? 'ps-11' : 'ps-10') : ''
+  const endPad = (isPwd || TrailingIcon) ? (inputSize === 'sm' ? 'pe-8' : inputSize === 'lg' ? 'pe-11' : 'pe-10') : ''
+  const iconStart = inputSize === 'sm' ? 'start-2.5' : inputSize === 'lg' ? 'start-4' : 'start-3.5'
+  const iconEnd = inputSize === 'sm' ? 'end-2.5' : inputSize === 'lg' ? 'end-4' : 'end-3.5'
 
   return (
     <div className="relative">
-      {Icon && <Icon aria-hidden="true" className={`pointer-events-none absolute ${iconLeft} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />}
+      {Icon && <Icon aria-hidden="true" className={`pointer-events-none absolute ${iconStart} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />}
       <input
         ref={ref}
         type={resolvedType}
-        className={`${inputBase} ${INPUT_SIZE[inputSize]} ${state} ${leftPad} ${rightPad} ${className}`}
+        className={`${inputBase} ${INPUT_SIZE[inputSize]} ${state} ${startPad} ${endPad} ${className}`}
         {...rest}
         {...a11y}
       />
@@ -87,12 +87,12 @@ export function Input({
           aria-label={tt.showPassword}
           aria-pressed={showPwd}
           onClick={() => setShowPwd((v) => !v)}
-          className={`${focus} absolute ${iconRight} top-1/2 -mr-[3px] grid h-6 w-6 -translate-y-1/2 place-items-center rounded-md text-ink-muted hover:text-ink-soft`}
+          className={`${focus} absolute ${iconEnd} top-1/2 -me-[3px] grid h-6 w-6 -translate-y-1/2 place-items-center rounded-md text-ink-muted hover:text-ink-soft`}
         >
           {showPwd ? <IconEyeOff aria-hidden className={iconSize} /> : <IconEye aria-hidden className={iconSize} />}
         </button>
       ) : TrailingIcon ? (
-        <TrailingIcon aria-hidden="true" className={`pointer-events-none absolute ${iconRight} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />
+        <TrailingIcon aria-hidden="true" className={`pointer-events-none absolute ${iconEnd} top-1/2 -translate-y-1/2 text-ink-muted ${iconSize}`} />
       ) : null}
     </div>
   )
@@ -143,8 +143,8 @@ export function Field({
           group ? 'span' : 'label',
           { id: labelId, htmlFor: group ? undefined : id, className: 'text-sm font-medium text-ink-soft' },
           label,
-          required && <span key="r" className="ml-0.5 text-danger" aria-hidden="true">*</span>,
-          optional && <span key="o" className="ml-1.5 font-normal text-ink-muted">{tt.optional}</span>,
+          required && <span key="r" className="ms-0.5 text-danger" aria-hidden="true">*</span>,
+          optional && <span key="o" className="ms-1.5 font-normal text-ink-muted">{tt.optional}</span>,
         )}
         {hasCount && (
           <span id={countId} className={`font-mono text-11 ${charCount! > maxChars! ? 'text-danger' : 'text-ink-muted'}`}>
@@ -213,7 +213,7 @@ export function InputGroup({
   return (
     <div className="flex items-stretch rounded-xl border border-line bg-surface transition-colors focus-within:border-line-focus focus-within:shadow-[var(--pance-focus-ring)]">
       {(prefix || PrefixIcon) && (
-        <span className="flex shrink-0 items-center gap-1.5 rounded-l-xl border-r border-line bg-canvas px-3 text-sm text-ink-muted">
+        <span className="flex shrink-0 items-center gap-1.5 rounded-s-xl border-e border-line bg-canvas px-3 text-sm text-ink-muted">
           {PrefixIcon && <PrefixIcon className="h-4 w-4" />}
           {prefix}
         </span>
@@ -222,13 +222,13 @@ export function InputGroup({
         {children}
       </div>
       {(suffix || SuffixIcon) && (
-        <span className="flex shrink-0 items-center gap-1.5 rounded-r-xl border-l border-line bg-canvas px-3 text-sm text-ink-muted">
+        <span className="flex shrink-0 items-center gap-1.5 rounded-e-xl border-s border-line bg-canvas px-3 text-sm text-ink-muted">
           {SuffixIcon && <SuffixIcon className="h-4 w-4" />}
           {suffix}
         </span>
       )}
       {suffixButton && (
-        <div className="flex shrink-0 items-stretch border-l border-line [&>button]:h-full [&>button]:rounded-l-none [&>button]:rounded-r-xl [&>button]:border-0">{suffixButton}</div>
+        <div className="flex shrink-0 items-stretch border-s border-line [&>button]:h-full [&>button]:rounded-s-none [&>button]:rounded-e-xl [&>button]:border-0">{suffixButton}</div>
       )}
     </div>
   )
@@ -280,9 +280,10 @@ export function RangeSlider({
         aria-valuetext={valueText}
         {...a11y}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full bg-line disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
+        className={`${focus} h-1.5 w-full cursor-pointer appearance-none rounded-full [background:linear-gradient(to_right,var(--fill)_var(--pct),var(--pance-color-border-default)_var(--pct))] rtl:[background:linear-gradient(to_left,var(--fill)_var(--pct),var(--pance-color-border-default)_var(--pct))] disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110`}
         style={{
-          background: `linear-gradient(to right, ${thumb} ${pct}%, var(--pance-color-border-default) ${pct}%)`,
+          ['--fill' as string]: thumb,
+          ['--pct' as string]: `${pct}%`,
           ['--thumb' as string]: thumb,
         }}
       />
@@ -342,11 +343,11 @@ export function FileDropzone({
           {files.map((f, i) => (
             <li key={i} className="flex items-center justify-between rounded-xl border border-line bg-surface px-4 py-2.5 text-sm">
               <span className="truncate text-ink-soft">{f.name}</span>
-              <span className="ml-3 shrink-0 font-mono text-11 text-ink-muted">{(f.size / 1024).toFixed(1)} KB</span>
+              <span className="ms-3 shrink-0 font-mono text-11 text-ink-muted">{(f.size / 1024).toFixed(1)} KB</span>
               <button
                 type="button"
                 onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}
-                className="ml-3 shrink-0 text-ink-muted hover:text-danger"
+                className="ms-3 shrink-0 text-ink-muted hover:text-danger"
                 aria-label={tt.removeFile}
               >
                 <IconX className="h-4 w-4" />
@@ -574,7 +575,7 @@ export function Combobox({
           {...a11y}
           onClick={open_}
           onKeyDown={(e) => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open_() } }}
-          className={`${inputBase} ${inputNormal} flex h-10 items-center justify-between px-3.5 text-left`}
+          className={`${inputBase} ${inputNormal} flex h-10 items-center justify-between px-3.5 text-start`}
         >
           <span className={`truncate text-sm ${selected ? 'text-ink' : 'text-ink-subtle'}`}>{selected?.label ?? placeholder}</span>
           <IconChevronDown className="h-4 w-4 shrink-0 text-ink-muted" aria-hidden="true" />
@@ -597,7 +598,7 @@ export function Combobox({
               >
                 <span>{o.label}</span>
                 <span className="font-mono text-11 text-ink-muted">{o.meta}</span>
-                {o.value === value && <IconCheck className="ml-2 h-4 w-4 shrink-0 text-primary-fg" aria-hidden="true" />}
+                {o.value === value && <IconCheck className="ms-2 h-4 w-4 shrink-0 text-primary-fg" aria-hidden="true" />}
               </li>
             ))
           )}
@@ -677,7 +678,7 @@ export function Select({
         {...a11y}
         onClick={() => (open ? close() : openAt(current))}
         onKeyDown={onButtonKey}
-        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between text-left disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${error ? 'border-danger' : 'border-line hover:border-line-strong'} ${open ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : ''}`}
+        className={`${inputBase} h-10 px-3.5 text-sm flex items-center justify-between text-start disabled:cursor-not-allowed disabled:opacity-(--pance-opacity-disabled) ${error ? 'border-danger' : 'border-line hover:border-line-strong'} ${open ? 'border-line-focus shadow-[var(--pance-focus-ring)]' : ''}`}
       >
         <span className="flex items-center gap-2 truncate">
           <span className="h-2 w-2 shrink-0 rounded-full bg-primary-dot" aria-hidden="true" />
@@ -778,7 +779,7 @@ export function TagInput({
       >
         <ul className="contents">
           {tags.map((tag) => (
-            <li key={tag} className="inline-flex items-center gap-1 rounded-full bg-primary-soft py-0.5 pl-2.5 pr-1 text-xs font-medium text-primary-fg ring-1 ring-primary-border">
+            <li key={tag} className="inline-flex items-center gap-1 rounded-full bg-primary-soft py-0.5 ps-2.5 pe-1 text-xs font-medium text-primary-fg ring-1 ring-primary-border">
               {tag}
               <button type="button" onClick={() => remove(tag)} aria-label={`${tt.remove} ${tag}`} className={`${focus} ${hitArea} grid h-5 w-5 place-items-center rounded-full hover:bg-primary-soft-hover`}>
                 <IconX aria-hidden className="h-3 w-3" />
