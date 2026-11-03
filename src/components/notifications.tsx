@@ -44,7 +44,7 @@ export function NotificationCenter({
         <button type="button" aria-label={unread > 0 ? l.notificationsUnread(unread) : l.notifications}
           className={`${focus} relative grid size-10 place-items-center rounded-xl border border-line bg-surface text-ink-soft transition-colors hover:border-primary-border hover:text-primary-fg`}>
           <IconBell size={18} aria-hidden />
-          {unread > 0 && <span aria-hidden className="absolute -right-1.5 -top-1.5"><CountBadge count={unread} max={9} /></span>}
+          {unread > 0 && <span aria-hidden className="absolute -end-1.5 -top-1.5"><CountBadge count={unread} max={9} /></span>}
         </button>
       }
     >

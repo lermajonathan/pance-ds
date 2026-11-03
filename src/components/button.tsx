@@ -148,7 +148,7 @@ export function Button({
       {trailing}
       {badge !== undefined && (
         <span
-          className={`ml-1 grid h-5 min-w-5 place-items-center rounded-full px-1 font-mono text-10 font-bold ${
+          className={`ms-1 grid h-5 min-w-5 place-items-center rounded-full px-1 font-mono text-10 font-bold ${
             variant === 'filled' ? 'bg-black/25 text-white' : 'bg-current/10 text-current'
           }`}
         >
@@ -174,7 +174,7 @@ export function IconButton({ Icon, label, className = '', ...rest }: { Icon: Ico
 /* ── Button group ──────────────────────────────────────────────────────── */
 export function ButtonGroup({ children }: { children: ReactNode }) {
   return (
-    <div className="inline-flex -space-x-px [&>button:first-child]:rounded-l-xl [&>button:last-child]:rounded-r-xl [&>button]:rounded-none [&>button]:focus-visible:z-10">
+    <div className="inline-flex -space-x-px [&>button:first-child]:rounded-s-xl [&>button:last-child]:rounded-e-xl [&>button]:rounded-none [&>button]:focus-visible:z-10">
       {children}
     </div>
   )
@@ -205,7 +205,7 @@ export function SplitButton({
   const name = menuLabel ?? tt.moreActions
   return (
     <div className="relative inline-flex -space-x-px">
-      <Button severity={severity} size={size} Icon={Icon} onClick={onClick} className="rounded-r-none focus-visible:z-10">
+      <Button severity={severity} size={size} Icon={Icon} onClick={onClick} className="rounded-e-none focus-visible:z-10">
         {label}
       </Button>
       <DropdownMenu
@@ -213,7 +213,7 @@ export function SplitButton({
         label={name}
         items={items.map((it) => ({ label: it.label, Icon: it.Icon, danger: it.danger, disabled: it.disabled, onClick: it.onSelect }))}
         trigger={
-          <Button severity={severity} size={size} aria-label={name} className="rounded-l-none px-2 focus-visible:z-10">
+          <Button severity={severity} size={size} aria-label={name} className="rounded-s-none px-2 focus-visible:z-10">
             <IconChevronDown size={16} aria-hidden />
           </Button>
         }

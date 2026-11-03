@@ -100,7 +100,7 @@ export function Progress({
       >
         <div className={`h-full rounded-full transition-all duration-500 ${TONE[severity].dot}`} style={{ width: `${pct}%` }} />
       </div>
-      {showValue && <span aria-hidden className="w-9 shrink-0 text-right font-mono text-11 text-ink-muted">{pct}%</span>}
+      {showValue && <span aria-hidden className="w-9 shrink-0 text-end font-mono text-11 text-ink-muted">{pct}%</span>}
     </div>
   )
 }
@@ -216,7 +216,7 @@ export function ToastStack({
 }) {
   // Each Toast is its own status/alert live region, so the stack is a plain labelled landmark.
   return (
-    <section aria-label={label} className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
+    <section aria-label={label} className="fixed bottom-6 end-6 z-50 flex flex-col gap-2">
       {toasts.map((t) => <Toast key={t.id} item={t} onDismiss={onDismiss} />)}
     </section>
   )
