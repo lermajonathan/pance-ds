@@ -1,6 +1,6 @@
 # Pance Design System
 
-> Pance is an accessible React design system for social and data-heavy products: 72 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.6.0, MIT.
+> Pance is an accessible React design system for social and data-heavy products: 73 components, 955 design tokens, WCAG 2.2 AA, light and dark mode. Packages: @pance/react and @pance/tokens, version 1.6.0, MIT.
 
 Pance is MIT and open source. Read the full text in one file at the first link, or open one page per component.
 
@@ -98,6 +98,7 @@ Pance is MIT and open source. Read the full text in one file at the first link, 
 - [Select](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/select.md): A select-only dropdown built as a button plus listbox, with typeahead.
 - [TagInput](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/tag-input.md): Collects a list of short values as removable chips, with optional suggestions.
 - [Textarea](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/textarea.md): A multi-line text field with a fixed 80px minimum height.
+- [TimeField](https://github.com/lermajonathan/pance-ds/blob/main/docs/components/time-field.md): A time-of-day field.
 
 ## Overlays
 

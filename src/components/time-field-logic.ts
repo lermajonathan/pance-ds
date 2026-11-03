@@ -100,3 +100,12 @@ export function isPartialTime(text: string, _locale: string) {
   if (s === '') return true
   return /^\d{0,4}(:\d{0,2})?(a|am|p|pm)?$/.test(s) && !/^:/.test(s) && s.replace(/[^\d]/g, '').length <= 4
 }
+
+/** Which part of the text the caret is in: "1:45 PM" → hour (0–1), minute (2–4), period (5–7). Text without a colon is all hour. */
+export function segmentAt(text: string, caret: number): TimeSegment {
+  const colon = text.indexOf(':')
+  if (colon === -1 || caret <= colon) return 'hour'
+  let end = colon + 1
+  while (end < text.length && /\d/.test(text[end])) end++
+  return end < text.length && caret > end ? 'period' : 'minute'
+}

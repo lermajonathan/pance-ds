@@ -29,6 +29,21 @@ export const forms = {
   <NumberField defaultValue={2} min={1} max={10} largeStep={5} onValueChange={setGuests} />
 </Field>`,
   },
+  TimeField: {
+    cat: 'Forms',
+    summary: 'A time-of-day field. The value is a 24-hour "HH:mm" text; what the person reads and types follows the language, on a 12 or 24 hour clock.',
+    use: ['A time of day on its own: opening hours, a reminder, a meeting start.', 'Limits that matter: set `min` and `max` (for example office hours) and `step` for the minutes.'],
+    avoid: ['A date and a time together: pair it with `DatePicker` in the same `Field` group.', 'A length of time ("90 minutes"): use `NumberField` with a unit.', 'Only a few fixed slots: use `SegmentedControl`, `RadioGroup` or `Select`.'],
+    native: 'native `<input>` attributes (`id`, `placeholder`, `autoComplete`, `aria-label`); `name` adds a hidden field with the plain "HH:mm" value',
+    a11y: ['The field is a `spinbutton` with `aria-valuenow` (minutes since midnight), `aria-valuemin`, `aria-valuemax` and `aria-valuetext` (the formatted time, e.g. "1:45 PM").', 'ArrowUp and ArrowDown change the part under the caret: the hour, the minutes (by `step`) or AM/PM; the caret stays in that part. PageUp and PageDown change the hour; Home and End go to `min` and `max`.', 'Typing accepts only what can become a time in the current language ("945", "1:45 pm", "13:45"); the text is read, clamped to `min` and `max` and re-formatted when you leave the field or press Enter.', 'Hours wrap around midnight; minutes stop at the edges of the day.', 'Inside `Field` it is wired automatically: label, hint, error and required.'],
+    content: ['Say the zone or meaning in the label ("Start time, Bogotá"), not in the placeholder.', 'Errors say the range: "Choose a time between 8:00 and 20:00".'],
+    related: ['NumberField', 'DatePicker', 'Field'],
+    tokens: 'input',
+    figma: '`Time field` (planned)',
+    example: `<Field label="Start time" hint="Between 8:00 and 20:00">
+  <TimeField defaultValue="09:30" min="08:00" max="20:00" step={15} onValueChange={setStart} />
+</Field>`,
+  },
   Field: {
     cat: 'Forms',
     summary: 'Labels a control and connects its hint, error and character count to it for assistive technology.',

@@ -11,7 +11,7 @@ let m = null
 try { m = await import('../src/components/time-field-logic.ts') } catch (e) { check(false, `src/components/time-field-logic.ts cannot be imported: ${e.message.split('\n')[0]}`) }
 
 if (m) {
-  const { isISOTime, toMinutes, fromMinutes, clampTime, uses12Hour, formatTime, parseTime, stepTime, isPartialTime } = m
+  const { isISOTime, toMinutes, fromMinutes, clampTime, uses12Hour, formatTime, parseTime, stepTime, isPartialTime, segmentAt } = m
 
   // isISOTime: a real clock time written as HH:mm
   eq(isISOTime('00:00'), true, 'midnight is valid')
@@ -100,6 +100,18 @@ if (m) {
   eq(isPartialTime('1:456', 'es-ES'), false, 'three minute digits')
   eq(isPartialTime('x', 'en-US'), false, 'letters cannot start a time')
   eq(isPartialTime('1::', 'en-US'), false, 'two colons')
+
+  // segmentAt: which part of the text the caret is in ("1:45 PM", "13:45")
+  eq(segmentAt('1:45 PM', 0), 'hour', 'caret before the hour')
+  eq(segmentAt('1:45 PM', 1), 'hour', 'caret right after the hour digit')
+  eq(segmentAt('1:45 PM', 2), 'minute', 'caret right after the colon')
+  eq(segmentAt('1:45 PM', 4), 'minute', 'caret at the end of the minutes')
+  eq(segmentAt('1:45 PM', 5), 'period', 'caret on the space before AM/PM')
+  eq(segmentAt('1:45 PM', 7), 'period', 'caret at the very end of a 12 h time')
+  eq(segmentAt('13:45', 1), 'hour', '24 h hour')
+  eq(segmentAt('13:45', 5), 'minute', '24 h caret at the end is the minutes')
+  eq(segmentAt('', 0), 'hour', 'empty text starts on the hour')
+  eq(segmentAt('12', 2), 'hour', 'text without a colon is all hour')
 }
 
 if (failures.length) {

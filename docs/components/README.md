@@ -1,6 +1,6 @@
 # Components
 
-72 components, one page each. Every page has a short summary, when to use it and when not to, props (generated from the TypeScript source, so they cannot drift), accessibility behaviour, content guidance, related components and a working example.
+73 components, one page each. Every page has a short summary, when to use it and when not to, props (generated from the TypeScript source, so they cannot drift), accessibility behaviour, content guidance, related components and a working example.
 
 Cross-cutting reference stays in [components.md](../components.md) (shared model, keyboard contract, built-in strings) and [tokens.md](../tokens.md). Figma component names and prop mapping are in [figma-code-map.md](../figma-code-map.md).
 
@@ -106,6 +106,7 @@ Cross-cutting reference stays in [components.md](../components.md) (shared model
 | [`Select`](select.md) | A select-only dropdown built as a button plus listbox, with typeahead. |
 | [`TagInput`](tag-input.md) | Collects a list of short values as removable chips, with optional suggestions. |
 | [`Textarea`](textarea.md) | A multi-line text field with a fixed 80px minimum height. |
+| [`TimeField`](time-field.md) | A time-of-day field. |
 
 ## Overlays
 

@@ -49,6 +49,7 @@ import {
   NavMenu,
   PinInput,
   NumberField,
+  TimeField,
   Progress,
   Radio,
   RadioCard,
@@ -1268,6 +1269,20 @@ export function FormsPage() {
             </Field>
             <Field label={t('forms.number.invalid')} error={t('forms.number.invalidMsg')}>
               <NumberField defaultValue={0} min={0} max={5} error />
+            </Field>
+          </div>
+        </Card>
+      </Section>
+
+      {/* ── 8c. Time field ── */}
+      <Section title={t('forms.time.title')} hint={t('forms.time.hint')}>
+        <Card className="p-6">
+          <div className="grid gap-8 md:grid-cols-2">
+            <Field label={t('forms.time.start')} hint={t('forms.time.startHint')}>
+              <TimeField defaultValue="09:30" min="08:00" max="20:00" step={15} />
+            </Field>
+            <Field label={t('forms.time.invalid')} error={t('forms.time.invalidMsg')}>
+              <TimeField defaultValue="08:00" error />
             </Field>
           </div>
         </Card>
