@@ -145,7 +145,7 @@ function Value({ value, srValue, unit, className }: { value: string; /** Final t
   return (
     <p className={`font-display font-extrabold leading-none tracking-tight text-ink ${className}`}>
       {srValue === undefined ? value : <><span aria-hidden="true">{value}</span><span className="sr-only">{srValue}</span></>}
-      {unit && <span className="ml-1 font-mono text-[0.45em] font-semibold text-ink-muted">{unit}</span>}
+      {unit && <span className="ms-1 font-mono text-[0.45em] font-semibold text-ink-muted">{unit}</span>}
     </p>
   )
 }
@@ -234,7 +234,7 @@ export function MetricCard({
         {header}
         <div className="mt-5 flex items-end justify-between gap-3">
           <Value value={shown} srValue={srValue} unit={unit} className="text-4xl" />
-          <p className="text-right text-xs text-ink-muted"><span className="font-mono font-semibold text-ink">{l.ofGoal(`${pct}%`)}</span></p>
+          <p className="text-end text-xs text-ink-muted"><span className="font-mono font-semibold text-ink">{l.ofGoal(`${pct}%`)}</span></p>
         </div>
         <div className="mt-3"><Progress value={pct} severity={severity} label={label} valueText={`${fmt(goal.current)} / ${fmt(goal.target)}`} /></div>
         <div className="mt-1.5 flex justify-between text-xs text-ink-muted">
@@ -255,9 +255,9 @@ export function MetricCard({
             <li key={b.label} className="flex items-center gap-3">
               <span className="w-24 shrink-0 truncate text-xs text-ink-muted">{b.label}</span>
               <span aria-hidden className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-ground">
-                <span className={`absolute inset-y-0 left-0 rounded-full ${SERIES_BG[i % SERIES_BG.length]}`} style={{ width: `${Math.max(0, Math.min(100, b.share))}%` }} />
+                <span className={`absolute inset-y-0 start-0 rounded-full ${SERIES_BG[i % SERIES_BG.length]}`} style={{ width: `${Math.max(0, Math.min(100, b.share))}%` }} />
               </span>
-              <span className="min-w-12 shrink-0 text-right font-mono text-xs font-medium tabular-nums text-ink">{b.value}</span>
+              <span className="min-w-12 shrink-0 text-end font-mono text-xs font-medium tabular-nums text-ink">{b.value}</span>
             </li>
           ))}
         </ul>
@@ -270,8 +270,8 @@ export function MetricCard({
       <article aria-labelledby={`${id}-l`} className={`${shell} p-(--pance-metric-card-padding)`}>
         {header}
         <dl className="mt-5 grid grid-cols-2 divide-x divide-line">
-          <div className="pr-4"><dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">{comparison.currentLabel}</dt><dd className="mt-1"><Value value={shown} srValue={srValue} unit={unit} className="text-3xl" /></dd></div>
-          <div className="pl-4"><dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">{comparison.previousLabel}</dt><dd className="mt-1"><Value value={comparison.previous} unit={unit} className="text-3xl !text-ink-soft" /></dd></div>
+          <div className="pe-4"><dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">{comparison.currentLabel}</dt><dd className="mt-1"><Value value={shown} srValue={srValue} unit={unit} className="text-3xl" /></dd></div>
+          <div className="ps-4"><dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">{comparison.previousLabel}</dt><dd className="mt-1"><Value value={comparison.previous} unit={unit} className="text-3xl !text-ink-soft" /></dd></div>
         </dl>
       </article>
     )

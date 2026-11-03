@@ -132,10 +132,10 @@ function Frame({ title, subtitle, legend, summary, table, status, onKeyDown, onB
       </figcaption>
       {asTable ? (
         <div className="overflow-auto">
-          <table className="w-full border-collapse text-left text-sm">
+          <table className="w-full border-collapse text-start text-sm">
             <caption className="sr-only">{title}</caption>
-            <thead><tr>{table.head.map((h) => <th key={h} scope="col" className="border-b border-line px-3 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-(--pance-color-dataviz-ink-muted)">{h}</th>)}</tr></thead>
-            <tbody>{table.rows.map((r, i) => <tr key={i} className="border-b border-line-soft last:border-0">{r.map((c, j) => (j === 0 ? <th key={j} scope="row" className="px-3 py-2 font-medium">{c}</th> : <td key={j} className="px-3 py-2 font-mono tabular-nums">{c}</td>))}</tr>)}</tbody>
+            <thead><tr>{table.head.map((h) => <th key={h} scope="col" className="border-b border-line text-start px-3 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-(--pance-color-dataviz-ink-muted)">{h}</th>)}</tr></thead>
+            <tbody>{table.rows.map((r, i) => <tr key={i} className="border-b border-line-soft last:border-0">{r.map((c, j) => (j === 0 ? <th key={j} scope="row" className="px-3 py-2 text-start font-medium">{c}</th> : <td key={j} className="px-3 py-2 font-mono tabular-nums">{c}</td>))}</tr>)}</tbody>
           </table>
         </div>
       ) : (
@@ -212,8 +212,8 @@ export function LineChart({ title, subtitle, labels, series, height = 260, forma
       onKeyDown={onKeyDown} onBlur={() => setActive(null)}
       status={active !== null && <Readout heading={labels[active]} items={series.map((s, i) => ({ i, name: s.name, value: format(s.data[active]) }))} />}
     >
-      <div ref={ref} className="relative w-full min-w-0" style={{ height }}>
-        <svg width={w} height={height} className="absolute left-0 top-0" role="presentation" aria-hidden onMouseMove={(e) => {
+      <div ref={ref} dir="ltr" className="relative w-full min-w-0" style={{ height }}>
+        <svg width={w} height={height} className="absolute start-0 top-0" role="presentation" aria-hidden onMouseMove={(e) => {
           const r = e.currentTarget.getBoundingClientRect()
           setActive(Math.max(0, Math.min(labels.length - 1, Math.round(((e.clientX - r.left - M.l) / plotW) * (labels.length - 1)))))
         }} onMouseLeave={() => setActive(null)}>
@@ -260,8 +260,8 @@ export function BarChart({ title, subtitle, labels, series, height = 260, format
       onKeyDown={onKeyDown} onBlur={() => setActive(null)}
       status={active !== null && <Readout heading={labels[active]} items={[...series.map((s, i) => ({ i, name: s.name, value: format(s.data[active]) })), ...(mode === 'stacked' ? [{ i: 0, name: 'Total', value: format(totals[active]) }] : [])]} />}
     >
-      <div ref={ref} className="relative w-full min-w-0" style={{ height }}>
-        <svg width={w} height={height} className="absolute left-0 top-0" role="presentation" aria-hidden onMouseLeave={() => setActive(null)}>
+      <div ref={ref} dir="ltr" className="relative w-full min-w-0" style={{ height }}>
+        <svg width={w} height={height} className="absolute start-0 top-0" role="presentation" aria-hidden onMouseLeave={() => setActive(null)}>
           <Patterns id={pid} count={series.length} />
           <g transform={`translate(${M.l},${M.t})`}>
             <Axes ticks={ticks} yMax={yMax} format={format} labels={labels} xAt={xAt} plotW={plotW} plotH={plotH} minGap={44} />
@@ -308,7 +308,7 @@ export function RankedBarChart({ title, subtitle, data, format = compact, unit }
           <li key={d.label} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)} className={`flex items-center gap-3 ${active === null || active === i ? '' : 'opacity-60'}`}>
             <span className="w-28 shrink-0 truncate text-xs text-(--pance-color-dataviz-ink-muted)">{d.label}</span>
             <span aria-hidden className="h-5 flex-1 rounded-sm bg-(--pance-color-dataviz-grid)/50"><span className={`block h-full rounded-sm ${SERIES_BG[0]}`} style={{ width: `${(d.value / max) * 100}%` }} /></span>
-            <span className="w-14 shrink-0 text-right font-mono text-xs font-semibold tabular-nums">{format(d.value)}</span>
+            <span className="w-14 shrink-0 text-end font-mono text-xs font-semibold tabular-nums">{format(d.value)}</span>
           </li>
         ))}
       </ul>
@@ -334,11 +334,11 @@ export function DivergingBarChart({ title, subtitle, data, format = compact }: {
           return (
             <li key={d.label} onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)} className={`grid grid-cols-[7rem_1fr_3.5rem] items-center gap-3 ${active === null || active === i ? '' : 'opacity-60'}`}>
               <span className="truncate text-xs text-(--pance-color-dataviz-ink-muted)">{d.label}</span>
-              <span aria-hidden className="relative h-5">
+              <span aria-hidden dir="ltr" className="relative h-5">
                 <span className="absolute inset-y-0 left-1/2 w-px bg-(--pance-color-dataviz-baseline)" />
                 <span className={`absolute inset-y-0 rounded-sm ${pos ? 'bg-(--pance-color-dataviz-positive) left-1/2' : 'bg-(--pance-color-dataviz-diverging-negative) right-1/2'}`} style={{ width: `${(Math.abs(d.value) / max) * 50}%` }} />
               </span>
-              <span className="text-right font-mono text-xs font-semibold tabular-nums"><span className="sr-only">{pos ? l.deltaUp('') : l.deltaDown('')}</span>{pos ? '+' : ''}{format(d.value)}</span>
+              <span className="text-end font-mono text-xs font-semibold tabular-nums"><span className="sr-only">{pos ? l.deltaUp('') : l.deltaDown('')}</span>{pos ? '+' : ''}{format(d.value)}</span>
             </li>
           )
         })}
@@ -368,18 +368,18 @@ export function Heatmap({ title, subtitle, rows, cols, data, format = compact }:
       status={pos && <Readout heading={`${rows[pos[0]]} · ${cols[pos[1]]}`} items={[{ i: 0, name: '', value: format(data[pos[0]][pos[1]]) }]} />}
     >
       <div>
-        <div className="min-w-max">
-          <div className="flex pl-16">{cols.map((c) => <div key={c} className="w-6 shrink-0 text-center text-xs text-(--pance-color-dataviz-axis-label)">{c}</div>)}</div>
+        <div dir="ltr" className="w-fit min-w-max">
+          <div className="flex ps-16">{cols.map((c) => <div key={c} className="w-6 shrink-0 text-center text-xs text-(--pance-color-dataviz-axis-label)">{c}</div>)}</div>
           {data.map((row, r) => (
             <div key={rows[r]} className="mt-0.5 flex items-center">
-              <div className="w-16 shrink-0 pr-2 text-right text-xs text-(--pance-color-dataviz-axis-label)">{rows[r]}</div>
+              <div className="w-16 shrink-0 pe-2 text-end text-xs text-(--pance-color-dataviz-axis-label)">{rows[r]}</div>
               {row.map((v, c) => {
                 const on = pos?.[0] === r && pos?.[1] === c
-                return <div key={c} aria-hidden onMouseEnter={() => setPos([r, c])} onMouseLeave={() => setPos(null)} className={`mr-0.5 size-6 shrink-0 rounded-sm ${on ? 'outline-2 outline-offset-1 outline-(--pance-color-dataviz-ink)' : ''}`} style={{ backgroundColor: shade(v) }} />
+                return <div key={c} aria-hidden onMouseEnter={() => setPos([r, c])} onMouseLeave={() => setPos(null)} className={`me-0.5 size-6 shrink-0 rounded-sm ${on ? 'outline-2 outline-offset-1 outline-(--pance-color-dataviz-ink)' : ''}`} style={{ backgroundColor: shade(v) }} />
               })}
             </div>
           ))}
-          <div className="mt-3 flex items-center gap-2 pl-16 text-xs text-(--pance-color-dataviz-axis-label)">
+          <div className="mt-3 flex items-center gap-2 ps-16 text-xs text-(--pance-color-dataviz-axis-label)">
             <span>{l.low}</span>
             <span aria-hidden className="flex h-2 w-24 overflow-hidden rounded-sm">{Array.from({ length: 8 }, (_, i) => <span key={i} className="flex-1" style={{ backgroundColor: shade(lo + ((hi - lo) * i) / 7) }} />)}</span>
             <span>{l.high}</span>
@@ -445,7 +445,7 @@ export function ScatterChart({ title, subtitle, points, xLabel, yLabel, formatX 
       onKeyDown={onKeyDown} onBlur={() => setActive(null)}
       status={active !== null && <Readout heading={points[active].label} items={[{ i: 0, name: xLabel, value: formatX(points[active].x) }, { i: 1, name: yLabel, value: formatY(points[active].y) }]} />}
     >
-      <div ref={ref}>
+      <div ref={ref} dir="ltr">
         <svg width={width} height={height} aria-hidden role="presentation">
           <g transform={`translate(${M.l},${M.t})`}>
             {yTicks.map((t) => (
@@ -492,7 +492,7 @@ export function Meter({ label, value, max = 100, unit = '', severity = 'default'
       </div>
       <div role="meter" aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={value} aria-valuetext={`${fmt(value)}${unit} / ${fmt(max)}${unit}${status ? `, ${status}` : ''}`}
         className="relative h-(--pance-meter-height) overflow-hidden rounded-(--pance-meter-radius) bg-(--pance-meter-color-track)">
-        <div className={`absolute inset-y-0 left-0 rounded-(--pance-meter-radius) transition-[width] duration-500 motion-reduce:transition-none ${METER_FILL[severity]}`} style={{ width: `${pct}%` }} />
+        <div className={`absolute inset-y-0 start-0 rounded-(--pance-meter-radius) transition-[width] duration-500 motion-reduce:transition-none ${METER_FILL[severity]}`} style={{ width: `${pct}%` }} />
       </div>
       <p className="mt-1.5 flex items-center justify-end gap-2 font-mono text-xs tabular-nums text-ink-muted">
         {status && <span className="font-sans font-semibold text-ink">{status}</span>}
