@@ -21,7 +21,9 @@ Source: [`src/components/data.tsx`](../../src/components/data.tsx) · Figma: `Me
 | Prop | Type | Default | Notes |
 |---|---|---|---|
 | `label` | `string` | **required** |  |
-| `value` | `string` | **required** | Pre-formatted value, e.g. "18,204". Formatting stays with you, so locale and units are yours. |
+| `value` | `string` | **required** | Pre-formatted value, e.g. "18,204". Formatting stays with you, so locale and units are yours. With `countTo` it is the final text that screen readers get. |
+| `countTo` | `number` |  | Counts the value up to this number on mount and when it changes (DDR-DS-030). Needs `format`. Off under reduced motion. |
+| `format` | `((n: number) => string)` |  | Turns the animated number into text, e.g. `(n) => Math.round(n).toLocaleString('en-US')`. Its result for `countTo` must equal `value`. |
 | `unit` | `string` |  |  |
 | `Icon` | `Icon` | `IconChart` |  |
 | `delta` | `number` |  | Signed percentage change. |
@@ -44,6 +46,7 @@ Source: [`src/components/data.tsx`](../../src/components/data.tsx) · Figma: `Me
 ## Content
 
 - Format the value yourself (`"12.4k"`). Set `upIsGood={false}` for error rate, churn, latency and cost.
+- To count the figure up on entrance, pass `countTo` and `format`; `value` stays the text screen readers get, and reduced motion shows it at once.
 
 ## Related
 
